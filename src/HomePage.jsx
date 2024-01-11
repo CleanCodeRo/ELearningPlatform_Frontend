@@ -5,7 +5,7 @@ function HomePage() {
 
   return (
    
-     <div>
+     <div className="text-2xl text-blue-500">
       hello world
      </div>
     

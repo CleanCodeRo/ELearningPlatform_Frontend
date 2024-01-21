@@ -4,7 +4,7 @@ const PresentationHeader = () => {
   return (
     <div className="bg-gray-250 px-[6rem] ">
       <div className="flex justify-between items-center">
-        <img className="w-28" src="/images/CleanCode-removebg-preview.png" />
+        <img draggable={false} className="w-28" src="/images/CleanCode-removebg-preview.png" />
         <div className="flex space-x-1.5">
           <div className="w-64 ">
             <div className="relative h-10 min-w-[200px] ">

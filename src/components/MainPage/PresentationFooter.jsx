@@ -1,6 +1,6 @@
 const PresentationFooter = () => {
   return (
-    <div>PresentationFooter</div>
+    <div></div>
   )
 }
 export default PresentationFooter

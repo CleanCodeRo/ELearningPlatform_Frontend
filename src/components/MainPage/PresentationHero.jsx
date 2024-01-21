@@ -1,6 +1,6 @@
 const PresentationHero = () => {
   return (
-    <div>PresentationHero</div>
+    <div></div>
   )
 }
 export default PresentationHero

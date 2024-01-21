@@ -1,23 +1,23 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import HomePage from './pages/HomePage';
-import Header from './components/Header';
-import MainPage from './pages/MainPage';
-
+import HomePage from "./pages/HomePage";
+import MainPage from "./pages/MainPage";
+import Contact from "./pages/Contact";
 
 export default function App() {
   return (
     <BrowserRouter>
-     {/* <Header/> */}
+      {/* <Header/> */}
       <Routes>
-        <Route path="/home" element={<HomePage/>}> </Route>
-       <Route path="/" element={<MainPage/>}/>
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/" element={<MainPage />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </BrowserRouter>
   );
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<App />);

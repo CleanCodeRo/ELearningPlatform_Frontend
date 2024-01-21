@@ -2,7 +2,7 @@ import { Popover, PopoverHandler, Button } from "@material-tailwind/react";
 
 const PresentationHeader = () => {
   return (
-    <div className="bg-gray-250 px-[6rem] ">
+    <div id="PresentationHeader" className="bg-gray-250 px-[6rem] font-inter">
       <div className="flex justify-between items-center">
         <img className="w-28" src="/images/CleanCode-removebg-preview.png" />
         <div className="flex space-x-1.5">
@@ -26,7 +26,7 @@ const PresentationHeader = () => {
           </div>
           <Popover>
             <PopoverHandler>
-              <Button className="bg-fourth">Login</Button>
+              <Button id="loginHeader" className="bg-fourth">Login</Button>
             </PopoverHandler>
           </Popover>
         </div>

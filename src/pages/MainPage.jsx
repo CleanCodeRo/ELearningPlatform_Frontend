@@ -4,7 +4,7 @@ import PresentationHero from "../components/MainPage/PresentationHero";
 
 const MainPage = () => {
   return (
-      <div className="">
+      <div id="MainPage" className="">
           <PresentationHeader />
           <PresentationHero/>
           <PresentationFooter/>

@@ -2,17 +2,18 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import HomePage from './HomePage';
+import HomePage from './pages/HomePage';
 import Header from './components/Header';
+import MainPage from './pages/MainPage';
 
 
 export default function App() {
   return (
     <BrowserRouter>
-     <Header/>
+     {/* <Header/> */}
       <Routes>
         <Route path="/home" element={<HomePage/>}> </Route>
-       
+       <Route path="/" element={<MainPage/>}/>
       </Routes>
     </BrowserRouter>
   );

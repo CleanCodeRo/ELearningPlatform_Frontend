@@ -12,6 +12,9 @@ module.exports = withMT({
         fourth: "#499167",
         fifth: "#3F4531",
       },
+      fontFamily : {
+        "inter" : "Inter, sans-serif"
+      }
     },
   },
   plugins: [],

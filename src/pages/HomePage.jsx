@@ -1,12 +1,15 @@
 import React from "react"
+import Modules from "../components/HomePage/Modules"
+import SpecialKatas from "../components/HomePage/SpecialKatas"
 
 function HomePage() {
  
 
   return (
    
-     <div className="text-2xl text-blue-500">
-      hello world
+     <div className="">
+       <Modules />
+       <SpecialKatas/>
      </div>
     
    

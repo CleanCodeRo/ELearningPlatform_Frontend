@@ -7,7 +7,7 @@ function HomePage() {
 
   return (
    
-     <div className="">
+     <div className="select-none">
        <Modules />
        <SpecialKatas/>
      </div>

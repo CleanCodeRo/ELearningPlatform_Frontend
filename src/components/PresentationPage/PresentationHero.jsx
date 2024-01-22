@@ -2,7 +2,7 @@ import React from "react"
 
 const PresentationHero = () => {
   return (
-    <div id="ParentHolder" className="grid grid-cols-2 w-full px-[2rem] smd:px-[6rem] bg-cover bg-center py-5 xs:py-16 lg:py-20 font-inter" style={{ backgroundImage: "url(/images/bgTexture.jpg)" }}>
+    <div id="ParentHolder" className="grid grid-cols-2 w-full px-[2rem] smd:px-[6rem] py-5 xs:py-16 lg:py-20 font-inter" >
 
       <div id="TitleAndButtons" className=" mt-10 col-span-2 lg:col-span-1">
         <p className="text-3xl xs:text-4xl smd:text-5xl px1400:text-[4rem] leading-snug  tracking-wide  font-bold">Up Your <span className=" text-[#20B486]">Skills</span> <br /> To  <span className=" text-[#20B486]">Advance</span> Your <br />  <span className=" text-[#20B486]">Career</span> Path</p>
@@ -22,7 +22,7 @@ const PresentationHero = () => {
         <img className="rounded-lg rounded-tr-[6rem] rounded-bl-[6rem] lg:rounded-full  w-[25rem] px1400:w-[35rem]" draggable={false} src="/images/CleanCode.jpg" />
       </div>
 
-      <div id="perks" className="flex flex-col lg:flex-row items-center justify-center lg:justify-start col-span-2 xs:col-span-1 lg:col-span-2 text-sm smd:text-base py-10 xs:py-0">
+      <div id="perks" className="flex flex-col lg:flex-row items-center justify-center lg:justify-start col-span-2 xs:col-span-1 lg:!col-span-2 text-sm smd:text-base py-10 xs:py-0">
           <div className="flex items-center mx-3 bg-[#EAFFF9] shadow-sm shadow-[#EAFFF9] p-3 rounded-lg ">
             <svg draggable={false} className="mx-1" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M21.273 0.629542C15.3935 -0.264628 9.86944 3.55953 8.68378 9.34188C8.47284 10.3752 8.1554 11.2117 7.71588 11.8988C7.67682 11.9608 7.64166 12.0258 7.61139 12.0927L5.48132 16.8329C5.27911 17.2837 5.31134 17.8042 5.56726 18.2262C5.8241 18.649 6.27142 18.9176 6.76465 18.946L9.19165 19.0837V21.7597C9.19165 23.087 10.2709 24.1662 11.5972 24.1662H12.9694V27.3658C12.9694 28.194 13.6414 28.8659 14.4695 28.8659H24.5175C25.3457 28.8659 26.0176 28.194 26.0176 27.3658C26.0176 24.7542 26.842 20.7928 28.682 17.8277C28.683 17.8267 28.683 17.8257 28.6839 17.8247C30.3677 15.3694 30.9781 12.3764 30.4009 9.38876C30.4009 9.38827 30.4009 9.38827 30.4009 9.38827C29.5239 4.84871 25.8555 1.32882 21.273 0.629542ZM26.1847 16.1639C26.1603 16.1991 26.1378 16.2357 26.1163 16.2728C24.4824 18.9167 23.3514 22.5391 23.0798 25.8656H15.9697V23.5714C15.9697 22.2451 14.8905 21.1659 13.5632 21.1659H12.1919V18.5221C12.1919 17.2475 11.1948 16.1927 9.92217 16.12L9.11156 16.0741L10.305 13.418C10.9145 12.437 11.3462 11.2991 11.6235 9.94398C12.4879 5.72871 16.5352 2.93934 20.8198 3.59565C24.0995 4.09571 26.8273 6.71223 27.4553 9.95716C27.8812 12.1649 27.4299 14.3693 26.1847 16.1639ZM4.58765 23.4015C4.58765 26.102 6.78516 28.2995 9.48566 28.2995C10.3138 28.2995 10.9858 27.6275 10.9858 26.7993C10.9858 25.9711 10.3138 25.2992 9.48566 25.2992C8.43964 25.2992 7.58795 24.4475 7.58795 23.4015C7.58795 22.5733 6.91601 21.9013 6.08783 21.9013C5.25958 21.9013 4.58765 22.5733 4.58765 23.4015Z" fill="#F1BF5A" />

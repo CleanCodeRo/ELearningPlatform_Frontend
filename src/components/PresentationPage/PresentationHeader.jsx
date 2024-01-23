@@ -12,7 +12,7 @@ const PresentationHeader = () => {
 
     try {
       const response = await fetch(
-        "/users/auth/authenticate",
+        "http://localhost:8080/users/auth/authenticate",
         {
           method: "POST",
           headers: {
@@ -27,7 +27,10 @@ const PresentationHeader = () => {
       }
 
       const data = await response.json();
-      console.log("Login successful:", data);
+      const token = data.response;
+      localStorage.setItem("Token: ", token);
+      console.log("Login successful: ", data);
+      alert("Login Succesfull");
 
       navigate("/home");
     } catch (error) {

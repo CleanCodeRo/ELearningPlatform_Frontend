@@ -2,7 +2,7 @@ import React from "react"
 
 const PresentationHero = () => {
   return (
-    <div id="ParentHolder" className="grid grid-cols-2 w-full px-[2rem] smd:px-[6rem] py-5 xs:py-16 lg:py-20 font-inter" >
+    <div id="ParentHolder" className="grid grid-cols-2 w-full px-[2rem] smd:px-[6rem] py-5 xs:py-16 lg:py-20 font-inter relative" >
 
       <div id="TitleAndButtons" className=" mt-10 col-span-2 lg:col-span-1">
         <p className="text-3xl xs:text-4xl smd:text-5xl px1400:text-[4rem] leading-snug  tracking-wide  font-bold">Up Your <span className=" text-[#20B486]">Skills</span> <br /> To  <span className=" text-[#20B486]">Advance</span> Your <br />  <span className=" text-[#20B486]">Career</span> Path</p>

@@ -4,7 +4,7 @@ const PresentationFooter = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative w-full font-inter text-lg ">
+    <footer className="relative w-full font-inter text-lg py-4">
       <div className="mx-auto w-full max-w-7xl px-8">
         <Typography
           variant="small"

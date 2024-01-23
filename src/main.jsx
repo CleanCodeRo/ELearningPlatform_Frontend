@@ -10,7 +10,6 @@ import Contact from "./pages/Contact";
 export default function App() {
   return (
     <BrowserRouter>
-       {window.location.pathname != "/" ? <Header/> : null}
       <Routes>
         <Route path="/home" element={<HomePage />} />
         <Route path="/" element={<PresentationPage />} />

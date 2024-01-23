@@ -1,11 +1,13 @@
 import React from "react";
 import Button1 from "./Button1";
+import { useNavigate } from "react-router-dom";
 import {
   Popover,
   PopoverHandler,
   PopoverContent,
   Button,
 } from "@material-tailwind/react";
+
 
 const PopoverElement = ({ text, path }) => {
   return (
@@ -17,7 +19,16 @@ const PopoverElement = ({ text, path }) => {
   );
 };
 
+
+
 export default function Header() {
+const navigate = useNavigate();
+
+const logout = () => {
+  navigate("/");
+  localStorage.removeItem("");
+};
+
   return (
     <div className="w-full bg-gray-200 shadow-lg flex items-center justify-between px-40">
       <div className="flex items-center">
@@ -47,7 +58,7 @@ export default function Header() {
             <PopoverElement text={"My Groups"} path={"#"} />
             <PopoverElement text={"Attendance"} path={"#"} />
             <PopoverElement text={"Self Assessment "} path={"#"} />
-            <PopoverElement text={"Logout"} path={"/"} />
+            <PopoverElement text={"Logout"} event={()=>logout()} />
           </div>
         </PopoverContent>
       </Popover>

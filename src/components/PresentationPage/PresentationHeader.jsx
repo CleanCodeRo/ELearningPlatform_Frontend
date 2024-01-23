@@ -10,31 +10,28 @@ const PresentationHeader = () => {
   async function login(event) {
     event.preventDefault();
 
-    const data = {
-      username: username,
-      password: password,
-    };
-
     try {
-      await fetch("http://localhost:8080/users/auth/authenticate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`Http error! Status: ${response.status}`);
-          }
-          return response.json();
-        })
-        .then((data) => {
-          console.log("Success: ", data);
-          navigate("/home");
-        });
+      const response = await fetch(
+        "/users/auth/authenticate",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Login successful:", data);
+
+      navigate("/home");
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Login error:", error);
     }
   }
 

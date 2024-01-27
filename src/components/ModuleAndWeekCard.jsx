@@ -1,15 +1,35 @@
 import React from "react";
 
-export default function ModuleAndWeekCard() {
+export default function ModuleAndWeekCard({title, subtitle, image}) {
     return (
-        <div class="bg-light-blue-700 rounded-2xl shadow-sm shadow-sky-500 outline outline-slate-400 -outline-offset-8 mx-3">
-            <div class="p-5 group overflow-hidden relative after:duration-500 before:duration-500  duration-500 hover:after:duration-500 hover:after:translate-x-24 hover:before:translate-y-12 hover:before:-translate-x-32 hover:duration-500 after:absolute after:w-24 after:h-24 after:bg-sky-700 after:rounded-full  after:blur-xl after:bottom-32 after:right-16 after:w-12 after:h-12  before:absolute before:w-20 before:h-20 before:bg-sky-400 before:rounded-full  before:blur-xl before:top-20 before:right-16 before:w-12 before:h-12  hover:rotate-12 flex justify-center items-center h-56   bg-gray-900 rounded-2xl outline outline-slate-400 -outline-offset-8">
-                <div class="z-10 flex flex-col items-center gap-2">
-                    <span class="text-slate-400 text-6xl font-bold">JR </span>
-                    <p class="text-gray-50">Frontend developer</p>
+        <div id="wholeCard" class="z-10 flex flex-col relative min-w-40  max-w-80  bg-blue-700 rounded-2xl shadow-sm shadow-sky-500 mx-3 p-1">
+            {/* <div id="image" className=" h-32 w-full rounded-lg rounded-t-2xl bg-cover bg-center" style={{ backgroundImage: `url(${image})` }}></div> */}
+            <div id="image" className=" h-32 w-full rounded-lg rounded-t-2xl bg-cover bg-center" style={{ backgroundImage: `url(images/bgTexture.jpg)` }}></div>
+            <div id="title" className=" bg-gray-800 w-fit p-2 rounded-xl my-0  top-0" style={{ margin: '-16px 0 0 7px' }}> {title} </div>
+
+            <div id="other info" className="flex flex-col p-2">
+                <p id="subtitle" className="text-3xl">{subtitle}</p>
+
+                <div id="three details" className="flex py-2 justify-between">
+                    <div id="gourpDivForFlex" className="flex items-center">
+                        <div id="time" className="flex items-center mr-4">
+                            <i className="fa-solid fa-clock mr-1"></i>
+                            <p>1h 53min</p>
+                        </div>
+
+                        <div id="rating" className="flex items-center mr-4">
+                            <i className="fa-solid fa-star mr-1"></i>
+                            <p>4.3/5</p>
+                        </div>
+                    </div>
+
+                    <div id="price" className="flex items-center bg-black py-3 px-6 rounded-3xl">
+                        <i className="fa-solid fa-dollar-sign "></i>
+                        <p className="">18</p>
+                    </div>
                 </div>
+
             </div>
         </div>
-
     )
 }

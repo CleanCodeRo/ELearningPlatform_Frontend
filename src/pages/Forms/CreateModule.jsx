@@ -13,7 +13,8 @@ export default function CreateModule() {
         fetch( "http://localhost:8080/modules", {
             method : "POST",
             headers : {
-                "Content-Type" : "application/json"
+                "Content-Type" : "application/json",
+                'Authorization' : `Bearer ${localStorage.getItem("ELearningToken")}`
             },
             body : JSON.stringify({
                 name : moduleName.current.value,

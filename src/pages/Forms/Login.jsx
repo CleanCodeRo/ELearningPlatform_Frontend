@@ -36,7 +36,7 @@ const Login = () => {
         const data = await response.json();
         const token = data.response;
 
-        localStorage.setItem("Token: ", token);
+        localStorage.setItem("ELearningToken", token);
         console.log("Login successful: ", data);
         alert("Login Succesful");
 

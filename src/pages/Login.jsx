@@ -48,7 +48,7 @@ const Login = () => {
   }
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center p-2 ">
       <div className="relative flex w-96 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
         <div className="flex justify-center">
           <img src="images/CleanCode-removebg-preview.png" />
@@ -114,14 +114,14 @@ const Login = () => {
             onClick={(e) => login(e)}
             className="block w-full select-none rounded-lg bg-gradient-to-tr from-cyan-600 to-cyan-400 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-cyan-500/20 transition-all hover:shadow-lg hover:shadow-cyan-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
           >
-            Sign In
+            Login
           </button>
-          <p className="mt-6 flex justify-center font-sans text-sm font-light leading-normal text-inherit antialiased">
+          <div className="mt-6 flex justify-center font-sans text-sm font-light leading-normal text-inherit antialiased">
             Don't have an account?
             <div className="ml-1 block font-sans text-sm font-bold leading-normal text-cyan-500 antialiased">
               Sign up
             </div>
-          </p>
+          </div>
         </div>
       </div>
     </div>

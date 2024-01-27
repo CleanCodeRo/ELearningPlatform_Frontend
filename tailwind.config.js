@@ -6,11 +6,11 @@ module.exports = withMT({
   theme: {
     extend: {
       colors: {
-        first: "#5FDD9D",
-        second: "#76F7BF",
-        third: "#91F9E5",
-        fourth: "#499167",
-        fifth: "#3F4531",
+        first: "#192428",
+        second: "#2d383c",
+        third: "#414c50",
+        fourth: "#0784b5",
+        fifth: "#39ace7",
       },
       fontFamily : {
         "inter" : "Inter, sans-serif"

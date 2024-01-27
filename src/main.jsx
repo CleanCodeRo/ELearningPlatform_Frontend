@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from './pages/HomePage';
-
+import Login from './pages/Login';
 import PresentationPage from './pages/PresentationPage';
 import Contact from "./pages/Contact";
 
@@ -11,6 +11,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/login" element={<Login/>} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/" element={<PresentationPage />} />
         <Route path="/contact" element={<Contact />} />

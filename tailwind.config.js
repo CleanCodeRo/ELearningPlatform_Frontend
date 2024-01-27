@@ -11,6 +11,7 @@ module.exports = withMT({
         third: "#414c50",
         fourth: "#0784b5",
         fifth: "#39ace7",
+        sixth : "#F8F6F0"  // for text pearl white
       },
       fontFamily : {
         "inter" : "Inter, sans-serif"

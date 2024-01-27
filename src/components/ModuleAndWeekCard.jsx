@@ -4,10 +4,10 @@ export default function ModuleAndWeekCard({ title, subtitle, image }) {
     return (
         <div id="wholeCard" className=" flex flex-col relative min-w-40  max-w-80  bg-blue-700 rounded-2xl mx-3 p-1 ">
             {/* <div id="image" className=" h-32 w-full rounded-lg rounded-t-2xl bg-cover bg-center" style={{ backgroundImage: `url(${image})` }}></div> */}
-            <div id="image" className=" h-32 w-full rounded-lg rounded-t-2xl bg-cover bg-center" style={{ backgroundImage: `url(images/bgTexture.jpg)` }}></div>
+            <div id="image" className=" h-32 w-full rounded-lg rounded-t-2xl bg-cover bg-center" style={{ backgroundImage: `url(${image})` }}></div>
             <div id="title" className=" bg-gray-800 w-fit p-2 rounded-xl my-0  top-0" style={{ margin: '-16px 0 0 7px' }}> {title} </div>
 
-            <div id="deleteAndModify" className="absolute top-2 right-2 p-1 text-[rgb(20,20,20)] bg-[rgba(60,60,60,0.3)] rounded-xl">
+            <div id="deleteAndModify" className="absolute top-2 right-2 p-1 text-first bg-[rgba(60,60,60,0.3)] hover:bg-[rgba(255,255,255,0.8)] rounded-xl duration-300">
                 <i className="fa-solid fa-pen mx-2"></i>
             </div>
 

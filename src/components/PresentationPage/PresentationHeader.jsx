@@ -4,6 +4,14 @@ import { useNavigate } from "react-router-dom";
 const PresentationHeader = () => {
   const navigate = useNavigate();
 
+  const checkLogin = () => {
+    if (localStorage.getItem("ELearningToken")) {
+      navigate("/home");
+    } else {
+      navigate("/login");
+    }
+  };
+
   return (
     <div
       id="PresentationHeader"
@@ -19,7 +27,7 @@ const PresentationHeader = () => {
           <Button
             id="loginButton"
             className="bg-fourth font-inter shadow-2xl"
-            onClick={() => navigate("/login")}
+            onClick={() => checkLogin()}
           >
             Login
           </Button>

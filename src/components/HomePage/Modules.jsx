@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ModuleAndWeekCard from "../ModuleAndWeekCard";
 
+
 export default function Modules() {
   const [modules, setModules] = useState(null);
 
@@ -14,7 +15,7 @@ export default function Modules() {
     })
       .then((res) => res.json())
       .then((data) => {
-        setModules(data);
+         setModules(data);
       });
   }, []);
 
@@ -22,7 +23,7 @@ export default function Modules() {
     <div className="pt-5 pb-10 font-inter">
       <p className="text-4xl p-4  font-bold">Modules</p>
       <div className="flex items-center py-3">
-        {modules?.map((module, index) => (
+        { modules?.map((module, index) => (
           <ModuleAndWeekCard
             key={index}
             id={module.id}

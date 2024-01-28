@@ -22,7 +22,7 @@ const PresentationFooter = () => {
           >
             <a href=" https://www.facebook.com/cleancodero" target="_blank">
               <svg
-                className="h-9 w-9"
+                className="h-9 w-9 text-blue-900"
                 fill="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
@@ -43,7 +43,7 @@ const PresentationFooter = () => {
           >
             <a href="https://www.instagram.com/cleancode.ro/" target="_blank">
               <svg
-                className="h-9 w-9"
+                className="h-9 w-9 text-pink-500"
                 fill="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
@@ -63,7 +63,7 @@ const PresentationFooter = () => {
           >
             <a href="https://twitter.com/cleancodero" target="_blank">
               <svg
-                className="h-9 w-9"
+                className="h-9 w-9 text-blue-600"
                 fill="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
@@ -79,7 +79,7 @@ const PresentationFooter = () => {
           >
             <a href="https://github.com/cleancodeRo" target="_blank">
               <svg
-                className="h-9 w-9"
+                className="h-9 w-9 text-black"
                 fill="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"

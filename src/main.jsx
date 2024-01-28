@@ -7,6 +7,7 @@ import PresentationPage from "./pages/PresentationPage";
 import Login from "./pages/Forms/Login";
 import Contact from "./pages/Forms/Contact";
 import CreateAndEditModule from "./pages/Forms/CreateAndEditModule";
+import ShowModule from "./pages/ShowModule";
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/createModule" element={<CreateAndEditModule />} />
         <Route path="/editModule/:id" element={<CreateAndEditModule />} />
+        <Route path="/home/module/:id" element={<ShowModule />} />
       </Routes>
     </BrowserRouter>
   );

@@ -53,6 +53,7 @@ const Login = () => {
         <div className="flex justify-center">
           <img src="images/CleanCode-removebg-preview.png" />
         </div>
+
         <div className="relative mx-4 -mt-6 mb-4 grid h-28 place-items-center overflow-hidden rounded-xl bg-gradient-to-tr from-cyan-600 to-cyan-400 bg-clip-border text-white shadow-lg shadow-cyan-500/40">
           <h3 className="block font-sans text-3xl font-semibold leading-snug tracking-normal text-white antialiased">
             E-Learning
@@ -86,7 +87,7 @@ const Login = () => {
           <div className="text-red-500 flex justify-center">{error}</div>
         )}
 
-        <div className="p-6 pt-0">
+        <div className="p-6 pt-0 ">
           <button
             data-ripple-light="true"
             type="button"
@@ -95,10 +96,19 @@ const Login = () => {
           >
             Login
           </button>
+          <button
+            data-ripple-light="true"
+            type="button"
+            disabled
+            onClick={() => navigate("/register")}
+            className="block w-full select-none mt-1 rounded-lg bg-gradient-to-tr from-cyan-600 to-cyan-400 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-cyan-500/20 transition-all hover:shadow-lg hover:shadow-cyan-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          >
+            Register
+          </button>
           <div className="mt-6 flex justify-center font-sans text-sm font-light leading-normal text-inherit antialiased">
             Don't have an account?
             <div className="ml-1 block font-sans text-sm font-bold leading-normal text-cyan-500 antialiased">
-              Sign up
+              Contact Us
             </div>
           </div>
         </div>

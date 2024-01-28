@@ -7,6 +7,8 @@ export default function CreateAndEditModule() {
   let imageLink = useRef(null);
   let navigate = useNavigate();
 
+  const [error, setError] = useState(null);
+
   const [moduleById, setModuleById] = useState({
     name: "",
     number: "",
@@ -63,6 +65,15 @@ export default function CreateAndEditModule() {
   };
 
   const saveModule = () => {
+    if (
+      moduleName.current.value === "" ||
+      moduleNumber.current.value === "" ||
+      imageLink.current.value === ""
+    ) {
+      setError("Please fill in the required fields");
+      return;
+    }
+
     fetch("http://localhost:8080/modules", {
       method: "POST",
       headers: {
@@ -123,7 +134,11 @@ export default function CreateAndEditModule() {
             </label>
           </div>
         </div>
-
+        {error && (
+          <div className="text-red-500 flex justify-center font-inter">
+            {error}
+          </div>
+        )}
         <div className="font-semibold flex items-center justify-center pt-3 pb-5">
           <button
             onClick={params.id !== undefined ? editModule : saveModule}

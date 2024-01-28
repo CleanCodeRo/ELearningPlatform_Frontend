@@ -9,9 +9,9 @@ const PresentationHero = () => {
     >
       <div id="TitleAndButtons" className=" mt-10 col-span-2 lg:col-span-1">
         <p className="text-3xl xs:text-4xl smd:text-5xl px1400:text-[4rem] leading-snug  tracking-wide  font-bold">
-          Up Your <span className=" text-[#20B486]">Skills</span> <br /> To{" "}
-          <span className=" text-[#20B486]">Advance</span> Your <br />{" "}
-          <span className=" text-[#20B486]">Career</span> Path
+          Up Your <span className=" text-fourth">Skills</span> <br /> To{" "}
+          <span className=" text-fourth">Advance</span> Your <br />{" "}
+          <span className=" text-fourth">Career</span> Path
         </p>
         <p className="text-xs xs:text-sm smd:text-base px1400:text-lg  text-gray-800 tracking-wide ">
           Learn Full Stack Development, UI-UX Design skills with weekend UX .
@@ -24,12 +24,12 @@ const PresentationHero = () => {
           className="flex flex-col xs:flex-row items-center text-base smd:text-xl font-bold my-7 smd:my-14"
         >
           <Link to="/contact">
-            <button className=" my-2 xs:my-0 px-8 py-5 bg-[#20B486] rounded-lg text-light-green-50 mr-4 shadow-sm shadow-[#20B486]">
+            <button className=" my-2 xs:my-0 px-8 py-5 bg-fourth rounded-lg text-light-green-50 mr-4 shadow-sm shadow-[#20B486]">
               Get Started
             </button>
           </Link>
           <Link to="/contact">
-            <button className="my-2 xs:my-0 px-8 py-5 text-[#20B486] rounded-lg bg-[#EAFFF9] shadow-sm shadow-[#EAFFF9]">
+            <button className="my-2 xs:my-0 px-8 py-5 text-fourth rounded-lg bg-[#EAFFF9] shadow-sm shadow-[#EAFFF9]">
               Get Free Trail
             </button>
           </Link>

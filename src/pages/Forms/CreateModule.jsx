@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 
 export default function CreateModule() {
@@ -8,6 +8,8 @@ export default function CreateModule() {
     let moduleNumber = useRef(null);
     let imageLink = useRef(null);
     let navigate = useNavigate();
+
+    const { moduleId } = useParams();
 
     const saveModule = () =>{
         fetch( "http://localhost:8080/modules", {

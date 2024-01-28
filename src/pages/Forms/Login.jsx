@@ -49,7 +49,7 @@ const Login = () => {
 
   return (
     <div className="flex justify-center items-center p-2 w-screen h-screen">
-      <div className="relative flex w-96 h-fit flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+      <div className="relative flex w-96 h-fit flex-col rounded-xl bg-gray-300 bg-clip-border text-gray-700 shadow-md">
         <div className="flex justify-center">
           <img src="images/CleanCode-removebg-preview.png" />
         </div>

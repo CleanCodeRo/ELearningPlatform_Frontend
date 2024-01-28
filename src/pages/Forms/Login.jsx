@@ -4,12 +4,13 @@ const Login = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
 
   async function login(e) {
     e.preventDefault();
 
     if (!username || !password) {
-      alert("Username and password are required");
+      setError("Username and password are required");
       return;
     }
 
@@ -27,18 +28,17 @@ const Login = () => {
 
       if (!response.ok) {
         console.log(response);
-        if (response.status === 403) {
-          alert("Incorrect username or password");
-        } else {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+        setError("Incorrect username or password");
+        setUsername("");
+        setPassword("");
       } else {
+        setError(null);
         const data = await response.json();
         const token = data.response;
 
         localStorage.setItem("ELearningToken", token);
         console.log("Login successful: ", data);
-        alert("Login Succesful");
+        alert("Login Successful");
 
         navigate("/home");
       }
@@ -61,6 +61,8 @@ const Login = () => {
         <div className="flex flex-col gap-4 p-6">
           <div className="relative h-11 w-full min-w-[200px]">
             <input
+              type="text"
+              value={username}
               onChange={(e) => setUsername(e.target.value)}
               className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-cyan-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
             />
@@ -71,6 +73,7 @@ const Login = () => {
           <div className="relative h-11 w-full min-w-[200px]">
             <input
               type="password"
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-cyan-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
             />
@@ -78,35 +81,11 @@ const Login = () => {
               Password
             </label>
           </div>
-          <div className="-ml-2.5">
-            {/* <div className="inline-flex items-center">
-              <label
-                data-ripple-dark="true"
-                className="relative flex cursor-pointer items-center rounded-full p-3"
-              >
-                <input
-                  id="checkbox"
-                  className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-cyan-500 checked:bg-cyan-500 checked:before:bg-cyan-500 hover:before:opacity-10"
-                  type="checkbox"
-                />
-                <span className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
-                  <svg
-                    stroke="currentColor"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    className="h-3.5 w-3.5"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path>
-                  </svg>
-                </span>
-              </label> */}
-            {/* <label className="mt-px cursor-pointer select-none font-light text-gray-700">
-                Remember Me
-              </label> */}
-            {/* </div> */}
-          </div>
         </div>
+        {error && (
+          <div className="text-red-500 flex justify-center">{error}</div>
+        )}
+
         <div className="p-6 pt-0">
           <button
             data-ripple-light="true"

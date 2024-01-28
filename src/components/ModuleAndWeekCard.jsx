@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import {
     Menu,
     MenuHandler,
@@ -8,6 +9,7 @@ import {
 
 export default function ModuleAndWeekCard({id, title, subtitle, image }) {
     let moduleCard = useRef(null);
+    const navigate = useNavigate();
 
     const deleteModule = (e) =>{
         fetch(`http://localhost:8080/modules?moduleId=${id}`,{
@@ -22,6 +24,7 @@ export default function ModuleAndWeekCard({id, title, subtitle, image }) {
       })
     }
 
+
     return (
         <div name="wholeCard" id={id} ref={moduleCard} className=" flex flex-col relative min-w-40  max-w-80  bg-fifth rounded-2xl mx-3 p-1 ">
             <div id="image" className=" h-32 w-full rounded-lg rounded-t-2xl bg-cover bg-center" style={{ backgroundImage: `url(${image})` }}></div>
@@ -34,7 +37,7 @@ export default function ModuleAndWeekCard({id, title, subtitle, image }) {
                     </MenuHandler>
                     <MenuList className=" bg-first bg-opacity-40 backdrop-blur-md border-0 text-sixth ">
                         <MenuItem onClick={(e) => deleteModule(e)} className="bg-first bg-opacity-80 mb-1"><i className="fa-solid fa-trash-can mr-1" /> Delete</MenuItem>
-                        <MenuItem className="bg-first bg-opacity-80"><i className="fa-solid fa-pen-to-square mr-1" /> Edit</MenuItem>
+                        <MenuItem onClick={()=>navigate(`/editModule/${id}`)} className="bg-first bg-opacity-80"><i className="fa-solid fa-pen-to-square mr-1" /> Edit</MenuItem>
                     </MenuList>
                 </Menu>
             </div>

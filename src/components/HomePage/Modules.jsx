@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ModuleCard from "./ModuleCard";
+import { Link } from "react-router-dom";
 
 
 
@@ -34,12 +35,11 @@ export default function Modules() {
           />
         ))}
 
-        <a
-          href="/createModule"
+        <Link to="/createModule"
           className="h-20 w-20 rounded-full bg-fifth flex items-center justify-center text-5xl mx-10"
         >
           <i className="fa-solid fa-plus"></i>
-        </a>
+        </Link>
       </div>
     </div>
   );

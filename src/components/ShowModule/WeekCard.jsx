@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   Menu,
   MenuHandler,
@@ -10,6 +10,7 @@ import {
 export default function WeekCard({ id, title, subtitle, image }) {
   let weekCard = useRef(null);
   const navigate = useNavigate();
+  const params = useParams()
    
 
   const deleteWeek = () => {
@@ -24,17 +25,13 @@ export default function WeekCard({ id, title, subtitle, image }) {
     });
   };
 
-  const redirect = () =>{
-    console.log("see lessons ")
-  }
-
   return (
     <div
       name="wholeCard"
       id={id}
       ref={weekCard}
+      onClick={() => navigate(`/home/module/${params.moduleId}/week/${id}`)}
       className="flex flex-col relative cursor-pointer min-w-40  max-w-80  bg-fifth rounded-2xl mx-3 p-1 border-b-[3px] border-transparent hover:border-light-blue-200 shadow-xl hover:shadow-light-blue-100 duration-100"
-      onClick={redirect}
     >
       <div
         id="image"
@@ -65,7 +62,7 @@ export default function WeekCard({ id, title, subtitle, image }) {
               <i className="fa-solid fa-trash-can mr-1" /> Delete
             </MenuItem>
             <MenuItem
-              onClick={() => navigate(`editWeek/${id}`)}
+              onClick={(event) =>{event.stopPropagation(); navigate(`/home/module/${params.moduleId}/editWeek/${id}`)}}
               className="bg-first bg-opacity-80"
             >
               <i className="fa-solid fa-pen-to-square mr-1" /> Edit

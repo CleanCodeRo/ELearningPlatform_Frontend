@@ -60,7 +60,7 @@ export default function ModuleCard({ id, title, subtitle, image }) {
               <i className="fa-solid fa-trash-can mr-1" /> Delete
             </MenuItem>
             <MenuItem
-              onClick={() => navigate(`/editModule/${id}`)}
+              onClick={(event) =>{event.stopPropagation(); navigate(`/editModule/${id}`)}}
               className="bg-first bg-opacity-80"
             >
               <i className="fa-solid fa-pen-to-square mr-1" /> Edit

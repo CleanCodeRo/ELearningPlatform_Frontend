@@ -1,6 +1,6 @@
 import React from 'react'
 import SideHeader from '../components/SideHeader'
-import Weeks from '../components/HomePage/Weeks'
+import Weeks from '../components/ShowModule/Weeks'
 
 export default function ShowModule() {
     return (

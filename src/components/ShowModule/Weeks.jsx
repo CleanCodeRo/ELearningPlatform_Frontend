@@ -1,14 +1,15 @@
 
 import React, { useEffect, useState } from "react";
-import ModuleAndWeekCard from "../ModuleAndWeekCard";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import WeekCard from "./WeekCard";
 
 export default function Weeks() {
   const [weeks, setWeeks] = useState(null);
   const params = useParams()
+  const navigate = useNavigate()
 
   useEffect(() => {
-    fetch(`http://localhost:8080/weeks/${params.id}` , {
+    fetch(`http://localhost:8080/weeks/${params.moduleId}` , {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -26,7 +27,7 @@ export default function Weeks() {
       <p className="text-4xl p-4  font-bold">Weeks</p>
       <div className="flex items-center py-3">
         { weeks?.map((week, index) => (
-          <ModuleAndWeekCard
+          <WeekCard
             key={index}
             id={week.id}
             title={`Week ${week.number}`}
@@ -35,12 +36,12 @@ export default function Weeks() {
           />
         ))}
 
-        <a
-          href="/createWeek"
+        <button
           className="h-20 w-20 rounded-full bg-fifth flex items-center justify-center text-5xl mx-10"
+          onClick={() => navigate("createWeek")}
         >
           <i className="fa-solid fa-plus"></i>
-        </a>
+        </button>
       </div>
     </div>
   );

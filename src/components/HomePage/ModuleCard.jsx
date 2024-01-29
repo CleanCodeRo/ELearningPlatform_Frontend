@@ -7,10 +7,9 @@ import {
   MenuItem,
 } from "@material-tailwind/react";
 
-export default function ModuleAndWeekCard({ id, title, subtitle, image }) {
+export default function ModuleCard({ id, title, subtitle, image }) {
   let moduleCard = useRef(null);
   const navigate = useNavigate();
-  const params = useParams()
 
   const deleteModule = (e) => {
     fetch(`http://localhost:8080/modules?moduleId=${id}`, {
@@ -24,19 +23,13 @@ export default function ModuleAndWeekCard({ id, title, subtitle, image }) {
     });
   };
 
-  const redirect = () =>{
-    if(window.location.pathname == "/home"){
-      navigate(`module/${id}`)
-    }
-  }
-
   return (
     <div
       name="wholeCard"
       id={id}
       ref={moduleCard}
       className="flex flex-col relative cursor-pointer min-w-40  max-w-80  bg-fifth rounded-2xl mx-3 p-1 border-b-[3px] border-transparent hover:border-light-blue-200 shadow-xl hover:shadow-light-blue-100 duration-100"
-      onClick={redirect}
+      onClick={() => navigate(`module/${id}`)}
     >
       <div
         id="image"
@@ -48,8 +41,7 @@ export default function ModuleAndWeekCard({ id, title, subtitle, image }) {
         className=" bg-first w-fit p-2 rounded-xl my-0  top-0"
         style={{ margin: "-16px 0 0 7px" }}
       >
-        {" "}
-        {title}{" "}
+        {title}
       </div>
 
       <div

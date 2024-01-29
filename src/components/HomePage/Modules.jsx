@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import ModuleAndWeekCard from "../ModuleAndWeekCard";
+import ModuleCard from "./ModuleCard";
+
 
 
 export default function Modules() {
@@ -24,7 +25,7 @@ export default function Modules() {
       <p className="text-4xl p-4  font-bold">Modules</p>
       <div className="flex items-center py-3">
         { modules?.map((module, index) => (
-          <ModuleAndWeekCard
+          <ModuleCard
             key={index}
             id={module.id}
             title={`Module ${module.number}`}

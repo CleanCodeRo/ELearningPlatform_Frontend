@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-export default function CreateAndEditModule() {
+export default function ModuleCreateAndEdit() {
   let moduleName = useRef(null);
   let moduleNumber = useRef(null);
   let imageLink = useRef(null);
@@ -18,8 +18,8 @@ export default function CreateAndEditModule() {
   const params = useParams();
 
   useEffect(() => {
-    if (params.id !== undefined) {
-      fetch(`http://localhost:8080/modules/${params.id}`, {
+    if (params.moduleId !== undefined) {
+      fetch(`http://localhost:8080/modules/${params.moduleId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -31,12 +31,12 @@ export default function CreateAndEditModule() {
           setModuleById(data);
         });
     }
-  }, [params.id]);
+  }, [params.moduleId]);
 
   const editModule = (e) => {
     e.preventDefault();
 
-    fetch(`http://localhost:8080/modules/${params.id}`, {
+    fetch(`http://localhost:8080/modules/${params.moduleId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -99,7 +99,7 @@ export default function CreateAndEditModule() {
         <img src="/images/CleanCode-removebg-preview.png" />
         <div className="relative mx-4 -mt-6 mb-4 grid h-28 place-items-center overflow-hidden rounded-xl bg-gradient-to-tr from-cyan-600 to-cyan-400 bg-clip-border text-white shadow-lg shadow-cyan-500/40">
           <h3 className="block font-sans text-3xl font-semibold leading-snug tracking-normal text-white antialiased">
-            {params.id !== undefined ? "Edit your Module" : "Create new module"}{" "}
+            {params.moduleId !== undefined ? "Edit your Module" : "Create new module"}{" "}
           </h3>
         </div>
         <div className="flex flex-col gap-4 p-6">
@@ -142,10 +142,10 @@ export default function CreateAndEditModule() {
         )}
         <div className="font-semibold flex items-center justify-center pt-3 pb-5">
           <button
-            onClick={params.id !== undefined ? editModule : saveModule}
+            onClick={params.moduleId !== undefined ? editModule : saveModule}
             className=" my-2 xs:my-0 px-8 py-5 bg-fifth rounded-lg text-sixth mr-4 shadow-md shadow-fourth"
           >
-            {params.id !== undefined ? "Save" : "Create"}
+            {params.moduleId !== undefined ? "Save" : "Create"}
           </button>
           <a href="/home">
             <button className=" my-2 xs:my-0 px-8 py-5 bg-sixth rounded-lg text-fifth mr-4 shadow-md shadow-fourth">

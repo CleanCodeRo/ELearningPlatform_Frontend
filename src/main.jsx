@@ -6,8 +6,9 @@ import HomePage from "./pages/HomePage";
 import PresentationPage from "./pages/PresentationPage";
 import Login from "./pages/Forms/Login";
 import Contact from "./pages/Forms/Contact";
-import CreateAndEditModule from "./pages/Forms/CreateAndEditModule";
 import ShowModule from "./pages/ShowModule";
+import ModuleCreateAndEdit from "./pages/Forms/ModuleCreateAndEdit";
+import WeekCreateAndEdit from "./pages/Forms/WeekCreateAndEdit";
 
 export default function App() {
   return (
@@ -17,9 +18,11 @@ export default function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/" element={<PresentationPage />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/createModule" element={<CreateAndEditModule />} />
-        <Route path="/editModule/:id" element={<CreateAndEditModule />} />
-        <Route path="/home/module/:id" element={<ShowModule />} />
+        <Route path="/createModule" element={<ModuleCreateAndEdit />} />
+        <Route path="/editModule/:moduleId" element={<ModuleCreateAndEdit />} />
+        <Route path="/home/module/:moduleId" element={<ShowModule />} />
+        <Route path="/home/module/:moduleId/editWeek/:weekId" element={<WeekCreateAndEdit />} />
+        <Route path="/home/module/:moduleId/createWeek" element={<WeekCreateAndEdit />} />
       </Routes>
     </BrowserRouter>
   );

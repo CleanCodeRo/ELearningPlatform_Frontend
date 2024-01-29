@@ -17,15 +17,23 @@ export default function Modules() {
     })
       .then((res) => res.json())
       .then((data) => {
-         setModules(data);
+        setModules(data);
       });
   }, []);
 
   return (
     <div className="pt-5 pb-10 font-inter">
-      <p className="text-4xl p-4  font-bold">Modules</p>
+      <div id="titleAndAddButton" className="flex items-center">
+        <p className="text-4xl p-4  font-bold">Modules</p>
+        <Link to="/createModule"
+          className="h-10 w-10 rounded-full bg-fifth flex items-center justify-center text-xl mx-2"
+        >
+          <i className="fa-solid fa-plus"></i>
+        </Link>
+      </div>
+
       <div className="flex items-center py-3">
-        { modules?.map((module, index) => (
+        {modules?.map((module, index) => (
           <ModuleCard
             key={index}
             id={module.id}
@@ -35,11 +43,7 @@ export default function Modules() {
           />
         ))}
 
-        <Link to="/createModule"
-          className="h-20 w-20 rounded-full bg-fifth flex items-center justify-center text-5xl mx-10"
-        >
-          <i className="fa-solid fa-plus"></i>
-        </Link>
+
       </div>
     </div>
   );

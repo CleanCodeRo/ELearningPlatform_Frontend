@@ -21,7 +21,7 @@ export default function SideHeader() {
   };
 
   return (
-    <div className="bg-fifth min-w-20 h-screen flex justify-center">
+    <div className="bg-fifth min-w-20 h-screen flex justify-center sticky top-0">
       <Menu className="flex justify-end">
         <MenuHandler>
           <Avatar

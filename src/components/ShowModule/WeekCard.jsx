@@ -72,7 +72,7 @@ export default function WeekCard({ id, title, subtitle, image }) {
       </div>
 
       <div id="other info" className="flex flex-col p-2">
-        <p id="subtitle" className="text-3xl">
+        <p id="subtitle" className="text-3xl line-clamp-1">
           {subtitle}
         </p>
 

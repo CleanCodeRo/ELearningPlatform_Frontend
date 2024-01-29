@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import LessonCard from './LessonCard';
 
 export default function Lessons() {
@@ -24,19 +24,26 @@ export default function Lessons() {
 
 
     return (
-        <div className="pt-5 pb-10 font-inter">
-            <div>
-            <p className="text-4xl p-4  font-bold">Lessons</p>
+        <div className="pt-5 pb-10 px-5 font-inter">
+            <div className=' flex items-center'>
+                <p className="text-4xl p-4 font-bold">Lessons</p>
+                <Link to={`#`}>
+                    <button
+                        className="h-10 w-10 rounded-full bg-fifth flex items-center justify-center text-xl mx-2"
+                    >
+                        <i className="fa-solid fa-plus"></i>
+                    </button>
+                </Link>
 
-            {/* <p className="text-2xl p-4  font-bold">Week {params.weekId}</p> */}
+                {/* <p className="text-2xl p-4  font-bold">Week {params.weekId}</p> */}
             </div>
-            
-           
-            <div className='grid grid-cols-4 '>
-                {lessons != null ? lessons.map(lesson => <LessonCard id={lesson.id} name={lesson.name} description={lesson.description} gitHubLink={lesson.gitHubLink} />)
+
+
+            <div className='grid grid-cols-3 '>
+                {lessons != null ? lessons.map((lesson, index) => <LessonCard key={index} id={lesson.id} name={lesson.name} description={lesson.description} gitHubLink={lesson.gitHubLink} />)
                     :
-                    <div className='col-span-4'>
-                        No week selected
+                    <div className='col-span-4 text-4xl text-center my-10'>
+                       - No week selected -
                     </div>}
             </div>
 

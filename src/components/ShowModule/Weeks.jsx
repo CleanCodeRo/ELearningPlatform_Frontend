@@ -23,8 +23,21 @@ export default function Weeks() {
   }, []);
 
   return (
-    <div className="pt-5 pb-10 font-inter">
-      <p className="text-4xl p-4  font-bold">Weeks</p>
+    <div className="pt-5 pb-10 px-5 font-inter">
+
+      <div id="titleAndAddButton" className="flex items-center">
+        <p className="text-4xl p-4  font-bold">Weeks</p>
+        <Link to={`/home/module/${params.moduleId}/createWeek`}>
+          <button
+            className="h-10 w-10 rounded-full bg-fifth flex items-center justify-center text-xl mx-2"
+          >
+            <i className="fa-solid fa-plus"></i>
+          </button>
+        </Link>
+      </div>
+
+
+
       <div className="flex items-center py-3">
         {weeks?.map((week, index) => (
           <WeekCard
@@ -36,13 +49,7 @@ export default function Weeks() {
           />
         ))}
 
-        <Link to={`/home/module/${params.moduleId}/createWeek`}>
-          <button
-            className="h-20 w-20 rounded-full bg-fifth flex items-center justify-center text-5xl mx-10"
-          >
-            <i className="fa-solid fa-plus"></i>
-          </button>
-        </Link>
+
       </div>
     </div>
   );

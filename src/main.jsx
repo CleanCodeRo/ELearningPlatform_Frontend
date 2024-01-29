@@ -21,6 +21,7 @@ export default function App() {
         <Route path="/createModule" element={<ModuleCreateAndEdit />} />
         <Route path="/editModule/:moduleId" element={<ModuleCreateAndEdit />} />
         <Route path="/home/module/:moduleId" element={<ShowModule />} />
+        <Route path="/home/module/:moduleId/week/:weekId" element={<ShowModule />} />
         <Route path="/home/module/:moduleId/editWeek/:weekId" element={<WeekCreateAndEdit />} />
         <Route path="/home/module/:moduleId/createWeek" element={<WeekCreateAndEdit />} />
       </Routes>

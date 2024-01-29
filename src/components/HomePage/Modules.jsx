@@ -22,7 +22,7 @@ export default function Modules() {
 
   return (
     <div className="pt-5 pb-10 font-inter">
-      <p className="text-4xl p-4  font-bold">Modules</p>
+      <p className="text-4xl p-4  font-bold text-fourth">Modules</p>
       <div className="flex items-center py-3">
         { modules?.map((module, index) => (
           <ModuleCard

@@ -23,8 +23,8 @@ export default function Modules() {
 
   return (
     <div className="pt-5 pb-10 font-inter">
-      <div id="titleAndAddButton" className="flex items-center">
-        <p className="text-4xl p-4  font-bold">Modules</p>
+      <div id="titleAndAddButton" className="flex items-center  border-2 rounded-xl">
+        <p className="text-4xl p-4  font-bold border-2 rounded-lg text-fourth">MODULES</p>
         <Link to="/createModule"
           className="h-10 w-10 rounded-full bg-fifth flex items-center justify-center text-xl mx-2"
         >

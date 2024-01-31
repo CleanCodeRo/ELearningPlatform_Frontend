@@ -1,27 +1,29 @@
-import React, { useEffect, useState } from "react";
-import { useParams,useNavigate } from "react-router-dom";
-import LessonCard from "./LessonCard";
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import LessonCard from './LessonCard';
 
 export default function Lessons() {
   const [lessons, setLessons] = useState(null);
     const params = useParams();
-    const navigate = useNavigate();
-
-  useEffect(() => {
-    if (params.weekId) {
-      fetch(`http://localhost:8080/lessons/${params.weekId}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setLessons(data);
-        });
-    }
-  }, [params.weekId]);
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (params.weekId) {
+            fetch(`http://localhost:8080/lessons/${params.weekId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    setLessons(data)
+                })
+                .catch((err) =>{
+                  navigate("/login")
+                 })
+        }
+    }, [params.weekId])
 
   return (
     <div className="pt-5 pb-10 px-5 font-inter">

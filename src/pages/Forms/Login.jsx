@@ -38,9 +38,9 @@ const Login = () => {
 
         localStorage.setItem("ELearningToken", token);
         console.log("Login successful: ", data);
-        alert("Login Successful");
-
+        
         navigate("/home");
+        window.location.reload()
       }
     } catch (error) {
       console.error("Login error:", error);

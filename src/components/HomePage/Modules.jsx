@@ -18,7 +18,10 @@ export default function Modules() {
       .then((res) => res.json())
       .then((data) => {
         setModules(data);
-      });
+      })
+      .catch((err) =>{
+        navigate("/login")
+       })
   }, []);
 
   return (

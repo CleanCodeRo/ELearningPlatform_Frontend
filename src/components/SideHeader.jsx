@@ -94,8 +94,9 @@ export default function SideHeader() {
         </MenuList>
       </Menu>
       <div
+        onClick={()=>navigate("/home")}
         id="homeButton"
-        className=" rounded-full w-[50px] h-[50px] mb-4 mt-7 color-red-400"
+        className=" rounded-full w-[50px] h-[50px] mb-4 mt-7 color-red-400 cursor-pointer"
       >
          <svg
           xmlns="http://www.w3.org/2000/svg"

@@ -22,7 +22,7 @@ export default function Modules() {
   }, []);
 
   return (
-    <div className="pt-5 pb-10 font-inter">
+    <div className="pt-5 pb-10 px-5 font-inter">
       <div id="titleAndAddButton" className="flex items-center  border-2 rounded-xl">
         <p className="text-4xl p-4  font-bold border-2 rounded-lg text-fourth">MODULES</p>
         <Link to="/createModule"

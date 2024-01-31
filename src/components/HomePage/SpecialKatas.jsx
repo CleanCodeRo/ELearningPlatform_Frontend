@@ -7,7 +7,7 @@ export default function SpecialKatas() {
   };
 
   return (
-    <div className="pt-5 pb-10 font-inter">
+    <div className="pt-5 pb-10 px-5 font-inter">
       <div
         id=""
         className="flex items-center border-2 rounded-xl"

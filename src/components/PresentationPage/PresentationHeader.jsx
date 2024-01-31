@@ -1,14 +1,16 @@
 import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
+import { isExpired } from "react-jwt";
 
 const PresentationHeader = () => {
   const navigate = useNavigate();
 
-  const checkLogin = () => {
-    if (localStorage.getItem("ELearningToken")) {
-      navigate("/home");
-    } else {
+  const checkLogin = () => {    
+    console.log("expiredToken " + isExpired(localStorage.getItem("ELearningToken")))
+    if (isExpired(localStorage.getItem("ELearningToken"))) {
       navigate("/login");
+    } else {
+      navigate("/home");
     }
   };
 

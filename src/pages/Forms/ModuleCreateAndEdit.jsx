@@ -29,7 +29,10 @@ export default function ModuleCreateAndEdit() {
         .then((res) => res.json())
         .then((data) => {
           setModuleById(data);
-        });
+        })
+        .catch(() =>{
+          navigate("/login")
+         })
     }
   }, [params.moduleId]);
 
@@ -59,9 +62,9 @@ export default function ModuleCreateAndEdit() {
         console.log(data);
         navigate("/home");
       })
-      .catch((error) => {
-        console.error(error);
-      });
+      .catch(() =>{
+        navigate("/login")
+       })
   };
 
   const saveModule = () => {
@@ -90,7 +93,10 @@ export default function ModuleCreateAndEdit() {
       .then((data) => {
         console.log(data);
         navigate("/home");
-      });
+      })
+      .catch(() =>{
+        navigate("/login")
+       })
   };
 
   return (

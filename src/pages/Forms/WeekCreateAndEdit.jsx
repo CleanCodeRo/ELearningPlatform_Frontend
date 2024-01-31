@@ -30,7 +30,10 @@ export default function WeekCreateAndEdit() {
         .then((data) => {
             console.log(data)
             setWeekById(data);
-        });
+        })
+        .catch(() =>{
+          navigate("/login")
+         })
     }
   }, [params.weekId]);
 
@@ -54,12 +57,12 @@ export default function WeekCreateAndEdit() {
         }
         return response.json();
       })
-      .then((data) => {
+      .then(() => {
         window.history.back()
       })
-      .catch((error) => {
-        console.error(error);
-      });
+      .catch(() =>{
+        navigate("/login")
+       })
   };
 
   const saveWeek = () => {
@@ -88,9 +91,12 @@ export default function WeekCreateAndEdit() {
       }),
     })
       .then((res) => res.json())
-      .then((data) => {
+      .then(() => {
         window.history.back()
-      });
+      })
+      .catch(() =>{
+        navigate("/login")
+       })
   };
 
   return (

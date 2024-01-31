@@ -19,7 +19,10 @@ export default function Weeks() {
       .then((res) => res.json())
       .then((data) => {
         setWeeks(data)
-      });
+      })
+      .catch((err) =>{
+       navigate("/login")
+      })
   }, []);
 
   return (
@@ -39,7 +42,7 @@ export default function Weeks() {
 
 
       <div className="flex items-center py-3">
-        {weeks?.map((week, index) => (
+        {weeks && weeks.map((week, index) => (
           <WeekCard
             key={index}
             id={week.id}

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import LessonCard from './LessonCard';
 
 export default function Lessons() {
     const [lessons, setLessons] = useState(null);
     const params = useParams();
-
+    const navigate = useNavigate()
     useEffect(() => {
         if (params.weekId) {
             fetch(`http://localhost:8080/lessons/${params.weekId}`, {
@@ -19,6 +19,9 @@ export default function Lessons() {
                 .then(data => {
                     setLessons(data)
                 })
+                .catch((err) =>{
+                  navigate("/login")
+                 })
         }
     }, [params.weekId])
 
@@ -27,6 +30,7 @@ export default function Lessons() {
         <div className="pt-5 pb-10 px-5 font-inter">
             <div className=' flex items-center'>
                 <p className="text-4xl p-4 font-bold">Lessons</p>
+                {lessons &&
                 <Link to={`#`}>
                     <button
                         className="h-10 w-10 rounded-full bg-fifth flex items-center justify-center text-xl mx-2"
@@ -34,8 +38,7 @@ export default function Lessons() {
                         <i className="fa-solid fa-plus"></i>
                     </button>
                 </Link>
-
-                {/* <p className="text-2xl p-4  font-bold">Week {params.weekId}</p> */}
+                }
             </div>
 
 

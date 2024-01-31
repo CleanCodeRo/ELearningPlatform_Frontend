@@ -54,7 +54,7 @@ export default function ModuleCard({ id, title, subtitle, image }) {
           </MenuHandler>
           <MenuList className=" bg-first bg-opacity-40 backdrop-blur-md border-0 text-sixth ">
             <MenuItem
-              onClick={(e) => deleteModule(e)}
+              onClick={(e) =>{event.stopPropagation(); deleteModule(e)}}
               className="bg-first bg-opacity-80 mb-1"
             >
               <i className="fa-solid fa-trash-can mr-1" /> Delete

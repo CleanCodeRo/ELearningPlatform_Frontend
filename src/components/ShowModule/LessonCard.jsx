@@ -12,16 +12,22 @@ export default function LessonCard({ id, name, description, gitHubLink }) {
   const navigate = useNavigate();
   const params = useParams();
 
-  const deleteLesson = () => {
-    fetch(`http://localhost:8080/lessons?lessonId=${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
-      },
-    }).then(() => {
-      lessonCard.current.remove();
-    });
+  const deleteLesson = async (e) => {
+    e.preventDefault();
+
+    try {
+      await fetch(`http://localhost:8080/lessons?lessonId=${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
+        },
+      });
+
+      window.location.reload();
+    } catch (error) {
+      console.error("Error during DELETE operation:", error);
+    }
   };
 
   const EditPen = () => {
@@ -32,7 +38,7 @@ export default function LessonCard({ id, name, description, gitHubLink }) {
         </MenuHandler>
         <MenuList className=" bg-first bg-opacity-40 backdrop-blur-md border-0 text-sixth ">
           <MenuItem
-            onClick={deleteLesson}
+            onClick={(event) => { event.stopPropagation(); deleteLesson(event)}}
             className="bg-first bg-opacity-80 mb-1"
           >
             <i className="fa-solid fa-trash-can mr-1" /> Delete

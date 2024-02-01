@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Menu,
   MenuHandler,
@@ -11,16 +11,20 @@ export default function ModuleCard({ id, title, subtitle, image }) {
   let moduleCard = useRef(null);
   const navigate = useNavigate();
 
-  const deleteModule = (e) => {
-    fetch(`http://localhost:8080/modules?moduleId=${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
-      },
-    }).then(() => {
-      moduleCard.current.remove();
-    });
+  const deleteModule = async (event) => {
+    try {
+      await fetch(`http://localhost:8080/modules?moduleId=${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
+        },
+      });
+
+      window.location.reload();
+    } catch (error) {
+      console.error("Error during DELETE operation:", error);
+    }
   };
 
   return (
@@ -54,13 +58,19 @@ export default function ModuleCard({ id, title, subtitle, image }) {
           </MenuHandler>
           <MenuList className=" bg-first bg-opacity-40 backdrop-blur-md border-0 text-sixth ">
             <MenuItem
-              onClick={(e) =>{event.stopPropagation(); deleteModule(e)}}
+              onClick={(event) => {
+                event.stopPropagation();
+                deleteModule(event);
+              }}
               className="bg-first bg-opacity-80 mb-1"
             >
               <i className="fa-solid fa-trash-can mr-1" /> Delete
             </MenuItem>
             <MenuItem
-              onClick={(event) => { event.stopPropagation(); navigate(`/editModule/${id}`)}}
+              onClick={(event) => {
+                event.stopPropagation();
+                navigate(`/editModule/${id}`);
+              }}
               className="bg-first bg-opacity-80"
             >
               <i className="fa-solid fa-pen-to-square mr-1" /> Edit

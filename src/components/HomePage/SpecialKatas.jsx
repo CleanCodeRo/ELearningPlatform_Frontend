@@ -10,7 +10,7 @@ export default function SpecialKatas() {
     <div className="pt-5 pb-10 px-5 font-inter">
       <div
         id=""
-        className="flex items-center border-2 rounded-xl"
+        className="flex items-center"
       >
         <p className="text-4xl p-4  font-bold border-2 rounded-lg text-fourth">
           SPECIAL KATAS

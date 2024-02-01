@@ -14,7 +14,6 @@ import LessonsCreateAndEdit from "./pages/Forms/LessonsCreateAndEdit";
 import Redirect from "./components/Redirect";
 
 export default function App() {
-
   return (
     <BrowserRouter>
       <Routes>

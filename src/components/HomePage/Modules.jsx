@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import ModuleCard from "./ModuleCard";
 import { Link } from "react-router-dom";
 
-
-
 export default function Modules() {
   const [modules, setModules] = useState(null);
 
@@ -19,16 +17,19 @@ export default function Modules() {
       .then((data) => {
         setModules(data);
       })
-      .catch((err) =>{
-        navigate("/login")
-       })
+      .catch((err) => {
+        navigate("/login");
+      });
   }, []);
 
   return (
     <div className="pt-5 pb-10 px-5 font-inter">
-      <div id="titleAndAddButton" className="flex items-center  border-2 rounded-xl">
-        <p className="text-4xl p-4  font-bold border-2 rounded-lg text-fourth">MODULES</p>
-        <Link to="/createModule"
+      <div id="titleAndAddButton" className="flex items-center ">
+        <p className="text-4xl p-4  font-bold border-2 rounded-lg text-fourth">
+          MODULES
+        </p>
+        <Link
+          to="/createModule"
           className="h-10 w-10 rounded-full bg-fifth flex items-center justify-center text-xl mx-2"
         >
           <i className="fa-solid fa-plus"></i>
@@ -45,8 +46,6 @@ export default function Modules() {
             image={module.imgLink}
           />
         ))}
-
-
       </div>
     </div>
   );

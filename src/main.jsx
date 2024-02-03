@@ -20,7 +20,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<PresentationPage /> } />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/home" element={!isExpired(localStorage.getItem("ELearningToken")) ? <HomePage /> : <HomePage/>} />
+        <Route path="/home" element={!isExpired(localStorage.getItem("ELearningToken")) ? <HomePage /> : <Redirect/>} />
         <Route path="/createModule" element={ !isExpired(localStorage.getItem("ELearningToken")) ? <ModuleCreateAndEdit /> : <Redirect/>} />
         <Route path="/editModule/:moduleId" element={!isExpired(localStorage.getItem("ELearningToken")) ? <ModuleCreateAndEdit /> : <Redirect/>} />
         <Route path="/home/module/:moduleId" element={!isExpired(localStorage.getItem("ELearningToken")) ? <ShowModule />  : <Redirect/>} />

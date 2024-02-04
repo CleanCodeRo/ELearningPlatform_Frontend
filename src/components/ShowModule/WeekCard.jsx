@@ -12,7 +12,8 @@ export default function WeekCard({ id, title, subtitle, image }) {
   const navigate = useNavigate();
   const params = useParams();
 
-  const deleteWeek = async () => {
+  const deleteWeek = async (e) => {
+    e.stopPropagation();
     try {
       await fetch(`http://localhost:8080/weeks?weekId=${id}`, {
         method: "DELETE",
@@ -33,8 +34,8 @@ export default function WeekCard({ id, title, subtitle, image }) {
       name="wholeCard"
       id={id}
       ref={weekCard}
-      onClick={(event) => {
-        event.stopPropagation();
+      onClick={(e) => {
+        e.stopPropagation();
         navigate(`/home/module/${params.moduleId}/week/${id}`);
       }}
       className="flex flex-col relative cursor-pointer min-w-40  max-w-80  bg-fifth rounded-2xl mx-3 p-1 border-b-[3px] border-transparent hover:border-light-blue-200 shadow-xl hover:shadow-light-blue-100 duration-100"
@@ -62,18 +63,17 @@ export default function WeekCard({ id, title, subtitle, image }) {
           </MenuHandler>
           <MenuList className=" bg-first bg-opacity-40 backdrop-blur-md border-0 text-sixth ">
             <MenuItem
-              onClick={(event) => {
-                event.stopPropagation();
-                deleteWeek();
+              onClick={(e) => {
+                deleteWeek(e);
               }}
               className="bg-first bg-opacity-80 mb-1"
             >
               <i className="fa-solid fa-trash-can mr-1" /> Delete
             </MenuItem>
             <MenuItem
-              onClick={(event) => {
+              onClick={(e) => {
                 {
-                  event.stopPropagation();
+                  e.stopPropagation();
                   navigate(`/home/module/${params.moduleId}/editWeek/${id}`);
                 }
               }}

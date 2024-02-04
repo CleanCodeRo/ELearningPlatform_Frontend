@@ -13,7 +13,7 @@ export default function LessonCard({ id, name, description, gitHubLink }) {
   const params = useParams();
 
   const deleteLesson = async (e) => {
-    e.preventDefault();
+    e.stopPropagation();
 
     try {
       await fetch(`http://localhost:8080/lessons?lessonId=${id}`, {
@@ -38,14 +38,14 @@ export default function LessonCard({ id, name, description, gitHubLink }) {
         </MenuHandler>
         <MenuList className=" bg-first bg-opacity-40 backdrop-blur-md border-0 text-sixth ">
           <MenuItem
-            onClick={(event) => { event.stopPropagation(); deleteLesson(event)}}
+            onClick={(e) => {  deleteLesson(e)}}
             className="bg-first bg-opacity-80 mb-1"
           >
             <i className="fa-solid fa-trash-can mr-1" /> Delete
           </MenuItem>
           <MenuItem
-            onClick={(event) => {
-              event.stopPropagation();
+            onClick={(e) => {
+              e.stopPropagation();
               navigate(
                 `/home/module/${params.moduleId}/week/${params.weekId}/editLesson/${id}`
               );

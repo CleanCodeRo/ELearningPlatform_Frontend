@@ -11,7 +11,8 @@ export default function ModuleCard({ id, title, subtitle, image }) {
   let moduleCard = useRef(null);
   const navigate = useNavigate();
 
-  const deleteModule = async (event) => {
+  const deleteModule = async (e) => {
+    e.stopPropagation();
     try {
       await fetch(`http://localhost:8080/modules?moduleId=${id}`, {
         method: "DELETE",
@@ -58,17 +59,16 @@ export default function ModuleCard({ id, title, subtitle, image }) {
           </MenuHandler>
           <MenuList className=" bg-first bg-opacity-40 backdrop-blur-md border-0 text-sixth ">
             <MenuItem
-              onClick={(event) => {
-                event.stopPropagation();
-                deleteModule(event);
+              onClick={(e) => {
+                deleteModule(e);
               }}
               className="bg-first bg-opacity-80 mb-1"
             >
               <i className="fa-solid fa-trash-can mr-1" /> Delete
             </MenuItem>
             <MenuItem
-              onClick={(event) => {
-                event.stopPropagation();
+              onClick={(e) => {
+                e.stopPropagation();
                 navigate(`/editModule/${id}`);
               }}
               className="bg-first bg-opacity-80"

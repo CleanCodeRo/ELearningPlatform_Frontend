@@ -10,26 +10,97 @@ import Contact from "./pages/Forms/Contact";
 import ShowModule from "./pages/ShowModule";
 import ModuleCreateAndEdit from "./pages/Forms/ModuleCreateAndEdit";
 import WeekCreateAndEdit from "./pages/Forms/WeekCreateAndEdit";
+import LessonsCreateAndEdit from "./pages/Forms/LessonsCreateAndEdit";
 import Redirect from "./components/Redirect";
 
 export default function App() {
-
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/" element={<PresentationPage /> } />
+        <Route path="/" element={<PresentationPage />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/home" element={!isExpired(localStorage.getItem("ELearningToken")) ? <HomePage /> : <Redirect/>} />
-        <Route path="/createModule" element={ !isExpired(localStorage.getItem("ELearningToken")) ? <ModuleCreateAndEdit /> : <Redirect/>} />
-        <Route path="/editModule/:moduleId" element={!isExpired(localStorage.getItem("ELearningToken")) ? <ModuleCreateAndEdit /> : <Redirect/>} />
-        <Route path="/home/module/:moduleId" element={!isExpired(localStorage.getItem("ELearningToken")) ? <ShowModule />  : <Redirect/>} />
-        <Route path="/home/module/:moduleId/week/:weekId" element={!isExpired(localStorage.getItem("ELearningToken")) ? <ShowModule />  : <Redirect/>} />
-        <Route path="/home/module/:moduleId/editWeek/:weekId" element={ !isExpired(localStorage.getItem("ELearningToken")) ? <WeekCreateAndEdit /> : <Redirect/>} />
-        <Route path="/home/module/:moduleId/createWeek" element={!isExpired(localStorage.getItem("ELearningToken")) ? <WeekCreateAndEdit /> : <Redirect/>} />
+
+        <Route
+          path="/home"
+          element={
+            !isExpired(localStorage.getItem("ELearningToken")) ? (
+              <HomePage />
+            ) : (
+              <Redirect />
+            )
+          }
+        />
+        <Route
+          path="/createModule"
+          element={
+            !isExpired(localStorage.getItem("ELearningToken")) ? (
+              <ModuleCreateAndEdit />
+            ) : (
+              <Redirect />
+            )
+          }
+        />
+        <Route
+          path="/editModule/:moduleId"
+          element={
+            !isExpired(localStorage.getItem("ELearningToken")) ? (
+              <ModuleCreateAndEdit />
+            ) : (
+              <Redirect />
+            )
+          }
+        />
+        <Route
+          path="/home/module/:moduleId"
+          element={
+            !isExpired(localStorage.getItem("ELearningToken")) ? (
+              <ShowModule />
+            ) : (
+              <Redirect />
+            )
+          }
+        />
+        <Route
+          path="/home/module/:moduleId/week/:weekId"
+          element={
+            !isExpired(localStorage.getItem("ELearningToken")) ? (
+              <ShowModule />
+            ) : (
+              <Redirect />
+            )
+          }
+        />
+        <Route
+          path="/home/module/:moduleId/editWeek/:weekId"
+          element={
+            !isExpired(localStorage.getItem("ELearningToken")) ? (
+              <WeekCreateAndEdit />
+            ) : (
+              <Redirect />
+            )
+          }
+        />
+        <Route
+          path="/home/module/:moduleId/createWeek"
+          element={
+            !isExpired(localStorage.getItem("ELearningToken")) ? (
+              <WeekCreateAndEdit />
+            ) : (
+              <Redirect />
+            )
+          }
+        />
+        <Route
+          path="/home/module/:moduleId/week/:weekId/createLesson"
+          element={<LessonsCreateAndEdit />}
+        />
+        <Route
+          path="/home/module/:moduleId/week/:weekId/editLesson/:lessonId"
+          element={<LessonsCreateAndEdit />}
+        />
       </Routes>
     </BrowserRouter>
-    
   );
 }
 

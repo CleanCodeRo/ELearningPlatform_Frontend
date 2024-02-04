@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Menu,
   MenuHandler,
@@ -10,19 +10,23 @@ import {
 export default function WeekCard({ id, title, subtitle, image }) {
   let weekCard = useRef(null);
   const navigate = useNavigate();
-  const params = useParams()
-   
+  const params = useParams();
 
-  const deleteWeek = () => {
-    fetch(`http://localhost:8080/weeks?weekId=${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
-      },
-    }).then(() => {
-        weekCard.current.remove();
-    });
+  const deleteWeek = async (e) => {
+    e.stopPropagation();
+    try {
+      await fetch(`http://localhost:8080/weeks?weekId=${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
+        },
+      });
+
+      window.location.reload();
+    } catch (error) {
+      console.error("Error during DELETE operation:", error);
+    }
   };
 
   return (
@@ -30,7 +34,10 @@ export default function WeekCard({ id, title, subtitle, image }) {
       name="wholeCard"
       id={id}
       ref={weekCard}
-      onClick={() => navigate(`/home/module/${params.moduleId}/week/${id}`)}
+      onClick={(e) => {
+        e.stopPropagation();
+        navigate(`/home/module/${params.moduleId}/week/${id}`);
+      }}
       className="flex flex-col relative cursor-pointer min-w-40  max-w-80  bg-fifth rounded-2xl mx-3 p-1 border-b-[3px] border-transparent hover:border-light-blue-200 shadow-xl hover:shadow-light-blue-100 duration-100"
     >
       <div
@@ -56,13 +63,20 @@ export default function WeekCard({ id, title, subtitle, image }) {
           </MenuHandler>
           <MenuList className=" bg-first bg-opacity-40 backdrop-blur-md border-0 text-sixth ">
             <MenuItem
-              onClick={(event) =>{event.stopPropagation(); deleteWeek()}}
+              onClick={(e) => {
+                deleteWeek(e);
+              }}
               className="bg-first bg-opacity-80 mb-1"
             >
               <i className="fa-solid fa-trash-can mr-1" /> Delete
             </MenuItem>
             <MenuItem
-              onClick={(event) =>{event.stopPropagation(); navigate(`/home/module/${params.moduleId}/editWeek/${id}`)}}
+              onClick={(e) => {
+                {
+                  e.stopPropagation();
+                  navigate(`/home/module/${params.moduleId}/editWeek/${id}`);
+                }
+              }}
               className="bg-first bg-opacity-80"
             >
               <i className="fa-solid fa-pen-to-square mr-1" /> Edit
@@ -101,4 +115,3 @@ export default function WeekCard({ id, title, subtitle, image }) {
     </div>
   );
 }
-

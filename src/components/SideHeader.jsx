@@ -94,6 +94,7 @@ export default function SideHeader() {
         </MenuList>
       </Menu>
       <div
+        onClick={()=>navigate("/home")}
         id="homeButton"
         className=" rounded-full w-[50px] h-[50px] mb-4 mt-7  cursor-pointer fill-white hover:fill-orange-300"
       >

@@ -1,6 +1,6 @@
 export default function FilterButton({ image, title, text }){
     return (
-        <div className="bg-white w-32 h-32 flex justify-center flex-col items-center rounded-3xl ml-10">
+        <div className="bg-white w-32 h-32 flex justify-center flex-col items-center rounded-3xl ml-10 cursor-pointer">
     <div id="icon" className="h-16 w-16 rounded-full flex items-center justify-center">
     <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
  width="256" height="256" viewBox="-80 0 450 256"
@@ -53,7 +53,7 @@ m130 -302 c0 -21 -3 -53 -6 -70 l-6 -31 -72 0 c-87 0 -128 19 -173 78 -18 24
 </svg>
     </div>
     <p className="font-bold uppercase text-center text-[13px] mb-3 text-[#afafaf]">{title}</p>
-    <p className="text-center text-sm">{text}</p>
+    <p className="text-center text-sm text-[#afafaf]">{text}</p>
 </div>
 
     )

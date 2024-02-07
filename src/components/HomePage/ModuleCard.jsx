@@ -33,7 +33,7 @@ export default function ModuleCard({ id, title, subtitle, image }) {
       name="wholeCard"
       id={id}
       ref={moduleCard}
-      className="flex flex-col relative cursor-pointer min-w-40  max-w-80  bg-fifth rounded-2xl mx-3 p-1 border-b-[3px] border-transparent hover:border-light-blue-200 shadow-xl hover:shadow-light-blue-100 duration-100"
+      className="flex flex-col relative cursor-pointer min-w-[18rem]  max-w-80  bg-fifth rounded-2xl mx-3 p-1 border-b-[3px] border-transparent hover:border-light-blue-200 shadow-lg hover:shadow-light-blue-100 duration-100"
       onClick={() => navigate(`module/${id}`)}
     >
       <div

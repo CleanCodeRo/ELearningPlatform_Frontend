@@ -29,7 +29,7 @@ export default function Lessons() {
   }, [params.weekId]);
 
   return (
-    <div className="pt-5 pb-10 px-5 font-inter">
+    <div className="pt-5 pb-10 font-inter" >
       <div className=" flex items-center ">
         <p className="text-4xl p-4 font-bold border-2 rounded-xl text-fourth">
           LESSONS
@@ -48,7 +48,7 @@ export default function Lessons() {
         )}
       </div>
 
-      <div className="grid grid-cols-3 ">
+      <div className="grid grid-cols-3 " >
         {lessons != null ? (
           lessons.map((lesson, index) => (
             <LessonCard

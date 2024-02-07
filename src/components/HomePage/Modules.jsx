@@ -23,7 +23,7 @@ export default function Modules() {
   }, []);
 
   return (
-    <div className="pt-5 pb-10 px-5 font-inter">
+    <div className="pt-5 pb-10" >
       <div id="titleAndAddButton" className="flex items-center ">
         <p className="text-4xl p-4  font-bold border-2 rounded-lg text-fourth">
           MODULES
@@ -36,7 +36,7 @@ export default function Modules() {
         </Link>
       </div>
 
-      <div className="flex items-center py-3">
+      <div className="flex items-center py-7 overflow-x-scroll w-full custom-scrollbar">
         {modules?.map((module, index) => (
           <ModuleCard
             key={index}

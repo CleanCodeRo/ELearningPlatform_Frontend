@@ -30,9 +30,9 @@ export default function ModuleCreateAndEdit() {
         .then((data) => {
           setModuleById(data);
         })
-        .catch(() =>{
-          navigate("/login")
-         })
+        .catch(() => {
+          navigate("/login");
+        });
     }
   }, [params.moduleId]);
 
@@ -62,9 +62,9 @@ export default function ModuleCreateAndEdit() {
         console.log(data);
         navigate("/home");
       })
-      .catch(() =>{
-        navigate("/login")
-       })
+      .catch(() => {
+        navigate("/login");
+      });
   };
 
   const saveModule = () => {
@@ -94,9 +94,9 @@ export default function ModuleCreateAndEdit() {
         console.log(data);
         navigate("/home");
       })
-      .catch(() =>{
-        navigate("/login")
-       })
+      .catch(() => {
+        navigate("/login");
+      });
   };
 
   return (
@@ -105,7 +105,9 @@ export default function ModuleCreateAndEdit() {
         <img src="/images/CleanCode-removebg-preview.png" />
         <div className="relative mx-4 -mt-6 mb-4 grid h-28 place-items-center overflow-hidden rounded-xl bg-gradient-to-tr from-cyan-600 to-cyan-400 bg-clip-border text-white shadow-lg shadow-cyan-500/40">
           <h3 className="block font-sans text-3xl font-semibold leading-snug tracking-normal text-white antialiased">
-            {params.moduleId !== undefined ? "Edit your Module" : "Create new module"}{" "}
+            {params.moduleId !== undefined
+              ? "Edit your Module"
+              : "Create new module"}{" "}
           </h3>
         </div>
         <div className="flex flex-col gap-4 p-6">

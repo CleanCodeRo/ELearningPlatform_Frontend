@@ -21,7 +21,7 @@ export default function SideHeader() {
   };
 
   return (
-    <div className="bg-fifth min-w-20 h-screen flex flex-col items-center sticky top-0">
+    <div className="bg-[#dddcdc] min-w-20 h-screen flex flex-col items-center sticky top-0 border rounded-r-3xl">
       <Menu className="flex justify-end !mt-7">
         <MenuHandler>
           <Avatar
@@ -96,7 +96,7 @@ export default function SideHeader() {
       <div
         onClick={()=>navigate("/home")}
         id="homeButton"
-        className=" rounded-full w-[50px] h-[50px] mb-4 mt-7  cursor-pointer fill-white hover:fill-orange-300"
+        className=" rounded-full w-[50px] h-[50px] mb-4 mt-7  cursor-pointer fill-[#afafaf] hover:fill-[#2c8dfe]"
       >
          <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -113,7 +113,7 @@ export default function SideHeader() {
       </div>
       <div
         id="coursesButton"
-        className=" rounded-full w-[50px] h-[50px] mb-4 mt-7 cursor-pointer fill-white hover:fill-orange-300"
+        className=" rounded-full w-[50px] h-[50px] mb-4 mt-7 cursor-pointer fill-[#afafaf] hover:fill-[#2c8dfe]"
       >
         <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +130,7 @@ export default function SideHeader() {
       </div>
       <div
         id="savedButton"
-        className=" rounded-full w-[50px] h-[50px] mb-4 mt-7 cursor-pointer fill-white hover:fill-orange-300"
+        className=" rounded-full w-[50px] h-[50px] mb-4 mt-7 cursor-pointer fill-[#afafaf] hover:fill-[#2c8dfe]"
       >
         <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -147,7 +147,7 @@ export default function SideHeader() {
       </div>
       <div
   id="myKatasButton"
-  className=" rounded-full w-[50px] h-[50px] mb-4 mt-7 cursor-pointer fill-white hover:fill-orange-300 "
+  className=" rounded-full w-[50px] h-[50px] mb-4 mt-7 cursor-pointer fill-[#afafaf] hover:fill-[#2c8dfe] "
 >
   <svg
   

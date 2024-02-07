@@ -2,6 +2,7 @@ import React from "react";
 import Modules from "../components/HomePage/Modules";
 import SpecialKatas from "../components/HomePage/SpecialKatas";
 import SideHeader from "../components/SideHeader";
+import FilterButtons from "../components/Category";
 
 function HomePage() {
   return (
@@ -10,6 +11,7 @@ function HomePage() {
 
       <div className="flex flex-col w-screen">
         <Modules />
+        <FilterButtons/>
         <SpecialKatas />
       </div>
     </div>

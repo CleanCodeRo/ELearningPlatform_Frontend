@@ -27,7 +27,7 @@ export default function App() {
             !isExpired(localStorage.getItem("ELearningToken")) ? (
               <HomePage />
             ) : (
-              <Redirect />
+              <HomePage />
             )
           }
         />

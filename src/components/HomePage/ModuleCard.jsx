@@ -33,7 +33,7 @@ export default function ModuleCard({ id, title, subtitle, image }) {
       name="wholeCard"
       id={id}
       ref={moduleCard}
-      className="flex flex-col relative cursor-pointer min-w-[18rem]  max-w-80  bg-fifth rounded-2xl mx-3 p-1 border-b-[3px] border-transparent hover:border-light-blue-200 shadow-lg hover:shadow-light-blue-100 duration-100"
+      className="flex flex-col relative cursor-pointer min-w-40  max-w-80  bg-white rounded-2xl mx-3 p-1 border-b-[3px] border-transparent  shadow-md hover:shadow-[#2c8dfe] duration-100"
       onClick={() => navigate(`module/${id}`)}
     >
       <div
@@ -43,7 +43,7 @@ export default function ModuleCard({ id, title, subtitle, image }) {
       ></div>
       <div
         id="title"
-        className=" bg-first w-fit p-2 rounded-xl my-0  top-0"
+        className=" bg-[#2c8dfe] w-fit p-2 rounded-xl my-0  top-0"
         style={{ margin: "-16px 0 0 7px" }}
       >
         {title}
@@ -57,7 +57,7 @@ export default function ModuleCard({ id, title, subtitle, image }) {
           <MenuHandler>
             <i className="fa-solid fa-pen p-1"></i>
           </MenuHandler>
-          <MenuList className=" bg-first bg-opacity-40 backdrop-blur-md border-0 text-sixth ">
+          <MenuList className=" bg-first bg-opacity-40 backdrop-blur-md border-0 text-[#afafaf] ">
             <MenuItem
               onClick={(e) => {
                 deleteModule(e);
@@ -80,18 +80,18 @@ export default function ModuleCard({ id, title, subtitle, image }) {
       </div>
 
       <div id="other info" className="flex flex-col p-2">
-        <p id="subtitle" className="text-3xl line-clamp-1">
+        <p id="subtitle" className="text-3xl line-clamp-1 text-[#afafaf]">
           {subtitle}
         </p>
 
         <div id="three details" className="flex py-2 justify-between">
           <div id="group Div For Flex" className="flex items-center">
-            <div id="time" className="flex items-center mr-4">
+            <div id="time" className="flex items-center mr-4 text-[#afafaf]">
               <i className="fa-solid fa-clock mr-1"></i>
               <p>1h 53min</p>
             </div>
 
-            <div id="rating" className="flex items-center mr-4">
+            <div id="rating" className="flex items-center mr-4 text-[#afafaf]">
               <i className="fa-solid fa-star mr-1"></i>
               <p>4.3/5</p>
             </div>
@@ -99,7 +99,7 @@ export default function ModuleCard({ id, title, subtitle, image }) {
 
           <div
             id="price"
-            className="flex items-center bg-black py-3 px-6 rounded-3xl"
+            className="flex items-center bg-[#2c8dfe] py-3 px-6 rounded-3xl"
           >
             <i className="fa-solid fa-dollar-sign "></i>
             <p className="">18</p>

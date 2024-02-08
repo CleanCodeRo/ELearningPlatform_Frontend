@@ -23,7 +23,7 @@ const KataCarousel = () => {
       
 
   return (
-    <Slider {...settings} className="flex flex-wrap mx-auto w-4/5">
+    <Slider {...settings} className="flex mx-auto w-4/5">
        <KataCard category="Fundamentals" name="Let' test" price={5} imageUrl="https://www.pngall.com/wp-content/uploads/14/Katana-PNG-Photos.png" bgColor="red" />
          <KataCard category="Fundamentals" name="Let' test" price={5} imageUrl="https://www.pngall.com/wp-content/uploads/14/Katana-PNG-Photos.png" bgColor="green" />
          <KataCard category="Fundamentals" name="Let' test" price={5} imageUrl="https://www.pngall.com/wp-content/uploads/14/Katana-PNG-Photos.png" bgColor="red" />

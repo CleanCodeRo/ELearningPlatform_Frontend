@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 export default function FilterButton({ image, title, text }) {
   return (
-    <div className="bg-white w-32 h-32 flex justify-center flex-col items-center rounded-3xl ml-10 cursor-pointer">
+    <div className="bg-tertiary/50 border-tertiary border-2 hover:bg-tertiary w-32 h-32 flex justify-center flex-col items-center rounded-3xl ml-10 cursor-pointer">
       <div
         id="icon"
         className="h-16 w-16 rounded-full flex items-center justify-center"
@@ -16,7 +16,7 @@ export default function FilterButton({ image, title, text }) {
         >
           <g
             transform="translate(0.000000,256.000000) scale(0.100000,-0.100000)"
-            fill="#afafaf"
+            fill="white"
             stroke="none"
           >
             <path
@@ -69,10 +69,10 @@ m130 -302 c0 -21 -3 -53 -6 -70 l-6 -31 -72 0 c-87 0 -128 19 -173 78 -18 24
           </g>
         </svg>
       </div>
-      <p className="font-bold uppercase text-center text-[13px] mb-3 text-[#afafaf]">
+      <p className="font-bold uppercase text-center text-[13px] mb-3 text-white">
         {title}
       </p>
-      <p className="text-center text-sm text-[#afafaf]">{text}</p>
+      <p className="text-center text-sm text-white">{text}</p>
     </div>
   );
 }

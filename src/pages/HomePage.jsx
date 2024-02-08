@@ -6,13 +6,13 @@ import FilterButtons from "../components/Category";
 
 function HomePage() {
   return (
-    <div className=" select-none flex flex-row text-sixth">
+    <div className="select-none flex flex-row text-quaternary">
       <SideHeader />
-
-      <div className="flex flex-col px-5" style={{width : "calc(100vw - 5rem)"}}>
+      <div className="flex flex-col w-[95%] md:mx-[5rem]">
         <Modules />
         <FilterButtons/>
-        <SpecialKatas />
+        {/* strica inaltimea screen pe homepage fix sau inlocuite cu alt carusel hmmmmm.........*/}
+        {/* <SpecialKatas />  */}
       </div>
     </div>
   );

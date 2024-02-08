@@ -16,8 +16,8 @@ export default function SpecialKatas() {
 
 
   return (
-    <div id="conatainer" className=" w-full   pt-5 pb-10">
-      <p id="title" className="text-4xl p-4 text-fourth  font-bold ">Endless learning</p>
+    <div id="conatainer" className="w-full">
+      <p id="title" className="4xs:text-2xl text-quaternary mx-5 p-5 font-semibold">Endless learning</p>
 
       <div id="containerSlider" className=" flex justify-center items-center " >
 

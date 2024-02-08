@@ -6,13 +6,7 @@ const PresentationFooter = () => {
   return (
     <footer className="relative w-full font-inter text-lg py-4">
       <div className="mx-auto w-full max-w-7xl px-8">
-        <Typography
-          variant="small"
-          className="mb-4 text-center font-normal text-blue-gray-900 md:mb-0 font-inter"
-        >
-          &copy; {currentYear} <a >CleanCode Solutions</a>. All
-          Rights Reserved.
-        </Typography>
+        
         <div className="flex gap-4 text-blue-gray-900 justify-center my-3">
           <Typography
             id="facebook"
@@ -92,8 +86,16 @@ const PresentationFooter = () => {
               </svg>
             </a>
           </Typography>
+          
 
         </div>
+        <Typography
+          variant="small"
+          className="mb-4 text-center font-normal text-blue-gray-900 md:mb-0 font-inter"
+        >
+          &copy; {currentYear} <a >CleanCode Solutions</a>. All
+          Rights Reserved.
+        </Typography>
       </div>
     </footer>
   );

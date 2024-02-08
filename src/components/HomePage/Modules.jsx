@@ -26,20 +26,20 @@ export default function Modules() {
   }, []);
 
   return (
-    <div className="pt-5 pb-10" >
-      <div id="titleAndAddButton" className="flex items-center ">
-        <p className="text-4xl p-4  font-bold  rounded-lg text-fourth">
+    <div className="p-5" >
+      <div id="titleAndAddButton" className="flex items-center">
+        <h1 className="4xs:text-2xl mx-5 text-quaternary font-semibold">
           Modules
-        </p>
+        </h1>
         <Link
           to="/createModule"
-          className="h-10 w-10 rounded-full bg-fourth flex items-center justify-center text-xl mx-2 hover:bg-[#2c8dfe]"
+          className="h-10 w-10 rounded-full bg-gray-500 flex items-center justify-center text-xl mx-2 hover:bg-accent"
         >
-          <i className="fa-solid fa-plus"></i>
+          <i className="fa-solid fa-plus text-white hover:text-black text-center"></i>
         </Link>
       </div>
 
-      <div className="flex items-center py-7 overflow-x-scroll w-full custom-scrollbar">
+      <div className="flex py-7 overflow-x-scroll w-[95%] custom-scrollbar">
       {modules?.map((module, index) => (
           <ModuleCard
             key={index}

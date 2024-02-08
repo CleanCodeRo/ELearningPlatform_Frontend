@@ -8,3 +8,18 @@
     background-color:#f5f5f5;
     overflow-x: hidden;
 }
+#beginTraining{
+    background: rgb(234,142,58);
+background: linear-gradient(175deg, rgba(234,142,58,1) 4%, rgba(221,132,55,1) 20%, rgba(215,127,54,1) 35%, rgba(207,121,52,1) 59%, rgba(135,66,39,1) 100%);
+}
+
+
+
+
+
+@font-face {
+    font-family: 'Ninja'; /* Font family name */
+    src: url('/public/Fonts/AssassinNinja-7BYyR.ttf') format('truetype'); /* Path to your font file */
+    font-weight: normal; /* Font weight */
+    font-style: normal; /* Font style */
+  }

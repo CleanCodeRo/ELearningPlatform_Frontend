@@ -14,7 +14,8 @@ module.exports = withMT({
         sixth : "#F8F6F0"  // for text pearl white
       },
       fontFamily : {
-        "inter" : "Inter, sans-serif"
+        "inter" : "Inter, sans-serif",
+        "ninja" : ['Ninja','sans']
       },
       screens:{
           xxs: "300px",

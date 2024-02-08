@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ModuleCard from "./ModuleCard";
 import { Link } from "react-router-dom";
+import Loading from "../Loading/Loading";
 
 export default function Modules() {
   const [modules, setModules] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("http://localhost:8080/modules", {
@@ -16,8 +18,10 @@ export default function Modules() {
       .then((res) => res.json())
       .then((data) => {
         setModules(data);
+        setLoading(false);
       })
       .catch((err) => {
+        console.log(err)
         navigate("/login");
       });
   }, []);
@@ -36,7 +40,14 @@ export default function Modules() {
         </Link>
       </div>
 
-      <div className="flex items-center py-7 overflow-x-scroll w-full custom-scrollbar">
+      { loading ?
+      <div id="loading" className="w-full h-[10rem] flex items-center justify-center">
+        <Loading/>
+      </div>
+ 
+        :
+
+      <div id="listOfModules" className="flex items-center py-7 overflow-x-scroll w-full custom-scrollbar">
       {modules?.map((module, index) => (
           <ModuleCard
             key={index}
@@ -46,9 +57,10 @@ export default function Modules() {
             image={module.imgLink}
           />
         ))} 
-      
-        
       </div>
+      }
+
+
     </div>
   );
 }

@@ -7,7 +7,7 @@ import {
   MenuItem,
 } from "@material-tailwind/react";
 
-export default function WeekCard({ id, title, subtitle, image }) {
+export default function WeekCard({ id, title, subtitle, image, setLoadingLessons }) {
   let weekCard = useRef(null);
   const navigate = useNavigate();
   const params = useParams();
@@ -37,6 +37,7 @@ export default function WeekCard({ id, title, subtitle, image }) {
       onClick={(e) => {
         e.stopPropagation();
         navigate(`/home/module/${params.moduleId}/week/${id}`);
+        setLoadingLessons(true);
       }}
       className="flex flex-col relative cursor-pointer min-w-[18rem]  max-w-80  bg-fifth rounded-2xl mx-3 p-1 border-b-[3px] border-transparent hover:border-light-blue-200 shadow-lg hover:shadow-light-blue-100 duration-100"
     >

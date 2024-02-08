@@ -11,6 +11,7 @@ import {
 
 export default function SideHeader() {
   const navigate = useNavigate();
+
   const logout = (e) => {
     e.preventDefault();
 

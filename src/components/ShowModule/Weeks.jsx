@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import WeekCard from "./WeekCard";
+import Loading from "../Loading/Loading";
 
-export default function Weeks() {
+export default function Weeks({setLoadingLessons}) {
   const [weeks, setWeeks] = useState(null);
+  const [loading, setLoading] = useState(true);
   const params = useParams();
   const navigate = useNavigate();
 
@@ -18,6 +20,7 @@ export default function Weeks() {
       .then((res) => res.json())
       .then((data) => {
         setWeeks(data);
+        setLoading(false)
       })
       .catch((err) => {
         navigate("/login");
@@ -36,24 +39,34 @@ export default function Weeks() {
           </button>
         </Link>
       </div>
-    
-      <div className="flex items-center py-7  overflow-x-scroll custom-scrollbar" >
-        {weeks && weeks.length > 0 ? (
-          weeks.map((week, index) => (
-            <WeekCard
-              key={index}
-              id={week.id}
-              title={`Week ${week.number}`}
-              subtitle={week.name}
-              image={week.imgLink}
-            />
-          ))
-        ) : (
-          <div className="col-span-4 text-4xl text-center my-10">
-            - Add a week -
-          </div>
-        )}
-      </div>
+
+
+      {loading ?
+        <div id="loading" className="w-full h-[10rem] flex items-center justify-center">
+          <Loading />
+        </div>
+
+        :
+
+        <div id="listOfWeek" className="flex items-center py-7  overflow-x-scroll custom-scrollbar" >
+          {weeks && weeks.length > 0 ? (
+            weeks.map((week, index) => (
+              <WeekCard
+                key={index}
+                id={week.id}
+                title={`Week ${week.number}`}
+                subtitle={week.name}
+                image={week.imgLink}
+                setLoadingLessons={setLoadingLessons}
+              />
+            ))
+          ) : (
+            <div className="col-span-4 text-4xl text-center my-10 text-fourth">
+              - Add a week -
+            </div>
+          )}
+        </div>
+       } 
     </div>
   );
 }

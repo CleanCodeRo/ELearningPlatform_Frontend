@@ -13,6 +13,7 @@ import WeekCreateAndEdit from "./pages/Forms/WeekCreateAndEdit";
 import LessonsCreateAndEdit from "./pages/Forms/LessonsCreateAndEdit";
 import Redirect from "./components/Redirect";
 import NewKataCard from "./components/NewKataCard";
+import Loading from "./components/Loading/Loading";
 
 export default function App() {
   return (

@@ -1,11 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import KataCard from './KataCard';
 import NewKataCard from './NewKataCard';
+import { useNavigate } from 'react-router-dom';
 
 const Carousel = () => {
+  const [katas,setKatas] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch("http://localhost:8080/katas", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setKatas(data);
+        console.log(data);
+      })
+      .catch((err) => {
+        // navigate("/login");
+        console.log(err)
+        
+      });
+  }, []);
+
+
+
+
+
     const settings = {
         infinite: true,
         speed: 500,
@@ -52,9 +80,9 @@ const Carousel = () => {
       
     return (
       <Slider {...settings} className="flex mx-auto w-4/5">
-      {[...Array(30)].map((_, index) => (
+      {katas && katas.map((kata, index) => (
           <div key={index} className="mx-2">
-              <NewKataCard />
+              <NewKataCard kata={kata}/>
           </div>
       ))}
   </Slider>
@@ -62,3 +90,10 @@ const Carousel = () => {
 };
 
 export default Carousel;
+
+
+// {[...Array(30)].map((_, index) => (
+//   <div key={index} className="mx-2">
+//       <NewKataCard />
+//   </div>
+// ))}

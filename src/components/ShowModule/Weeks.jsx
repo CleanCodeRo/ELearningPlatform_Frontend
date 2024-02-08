@@ -28,11 +28,11 @@ export default function Weeks() {
   return (
     <div className="pt-5 pb-10 px-5  ">
       <div id="titleAndAddButton" className="flex items-center ">
-        <p className="text-4xl p-4  font-bold border-2 rounded-xl text-fourth">
+        <p className="text-2xl p-4 font-bold rounded-xl text-quaternary">
           WEEKS
         </p>
         <Link to={`/home/module/${params.moduleId}/createWeek`}>
-          <button className="h-10 w-10 rounded-full bg-fifth flex items-center justify-center text-xl mx-2">
+          <button className="h-10 w-10 rounded-full bg-gray-500 flex items-center justify-center text-xl mx-2 hover:bg-accent hover:text-black">
             <i className="fa-solid fa-plus"></i>
           </button>
         </Link>
@@ -50,7 +50,7 @@ export default function Weeks() {
             />
           ))
         ) : (
-          <div className="col-span-4 text-4xl text-center my-10">
+          <div className="col-span-4 text-xl text-center my-10 text-gray-600">
             - Add a week -
           </div>
         )}

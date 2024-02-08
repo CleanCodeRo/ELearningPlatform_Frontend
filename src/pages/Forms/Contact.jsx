@@ -1,12 +1,17 @@
 const Contact = () => {
+
+  const homeRoute = () => {
+    window.location.href = "/home";
+  }
+
   return (
-    <div className="flex justify-center items-center p-2 w-screen h-screen font-inter">
+    <div className="flex justify-center items-center p-2 w-screen h-screen font-inter select-none">
       <div className="relative flex w-[480px] h-fit flex-col rounded-xl bg-gray-300 bg-clip-border text-gray-700 shadow-md">
         <div className="flex justify-center">
-          <img src="/images/CleanCode-removebg-preview.png"/>
+          <img src="/images/CleanCode-removebg-preview.png" draggable={false}/>
         </div>
-        <div className="relative mx-4 -mt-6 mb-4 grid h-28 place-items-center overflow-hidden rounded-xl bg-gradient-to-tr from-fourth to-fifth bg-clip-border text-gray-700 shadow-lg shadow-cyan-500/40">
-          <h3 className="block  text-3xl font-semibold leading-snug tracking-normal text-white antialiased">
+        <div className="relative mt-[-50px] mx-6 mb-4 grid h-20 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-tr from-cyan-600 to-cyan-400 bg-clip-border text-white shadow-lg shadow-cyan-500/40">
+          <h3 className="block font-sans text-xl font-semibold leading-snug tracking-normal text-white antialiased">
             Contact
           </h3>
         </div>
@@ -34,15 +39,13 @@ const Contact = () => {
           </div>
         </div>
 
-        <div className="font-semibold flex items-center justify-center pt-3 pb-5">
-          <button className=" my-2 xs:my-0 px-8 py-5 bg-fifth rounded-lg text-sixth mr-4 shadow-md shadow-fourth">
+        <div className="font-semibold flex flex-col gap-3 items-center justify-center pt-3 pb-5">
+          <button className="block mb-3 w-[90%] select-none rounded-lg bg-gradient-to-tr from-cyan-600 to-cyan-400 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-cyan-500/20 transition-all hover:shadow-lg hover:shadow-cyan-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
             Send
           </button>
-          <a href="/home">
-            <button className=" my-2 xs:my-0 px-8 py-5 bg-sixth rounded-lg text-fifth mr-4 shadow-md shadow-fourth">
+          <button onClick={homeRoute} className="block mb-3 w-[90%] select-none rounded-lg bg-gray-400 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-red-500/20 transition-all hover:shadow-lg hover:shadow-red-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none hover:text-red-400">
               Cancel
-            </button>
-          </a>
+          </button>
         </div>
       </div>
     </div>

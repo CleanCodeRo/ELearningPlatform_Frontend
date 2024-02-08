@@ -103,9 +103,9 @@ export default function WeekCreateAndEdit() {
     <div className="flex justify-center items-center p-2 w-screen h-screen font-inter">
       <div className="relative flex w-96 h-fit flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
         <img src="/images/CleanCode-removebg-preview.png" />
-        <div className="relative mx-4 -mt-6 mb-4 grid h-28 place-items-center overflow-hidden rounded-xl bg-gradient-to-tr from-cyan-600 to-cyan-400 bg-clip-border text-white shadow-lg shadow-cyan-500/40">
-          <h3 className="block font-sans text-3xl font-semibold leading-snug tracking-normal text-white antialiased">
-            {params.weekId !== undefined ? "Edit your Week" : "Create new Week"}{" "}
+        <div className="relative mt-[-50px] mx-6 mb-4 grid h-20 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-tr from-cyan-600 to-cyan-400 bg-clip-border text-white shadow-lg shadow-cyan-500/40">
+          <h3 className="block font-sans text-xl font-semibold leading-snug tracking-normal text-white antialiased">
+            {params.weekId !== undefined ? "Edit your Week" : "Create New Week"}{" "}
           </h3>
         </div>
         <div className="flex flex-col gap-4 p-6">
@@ -146,15 +146,15 @@ export default function WeekCreateAndEdit() {
             {error}
           </div>
         )}
-        <div className="font-semibold flex items-center justify-center pt-3 pb-5">
+        <div className="font-semibold flex flex-col items-center justify-center pt-3 pb-5">
           <button
             onClick={params.weekId !== undefined ? editWeek : saveWeek}
-            className=" my-2 xs:my-0 px-8 py-5 bg-fifth rounded-lg text-sixth mr-4 shadow-md shadow-fourth"
+            className=" block mb-3 w-[90%] select-none rounded-lg bg-gradient-to-tr from-cyan-600 to-cyan-400 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-cyan-500/20 transition-all hover:shadow-lg hover:shadow-cyan-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
           >
             {params.weekId !== undefined ? "Save" : "Create"}
           </button>
          
-            <button onClick={() => window.history.back()} className=" my-2 xs:my-0 px-8 py-5 bg-sixth rounded-lg text-fifth mr-4 shadow-md shadow-fourth">
+            <button onClick={() => window.history.back()} className="block mb-3 w-[90%] select-none rounded-lg bg-gray-400 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-red-500/20 transition-all hover:shadow-lg hover:shadow-red-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none hover:text-red-400">
               Cancel
             </button>
           

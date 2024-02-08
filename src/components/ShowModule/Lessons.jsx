@@ -31,7 +31,7 @@ export default function Lessons() {
   return (
     <div className="pt-5 pb-10 font-inter" >
       <div className=" flex items-center ">
-        <p className="text-4xl p-4 font-bold border-2 rounded-xl text-fourth">
+        <p className="text-2xl p-4 font-bold rounded-xl text-quaternary">
           LESSONS
         </p>
         {params.weekId && (
@@ -60,7 +60,7 @@ export default function Lessons() {
             />
           ))
         ) : (
-          <div className="col-span-4 text-4xl text-center my-10">
+          <div className="col-span-4 text-xl text-center my-10 text-gray-500">
             - No week selected -
           </div>
         )}

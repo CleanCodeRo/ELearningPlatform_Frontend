@@ -1,35 +1,35 @@
-import React from "react";
+
 import { Link } from "react-router-dom";
 
 const PresentationHero = () => {
   return (
     <div
       id="ParentHolder"
-      className="grid grid-cols-2 w-full px-[2rem] smd:px-[6rem] py-5 xs:py-16 lg:py-20 font-inter relative"
+      className="min-h-[84vh] grid grid-cols-2 items-center justify-center w-[95%] px-[2rem] smd:px-[6rem] py-5 xs:py-16 lg:py-20 font-inter relative"
     >
-      <div id="TitleAndButtons" className=" mt-10 col-span-2 lg:col-span-1">
-        <p className="text-3xl xs:text-4xl smd:text-5xl px1400:text-[4rem] leading-snug  tracking-wide  font-bold">
-          Up Your <span className=" text-fourth">Skills</span> <br /> To{" "}
-          <span className=" text-fourth">Advance</span> Your <br />{" "}
-          <span className=" text-fourth">Career</span> Path
-        </p>
-        <p className="text-xs xs:text-sm smd:text-base px1400:text-lg  text-gray-800 tracking-wide ">
+      <div id="TitleAndButtons" className="mt-10 col-span-2 lg:col-span-1 md:ml-20 ">
+        <h1 className="4xs:text-2xl xs:text-3xl sm:text-4xl md:text-5xl leading-snug tracking-wide font-bold">
+          Up Your <span className=" text-highlight">Skills</span> <br /> To{" "}
+          <span className="text-highlight">Advance</span> Your <br />{" "}
+          <span className="text-highlight">Career</span> Path
+        </h1>
+        <h4 className="text-gray-700 lg:text-md tracking-wide ">
           Learn Full Stack Development, UI-UX Design skills with weekend UX .
           The latest online learning system and material that help your
           knowledge growing.
-        </p>
+        </h4>
 
         <div
           id="buttons"
-          className="flex flex-col xs:flex-row items-center text-base smd:text-xl font-bold my-7 smd:my-14"
+          className="flex flex-col xs:flex-row items-center text-base font-bold my-7 gap-5 "
         >
           <Link to="/contact">
-            <button className=" my-2 xs:my-0 px-8 py-5 bg-fourth rounded-lg text-light-green-50 mr-4 shadow-sm shadow-[#20B486]">
+            <button className="my-2 xs:my-0 px-8 py-5 bg-secondary rounded-lg text-light-green-50 hover:bg-accent hover:text-black">
               Get Started
             </button>
           </Link>
           <Link to="/contact">
-            <button className="my-2 xs:my-0 px-8 py-5 text-fourth rounded-lg bg-[#EAFFF9] shadow-sm shadow-[#EAFFF9]">
+            <button className="my-2 xs:my-0 px-8 py-5 text-gray-800 rounded-lg bg-[#EAFFF9] hover:bg-tertiary/85 hover:text-white">
               Get Free Trail
             </button>
           </Link>
@@ -38,18 +38,18 @@ const PresentationHero = () => {
 
       <div
         id="PhotoPart"
-        className="flex items-center justify-end px1400:justify-center col-span-2 xs:col-span-1 "
+        className="flex items-center justify-end col-span-2 xs:col-span-1"
       >
         <img
-          className="rounded-lg rounded-tr-[6rem] rounded-bl-[6rem] lg:rounded-full  w-[25rem] px1400:w-[35rem]"
+          className="rounded-lg rounded-tr-[6rem] rounded-bl-[6rem] lg:rounded-full  w-[25rem] 2xl:w-[30rem] 2xl:ml-96 shadow-2xl"
           draggable={false}
           src="/images/CleanCode.jpg"
         />
       </div>
 
-      <div
+      {/* <div
         id="perks"
-        className="flex flex-col lg:flex-row items-center justify-center lg:justify-start col-span-2 xs:col-span-1 lg:!col-span-2 text-sm smd:text-base py-10 xs:py-0"
+        className="flex flex-col md:flex-row ml-[50px] "
       >
         <div className="flex items-center mx-3 bg-[#EAFFF9] shadow-sm shadow-[#EAFFF9] p-3 rounded-lg ">
           <svg
@@ -115,7 +115,7 @@ const PresentationHero = () => {
           </svg>
           <p>Creative Thinking</p>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

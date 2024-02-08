@@ -1,18 +1,22 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/prop-types */
 // import { useContext } from "react";
 // import { UserContext } from "./LoginService";
+import { useNavigate } from "react-router-dom";
 
 const Login = ({ username, setUsername, password, setPassword, login,error }) => {
   // const [user] = useContext(UserContext);
+  const navigate = useNavigate();
 
   return (
-    <div className="flex justify-center items-center p-2 w-screen h-screen">
+    <div className="flex bg-primary justify-center items-center p-2 w-screen h-screen select-none">
       <div className="relative flex w-96 h-fit flex-col rounded-xl bg-gray-300 bg-clip-border text-gray-700 shadow-md">
         <div className="flex justify-center">
           <img src="images/CleanCode-removebg-preview.png" />
         </div>
 
-        <div className="relative mx-4 -mt-6 mb-4 grid h-28 place-items-center overflow-hidden rounded-xl bg-gradient-to-tr from-cyan-600 to-cyan-400 bg-clip-border text-white shadow-lg shadow-cyan-500/40">
-          <h3 className="block font-sans text-3xl font-semibold leading-snug tracking-normal text-white antialiased">
+        <div className="relative mt-[-50px] mx-6 mb-4 grid h-20 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-tr from-cyan-600 to-cyan-400 bg-clip-border text-white shadow-lg shadow-cyan-500/40">
+          <h3 className="block font-sans text-xl font-semibold leading-snug tracking-normal text-white antialiased">
             E-Learning
           </h3>
         </div>
@@ -49,7 +53,7 @@ const Login = ({ username, setUsername, password, setPassword, login,error }) =>
             data-ripple-light="true"
             type="button"
             onClick={(e) => login(e)}
-            className="block w-full select-none rounded-lg bg-gradient-to-tr from-cyan-600 to-cyan-400 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-cyan-500/20 transition-all hover:shadow-lg hover:shadow-cyan-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            className="block mb-3 w-full select-none rounded-lg bg-gradient-to-tr from-cyan-600 to-cyan-400 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-cyan-500/20 transition-all hover:shadow-lg hover:shadow-cyan-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
           >
             Login
           </button>

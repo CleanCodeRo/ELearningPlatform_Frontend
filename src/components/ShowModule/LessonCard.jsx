@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import {
   Menu,
   MenuHandler,
   MenuItem,
   MenuList,
 } from "@material-tailwind/react";
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function LessonCard({ id, name, description, gitHubLink }) {
@@ -86,7 +87,7 @@ export default function LessonCard({ id, name, description, gitHubLink }) {
         <a
           href={gitHubLink}
           target="_blank"
-          className="cursor-pointer my-2 xs:my-0 px-6 py-4 bg-fourth rounded-lg text-light-green-50 mr-4 shadow-sm shadow-fifth text-xl"
+          className="cursor-pointer my-2 xs:my-0 px-6 py-4 bg-fourth rounded-lg text-light-green-50 mr-4 shadow-sm shadow-fifth text-xl" rel="noreferrer"
         >
           Learn
         </a>

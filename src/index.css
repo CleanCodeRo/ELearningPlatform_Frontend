@@ -30,3 +30,12 @@
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background-color: #357abf; /* Darker color on hover */
   }
+
+
+  /* presentation hero */
+
+ @layer components {
+  .text-highlight {
+    @apply text-secondary
+  }
+ }

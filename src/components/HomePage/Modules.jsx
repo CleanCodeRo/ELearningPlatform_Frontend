@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ModuleCard from "./ModuleCard";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Modules() {
   const [modules, setModules] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:8080/modules", {
@@ -18,6 +20,7 @@ export default function Modules() {
         setModules(data);
       })
       .catch((err) => {
+        console.error("Error fetching modules:", err);
         navigate("/login");
       });
   }, []);

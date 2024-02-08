@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import WeekCard from "./WeekCard";
 
@@ -20,6 +20,7 @@ export default function Weeks() {
         setWeeks(data);
       })
       .catch((err) => {
+        console.error("Error fetching weeks:", err);
         navigate("/login");
       });
   }, []);

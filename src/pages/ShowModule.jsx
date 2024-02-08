@@ -1,4 +1,4 @@
-import React from 'react'
+
 import SideHeader from '../components/SideHeader'
 import Weeks from '../components/ShowModule/Weeks'
 import Lessons from '../components/ShowModule/Lessons'

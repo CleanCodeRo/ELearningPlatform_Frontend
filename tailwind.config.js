@@ -11,7 +11,12 @@ export default withMT({
         third: "#414c50",
         fourth: "#353535",
         fifth: "#39ace7",
-        sixth : "#F8F6F0"  // for text pearl white
+        sixth : "#F8F6F0",  // for text pearl white
+        primary: '#c1cfda',
+        secondary: '#20a4f3',
+        accent: '#59f8e8',
+        tertiary: '#941c2f',
+        quaternary: '#03191e',
       },
       fontFamily : {
         "inter" : "Inter, sans-serif"
@@ -28,6 +33,9 @@ export default withMT({
         "4xl": "clamp(3.05rem, 3.54vw + 2.17rem, 5rem)",
         "5xl": "clamp(3.81rem, 5.18vw + 2.52rem, 6.66rem)",
         "6xl": "clamp(4.77rem, 7.48vw + 2.9rem, 8.88rem)",
+        "7xl": "clamp(5.96rem, 10.2vw + 3.3rem, 11.5rem)",
+        "8xl": "clamp(7.45rem, 13.8vw + 3.73rem, 14.5rem)",
+        "9xl": "clamp(9.31rem, 17.8vw + 4.19rem, 17.5rem)",
       },
       screens: {
         '4xs': '160px',

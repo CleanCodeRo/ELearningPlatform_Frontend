@@ -17,7 +17,7 @@ const PresentationHeader = () => {
   return (
     <div
       id="PresentationHeader"
-      className="bg-gray-250 px-[6rem] font-inter relative"
+      className="bg-gray-250 shadow-md px-[6rem] font-inter relative"
     >
       <div className="flex justify-between items-center">
         <img
@@ -28,7 +28,7 @@ const PresentationHeader = () => {
         <div className="flex space-x-1.5">
           <Button
             id="loginButton"
-            className="bg-fourth font-inter shadow-2xl"
+            className="bg-secondary text-center hover:bg-accent transition-all duration-300 ease-in-out hover:text-quaternary"
             onClick={() => checkLogin()}
           >
             Login

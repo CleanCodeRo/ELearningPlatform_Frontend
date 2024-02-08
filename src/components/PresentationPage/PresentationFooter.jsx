@@ -1,5 +1,5 @@
+/* eslint-disable react/no-unknown-property */
 import { Typography } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
 const PresentationFooter = () => {
   const currentYear = new Date().getFullYear();
 
@@ -41,7 +41,7 @@ const PresentationFooter = () => {
             href="#"
             className="opacity-80 transition-opacity hover:opacity-100"
           >
-            <a href="https://www.instagram.com/cleancode.ro/" target="_blank">
+            <a href="https://www.instagram.com/cleancode.ro/" target="_blank" rel="noreferrer">
               <svg
                 className="h-9 w-9 text-pink-500"
                 fill="currentColor"
@@ -61,7 +61,7 @@ const PresentationFooter = () => {
             as="a"
             className="opacity-80 transition-opacity hover:opacity-100"
           >
-            <a href="https://twitter.com/cleancodero" target="_blank">
+            <a href="https://twitter.com/cleancodero" target="_blank" rel="noreferrer" >
               <svg
                 className="h-9 w-9 text-blue-600"
                 fill="currentColor"
@@ -77,7 +77,7 @@ const PresentationFooter = () => {
             as="a"
             className="opacity-80 transition-opacity hover:opacity-100"
           >
-            <a href="https://github.com/cleancodeRo" target="_blank">
+            <a href="https://github.com/cleancodeRo" target="_blank" rel="noreferrer">
               <svg
                 className="h-9 w-9 text-black"
                 fill="currentColor"

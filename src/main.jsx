@@ -13,6 +13,7 @@ import WeekCreateAndEdit from "./pages/Forms/WeekCreateAndEdit";
 import LessonsCreateAndEdit from "./pages/Forms/LessonsCreateAndEdit";
 import Redirect from "./components/Redirect";
 import LoginService from "./pages/Forms/LoginService";
+import NewKataCard from "./components/NewKataCard";
 
 export default function App() {
   return (
@@ -100,7 +101,12 @@ export default function App() {
           path="/home/module/:moduleId/week/:weekId/editLesson/:lessonId"
           element={<LessonsCreateAndEdit />}
         />
+        <Route
+          path="/home/develop"
+          element={<NewKataCard />}
+        />
       </Routes>
+      
     </BrowserRouter>
   );
 }

@@ -25,7 +25,7 @@ export default function Weeks() {
   }, []);
 
   return (
-    <div className="pt-5 pb-10 px-5 font-inter">
+    <div className="pt-5 pb-10 px-5  ">
       <div id="titleAndAddButton" className="flex items-center ">
         <p className="text-4xl p-4  font-bold border-2 rounded-xl text-fourth">
           WEEKS
@@ -37,7 +37,7 @@ export default function Weeks() {
         </Link>
       </div>
     
-      <div className="flex items-center py-3">
+      <div className="flex items-center py-7  overflow-x-scroll custom-scrollbar" >
         {weeks && weeks.length > 0 ? (
           weeks.map((week, index) => (
             <WeekCard

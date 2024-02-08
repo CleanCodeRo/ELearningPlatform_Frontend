@@ -23,21 +23,21 @@ export default function Modules() {
   }, []);
 
   return (
-    <div className="pt-5 pb-10 px-5 font-inter">
+    <div className="pt-5 pb-10" >
       <div id="titleAndAddButton" className="flex items-center ">
-        <p className="text-4xl p-4  font-bold border-2 rounded-lg text-fourth">
-          MODULES
+        <p className="text-4xl p-4  font-bold  rounded-lg text-fourth">
+          Modules
         </p>
         <Link
           to="/createModule"
-          className="h-10 w-10 rounded-full bg-fifth flex items-center justify-center text-xl mx-2"
+          className="h-10 w-10 rounded-full bg-fourth flex items-center justify-center text-xl mx-2 hover:bg-[#2c8dfe]"
         >
           <i className="fa-solid fa-plus"></i>
         </Link>
       </div>
 
-      <div className="flex items-center py-3">
-        {modules?.map((module, index) => (
+      <div className="flex items-center py-7 overflow-x-scroll w-full custom-scrollbar">
+      {modules?.map((module, index) => (
           <ModuleCard
             key={index}
             id={module.id}
@@ -45,8 +45,18 @@ export default function Modules() {
             subtitle={module.name}
             image={module.imgLink}
           />
-        ))}
+        ))} 
+      
+        
       </div>
     </div>
   );
 }
+
+
+  
+
+        // <ModuleCard key={1} id={2} title={"Module test"} subtitle={"Subtitle Test"} image={"https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/512x512/crash_test_dummy.png"}/>
+        // <ModuleCard key={1} id={2} title={"Module test"} subtitle={"Subtitle Test"} image={"https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/512x512/crash_test_dummy.png"}/>
+        // <ModuleCard key={1} id={2} title={"Module test"} subtitle={"Subtitle Test"} image={"https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/512x512/crash_test_dummy.png"}/>
+        // <ModuleCard key={1} id={2} title={"Module test"} subtitle={"Subtitle Test"} image={"https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/512x512/crash_test_dummy.png"}/>

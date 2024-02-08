@@ -4,7 +4,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import KataCard from './KataCard';
 
-const Carousel = () => {
+const KataCarousel = () => {
     const settings = {
         infinite: true,
         speed: 500,
@@ -57,4 +57,4 @@ const Carousel = () => {
   );
 };
 
-export default Carousel;
+export default KataCarousel;

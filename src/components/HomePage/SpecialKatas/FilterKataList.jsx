@@ -1,7 +1,8 @@
-import FilterButton from "./HomePage/FilterButton";
+import FilterButton from "./FilterButton";
 
 
-export default function Category(){
+
+export default function FilterKataList(){
 
 
     return(

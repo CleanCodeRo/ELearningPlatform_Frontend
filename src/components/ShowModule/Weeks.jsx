@@ -19,7 +19,21 @@ export default function Weeks({setLoadingLessons}) {
     })
       .then((res) => res.json())
       .then((data) => {
-        setWeeks(data);
+        let dummyArr = []
+        let i = 0;
+
+        async function renderWeeks(){
+          if(i == data.length){
+            return;
+          }else{
+            dummyArr.push(data[i])
+            setWeeks([...dummyArr]);
+            i++;
+            setTimeout(() => renderWeeks(), 400)
+          }
+        }
+
+        renderWeeks();
         setLoading(false)
       })
       .catch((err) => {
@@ -39,7 +53,6 @@ export default function Weeks({setLoadingLessons}) {
           </button>
         </Link>
       </div>
-
 
       {loading ?
         <div id="loading" className="w-full h-[10rem] flex items-center justify-center">

@@ -39,7 +39,7 @@ export default function WeekCard({ id, title, subtitle, image, setLoadingLessons
         navigate(`/home/module/${params.moduleId}/week/${id}`);
         setLoadingLessons(true);
       }}
-      className="flex flex-col relative cursor-pointer min-w-[18rem]  max-w-80  bg-fifth rounded-2xl mx-3 p-1 border-b-[3px] border-transparent hover:border-light-blue-200 shadow-lg hover:shadow-light-blue-100 duration-100"
+      className="flex flex-col relative cursor-pointer animate-fade-left animate-ease-in-out  min-w-[18rem]  max-w-80  bg-fifth rounded-2xl mx-3 p-1 border-b-[3px] border-transparent hover:border-light-blue-200 shadow-lg hover:shadow-light-blue-100 duration-100"
     >
       <div
         id="image"

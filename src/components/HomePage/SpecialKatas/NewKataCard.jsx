@@ -1,4 +1,5 @@
-import Stars from "./KataUsables/Stars";
+import Stars from "./Stars";
+
 
 export default function NewKataCard({ kata }) {
 
@@ -25,7 +26,7 @@ export default function NewKataCard({ kata }) {
                     <p id="tags" className="ml-1">Mathematics</p>
                     <p id="tags" className="ml-1">Algorithm</p> */}
 
-                    {kata.category.map((category, index) => (
+                    {kata.category?.map((category, index) => (
                     <p id="tags" key={index} className="ml-1">{category}</p>
                 ))}
 

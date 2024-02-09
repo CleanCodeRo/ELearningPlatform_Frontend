@@ -1,8 +1,8 @@
 import React from "react";
 import Modules from "../components/HomePage/Modules";
-import SpecialKatas from "../components/HomePage/SpecialKatas";
 import SideHeader from "../components/SideHeader";
-import FilterButtons from "../components/Category";
+import SpecialKatas from "../components/HomePage/SpecialKatas/SpecialKatas";
+import FilterKataList from "../components/HomePage/SpecialKatas/FilterKataList";
 
 function HomePage() {
   return (
@@ -11,7 +11,7 @@ function HomePage() {
     
       <div className="flex flex-col px-5 " style={{width : "calc(100vw - 5rem)"}}>
         <Modules />
-        <FilterButtons/>
+        <FilterKataList/>
         <SpecialKatas />
       </div>
     </div>

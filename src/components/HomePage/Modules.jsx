@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import ModuleCard from "./ModuleCard";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Loading from "../Loading/Loading";
 
 export default function Modules() {
-  const [modules, setModules] = useState(null);
+  const [modules, setModules] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate()
 
   useEffect(() => {
+  
     fetch("http://localhost:8080/modules", {
       method: "GET",
       headers: {
@@ -17,14 +19,31 @@ export default function Modules() {
     })
       .then((res) => res.json())
       .then((data) => {
-        setModules(data);
+        let dummyArr = []
+        let i = 0;
+
+        async function renderModules(){
+          if(i == data.length){
+            return;
+          }else{
+            dummyArr.push(data[i])
+            setModules([...dummyArr]);
+            i++;
+            setTimeout(() => renderModules(), 400)
+          }
+        }
+
+        renderModules();
         setLoading(false);
       })
       .catch((err) => {
         console.log(err)
         navigate("/login");
       });
+    
   }, []);
+
+  
 
   return (
     <div className="pt-5 pb-10" >
@@ -40,24 +59,26 @@ export default function Modules() {
         </Link>
       </div>
 
-      { loading ?
-      <div id="loading" className="w-full h-[10rem] flex items-center justify-center">
-        <Loading/>
-      </div>
- 
+      {loading ?
+        <div id="loading" className="w-full h-[10rem] flex items-center justify-center">
+          <Loading />
+        </div>
+
         :
 
-      <div id="listOfModules" className="flex items-center py-7 overflow-x-scroll w-full custom-scrollbar">
-      {modules?.map((module, index) => (
-          <ModuleCard
+        <div id="listOfModules" className="flex items-center py-7 overflow-x-scroll w-full custom-scrollbar">
+           {modules != [] &&  modules.map((module, index) => {
+            return <ModuleCard
             key={index}
             id={module.id}
             title={`Module ${module.number}`}
             subtitle={module.name}
             image={module.imgLink}
           />
-        ))} 
-      </div>
+            
+          })}
+         
+        </div>
       }
 
 
@@ -66,9 +87,9 @@ export default function Modules() {
 }
 
 
-  
 
-        // <ModuleCard key={1} id={2} title={"Module test"} subtitle={"Subtitle Test"} image={"https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/512x512/crash_test_dummy.png"}/>
-        // <ModuleCard key={1} id={2} title={"Module test"} subtitle={"Subtitle Test"} image={"https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/512x512/crash_test_dummy.png"}/>
-        // <ModuleCard key={1} id={2} title={"Module test"} subtitle={"Subtitle Test"} image={"https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/512x512/crash_test_dummy.png"}/>
-        // <ModuleCard key={1} id={2} title={"Module test"} subtitle={"Subtitle Test"} image={"https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/512x512/crash_test_dummy.png"}/>
+
+// <ModuleCard key={1} id={2} title={"Module test"} subtitle={"Subtitle Test"} image={"https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/512x512/crash_test_dummy.png"}/>
+// <ModuleCard key={1} id={2} title={"Module test"} subtitle={"Subtitle Test"} image={"https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/512x512/crash_test_dummy.png"}/>
+// <ModuleCard key={1} id={2} title={"Module test"} subtitle={"Subtitle Test"} image={"https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/512x512/crash_test_dummy.png"}/>
+// <ModuleCard key={1} id={2} title={"Module test"} subtitle={"Subtitle Test"} image={"https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/512x512/crash_test_dummy.png"}/>

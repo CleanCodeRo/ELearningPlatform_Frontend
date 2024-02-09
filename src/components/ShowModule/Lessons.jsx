@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import LessonCard from "./LessonCard";
 import Loading from "../Loading/Loading";
 
-export default function Lessons({setLoadingLessons, loadingLessons }) {
+export default function Lessons({ setLoadingLessons, loadingLessons }) {
   const [lessons, setLessons] = useState(null);
   const params = useParams();
   const navigate = useNavigate();
@@ -19,17 +19,32 @@ export default function Lessons({setLoadingLessons, loadingLessons }) {
       })
         .then((res) => res.json())
         .then((data) => {
-          setLessons(data);
+          setLessons([])
+          let dummyArr = []
+          let i = 0;
+
+          async function renderLessons() {
+            if (i == data.length) {
+              return;
+            } else {
+              dummyArr.push(data[i])
+              setLessons([...dummyArr]);
+              i++;
+              setTimeout(() => renderLessons(), 400)
+            }
+          }
+
+          renderLessons();
           setLoadingLessons(false)
         })
         .catch((err) => {
           console.error("Error fetching lessons:", err);
           navigate("/login");
         });
-    }else{
+    } else {
       setLoadingLessons(false)
     }
-   
+
   }, [params.weekId]);
 
   return (
@@ -72,7 +87,7 @@ export default function Lessons({setLoadingLessons, loadingLessons }) {
               />
             ))
           ) : (
-            <div className="col-span-4 text-4xl text-center my-10 text-third">
+            <div className="col-span-4 text-4xl text-center my-10 text-third animate-flip-down animate-duration-[400ms]">
               - No lessons here -
             </div>
           )}

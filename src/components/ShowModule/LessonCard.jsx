@@ -64,7 +64,7 @@ export default function LessonCard({ id, name, description, gitHubLink }) {
       name="principleHolder"
       id={id}
       ref={lessonCard}
-      className="flex flex-col justify-between bg-second p-3 m-3 rounded-xl"
+      className="flex flex-col justify-between bg-second p-3 m-3 rounded-xl animate-fade-down animate-ease-in-out"
     >
       <div id="topPart" className="flex flex-col">
         <div id="lessonTitle" className="flex items-center">

@@ -12,8 +12,8 @@ import ModuleCreateAndEdit from "./pages/Forms/ModuleCreateAndEdit";
 import WeekCreateAndEdit from "./pages/Forms/WeekCreateAndEdit";
 import LessonsCreateAndEdit from "./pages/Forms/LessonsCreateAndEdit";
 import Redirect from "./components/Redirect";
-import NewKataCard from "./components/NewKataCard";
-import Loading from "./components/Loading/Loading";
+import NewKataCard from "./components/HomePage/SpecialKatas/NewKataCard";
+
 
 export default function App() {
   return (

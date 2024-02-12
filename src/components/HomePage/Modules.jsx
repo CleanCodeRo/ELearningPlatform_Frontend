@@ -3,7 +3,7 @@ import ModuleCard from "./ModuleCard";
 import { Link, useNavigate } from "react-router-dom";
 import Loading from "../Loading/Loading";
 
-export default function Modules() {
+export default function Modules({userRole}) {
   const [modules, setModules] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate()
@@ -51,12 +51,14 @@ export default function Modules() {
         <p className="text-4xl p-4  font-bold  rounded-lg text-fourth">
           Modules
         </p>
+
+        {userRole == "ADMIN" ?
         <Link
           to="/createModule"
           className="h-10 w-10 rounded-full bg-fourth flex items-center justify-center text-xl mx-2 hover:bg-[#2c8dfe]"
         >
           <i className="fa-solid fa-plus"></i>
-        </Link>
+        </Link> : null }
       </div>
 
       {loading ?
@@ -74,6 +76,7 @@ export default function Modules() {
             title={`Module ${module.number}`}
             subtitle={module.name}
             image={module.imgLink}
+            userRole={userRole}
           />
             
           })}

@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import state from "../../components/Atom";
+import { useAtom } from "jotai";
+import { isExpired } from "react-jwt";
+
 const Login = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("Oli");
   const [password, setPassword] = useState("1234");
   const [error, setError] = useState(null);
+  const [user, setUser] = useAtom(state.user);
 
   async function login(e) {
     e.preventDefault();
@@ -37,15 +42,15 @@ const Login = () => {
         const token = data.response;
 
         localStorage.setItem("ELearningToken", token);
-        console.log("Login successful: ", data);
-        
+        console.log("is expired : " , isExpired(token)) 
         navigate("/home");
-        window.location.reload()
+        window.location.reload();
       }
     } catch (error) {
       console.error("Login error:", error);
     }
   }
+
 
   return (
     <div className="flex justify-center items-center p-2 w-screen h-screen">

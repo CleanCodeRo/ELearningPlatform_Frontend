@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import WeekCard from "./WeekCard";
 import Loading from "../Loading/Loading";
 
-export default function Weeks({setLoadingLessons}) {
+export default function Weeks({setLoadingLessons, userRole}) {
   const [weeks, setWeeks] = useState(null);
   const [loading, setLoading] = useState(true);
   const params = useParams();
@@ -47,11 +47,13 @@ export default function Weeks({setLoadingLessons}) {
         <p className="text-4xl p-4  font-bold border-2 rounded-xl text-fourth">
           WEEKS
         </p>
+
+        {userRole == "ADMIN" ? 
         <Link to={`/home/module/${params.moduleId}/createWeek`}>
           <button className="h-10 w-10 rounded-full bg-fifth flex items-center justify-center text-xl mx-2">
             <i className="fa-solid fa-plus"></i>
           </button>
-        </Link>
+        </Link> : null }
       </div>
 
       {loading ?
@@ -71,6 +73,7 @@ export default function Weeks({setLoadingLessons}) {
                 subtitle={week.name}
                 image={week.imgLink}
                 setLoadingLessons={setLoadingLessons}
+                userRole={userRole}
               />
             ))
           ) : (

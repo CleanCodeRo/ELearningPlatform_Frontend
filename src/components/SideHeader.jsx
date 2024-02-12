@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Menu,
@@ -8,18 +8,25 @@ import {
   Avatar,
   Typography,
 } from "@material-tailwind/react";
+import state, { getUserWithToken } from "./Atom";
+import { useAtom } from "jotai";
 
 export default function SideHeader() {
   const navigate = useNavigate();
+  const [user, setUser] = useAtom(state.user)
 
   const logout = (e) => {
     e.preventDefault();
-
-    console.log("test click");
-
     localStorage.removeItem("ELearningToken");
     navigate("/");
   };
+
+  useEffect(() =>{
+    if(!user){
+      getUserWithToken(localStorage.getItem("ELearningToken"), setUser)
+      console.log("user recived use effect")
+    }
+  }, [])
 
   return (
     <div className="bg-[#dddcdc] min-w-20 h-screen flex flex-col items-center justify-center sticky top-0 border rounded-r-3xl">

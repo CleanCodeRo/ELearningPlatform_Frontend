@@ -106,7 +106,7 @@ export default function App() {
           element={<NewKataCard />}
         />
       </Routes>
-      
+
     </BrowserRouter>
   );
 }

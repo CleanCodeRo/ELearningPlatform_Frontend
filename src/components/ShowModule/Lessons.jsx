@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import LessonCard from "./LessonCard";
 import Loading from "../Loading/Loading";
 
-export default function Lessons({ setLoadingLessons, loadingLessons }) {
+export default function Lessons({ setLoadingLessons, loadingLessons, userRole }) {
   const [lessons, setLessons] = useState(null);
   const params = useParams();
   const navigate = useNavigate();
@@ -53,7 +53,7 @@ export default function Lessons({ setLoadingLessons, loadingLessons }) {
         <p className="text-4xl p-4 font-bold border-2 rounded-xl text-fourth">
           LESSONS
         </p>
-        {params.weekId && (
+        {params.weekId && userRole == "ADMIN" && (
           <button
             onClick={() =>
               navigate(
@@ -84,6 +84,7 @@ export default function Lessons({ setLoadingLessons, loadingLessons }) {
                 name={lesson.name}
                 description={lesson.description}
                 gitHubLink={lesson.gitHubLink}
+                userRole={userRole}
               />
             ))
           ) : (

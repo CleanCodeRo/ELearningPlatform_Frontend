@@ -7,7 +7,7 @@ import {
   MenuItem,
 } from "@material-tailwind/react";
 
-export default function ModuleCard({ id, title, subtitle, image }) {
+export default function ModuleCard({ id, title, subtitle, image, userRole }) {
   let moduleCard = useRef(null);
   const navigate = useNavigate();
 
@@ -49,6 +49,8 @@ export default function ModuleCard({ id, title, subtitle, image }) {
         {title}
       </div>
 
+
+      {userRole == "ADMIN" ?
       <div
         id="deleteAndModify"
         className="absolute top-2 right-2 p-1 text-first bg-[rgba(255,255,255,0.7)] hover:bg-[rgba(255,255,255,1)] rounded-xl duration-300 cursor-pointer "
@@ -77,7 +79,7 @@ export default function ModuleCard({ id, title, subtitle, image }) {
             </MenuItem>
           </MenuList>
         </Menu>
-      </div>
+      </div> : null }
 
       <div id="other info" className="flex flex-col p-2">
         <p id="subtitle" className="text-3xl line-clamp-1 text-[#afafaf]">

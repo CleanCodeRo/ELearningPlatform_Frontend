@@ -38,6 +38,11 @@ export default function WeekCreateAndEdit() {
   }, [params.weekId]);
 
   const editWeek = () => {
+    if( imageLink.current.value.length > 5000){
+      setError("Can't put links larger than 5k chars");
+      return
+    }
+
     fetch(`http://localhost:8080/weeks/${params.weekId}`, {
       method: "PUT",
       headers: {
@@ -73,6 +78,9 @@ export default function WeekCreateAndEdit() {
     ) {
       setError("Please fill in the required fields");
       return;
+    } else  if( imageLink.current.value.length > 5000){
+      setError("Can't put links larger than 5k chars");
+      return
     }
 
     fetch("http://localhost:8080/weeks", {

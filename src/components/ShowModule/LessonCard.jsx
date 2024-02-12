@@ -7,7 +7,7 @@ import {
 import React, { useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-export default function LessonCard({ id, name, description, gitHubLink }) {
+export default function LessonCard({ id, name, description, gitHubLink, userRole }) {
   const lessonCard = useRef(null);
   const navigate = useNavigate();
   const params = useParams();
@@ -32,6 +32,7 @@ export default function LessonCard({ id, name, description, gitHubLink }) {
 
   const EditPen = () => {
     return (
+      userRole == "ADMIN" ?
       <Menu>
         <MenuHandler>
           <i className="fa-solid fa-pen p-2 text-first bg-[rgba(255,255,255,0.7)] hover:bg-[rgba(255,255,255,1)] rounded-xl duration-300 cursor-pointer mx-3"></i>
@@ -55,7 +56,7 @@ export default function LessonCard({ id, name, description, gitHubLink }) {
             <i className="fa-solid fa-pen-to-square mr-1" /> Edit
           </MenuItem>
         </MenuList>
-      </Menu>
+      </Menu> : null 
     );
   };
 
@@ -64,7 +65,7 @@ export default function LessonCard({ id, name, description, gitHubLink }) {
       name="principleHolder"
       id={id}
       ref={lessonCard}
-      className="flex flex-col justify-between bg-second p-3 m-3 rounded-xl"
+      className="flex flex-col justify-between bg-second p-3 m-3 rounded-xl animate-fade-down animate-ease-in-out"
     >
       <div id="topPart" className="flex flex-col">
         <div id="lessonTitle" className="flex items-center">

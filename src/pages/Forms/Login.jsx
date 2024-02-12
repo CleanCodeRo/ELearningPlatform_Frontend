@@ -1,8 +1,56 @@
-// import { useContext } from "react";
-// import { UserContext } from "./LoginService";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import state from "../../components/Atom";
+import { useAtom } from "jotai";
+import { isExpired } from "react-jwt";
 
-const Login = ({ username, setUsername, password, setPassword, login,error }) => {
-  // const [user] = useContext(UserContext);
+const Login = () => {
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("Oli");
+  const [password, setPassword] = useState("1234");
+  const [error, setError] = useState(null);
+  const [user, setUser] = useAtom(state.user);
+
+  async function login(e) {
+    e.preventDefault();
+
+    if (!username || !password) {
+      setError("Username and password are required");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "http://localhost:8080/users/auth/authenticate",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
+        }
+      );
+
+      if (!response.ok) {
+        console.log(response);
+        setError("Incorrect username or password");
+        setUsername("");
+        setPassword("");
+      } else {
+        setError(null);
+        const data = await response.json();
+        const token = data.response;
+
+        localStorage.setItem("ELearningToken", token);
+        console.log("is expired : " , isExpired(token)) 
+        navigate("/home");
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+    }
+  }
+
 
   return (
     <div className="flex justify-center items-center p-2 w-screen h-screen">

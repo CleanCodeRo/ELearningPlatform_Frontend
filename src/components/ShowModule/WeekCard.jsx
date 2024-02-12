@@ -7,7 +7,7 @@ import {
   MenuItem,
 } from "@material-tailwind/react";
 
-export default function WeekCard({ id, title, subtitle, image }) {
+export default function WeekCard({ id, title, subtitle, image, setLoadingLessons, userRole }) {
   let weekCard = useRef(null);
   const navigate = useNavigate();
   const params = useParams();
@@ -37,8 +37,9 @@ export default function WeekCard({ id, title, subtitle, image }) {
       onClick={(e) => {
         e.stopPropagation();
         navigate(`/home/module/${params.moduleId}/week/${id}`);
+        setLoadingLessons(true);
       }}
-      className="flex flex-col relative cursor-pointer min-w-40  max-w-80  bg-fifth rounded-2xl mx-3 p-1 border-b-[3px] border-transparent hover:border-light-blue-200 shadow-xl hover:shadow-light-blue-100 duration-100"
+      className="flex flex-col relative cursor-pointer animate-fade-left animate-ease-in-out  min-w-[18rem]  max-w-80  bg-fifth rounded-2xl mx-3 p-1 border-b-[3px] border-transparent hover:border-light-blue-200 shadow-lg hover:shadow-light-blue-100 duration-100"
     >
       <div
         id="image"
@@ -53,6 +54,7 @@ export default function WeekCard({ id, title, subtitle, image }) {
         {title}
       </div>
 
+      {userRole == "ADMIN" ?
       <div
         id="deleteAndModify"
         className="absolute top-2 right-2 p-1 text-first bg-[rgba(255,255,255,0.7)] hover:bg-[rgba(255,255,255,1)] rounded-xl duration-300 cursor-pointer "
@@ -83,7 +85,7 @@ export default function WeekCard({ id, title, subtitle, image }) {
             </MenuItem>
           </MenuList>
         </Menu>
-      </div>
+      </div> : null }
 
       <div id="other info" className="flex flex-col p-2">
         <p id="subtitle" className="text-3xl line-clamp-1">

@@ -37,7 +37,10 @@ export default function ModuleCreateAndEdit() {
   }, [params.moduleId]);
 
   const editModule = (e) => {
-    e.preventDefault();
+     if( imageLink.current.value.length > 5000){
+      setError("Can't put links larger than 5k chars");
+      return
+    }
 
     fetch(`http://localhost:8080/modules/${params.moduleId}`, {
       method: "PUT",
@@ -75,6 +78,9 @@ export default function ModuleCreateAndEdit() {
     ) {
       setError("Please fill in the required fields");
       return;
+    } else if( imageLink.current.value.length > 5000){
+      setError("Can't put links larger than 5k chars");
+      return
     }
 
     fetch("http://localhost:8080/modules", {

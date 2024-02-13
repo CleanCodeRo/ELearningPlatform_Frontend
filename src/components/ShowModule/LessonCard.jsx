@@ -42,7 +42,7 @@ export default function LessonCard({ id, name, description, gitHubLink }) {
             onClick={(e) => {  deleteLesson(e)}}
             className="bg-first bg-opacity-80 mb-1"
           >
-            <i className="fa-solid fa-trash-can mr-1" /> Delete
+            <i className="fa-solid fa-trash-can mr-1 text-red-500" /> Delete
           </MenuItem>
           <MenuItem
             onClick={(e) => {
@@ -53,7 +53,7 @@ export default function LessonCard({ id, name, description, gitHubLink }) {
             }}
             className="bg-first bg-opacity-80"
           >
-            <i className="fa-solid fa-pen-to-square mr-1" /> Edit
+            <i className="fa-solid fa-pen-to-square mr-1 text-accent" /> Edit
           </MenuItem>
         </MenuList>
       </Menu>
@@ -69,7 +69,7 @@ export default function LessonCard({ id, name, description, gitHubLink }) {
     >
       <div id="topPart" className="flex flex-col">
         <div id="lessonTitle" className="flex items-center">
-          <p className="my-3 text-3xl  line-clamp-2 w-full   font-bold">
+          <p className="my-3 text-xl  line-clamp-2 w-full   font-bold">
             {name}
           </p>
           <EditPen />
@@ -87,11 +87,11 @@ export default function LessonCard({ id, name, description, gitHubLink }) {
         <a
           href={gitHubLink}
           target="_blank"
-          className="cursor-pointer my-2 xs:my-0 px-6 py-4 bg-fourth rounded-lg text-light-green-50 mr-4 shadow-sm shadow-fifth text-xl" rel="noreferrer"
+          className="text-md cursor-pointer hover:text-accent bg-primary/10 px-3 py-1 rounded-full" rel="noreferrer"
         >
           Learn
         </a>
-        <div id="status" className="py-2 px-3 rounded-xl bg-orange-800">
+        <div id="status" className="py-1 px-3 rounded-full bg-orange-800">
           DONE
         </div>
       </div>

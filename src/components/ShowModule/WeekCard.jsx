@@ -39,7 +39,7 @@ export default function WeekCard({ id, title, subtitle, image }) {
         e.stopPropagation();
         navigate(`/home/module/${params.moduleId}/week/${id}`);
       }}
-      className="flex flex-col relative cursor-pointer min-w-[18rem]  max-w-80  bg-fifth rounded-2xl mx-3 p-1 border-b-[3px] border-transparent hover:border-light-blue-200 shadow-lg hover:shadow-light-blue-100 duration-100"
+      className="flex flex-col relative cursor-pointer min-w-[18rem]  max-w-80  bg-gray-200 rounded-2xl mx-3 p-1 border-b-[3px] border-transparent hover:border-light-blue-200 shadow-lg hover:shadow-light-blue-100 duration-100"
     >
       <div
         id="image"
@@ -48,7 +48,7 @@ export default function WeekCard({ id, title, subtitle, image }) {
       ></div>
       <div
         id="title"
-        className=" bg-first w-fit p-2 rounded-xl my-0  top-0"
+        className=" bg-primary text-quaternary font-semibold w-fit p-2 rounded-xl my-0  top-0"
         style={{ margin: "-16px 0 0 7px" }}
       >
         {title}
@@ -69,7 +69,7 @@ export default function WeekCard({ id, title, subtitle, image }) {
               }}
               className="bg-first bg-opacity-80 mb-1"
             >
-              <i className="fa-solid fa-trash-can mr-1" /> Delete
+              <i className="fa-solid fa-trash-can mr-1 text-red-500" /> Delete
             </MenuItem>
             <MenuItem
               onClick={(e) => {
@@ -80,18 +80,18 @@ export default function WeekCard({ id, title, subtitle, image }) {
               }}
               className="bg-first bg-opacity-80"
             >
-              <i className="fa-solid fa-pen-to-square mr-1" /> Edit
+              <i className="fa-solid fa-pen-to-square mr-1 text-accent" /> Edit
             </MenuItem>
           </MenuList>
         </Menu>
       </div>
 
-      <div id="other info" className="flex flex-col p-2">
-        <p id="subtitle" className="text-3xl line-clamp-1">
+      <div id="other info" className="flex flex-col p-2 text-gray-700">
+        <p id="subtitle" className="text-xl line-clamp-1">
           {subtitle}
         </p>
 
-        <div id="three details" className="flex py-2 justify-between">
+        <div id="three details" className="flex py-2 justify-between items-end text-gray-400">
           <div id="group Div For Flex" className="flex items-center">
             <div id="time" className="flex items-center mr-4">
               <i className="fa-solid fa-clock mr-1"></i>
@@ -106,7 +106,7 @@ export default function WeekCard({ id, title, subtitle, image }) {
 
           <div
             id="price"
-            className="flex items-center bg-black py-3 px-6 rounded-3xl"
+            className="flex items-center bg-primary text-quaternary py-3 px-3 rounded-3xl"
           >
             <i className="fa-solid fa-dollar-sign "></i>
             <p className="">18</p>

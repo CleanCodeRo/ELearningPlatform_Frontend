@@ -104,11 +104,11 @@ const LessonsCreateAndEdit = () => {
           <img src="/images/CleanCode-removebg-preview.png" />
         </div>
 
-        <div className="relative mx-4 -mt-6 mb-4 grid h-28 place-items-center overflow-hidden rounded-xl bg-gradient-to-tr from-cyan-600 to-cyan-400 bg-clip-border text-white shadow-lg shadow-cyan-500/40">
-          <h3 className="block  text-3xl font-semibold leading-snug tracking-normal text-white antialiased">
+        <div className="relative mt-[-50px] mx-6 mb-4 grid h-20 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-tr from-cyan-600 to-cyan-400 bg-clip-border text-white shadow-lg shadow-cyan-500/40">
+          <h3 className="block font-sans text-xl font-semibold leading-snug tracking-normal text-white antialiased">
             {params.lessonId !== undefined
-              ? "Edit your lesson"
-              : "Add a new lesson"}
+              ? "Edit Your Lesson"
+              : "Add a New Lesson"}
           </h3>
         </div>
         <div className="flex flex-col gap-4 p-6">
@@ -157,7 +157,7 @@ const LessonsCreateAndEdit = () => {
             data-ripple-light="true"
             type="button"
             onClick={params.lessonId === undefined ? postLesson : updateLesson}
-            className="block w-full select-none rounded-lg bg-gradient-to-tr from-cyan-600 to-cyan-400 py-3 px-6 text-center align-middle  text-xs font-bold uppercase text-white shadow-md shadow-cyan-500/20 transition-all hover:shadow-lg hover:shadow-cyan-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            className="block mb-3 w-full select-none rounded-lg bg-gradient-to-tr from-cyan-600 to-cyan-400 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-cyan-500/20 transition-all hover:shadow-lg hover:shadow-cyan-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
           >
             {params.lessonId !== undefined ? "Save" : "Create"}
           </button>
@@ -165,7 +165,7 @@ const LessonsCreateAndEdit = () => {
             data-ripple-light="true"
             type="button"
             onClick={() => window.history.back()}
-            className="block w-full select-none mt-1 rounded-lg bg-gradient-to-tr from-cyan-600 to-cyan-400 py-3 px-6 text-center align-middle  text-xs font-bold uppercase text-white shadow-md shadow-cyan-500/20 transition-all hover:shadow-lg hover:shadow-cyan-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            className="block mb-3 w-full select-none rounded-lg bg-gray-400 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-red-500/20 transition-all hover:shadow-lg hover:shadow-red-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none hover:text-red-400"
           >
             Cancel
           </button>

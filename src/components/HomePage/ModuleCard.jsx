@@ -34,7 +34,7 @@ export default function ModuleCard({ id, title, subtitle, image }) {
       name="wholeCard"
       id={id}
       ref={moduleCard}
-      className="flex flex-col relative cursor-pointer min-w-[18rem]  bg-white rounded-2xl mx-3 p-1 border-b-[3px] border-transparent  shadow-md hover:shadow-[#2c8dfe] duration-100"
+      className="flex flex-col relative cursor-pointer min-w-[18rem] max-w-[18rem]  bg-white rounded-2xl mx-3 p-1 border-b-[3px] border-transparent  shadow-md hover:shadow-accent duration-100"
       onClick={() => navigate(`module/${id}`)}
     >
       <div
@@ -44,7 +44,7 @@ export default function ModuleCard({ id, title, subtitle, image }) {
       ></div>
       <div
         id="title"
-        className=" bg-[#2c8dfe] w-fit p-2 rounded-xl my-0 top-0 text-sm"
+        className=" bg-primary w-fit p-2 rounded-xl my-0 top-0 text-sm text-quaternary font-semibold"
         style={{ margin: "-16px 0 0 7px" }}
       >
         {title}
@@ -68,7 +68,7 @@ export default function ModuleCard({ id, title, subtitle, image }) {
               }}
               className="bg-first bg-opacity-80 mb-1"
             >
-              <i className="fa-solid fa-trash-can mr-1" /> Delete
+              <i className="fa-solid fa-trash-can mr-1 text-red-500" /> Delete
             </MenuItem>
             <MenuItem
               onClick={(e) => {
@@ -77,7 +77,7 @@ export default function ModuleCard({ id, title, subtitle, image }) {
               }}
               className="bg-first bg-opacity-80"
             >
-              <i className="fa-solid fa-pen-to-square mr-1" /> Edit
+              <i className="fa-solid fa-pen-to-square mr-1 text-accent" /> Edit
             </MenuItem>
           </MenuList>
         </Menu>
@@ -103,9 +103,9 @@ export default function ModuleCard({ id, title, subtitle, image }) {
 
           <div
             id="price"
-            className="flex items-center bg-[#2c8dfe] py-3 px-6 rounded-3xl"
+            className="flex items-center bg-primary py-3 px-3 rounded-3xl"
           >
-            <i className="fa-solid fa-dollar-sign "></i>
+            <i className="fa-solid fa-dollar-sign text-quaternary"></i>
             <p className="">18</p>
           </div>
         </div>

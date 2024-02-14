@@ -64,11 +64,11 @@ export default function LessonCard({ id, name, description, gitHubLink, userRole
   };
 
   const EditStatusComponent = () => {
-    const [value, setValue] = useState(user.completedLessons.includes(id) ? "DONE" : "TODO");
+    const [value, setValue] = useState(user.completedLessons.filter(lesson => lesson.id == id).length != 0 ? "DONE" : "TODO");
     return (
       <div id="holder" className="">
         <Select
-          size="xl"
+          size="lg"
           color="blue"
           id="select"
           label="Select Status"
@@ -86,9 +86,9 @@ export default function LessonCard({ id, name, description, gitHubLink, userRole
 
   const EditStatusEvent = (status) =>{
     if(status == "DONE"){
-      user.completedLessons.push(id)
+      user.completedLessons.push({id : id})
     }else{
-      user.completedLessons =  user.completedLessons.filter(item => item != id);
+      user.completedLessons =  user.completedLessons.filter(lesson => lesson.id != id);
     }
 
     fetch(` http://localhost:8080/users/${user.id}/addOrRemoveLesson/${id}`,{

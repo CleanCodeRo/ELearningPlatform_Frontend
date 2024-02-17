@@ -36,8 +36,12 @@ export default function WeekCard({ id, title, subtitle, image, setLoadingLessons
       ref={weekCard}
       onClick={(e) => {
         e.stopPropagation();
-        navigate(`/home/module/${params.moduleId}/week/${id}`);
-        setLoadingLessons(true);
+        let nextPath = `/home/module/${params.moduleId}/week/${id}`
+        if (nextPath != window.location.pathname) {
+          setLoadingLessons(true);
+          navigate(nextPath);
+        }
+
       }}
       className="flex flex-col relative cursor-pointer animate-fade-left animate-ease-in-out  min-w-[18rem]  max-w-80  bg-fifth rounded-2xl mx-3 p-1 border-b-[3px] border-transparent hover:border-light-blue-200 shadow-lg hover:shadow-light-blue-100 duration-100"
     >
@@ -55,37 +59,37 @@ export default function WeekCard({ id, title, subtitle, image, setLoadingLessons
       </div>
 
       {userRole == "ADMIN" ?
-      <div
-        id="deleteAndModify"
-        className="absolute top-2 right-2 p-1 text-first bg-[rgba(255,255,255,0.7)] hover:bg-[rgba(255,255,255,1)] rounded-xl duration-300 cursor-pointer "
-      >
-        <Menu>
-          <MenuHandler>
-            <i className="fa-solid fa-pen p-1"></i>
-          </MenuHandler>
-          <MenuList className=" bg-first bg-opacity-40 backdrop-blur-md border-0 text-sixth ">
-            <MenuItem
-              onClick={(e) => {
-                deleteWeek(e);
-              }}
-              className="bg-first bg-opacity-80 mb-1"
-            >
-              <i className="fa-solid fa-trash-can mr-1" /> Delete
-            </MenuItem>
-            <MenuItem
-              onClick={(e) => {
-                {
-                  e.stopPropagation();
-                  navigate(`/home/module/${params.moduleId}/editWeek/${id}`);
-                }
-              }}
-              className="bg-first bg-opacity-80"
-            >
-              <i className="fa-solid fa-pen-to-square mr-1" /> Edit
-            </MenuItem>
-          </MenuList>
-        </Menu>
-      </div> : null }
+        <div
+          id="deleteAndModify"
+          className="absolute top-2 right-2 p-1 text-first bg-[rgba(255,255,255,0.7)] hover:bg-[rgba(255,255,255,1)] rounded-xl duration-300 cursor-pointer "
+        >
+          <Menu>
+            <MenuHandler>
+              <i className="fa-solid fa-pen p-1"></i>
+            </MenuHandler>
+            <MenuList className=" bg-first bg-opacity-40 backdrop-blur-md border-0 text-sixth ">
+              <MenuItem
+                onClick={(e) => {
+                  deleteWeek(e);
+                }}
+                className="bg-first bg-opacity-80 mb-1"
+              >
+                <i className="fa-solid fa-trash-can mr-1" /> Delete
+              </MenuItem>
+              <MenuItem
+                onClick={(e) => {
+                  {
+                    e.stopPropagation();
+                    navigate(`/home/module/${params.moduleId}/editWeek/${id}`);
+                  }
+                }}
+                className="bg-first bg-opacity-80"
+              >
+                <i className="fa-solid fa-pen-to-square mr-1" /> Edit
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        </div> : null}
 
       <div id="other info" className="flex flex-col p-2">
         <p id="subtitle" className="text-3xl line-clamp-1">

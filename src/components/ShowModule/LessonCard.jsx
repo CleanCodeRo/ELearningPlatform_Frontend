@@ -19,13 +19,16 @@ export default function LessonCard({ id, name, description, gitHubLink, userRole
   const deleteLesson = async (e) => {
     e.stopPropagation();
     try {
-      await fetch(`http://localhost:8080/lessons?lessonId=${id}`, {
+      let response = await fetch(`http://localhost:8080/lessons?lessonId=${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
         },
       });
+
+       await response.json()
+      console.log(response)
 
       window.location.reload();
     } catch (error) {

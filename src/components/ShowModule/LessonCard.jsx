@@ -68,7 +68,7 @@ export default function LessonCard({ id, name, description, gitHubLink, userRole
     return (
       <div id="holder" className="">
         <Select
-          size="xl"
+          size="md"
           color="blue"
           id="select"
           label="Select Status"

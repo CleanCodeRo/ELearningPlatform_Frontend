@@ -13,6 +13,7 @@ const Login = () => {
 
   async function login(e) {
     e.preventDefault();
+    e.target.disabled = true
 
     if (!username || !password) {
       setError("Username and password are required");
@@ -36,6 +37,7 @@ const Login = () => {
         setError("Incorrect username or password");
         setUsername("");
         setPassword("");
+        e.target.disabled = false
       } else {
         setError(null);
         const data = await response.json();

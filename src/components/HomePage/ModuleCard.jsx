@@ -22,7 +22,8 @@ export default function ModuleCard({ id, title, subtitle, image, userRole }) {
         },
       });
 
-      window.location.reload();
+      // window.location.reload();
+      moduleCard.current.remove();
     } catch (error) {
       console.error("Error during DELETE operation:", error);
     }

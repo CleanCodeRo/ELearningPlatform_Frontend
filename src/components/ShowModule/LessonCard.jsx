@@ -4,15 +4,16 @@ import {
   MenuItem,
   MenuList,
 } from "@material-tailwind/react";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Select, Option } from "@material-tailwind/react";
 import { useAtom } from "jotai";
 import state from "../Atom";
+import Loading from "../Loading/Loading";
 
 export default function LessonCard({ id, name, description, gitHubLink, userRole }) {
   const [user, setUser] = useAtom(state.user);
-  const lessonCard = useRef(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const params = useParams();
 
@@ -85,6 +86,7 @@ export default function LessonCard({ id, name, description, gitHubLink, userRole
   };
 
   const EditStatusEvent = (status) =>{
+    setLoading(true)
     if(status == "DONE"){
       user.completedLessons.push(id)
     }else{
@@ -102,7 +104,8 @@ export default function LessonCard({ id, name, description, gitHubLink, userRole
     .then(res => res.json())
     .then(data => {
       console.log(data);
-      setValue(status);
+      // setValue(status);
+      setLoading(false)
     })
     .catch(err => {
       console.log(err)
@@ -113,9 +116,16 @@ export default function LessonCard({ id, name, description, gitHubLink, userRole
     <div
       name="principleHolder"
       id={id}
-      ref={lessonCard}
-      className="flex flex-col justify-between bg-second p-3 m-3 rounded-xl animate-fade-down animate-ease-in-out"
+      className="flex flex-col justify-between bg-second p-3 m-3 rounded-xl animate-fade-down animate-ease-in-out relative"
     >
+
+      {/* loading for card */}
+      {loading &&
+      <div id="loadinComponent" className="absolute top-0 left-0 bg-gray-100 bg-opacity-20 z-10 w-full h-full flex items-center justify-center">
+        <Loading/>
+      </div>
+      }
+
       <div id="topPart" className="flex flex-col">
         <div id="lessonTitle" className="flex items-center">
           <p className="my-3 text-3xl  line-clamp-2 w-full   font-bold">

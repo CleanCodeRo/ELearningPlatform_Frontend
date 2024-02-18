@@ -65,7 +65,7 @@ export default function LessonCard({ id, name, description, gitHubLink, userRole
   };
 
   const EditStatusComponent = () => {
-    const [value, setValue] = useState(user.completedLessons.includes(id) ? "DONE" : "TODO");
+    const [initialStatus, setInitialStatus] = useState(user.completedLessons.includes(id) ? "DONE" : "TODO");
     return (
       <div id="holder" className="">
         <Select
@@ -73,9 +73,9 @@ export default function LessonCard({ id, name, description, gitHubLink, userRole
           color="blue"
           id="select"
           label="Select Status"
-          value={value}
-          onChange={(status) => EditStatusEvent(status)}
-          className="text-sixth  "
+          value={initialStatus}
+          onChange={(status) => EditStatusEvent(initialStatus ,status)}
+          className="text-sixth"
         >
           <Option  value="DONE">Done</Option>
           <Option  value="TODO">To Do</Option>
@@ -85,15 +85,21 @@ export default function LessonCard({ id, name, description, gitHubLink, userRole
     );
   };
 
-  const EditStatusEvent = (status) =>{
+  const EditStatusEvent = (initialStatus, status) =>{
     setLoading(true)
+
+    if(status == initialStatus){
+      setLoading(false)
+      return;
+    }
+
     if(status == "DONE"){
       user.completedLessons.push(id)
     }else{
       user.completedLessons =  user.completedLessons.filter(item => item != id);
     }
 
-    fetch(` http://localhost:8080/users/${user.id}/addOrRemoveLesson/${id}`,{
+    fetch(` http://localhost:8080/users?userId=${user.id}&lessonId=${id}&weekId=${params.weekId}`,{
       method : "PATCH",
       headers :{
         "Content-Type" : "application/json",

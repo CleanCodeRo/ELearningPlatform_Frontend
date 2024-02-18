@@ -22,6 +22,7 @@ export default function WeekCard({ id, title, subtitle, image, setLoadingLessons
           Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
         },
       });
+      navigate(window.location.pathname.split("/").slice(0,4).join("/"))
       window.location.reload();
     } catch (error) {
       console.error("Error during DELETE operation:", error);

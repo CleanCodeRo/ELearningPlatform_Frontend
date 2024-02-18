@@ -18,5 +18,6 @@ export function getUserWithToken(token, setUser) {
       .then(res => res.json())
       .then(data => {
         setUser(data)
+        console.log(data)
       })
   }

@@ -8,11 +8,14 @@ import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Select, Option } from "@material-tailwind/react";
 import { useAtom } from "jotai";
-import state from "../Atom";
+import state, { getCompletedStuff } from "../Atom";
 import Loading from "../Loading/Loading";
 
-export default function LessonCard({ id, name, description, gitHubLink, userRole }) {
+export default function LessonCard({lesson, userRole }) {
   const [user, setUser] = useAtom(state.user);
+  const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons);
+  const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks);
+  
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const params = useParams();
@@ -20,7 +23,7 @@ export default function LessonCard({ id, name, description, gitHubLink, userRole
   const deleteLesson = async (e) => {
     e.stopPropagation();
     try {
-      await fetch(`http://localhost:8080/lessons?lessonId=${id}`, {
+      await fetch(`http://localhost:8080/lessons?lessonId=${lesson.id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -33,6 +36,33 @@ export default function LessonCard({ id, name, description, gitHubLink, userRole
       console.error("Error during DELETE operation:", error);
     }
   };
+
+  const EditStatusEvent = (initialStatus, status) =>{
+    setLoading(true)
+
+    if(status == initialStatus){
+      setLoading(false)
+      return;
+    }
+
+    fetch(` http://localhost:8080/users?userId=${user.id}&lessonId=${lesson.id}&weekId=${params.weekId}`,{
+      method : "PATCH",
+      headers :{
+        "Content-Type" : "application/json",
+        Authorization : `Bearer ${localStorage.getItem("ELearningToken")}`
+      },
+      body : JSON.stringify(status)
+    })
+    .then(res => res.json())
+    .then(data => {
+      getCompletedStuff(user.id, setCompletedLessons, setCompletedWeeks)
+      console.log(data);
+      setLoading(false)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
 
   const EditPen = () => {
     return (
@@ -52,7 +82,7 @@ export default function LessonCard({ id, name, description, gitHubLink, userRole
               onClick={(e) => {
                 e.stopPropagation();
                 navigate(
-                  `/home/module/${params.moduleId}/week/${params.weekId}/editLesson/${id}`
+                  `/home/module/${params.moduleId}/week/${params.weekId}/editLesson/${lesson.id}`
                 );
               }}
               className="bg-first bg-opacity-80"
@@ -65,7 +95,8 @@ export default function LessonCard({ id, name, description, gitHubLink, userRole
   };
 
   const EditStatusComponent = () => {
-    const [initialStatus, setInitialStatus] = useState(user.completedLessons.includes(id) ? "DONE" : "TODO");
+
+    const [initialStatus, setInitialStatus] = useState(completedLessons.includes(lesson.id) ? "DONE" : "TODO");
     return (
       <div id="holder" className="">
         <Select
@@ -85,43 +116,12 @@ export default function LessonCard({ id, name, description, gitHubLink, userRole
     );
   };
 
-  const EditStatusEvent = (initialStatus, status) =>{
-    setLoading(true)
-
-    if(status == initialStatus){
-      setLoading(false)
-      return;
-    }
-
-    if(status == "DONE"){
-      user.completedLessons.push(id)
-    }else{
-      user.completedLessons =  user.completedLessons.filter(item => item != id);
-    }
-
-    fetch(` http://localhost:8080/users?userId=${user.id}&lessonId=${id}&weekId=${params.weekId}`,{
-      method : "PATCH",
-      headers :{
-        "Content-Type" : "application/json",
-        Authorization : `Bearer ${localStorage.getItem("ELearningToken")}`
-      },
-      body : JSON.stringify(status)
-    })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data);
-      // setValue(status);
-      setLoading(false)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  }
+ 
 
   return (
     <div
       name="principleHolder"
-      id={id}
+      id={lesson.id}
       className="flex flex-col justify-between bg-second p-3 m-3 rounded-xl animate-fade-down animate-ease-in-out relative"
     >
 
@@ -135,12 +135,12 @@ export default function LessonCard({ id, name, description, gitHubLink, userRole
       <div id="topPart" className="flex flex-col">
         <div id="lessonTitle" className="flex items-center">
           <p className="my-3 text-3xl  line-clamp-2 w-full   font-bold">
-            {name}
+            {lesson.name}
           </p>
           <EditPen />
         </div>
         <p id="description" className="my-3 line-clamp-5">
-          {description}
+          {lesson.description}
         </p>
       </div>
 
@@ -150,7 +150,7 @@ export default function LessonCard({ id, name, description, gitHubLink, userRole
         className="flex justify-between items-center px-4 mt-6"
       >
         <a
-          href={gitHubLink}
+          href={lesson.gitHubLink}
           target="_blank"
           className="cursor-pointer my-2 xs:my-0 px-6 py-4 bg-fourth rounded-lg text-light-green-50 mr-4 shadow-sm shadow-fifth text-xl"
         >

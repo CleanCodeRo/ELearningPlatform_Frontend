@@ -14,6 +14,8 @@ import { useAtom } from "jotai";
 export default function SideHeader() {
   const navigate = useNavigate();
   const [user, setUser] = useAtom(state.user)
+  const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons);
+  const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks);
 
   const logout = (e) => {
     e.preventDefault();
@@ -22,8 +24,9 @@ export default function SideHeader() {
   };
 
   useEffect(() =>{
+    console.log("works")
     if(!user){
-      getUserWithToken(localStorage.getItem("ELearningToken"), setUser)
+      getUserWithToken(localStorage.getItem("ELearningToken"), setUser, setCompletedLessons, setCompletedWeeks)
       console.log("user recived use effect")
     }
   }, [])

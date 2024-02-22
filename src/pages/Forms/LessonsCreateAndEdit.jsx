@@ -1,21 +1,25 @@
+import { useAtom } from "jotai";
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
+import state, { getCompletedStuff } from "../../components/Atom";
 
 const LessonsCreateAndEdit = () => {
- 
   const [error, setError] = useState(null);
+  const [lessonById, setLessonById] = useState({
+    name: "",
+    description: "",
+    gitHubLink: "",
+  });
+
+  const [user, setUser] = useAtom(state.user);
+  const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons);
+  const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks);
 
   const lessonName = useRef(null);
   const lessonDescription = useRef(null);
   const lessonGitHubLink = useRef(null);
 
   const params = useParams();
-
-  const [lessonById, setLessonById] = useState({
-    name: "",
-    description: "",
-    gitHubLink: "",
-  });
 
   useEffect(() => {
     if (params.lessonId !== undefined) {
@@ -35,7 +39,6 @@ const LessonsCreateAndEdit = () => {
   }, [params.lessonId]);
 
   async function updateLesson(e) {
-    e.preventDefault();
 
     try {
       const response = await fetch(
@@ -54,8 +57,6 @@ const LessonsCreateAndEdit = () => {
         }
       );
       if (response.ok) {
-        console.log(response);
-        await response.json();
         window.history.back();
       } else {
         console.log("Failed to update the lesson. ");
@@ -65,8 +66,7 @@ const LessonsCreateAndEdit = () => {
     }
   }
 
-  async function postLesson(e) {
-    e.preventDefault();
+  async function postLesson() {
 
     try {
       const response = await fetch("http://localhost:8080/lessons", {
@@ -85,9 +85,8 @@ const LessonsCreateAndEdit = () => {
         }),
       });
       if (response.ok) {
-        await response.json();
+        getCompletedStuff(user.id, setCompletedLessons,setCompletedWeeks)
         window.history.back();
-        console.log("Lesson succesfully created!");
       } else {
         setError("Failed to create the lesson.");
       }

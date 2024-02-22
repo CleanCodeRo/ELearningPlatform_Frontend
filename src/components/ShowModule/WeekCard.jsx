@@ -6,8 +6,11 @@ import {
   MenuList,
   MenuItem,
 } from "@material-tailwind/react";
+import { useAtom } from "jotai";
+import state from "../Atom";
 
-export default function WeekCard({ id, title, subtitle, image, setLoadingLessons, userRole }) {
+export default function WeekCard({ week, setLoadingLessons, userRole }) {
+  const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks)
   let weekCard = useRef(null);
   const navigate = useNavigate();
   const params = useParams();
@@ -15,7 +18,7 @@ export default function WeekCard({ id, title, subtitle, image, setLoadingLessons
   const deleteWeek = async (e) => {
     e.stopPropagation();
     try {
-      await fetch(`http://localhost:8080/weeks?weekId=${id}`, {
+      await fetch(`http://localhost:8080/weeks?weekId=${week.id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -32,11 +35,11 @@ export default function WeekCard({ id, title, subtitle, image, setLoadingLessons
   return (
     <div
       name="wholeCard"
-      id={id}
+      id={week.id}
       ref={weekCard}
       onClick={(e) => {
         e.stopPropagation();
-        let nextPath = `/home/module/${params.moduleId}/week/${id}`
+        let nextPath = `/home/module/${params.moduleId}/week/${week.id}`
         if (nextPath != window.location.pathname) {
           setLoadingLessons(true);
           navigate(nextPath);
@@ -47,14 +50,14 @@ export default function WeekCard({ id, title, subtitle, image, setLoadingLessons
       <div
         id="image"
         className="h-32 w-full rounded-lg rounded-t-2xl bg-no-repeat bg-center bg-cover"
-        style={{ backgroundImage: `url(${image})` }}
+        style={{ backgroundImage: `url(${week.image})` }}
       ></div>
       <div
         id="title"
         className=" bg-first w-fit p-2 rounded-xl my-0  top-0"
         style={{ margin: "-16px 0 0 7px" }}
       >
-        {title}
+        {`Week ${week.number}`}
       </div>
 
       {userRole == "ADMIN" ?
@@ -79,7 +82,7 @@ export default function WeekCard({ id, title, subtitle, image, setLoadingLessons
               onClick={(e) => {
                 {
                   e.stopPropagation();
-                  navigate(`/home/module/${params.moduleId}/editWeek/${id}`);
+                  navigate(`/home/module/${params.moduleId}/editWeek/${week.id}`);
                 }
               }}
               className="bg-first bg-opacity-80"
@@ -92,7 +95,7 @@ export default function WeekCard({ id, title, subtitle, image, setLoadingLessons
 
       <div id="other info" className="flex flex-col p-2">
         <p id="subtitle" className="text-3xl line-clamp-1">
-          {subtitle}
+          {week.name}
         </p>
 
         <div id="three details" className="flex py-2 justify-between">
@@ -112,8 +115,7 @@ export default function WeekCard({ id, title, subtitle, image, setLoadingLessons
             id="price"
             className="flex items-center bg-black py-3 px-6 rounded-3xl"
           >
-            <i className="fa-solid fa-dollar-sign "></i>
-            <p className="">18</p>
+            <p className="">{completedWeeks.includes(week.id) ? "Done" : "Todo"}</p>
           </div>
         </div>
       </div>

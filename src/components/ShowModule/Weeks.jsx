@@ -6,6 +6,7 @@ import Loading from "../Loading/Loading";
 export default function Weeks({setLoadingLessons, userRole}) {
   const [weeks, setWeeks] = useState(null);
   const [loading, setLoading] = useState(true);
+
   const params = useParams();
   const navigate = useNavigate();
 
@@ -68,10 +69,7 @@ export default function Weeks({setLoadingLessons, userRole}) {
             weeks.map((week, index) => (
               <WeekCard
                 key={index}
-                id={week.id}
-                title={`Week ${week.number}`}
-                subtitle={week.name}
-                image={week.imgLink}
+                week = {week}
                 setLoadingLessons={setLoadingLessons}
                 userRole={userRole}
               />

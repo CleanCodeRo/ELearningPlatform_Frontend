@@ -80,10 +80,7 @@ export default function Lessons({ setLoadingLessons, loadingLessons, userRole })
             lessons.map((lesson, index) => (
               <LessonCard
                 key={index}
-                id={lesson.id}
-                name={lesson.name}
-                description={lesson.description}
-                gitHubLink={lesson.gitHubLink}
+                lesson = {lesson}
                 userRole={userRole}
               />
             ))

@@ -23,7 +23,7 @@ export default function LessonCard({lesson, userRole }) {
   const deleteLesson = async (e) => {
     e.stopPropagation();
     try {
-      await fetch(`http://localhost:8080/lessons?lessonId=${lesson.id}`, {
+      await fetch(`http://localhost:8080/lessons?lessonId=${lesson.id}&weekId=${params.weekId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

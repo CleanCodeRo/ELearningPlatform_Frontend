@@ -4,13 +4,14 @@ const state = {
 user : atom(null),
 completedLessons : atom([]),
 completedWeeks : atom([]),
+completedModules : atom([]),
 
 refresh : atom(0)
 };
 export default state;
 
 
-export function getUserWithToken(token, setUser, setCompletedLessons, setCompletedWeeks) {
+export function getUserWithToken(token, setUser, setCompletedLessons, setCompletedWeeks, setCompletedModules) {
     fetch("http://localhost:8080/users/getUserWithToken", {
       method: 'GET',
       headers: {
@@ -30,6 +31,7 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
         
         setCompletedLessons(data.completedLessons);
         setCompletedWeeks(data.completedWeeks);
+        setCompletedModules(data.completedModules)
         // console.log(data.completedLessons);
         // console.log(data.completedWeeks)
       })
@@ -38,7 +40,7 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
 
 
 
-  export function getCompletedStuff(userId, setCompletedLessons, setCompletedWeeks){
+  export function getCompletedStuff(userId, setCompletedLessons, setCompletedWeeks, setCompletedModules){
     fetch(`http://localhost:8080/users/${userId}/completedStuff`,{
       method : "GET",
       headers :{
@@ -53,6 +55,7 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
       
       setCompletedLessons(data.completedLessons);
       setCompletedWeeks(data.completedWeeks);
+      setCompletedModules(data.completedModules);
      
     })
   }

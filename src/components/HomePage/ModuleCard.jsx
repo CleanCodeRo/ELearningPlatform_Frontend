@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Menu,
@@ -6,27 +6,32 @@ import {
   MenuList,
   MenuItem,
 } from "@material-tailwind/react";
+import Loading from "../Loading/Loading";
+import { useAtom } from "jotai";
+import state from "../Atom";
 
 export default function ModuleCard({ id, title, subtitle, image, userRole }) {
   let moduleCard = useRef(null);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [completedModules, setCompletedModules] = useAtom(state.completedModules);
 
   const deleteModule = async (e) => {
     e.stopPropagation();
-    try {
-      await fetch(`http://localhost:8080/modules?moduleId=${id}`, {
+    setLoading(true);
+
+    fetch(`http://localhost:8080/modules?moduleId=${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
         },
-      });
-
-      // window.location.reload();
-      moduleCard.current.remove();
-    } catch (error) {
-      console.error("Error during DELETE operation:", error);
-    }
+      })
+      .then(res => res.json())
+      .then(data =>{
+         console.log(data)
+         moduleCard.current.remove()
+        })
   };
 
   return (
@@ -37,6 +42,15 @@ export default function ModuleCard({ id, title, subtitle, image, userRole }) {
       className="animate-fade-left animate-ease-in-out flex flex-col relative cursor-pointer min-w-[18rem]  max-w-80  bg-white rounded-2xl mx-3 p-1 border-b-[3px] border-transparent  shadow-md hover:shadow-[#2c8dfe] duration-100"
       onClick={() => navigate(`module/${id}`)}
     >
+
+    {/* loading for card */}
+    {loading &&
+      <div id="loadinComponent" className="absolute top-0 left-0 bg-gray-100 bg-opacity-20 z-10 w-full h-full flex items-center justify-center">
+        <Loading/>
+      </div>
+      }
+
+
       <div
         id="image"
         className="h-32 w-full rounded-lg rounded-t-2xl bg-no-repeat bg-center bg-cover"
@@ -104,8 +118,7 @@ export default function ModuleCard({ id, title, subtitle, image, userRole }) {
             id="price"
             className="flex items-center bg-[#2c8dfe] py-3 px-6 rounded-3xl"
           >
-            <i className="fa-solid fa-dollar-sign "></i>
-            <p className="">18</p>
+            <p className="">{completedModules.includes(id) ? "Done" : "Todo"}</p>
           </div>
         </div>
       </div>

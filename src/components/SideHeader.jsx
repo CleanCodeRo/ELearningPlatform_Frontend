@@ -16,6 +16,7 @@ export default function SideHeader() {
   const [user, setUser] = useAtom(state.user)
   const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons);
   const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks);
+  const [completedModules, setCompletedModules] = useAtom(state.completedModules);
 
   const logout = (e) => {
     e.preventDefault();
@@ -26,7 +27,7 @@ export default function SideHeader() {
   useEffect(() =>{
     console.log("works")
     if(!user){
-      getUserWithToken(localStorage.getItem("ELearningToken"), setUser, setCompletedLessons, setCompletedWeeks)
+      getUserWithToken(localStorage.getItem("ELearningToken"), setUser, setCompletedLessons, setCompletedWeeks, setCompletedModules)
       console.log("user recived use effect")
     }
   }, [])

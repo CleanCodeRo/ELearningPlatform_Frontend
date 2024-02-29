@@ -1,5 +1,7 @@
+import { useAtom } from "jotai";
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import state, { getCompletedStuff } from "../../components/Atom";
 
 export default function WeekCreateAndEdit() {
   let weekName = useRef(null);
@@ -8,6 +10,10 @@ export default function WeekCreateAndEdit() {
   let navigate = useNavigate();
 
   const [error, setError] = useState(null);
+  const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons);
+  const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks);
+  const [completedModules, setCompletedModules] = useAtom(state.completedModules);
+  const [user, setUser] = useAtom(state.user);
 
   const [weekById, setWeekById] = useState({
     name: "",
@@ -100,6 +106,7 @@ export default function WeekCreateAndEdit() {
     })
       .then((res) => res.json())
       .then(() => {
+        getCompletedStuff(user.id, setCompletedLessons,setCompletedWeeks, setCompletedModules)
         window.history.back()
       })
       .catch(() =>{

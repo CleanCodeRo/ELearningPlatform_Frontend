@@ -99,7 +99,7 @@ export default function LessonCard({lesson, userRole }) {
 
     const [initialStatus, setInitialStatus] = useState(completedLessons.includes(lesson.id) ? "DONE" : "TODO");
     return (
-      <div id="holder" className="">
+      <div id="holder" className=" ">
         <Select
           size="md"
           color="blue"
@@ -107,7 +107,7 @@ export default function LessonCard({lesson, userRole }) {
           label="Select Status"
           value={initialStatus}
           onChange={(status) => EditStatusEvent(initialStatus ,status)}
-          className="text-sixth"
+          className="text-sixth  "
         >
           <Option  value="DONE">Done</Option>
           <Option  value="TODO">To Do</Option>

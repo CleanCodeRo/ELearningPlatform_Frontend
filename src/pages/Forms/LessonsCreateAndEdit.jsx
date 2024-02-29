@@ -14,6 +14,7 @@ const LessonsCreateAndEdit = () => {
   const [user, setUser] = useAtom(state.user);
   const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons);
   const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks);
+  const [completedModules, setCompletedModules] = useAtom(state.completedModules);
 
   const lessonName = useRef(null);
   const lessonDescription = useRef(null);
@@ -81,11 +82,14 @@ const LessonsCreateAndEdit = () => {
           gitHubLink: lessonGitHubLink.current.value,
           week: {
             id: params.weekId,
+            module :{
+              id : params.moduleId,
+            }
           },
         }),
       });
       if (response.ok) {
-        getCompletedStuff(user.id, setCompletedLessons,setCompletedWeeks)
+        getCompletedStuff(user.id, setCompletedLessons,setCompletedWeeks, setCompletedModules)
         window.history.back();
       } else {
         setError("Failed to create the lesson.");

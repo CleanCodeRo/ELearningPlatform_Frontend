@@ -38,8 +38,6 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
   }
 
 
-
-
   export function getCompletedStuff(userId, setCompletedLessons, setCompletedWeeks, setCompletedModules){
     fetch(`http://localhost:8080/users/${userId}/completedStuff`,{
       method : "GET",

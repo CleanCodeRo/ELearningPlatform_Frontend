@@ -31,8 +31,10 @@ export default function LessonCard({lesson, userRole }) {
           Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
         },
       });
-
+      
       window.location.reload();
+      
+
     } catch (error) {
       console.error("Error during DELETE operation:", error);
     }

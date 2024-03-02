@@ -47,6 +47,7 @@ const Login = () => {
         console.log("is expired : " , isExpired(token)) 
         navigate("/home");
         window.location.reload();
+        
       }
     } catch (error) {
       console.error("Login error:", error);

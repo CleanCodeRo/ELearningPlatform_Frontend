@@ -34,6 +34,8 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
         setCompletedModules(data.completedModules)
         // console.log(data.completedLessons);
         // console.log(data.completedWeeks)
+        console.log(data)
+        console.log("here")
       })
   }
 

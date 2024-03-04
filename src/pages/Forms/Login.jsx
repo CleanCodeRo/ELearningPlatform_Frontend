@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import state from "../../components/Atom";
-import { useAtom } from "jotai";
 import { isExpired } from "react-jwt";
 
 const Login = () => {
@@ -9,7 +7,6 @@ const Login = () => {
   const [username, setUsername] = useState("Oli");
   const [password, setPassword] = useState("1234");
   const [error, setError] = useState(null);
-  const [user, setUser] = useAtom(state.user);
 
   async function login(e) {
     e.preventDefault();
@@ -28,7 +25,10 @@ const Login = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ username, password }),
+          body: JSON.stringify({
+             username : username.trim() ,
+             password 
+            }),
         }
       );
 

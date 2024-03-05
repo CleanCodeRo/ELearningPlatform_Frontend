@@ -1,14 +1,18 @@
-export default function FilterButton({ image, title, text }){
+export default function FilterButton({ image, title, text }) {
+console.log("Title ", title)
+console.log("text ", text)
+
+
     return (
         <div className="bg-white w-32 h-32 flex justify-center flex-col items-center rounded-3xl ml-10 cursor-pointer">
-    <div id="icon" className="h-16 w-16 rounded-full flex items-center justify-center">
-    <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
- width="256" height="256" viewBox="-80 0 450 256"
- preserveAspectRatio="xMidYMid meet">
+            <div id="icon" className="h-16 w-16 rounded-full flex items-center justify-center">
+                <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+                    width="256" height="256" viewBox="-80 0 450 256"
+                    preserveAspectRatio="xMidYMid meet">
 
-<g transform="translate(0.000000,256.000000) scale(0.100000,-0.100000)"
-fill="#afafaf" stroke="none">
-<path d="M0 2378 c0 -199 11 -272 54 -357 34 -67 117 -154 187 -197 l59 -37 0
+                    <g transform="translate(0.000000,256.000000) scale(0.100000,-0.100000)"
+                        fill="#afafaf" stroke="none">
+                        <path d="M0 2378 c0 -199 11 -272 54 -357 34 -67 117 -154 187 -197 l59 -37 0
 -59 c0 -44 -3 -59 -12 -55 -118 52 -136 57 -211 57 l-79 0 4 -237 c3 -233 4
 -239 30 -295 49 -105 139 -182 252 -217 51 -15 61 -24 172 -156 l119 -140 5
 -190 c5 -188 6 -191 37 -257 44 -93 100 -151 191 -196 l76 -37 396 0 396 0 76
@@ -35,7 +39,7 @@ l41 52 63 -63 c34 -35 84 -78 111 -96z m-617 -472 c19 -12 48 -40 64 -62 l29
 22 -10 41 -21z m2213 -105 c0 -71 -5 -145 -12 -168 -12 -40 -95 -136 -118
 -136 -6 0 -10 53 -10 153 0 147 1 154 25 190 23 33 87 85 108 86 4 1 7 -56 7
 -125z"/>
-<path d="M920 1723 c1 -21 7 -55 14 -75 l14 -38 -174 0 -174 0 0 -80 c0 -144
+                        <path d="M920 1723 c1 -21 7 -55 14 -75 l14 -38 -174 0 -174 0 0 -80 c0 -144
 69 -266 184 -325 49 -25 72 -30 153 -33 l95 -4 -7 -117 c-4 -64 -8 -123 -11
 -131 -2 -10 41 -46 131 -108 l135 -93 135 92 c94 65 134 98 131 108 -3 9 -7
 68 -11 132 l-7 117 95 4 c81 3 104 8 153 33 115 59 184 181 184 325 l0 80
@@ -46,15 +50,15 @@ m130 -302 c0 -21 -3 -53 -6 -70 l-6 -31 -72 0 c-87 0 -128 19 -173 78 -18 24
 -45 -59 -86 -78 -173 -78 l-71 0 -7 31 c-3 17 -6 49 -6 70 l0 39 145 0 c82 0
 145 -4 145 -9z m-435 -86 c6 -44 27 -386 23 -389 -2 -1 -27 -19 -55 -39 l-53
 -37 -52 37 c-29 20 -54 38 -56 39 -4 3 17 345 23 389 l5 30 80 0 80 0 5 -30z"/>
-<path d="M1018 573 l-3 -58 -43 -3 -43 -3 3 -72 3 -72 345 0 345 0 3 72 3 72
+                        <path d="M1018 573 l-3 -58 -43 -3 -43 -3 3 -72 3 -72 345 0 345 0 3 72 3 72
 -43 3 -43 3 -3 58 -3 57 -74 0 -75 0 0 -60 0 -60 -110 0 -110 0 0 60 0 60 -75
 0 -74 0 -3 -57z"/>
-</g>
-</svg>
-    </div>
-    <p className="font-bold uppercase text-center text-[13px] mb-3 text-[#afafaf]">{title}</p>
-    <p className="text-center text-sm text-[#afafaf]">{text}</p>
-</div>
+                    </g>
+                </svg>
+            </div>
+            <p className="font-bold uppercase text-center text-[13px] mb-3 text-[#afafaf]">{title}</p>
+            <p className="text-center text-sm text-[#afafaf]">{text}</p>
+        </div>
 
     )
 }

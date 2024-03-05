@@ -75,7 +75,7 @@ export default function Lessons({ setLoadingLessons, loadingLessons, userRole })
 
         :
 
-        <div id="listOfLessons" className="grid grid-cols-3 " >
+        <div id="listOfLessons" className="grid grid-cols-2 2xl:grid-cols-3 " >
           {lessons && lessons.length > 0 ? (
             lessons.map((lesson, index) => (
               <LessonCard

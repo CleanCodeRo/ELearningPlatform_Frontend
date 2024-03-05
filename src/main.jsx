@@ -5,6 +5,7 @@ import { isExpired } from "react-jwt";
 import HomePage from "./pages/HomePage";
 
 import PresentationPage from "./pages/PresentationPage";
+import Dojo from "./pages/Dojo";
 import Login from "./pages/Forms/Login";
 import Contact from "./pages/Forms/Contact";
 import ShowModule from "./pages/ShowModule";
@@ -12,6 +13,7 @@ import ModuleCreateAndEdit from "./pages/Forms/ModuleCreateAndEdit";
 import WeekCreateAndEdit from "./pages/Forms/WeekCreateAndEdit";
 import LessonsCreateAndEdit from "./pages/Forms/LessonsCreateAndEdit";
 import Redirect from "./components/Redirect";
+
 import NewKataCard from "./components/HomePage/SpecialKatas/NewKataCard";
 
 
@@ -102,8 +104,14 @@ export default function App() {
           element={<LessonsCreateAndEdit />}
         />
         <Route
-          path="/home/develop"
-          element={<NewKataCard />}
+          path="/home/dojo"
+          element={
+            !isExpired(localStorage.getItem("ELearningToken")) ? (
+              <Dojo />
+            ) : (
+              <Redirect />
+            )
+          }
         />
       </Routes>
 

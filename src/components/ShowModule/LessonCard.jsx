@@ -11,12 +11,12 @@ import { useAtom } from "jotai";
 import state, { getCompletedStuff } from "../Atom";
 import Loading from "../Loading/Loading";
 
-export default function LessonCard({ lesson, userRole }) {
+export default function LessonCard({lesson, userRole }) {
   const [user, setUser] = useAtom(state.user);
   const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons);
   const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks);
   const [completedModules, setCompletedModules] = useAtom(state.completedModules);
-
+  
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const params = useParams();
@@ -31,40 +31,40 @@ export default function LessonCard({ lesson, userRole }) {
           Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
         },
       });
-
+      
       window.location.reload();
-
+      
 
     } catch (error) {
       console.error("Error during DELETE operation:", error);
     }
   };
 
-  const EditStatusEvent = (initialStatus, status) => {
+  const EditStatusEvent = (initialStatus, status) =>{
     setLoading(true)
 
-    if (status == initialStatus) {
+    if(status == initialStatus){
       setLoading(false)
       return;
     }
 
-    fetch(` http://localhost:8080/users?userId=${user.id}&lessonId=${lesson.id}&weekId=${params.weekId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`
+    fetch(` http://localhost:8080/users?userId=${user.id}&lessonId=${lesson.id}&weekId=${params.weekId}`,{
+      method : "PATCH",
+      headers :{
+        "Content-Type" : "application/json",
+        Authorization : `Bearer ${localStorage.getItem("ELearningToken")}`
       },
-      body: JSON.stringify(status)
+      body : JSON.stringify(status)
     })
-      .then(res => res.json())
-      .then(data => {
-        getCompletedStuff(user.id, setCompletedLessons, setCompletedWeeks, setCompletedModules)
-        console.log(data);
-        setLoading(false)
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    .then(res => res.json())
+    .then(data => {
+      getCompletedStuff(user.id, setCompletedLessons, setCompletedWeeks, setCompletedModules)
+      console.log(data);
+      setLoading(false)
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
 
   const EditPen = () => {
@@ -98,9 +98,10 @@ export default function LessonCard({ lesson, userRole }) {
   };
 
   const EditStatusComponent = () => {
+
     const [initialStatus, setInitialStatus] = useState(completedLessons.includes(lesson.id) ? "DONE" : "TODO");
     return (
-      <div id="holder" className="">
+      <div id="holder" className=" ">
         <Select
           size="md"
           color="blue"
@@ -109,17 +110,16 @@ export default function LessonCard({ lesson, userRole }) {
           value={initialStatus}
           onChange={(status) => EditStatusEvent(initialStatus ,status)}
           className="text-sixth  "
-         
         >
-          <Option className="z-50" value="DONE">Done</Option>
-          <Option className="z-50" value="TODO">To Do</Option>
+          <Option  value="DONE">Done</Option>
+          <Option  value="TODO">To Do</Option>
+
         </Select>
-     
       </div>
     );
   };
 
-
+ 
 
   return (
     <div
@@ -130,9 +130,9 @@ export default function LessonCard({ lesson, userRole }) {
 
       {/* loading for card */}
       {loading &&
-        <div id="loadinComponent" className="absolute top-0 left-0 bg-gray-100 bg-opacity-20 z-10 w-full h-full flex items-center justify-center">
-          <Loading />
-        </div>
+      <div id="loadinComponent" className="absolute top-0 left-0 bg-gray-100 bg-opacity-20 z-10 w-full h-full flex items-center justify-center">
+        <Loading/>
+      </div>
       }
 
       <div id="topPart" className="flex flex-col">

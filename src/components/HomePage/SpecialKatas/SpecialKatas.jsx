@@ -4,7 +4,7 @@ import KataCarousel from "./KataCarousel";
 
 
 
-export default function SpecialKatas() {
+export default function SpecialKatas({user}) {
 
 
   const FilterButton = () => {
@@ -22,7 +22,7 @@ export default function SpecialKatas() {
 
       <div id="containerSlider" className=" flex justify-center items-center " >
 
-        <KataCarousel />
+        <KataCarousel user={user} />
 
       </div>
 

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import NewKataCard from './NewKataCard';
 import ModuleCard from '../ModuleCard';
 
-const KataCarousel = () => {
+const KataCarousel = ({user}) => {
   const [katas, setKatas] = useState(null);
   const navigate = useNavigate();
 
@@ -79,10 +79,10 @@ const KataCarousel = () => {
   };
 
   return (
-    <Slider {...settings} className="flex mx-auto w-4/5">
+    <Slider {...settings} className="flex mx-auto w-4/5 mt-4">
       {katas && katas.map((kata, index) => (
       
-          <NewKataCard key={index} kata={kata} />
+          <NewKataCard key={index} kata={kata} userRole={user}/>
         
       ))}
     </Slider>

@@ -18,7 +18,7 @@ function HomePage() {
       <div className="flex flex-col px-5 " style={{width : "calc(100vw - 5rem)"}}>
        {user && <Modules userRole={user.role}/>}
         <FilterKataList/>
-        <SpecialKatas />
+        <SpecialKatas user={user}/>
       </div>
     </div>
   );

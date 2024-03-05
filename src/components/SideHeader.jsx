@@ -90,6 +90,7 @@ export default function SideHeader() {
       <div
   id="myKatasButton"
   className=" rounded-full w-[50px] h-[50px] mb-4 mt-7 cursor-pointer fill-[#afafaf] hover:fill-[#2c8dfe] "
+  onClick={()=>navigate("/home/dojo")}
 >
   <svg
   

@@ -126,8 +126,8 @@ const LessonsCreateAndEdit = () => {
               Name
             </label>
           </div>
-          <div className="relative h-11 w-full min-w-[200px]">
-            <input
+          <div className="relative  w-full min-w-[200px]">
+            <textarea
               type="text"
               ref={lessonDescription}
               defaultValue={lessonById.description}

@@ -11,6 +11,7 @@ import { useAtom } from "jotai";
 import state, { getCompletedStuff } from "../Atom";
 import Loading from "../Loading/Loading";
 
+
 export default function LessonCard({ lesson, userRole }) {
   const [user, setUser] = useAtom(state.user);
   const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons);
@@ -100,7 +101,7 @@ export default function LessonCard({ lesson, userRole }) {
   const EditStatusComponent = () => {
     const [initialStatus, setInitialStatus] = useState(completedLessons.includes(lesson.id) ? "DONE" : "TODO");
     return (
-      <div id="holder" className="">
+      <div id="holder" className="w-full lg:w-auto mb-3 lg:mb-0">
         <Select
           size="md"
           color="blue"
@@ -121,11 +122,12 @@ export default function LessonCard({ lesson, userRole }) {
 
 
 
+
   return (
     <div
       name="principleHolder"
       id={lesson.id}
-      className="flex flex-col justify-between bg-second p-3 m-3 rounded-xl animate-fade-down animate-ease-in-out relative"
+      className="flex flex-col justify-between min-w-[15rem] max-h-[23rem] bg-second p-3 m-3 rounded-xl animate-fade-down animate-ease-in-out relative"
     >
 
       {/* loading for card */}
@@ -137,12 +139,12 @@ export default function LessonCard({ lesson, userRole }) {
 
       <div id="topPart" className="flex flex-col">
         <div id="lessonTitle" className="flex items-center">
-          <p className="my-3 text-3xl  line-clamp-2 w-full   font-bold">
+          <p className="my-3 text-2xl sm:text-3xl  line-clamp-2 w-full   font-bold">
             {lesson.name}
           </p>
           <EditPen />
         </div>
-        <p id="description" className="my-3 line-clamp-5">
+        <p id="description" className="my-3 line-clamp-5 text-sm sm:text-base">
           {lesson.description}
         </p>
       </div>
@@ -150,16 +152,19 @@ export default function LessonCard({ lesson, userRole }) {
       <div
         name="bottomPart"
         id="redirectButtonAndStatus"
-        className="flex justify-between items-center px-4 mt-6"
+        className="flex flex-col-reverse lg:flex-row  justify-between items-center px-4 mt-6"
       >
         <a
           href={lesson.gitHubLink}
           target="_blank"
-          className="cursor-pointer my-2 xs:my-0 px-6 py-4 bg-fourth rounded-lg text-light-green-50 mr-4 shadow-sm shadow-fifth text-xl"
+          className="cursor-pointer w-full lg:w-fit my-2 xs:my-0  lg:mr-4  px-6 py-2   bg-fourth rounded-lg text-light-green-50 shadow-sm hover:shadow-lg hover:shadow-sixth shadow-sixth text-xl text-center duration-300"
         >
           Learn
         </a>
+
+        
         < EditStatusComponent />
+        
       </div>
     </div>
   );

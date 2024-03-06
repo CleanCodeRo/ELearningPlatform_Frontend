@@ -50,3 +50,9 @@
   font-style: normal;
   /* Font style */
 }
+
+@media (min-width: 720px) {
+  #weeksAndLessons {
+      width: 100vw;
+  }
+}

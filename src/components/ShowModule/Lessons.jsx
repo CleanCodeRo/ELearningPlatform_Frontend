@@ -50,7 +50,7 @@ export default function Lessons({ setLoadingLessons, loadingLessons, userRole })
   return (
     <div className="pt-5 pb-10 font-inter" >
       <div className=" flex items-center ">
-        <p className="text-4xl p-4 font-bold border-2 rounded-xl text-fourth">
+        <p className="text-3xl sm:text-4xl p-4 font-bold border-2 rounded-xl text-fourth">
           LESSONS
         </p>
         {params.weekId && userRole == "ADMIN" && (

@@ -53,7 +53,7 @@ export default function ModuleCard({ id, title, subtitle, image, userRole }) {
 
       <div
         id="image"
-        className="h-32 w-full rounded-lg rounded-t-2xl bg-no-repeat bg-center bg-cover"
+        className="h-40 w-full rounded-lg rounded-t-2xl bg-no-repeat bg-center bg-cover"
         style={{ backgroundImage: `url(${image})` }}
       ></div>
       <div

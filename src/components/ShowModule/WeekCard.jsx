@@ -49,8 +49,8 @@ export default function WeekCard({ week, setLoadingLessons, userRole }) {
     >
       <div
         id="image"
-        className="h-32 w-full rounded-lg rounded-t-2xl bg-no-repeat bg-center bg-cover"
-        style={{ backgroundImage: `url(${week.image})` }}
+        className=" h-40 w-full rounded-lg rounded-t-2xl bg-no-repeat bg-center bg-cover"
+        style={{ backgroundImage: `url(${week.imgLink})` }}
       ></div>
       <div
         id="title"

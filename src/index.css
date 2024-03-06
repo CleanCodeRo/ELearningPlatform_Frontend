@@ -52,7 +52,7 @@
 }
 
 @media (min-width: 720px) {
-  #weeksAndLessons {
-      width: 100vw;
+  #weeksAndLessons #moduleAndKataHolder {
+    width: 100vw;
   }
 }

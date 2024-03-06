@@ -4,7 +4,7 @@ console.log("text ", text)
 
 
     return (
-        <div className="bg-white w-32 h-32 flex justify-center flex-col items-center rounded-3xl ml-10 cursor-pointer">
+        <div className="bg-white min-w-32 h-32 my-2 flex justify-center flex-col items-center rounded-3xl cursor-pointer">
             <div id="icon" className="h-16 w-16 rounded-full flex items-center justify-center">
                 <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
                     width="256" height="256" viewBox="-80 0 450 256"

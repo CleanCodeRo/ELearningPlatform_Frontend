@@ -45,7 +45,7 @@ export default function NewKataCard({ kata , userRole}) {
             <div className="grid grid-cols-2">
             <p id="title" className="text-[#0b0f1b] mt-2 font-ninja">{kata.title}</p>
             <div id="editPenInsideKata" className="">
-            <EditPen  />
+            {/* <EditPen  /> */}
             </div>
             </div>
             

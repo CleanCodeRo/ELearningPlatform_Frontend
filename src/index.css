@@ -50,3 +50,22 @@
   font-style: normal;
   /* Font style */
 }
+
+/*success error animation*/
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-fadeInOut {
+  animation: fadeInOut 2s ease-out;
+}
+

@@ -3,6 +3,7 @@ import SideHeader from '../components/SideHeader'
 import KataCarousel from '../components/HomePage/SpecialKatas/KataCarousel';
 import { useAtom } from 'jotai';
 import state from "../components/Atom";
+import { Link } from 'react-router-dom';
 
 export default function Dojo() {
   
@@ -20,7 +21,13 @@ export default function Dojo() {
       <KataCarousel user={user} />
 
 
-     <button id='addKata' className='bg-green-300 mt-4'>Add Kata</button>
+      <Link
+      
+      to={"\addKata"}>
+     <button id='addKata' className='bg-green-300 mt-4'>
+
+      Add Kata</button>
+      </Link>
      <button id='removeKata' className='bg-red-300 mt-4'>Remove Kata</button>
 
     </div>

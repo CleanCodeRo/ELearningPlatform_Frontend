@@ -10,6 +10,7 @@ import { Select, Option } from "@material-tailwind/react";
 import { useAtom } from "jotai";
 import state, { getCompletedStuff } from "../Atom";
 import Loading from "../Loading/Loading";
+import CheckBox from "../CheckBox/CheckBox";
 
 
 export default function LessonCard({ lesson, userRole }) {
@@ -41,13 +42,9 @@ export default function LessonCard({ lesson, userRole }) {
     }
   };
 
-  const EditStatusEvent = (initialStatus, status) => {
-    setLoading(true)
-
-    if (status == initialStatus) {
-      setLoading(false)
-      return;
-    }
+  const EditStatusEvent = (e) => {
+    console.log(e.target.checked)
+     setLoading(true)
 
     fetch(` http://localhost:8080/users?userId=${user.id}&lessonId=${lesson.id}&weekId=${params.weekId}`, {
       method: "PATCH",
@@ -55,7 +52,7 @@ export default function LessonCard({ lesson, userRole }) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`
       },
-      body: JSON.stringify(status)
+      body: JSON.stringify(e.target.checked ? "DONE" : "TODO")
     })
       .then(res => res.json())
       .then(data => {
@@ -98,24 +95,12 @@ export default function LessonCard({ lesson, userRole }) {
     );
   };
 
-  const EditStatusComponent = () => {
-    const [initialStatus, setInitialStatus] = useState(completedLessons.includes(lesson.id) ? "DONE" : "TODO");
+  const EditStatusComponentV2 = () => {
+    let defaultChecked = completedLessons.includes(lesson.id) ? true : false;
     return (
-      <div id="holder" className="w-full lg:w-auto mb-3 lg:mb-0">
-        <Select
-          size="md"
-          color="blue"
-          id="select"
-          label="Select Status"
-          value={initialStatus}
-          onChange={(status) => EditStatusEvent(initialStatus ,status)}
-          className="text-sixth  "
-         
-        >
-          <Option className="z-50" value="DONE">Done</Option>
-          <Option className="z-50" value="TODO">To Do</Option>
-        </Select>
-     
+      <div className="flex items-center gap-5 bg-sixth shadow-md hover:shadow-lg shadow-sixth hover:shadow-sixth px-6 py-2 text-first rounded-lg">
+        <CheckBox idNumber={lesson.id} checkBoxEvent={EditStatusEvent} defaultChecked={defaultChecked}/>
+        <label className="text-2xl font-bold">Done</label>
       </div>
     );
   };
@@ -157,13 +142,12 @@ export default function LessonCard({ lesson, userRole }) {
         <a
           href={lesson.gitHubLink}
           target="_blank"
-          className="cursor-pointer w-full lg:w-fit my-2 xs:my-0  lg:mr-4  px-6 py-2   bg-fourth rounded-lg text-light-green-50 shadow-sm hover:shadow-lg hover:shadow-sixth shadow-sixth text-xl text-center duration-300"
+          className="cursor-pointer w-full lg:w-fit my-2 xs:my-0  lg:mr-4  px-6 py-2   bg-sixth rounded-lg text-first shadow-md hover:shadow-lg hover:shadow-sixth shadow-sixth text-2xl font-bold text-center duration-300"
         >
           Learn
         </a>
 
-        
-        < EditStatusComponent />
+        < EditStatusComponentV2/>
         
       </div>
     </div>

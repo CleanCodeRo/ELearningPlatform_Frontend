@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import LessonCard from "./LessonCard";
 import Loading from "../Loading/Loading";
+import CheckBox from "../CheckBox/CheckBox";
 
 export default function Lessons({ setLoadingLessons, loadingLessons, userRole }) {
   const [lessons, setLessons] = useState(null);
@@ -53,6 +54,7 @@ export default function Lessons({ setLoadingLessons, loadingLessons, userRole })
         <p className="text-3xl sm:text-4xl p-4 font-bold border-2 rounded-xl text-fourth">
           LESSONS
         </p>
+        
         {params.weekId && userRole == "ADMIN" && (
           <button
             onClick={() =>

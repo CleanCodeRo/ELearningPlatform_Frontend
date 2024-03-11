@@ -6,7 +6,6 @@ import {
 } from "@material-tailwind/react";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Select, Option } from "@material-tailwind/react";
 import { useAtom } from "jotai";
 import state, { getCompletedStuff } from "../Atom";
 import Loading from "../Loading/Loading";
@@ -18,6 +17,7 @@ export default function LessonCard({ lesson, userRole }) {
   const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons);
   const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks);
   const [completedModules, setCompletedModules] = useAtom(state.completedModules);
+  const [lessonStatus, setLessonStatus] = useState(completedLessons.includes(lesson.id) ? true : false)
 
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -43,8 +43,12 @@ export default function LessonCard({ lesson, userRole }) {
   };
 
   const EditStatusEvent = (e) => {
-    console.log(e.target.checked)
-     setLoading(true)
+    if (e.target.checked) {
+      setLessonStatus(true);
+    } else {
+      setLessonStatus(false);
+    }
+    setLoading(true)
 
     fetch(` http://localhost:8080/users?userId=${user.id}&lessonId=${lesson.id}&weekId=${params.weekId}`, {
       method: "PATCH",
@@ -98,14 +102,15 @@ export default function LessonCard({ lesson, userRole }) {
   const EditStatusComponentV2 = () => {
     let defaultChecked = completedLessons.includes(lesson.id) ? true : false;
     return (
-      <div className="flex items-center gap-5 bg-sixth shadow-md hover:shadow-lg shadow-sixth hover:shadow-sixth px-6 py-2 text-first rounded-lg">
-        <CheckBox idNumber={lesson.id} checkBoxEvent={EditStatusEvent} defaultChecked={defaultChecked}/>
-        <label className="text-2xl font-bold">Done</label>
+      <div id="container" className="flex flex-col items-center border  rounded-lg">
+        <p id="label" className=" bg-second w-fit px-1" style={{ margin: "-13px 0 0 0px" }}>Modify Status</p>
+        <div className="flex items-center gap-5 bg-sixth shadow-md hover:shadow-lg shadow-sixth hover:shadow-sixth px-6 py-2 text-first rounded-lg duration-300">
+          <CheckBox idNumber={lesson.id} checkBoxEvent={EditStatusEvent} defaultChecked={defaultChecked} />
+          <label className="text-2xl font-bold">{lessonStatus ? "Done" : "Todo"}</label>
+        </div>
       </div>
     );
   };
-
-
 
 
   return (
@@ -147,8 +152,8 @@ export default function LessonCard({ lesson, userRole }) {
           Learn
         </a>
 
-        < EditStatusComponentV2/>
-        
+        < EditStatusComponentV2 />
+
       </div>
     </div>
   );

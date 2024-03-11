@@ -96,19 +96,19 @@ export default function ModuleCard({ id, title, subtitle, image, userRole }) {
         </Menu>
       </div> : null }
 
-      <div id="other info" className="flex flex-col p-2">
-        <p id="subtitle" className="text-3xl line-clamp-1 text-[#afafaf]">
+      <div id="other info" className="flex flex-col p-2 text-[#afafaf]">
+        <p id="subtitle" className="text-3xl line-clamp-1 ">
           {subtitle}
         </p>
 
         <div id="three details" className="flex py-2 justify-between">
           <div id="group Div For Flex" className="flex items-center">
-            <div id="time" className="flex items-center mr-4 text-[#afafaf]">
+            <div id="time" className="flex items-center mr-4 ">
               <i className="fa-solid fa-clock mr-1"></i>
               <p>1h 53min</p>
             </div>
 
-            <div id="rating" className="flex items-center mr-4 text-[#afafaf]">
+            <div id="rating" className="flex items-center mr-4 ">
               <i className="fa-solid fa-star mr-1"></i>
               <p>4.3/5</p>
             </div>
@@ -116,7 +116,7 @@ export default function ModuleCard({ id, title, subtitle, image, userRole }) {
 
           <div
             id="price"
-            className="flex items-center bg-[#2c8dfe] py-3 px-6 rounded-3xl"
+            className="flex text-sixth items-center bg-[#2c8dfe] py-3 px-6 rounded-3xl"
           >
             <p className="">{completedModules.includes(id) ? "Done" : "Todo"}</p>
           </div>

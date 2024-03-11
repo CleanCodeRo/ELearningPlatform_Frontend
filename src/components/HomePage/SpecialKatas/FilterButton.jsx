@@ -1,6 +1,6 @@
 export default function FilterButton({ image, title, text }) {
-console.log("Title ", title)
-console.log("text ", text)
+// console.log("Title ", title)
+// console.log("text ", text)
 
 
     return (

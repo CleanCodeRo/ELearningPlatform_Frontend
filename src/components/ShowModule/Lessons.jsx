@@ -5,7 +5,7 @@ import Loading from "../Loading/Loading";
 import CheckBox from "../CheckBox/CheckBox";
 
 export default function Lessons({ setLoadingLessons, loadingLessons, userRole }) {
-  const [lessons, setLessons] = useState(null);
+  const [lessons, setLessons] = useState(null)
   const params = useParams();
   const navigate = useNavigate();
 

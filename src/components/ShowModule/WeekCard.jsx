@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   Menu,
@@ -7,13 +7,18 @@ import {
   MenuItem,
 } from "@material-tailwind/react";
 import { useAtom } from "jotai";
-import state from "../Atom";
+import state, { returnPercentage } from "../Atom";
 
 export default function WeekCard({ week, setLoadingLessons, userRole }) {
   const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks)
+  //const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons)
   let weekCard = useRef(null);
   const navigate = useNavigate();
   const params = useParams();
+
+  const  [widthSize, setWidthSize] = useState(20)
+
+  
 
   const deleteWeek = async (e) => {
     e.stopPropagation();
@@ -25,7 +30,7 @@ export default function WeekCard({ week, setLoadingLessons, userRole }) {
           Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
         },
       });
-      navigate(window.location.pathname.split("/").slice(0,4).join("/"))
+      navigate(window.location.pathname.split("/").slice(0, 4).join("/"))
       window.location.reload();
     } catch (error) {
       console.error("Error during DELETE operation:", error);
@@ -45,7 +50,7 @@ export default function WeekCard({ week, setLoadingLessons, userRole }) {
           navigate(nextPath);
         }
       }}
-      className="flex flex-col relative cursor-pointer animate-fade-left animate-ease-in-out  min-w-[18rem]  max-w-80  bg-fifth rounded-2xl mx-3 p-1 border-b-[3px] border-transparent hover:border-light-blue-200 shadow-lg hover:shadow-light-blue-100 duration-100"
+      className="flex flex-col relative cursor-pointer animate-fade-left animate-ease-in-out  min-w-[18rem]  max-w-80 text-[#afafaf] bg-white rounded-2xl mx-3 p-1 border-b-[3px] border-transparent hover:border-light-blue-200 shadow-lg hover:shadow-light-blue-100 duration-100"
     >
       <div
         id="image"
@@ -54,44 +59,44 @@ export default function WeekCard({ week, setLoadingLessons, userRole }) {
       ></div>
       <div
         id="title"
-        className=" bg-first w-fit p-2 rounded-xl my-0  top-0"
+        className="text-sixth bg-[#2c8dfe] w-fit p-2 rounded-xl my-0  top-0"
         style={{ margin: "-16px 0 0 7px" }}
       >
         {`Week ${week.number}`}
       </div>
 
       {userRole == "ADMIN" ?
-      <div
-        id="deleteAndModify"
-        className="absolute top-2 right-2 p-1 text-first bg-[rgba(255,255,255,0.7)] hover:bg-[rgba(255,255,255,1)] rounded-xl duration-300 cursor-pointer "
-      >
-        <Menu>
-          <MenuHandler>
-            <i className="fa-solid fa-pen p-1"></i>
-          </MenuHandler>
-          <MenuList className=" bg-first bg-opacity-40 backdrop-blur-md border-0 text-sixth ">
-            <MenuItem
-              onClick={(e) => {
-                deleteWeek(e);
-              }}
-              className="bg-first bg-opacity-80 mb-1"
-            >
-              <i className="fa-solid fa-trash-can mr-1" /> Delete
-            </MenuItem>
-            <MenuItem
-              onClick={(e) => {
-                {
-                  e.stopPropagation();
-                  navigate(`/home/module/${params.moduleId}/editWeek/${week.id}`);
-                }
-              }}
-              className="bg-first bg-opacity-80"
-            >
-              <i className="fa-solid fa-pen-to-square mr-1" /> Edit
-            </MenuItem>
-          </MenuList>
-        </Menu>
-      </div> : null }
+        <div
+          id="deleteAndModify"
+          className="absolute top-2 right-2 p-1 text-first bg-[rgba(255,255,255,0.7)] hover:bg-[rgba(255,255,255,1)] rounded-xl duration-300 cursor-pointer "
+        >
+          <Menu>
+            <MenuHandler>
+              <i className="fa-solid fa-pen p-1"></i>
+            </MenuHandler>
+            <MenuList className=" bg-first bg-opacity-40 backdrop-blur-md border-0 text-sixth ">
+              <MenuItem
+                onClick={(e) => {
+                  deleteWeek(e);
+                }}
+                className="bg-first bg-opacity-80 mb-1"
+              >
+                <i className="fa-solid fa-trash-can mr-1" /> Delete
+              </MenuItem>
+              <MenuItem
+                onClick={(e) => {
+                  {
+                    e.stopPropagation();
+                    navigate(`/home/module/${params.moduleId}/editWeek/${week.id}`);
+                  }
+                }}
+                className="bg-first bg-opacity-80"
+              >
+                <i className="fa-solid fa-pen-to-square mr-1" /> Edit
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        </div> : null}
 
       <div id="other info" className="flex flex-col p-2">
         <p id="subtitle" className="text-3xl line-clamp-1">
@@ -99,7 +104,7 @@ export default function WeekCard({ week, setLoadingLessons, userRole }) {
         </p>
 
         <div id="three details" className="flex py-2 justify-between">
-          <div id="group Div For Flex" className="flex items-center">
+          {/* <div id="group Div For Flex" className="flex items-center">
             <div id="time" className="flex items-center mr-4">
               <i className="fa-solid fa-clock mr-1"></i>
               <p>1h 53min</p>
@@ -116,7 +121,14 @@ export default function WeekCard({ week, setLoadingLessons, userRole }) {
             className="flex items-center bg-black py-3 px-6 rounded-3xl"
           >
             <p className="">{completedWeeks.includes(week.id) ? "Done" : "Todo"}</p>
+          </div> */}
+
+          <div className="flex items-center bg-third justify-center h-10 w-full  rounded-lg relative">
+            <p className="text-sixth text-center  rounded-lg   text-lg font-bold z-10">{completedWeeks.includes(week.id) ? "Done" : "Todo"}</p>
+            <div className={`absolute bg-fifth h-full rounded-lg left-0 top-0 `} style={{width : `${widthSize}%`}}></div>
           </div>
+
+      
         </div>
       </div>
     </div>

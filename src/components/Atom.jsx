@@ -28,7 +28,6 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
           username : data.username,
           role : data.role
         });
-        
         setCompletedLessons(data.completedLessons);
         setCompletedWeeks(data.completedWeeks);
         setCompletedModules(data.completedModules)
@@ -51,11 +50,16 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
     .then(res => res.json())
     .then(data =>{
       console.log(data)
-   
-      
       setCompletedLessons(data.completedLessons);
       setCompletedWeeks(data.completedWeeks);
       setCompletedModules(data.completedModules);
      
     })
+  }
+
+  export function returnPercentage(objects, userObjects){
+    console.log( " in function")
+    console.log(objects)
+    console.log(userObjects)
+
   }

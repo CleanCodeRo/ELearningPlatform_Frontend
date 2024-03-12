@@ -2,6 +2,7 @@ import { useAtom } from "jotai";
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import state, { getCompletedStuff } from "../../components/Atom";
+import CheckBox from "../../components/CheckBox/CheckBox";
 
 const LessonsCreateAndEdit = () => {
   const [error, setError] = useState(null);
@@ -19,6 +20,7 @@ const LessonsCreateAndEdit = () => {
   const lessonName = useRef(null);
   const lessonDescription = useRef(null);
   const lessonGitHubLink = useRef(null);
+  const optional = useRef(null);
 
   const params = useParams();
 
@@ -39,7 +41,7 @@ const LessonsCreateAndEdit = () => {
     }
   }, [params.lessonId]);
 
-  async function updateLesson(e) {
+  async function updateLesson() {
 
     try {
       const response = await fetch(
@@ -54,6 +56,7 @@ const LessonsCreateAndEdit = () => {
             name: lessonName.current.value,
             description: lessonDescription.current.value,
             gitHubLink: lessonGitHubLink.current.value,
+            optional : optional.current.checked,
           }),
         }
       );
@@ -68,7 +71,7 @@ const LessonsCreateAndEdit = () => {
   }
 
   async function postLesson() {
-
+   
     try {
       const response = await fetch("http://localhost:8080/lessons", {
         method: "POST",
@@ -80,6 +83,7 @@ const LessonsCreateAndEdit = () => {
           name: lessonName.current.value,
           description: lessonDescription.current.value,
           gitHubLink: lessonGitHubLink.current.value,
+          optional : optional.current.checked,
           week: {
             id: params.weekId,
             module :{
@@ -114,6 +118,7 @@ const LessonsCreateAndEdit = () => {
               : "Add a new lesson"}
           </h3>
         </div>
+
         <div className="flex flex-col gap-4 p-6">
           <div className="relative h-11 w-full min-w-[200px]">
             <input
@@ -126,6 +131,7 @@ const LessonsCreateAndEdit = () => {
               Name
             </label>
           </div>
+
           <div className="relative  w-full min-w-[200px]">
             <textarea
               type="text"
@@ -137,6 +143,7 @@ const LessonsCreateAndEdit = () => {
               Description
             </label>
           </div>
+
           <div className="relative h-11 w-full min-w-[200px]">
             <input
               type="text"
@@ -147,6 +154,13 @@ const LessonsCreateAndEdit = () => {
             <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-cyan-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-cyan-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
               GitHub Link
             </label>
+          </div>
+
+          <div id="isOptionalInput"  className="relative  w-full min-w-[200px] flex items-center justify-end gap-2 rounded-lg">
+            <label className="text-xl">
+              Is lesson optional ?
+            </label>
+            <CheckBox idNumber={1} defaultChecked={lessonById.optional} checkBoxRef={optional}/>
           </div>
         </div>
         {error && (

@@ -1,12 +1,12 @@
 import React from 'react'
 import "./CheckBox.css"
 
-export default function CheckBox({idNumber, checkBoxEvent, defaultChecked}) {
+export default function CheckBox({idNumber, checkBoxEvent, defaultChecked, checkBoxRef}) {
     return (
         <div className="checkbox-wrapper ">
-            <input defaultChecked={defaultChecked} onChange={checkBoxEvent} id={`_checkbox-${idNumber}`} type="checkbox" />
+            <input ref={checkBoxRef} defaultChecked={defaultChecked} onChange={checkBoxEvent} id={`_checkbox-${idNumber}`} type="checkbox"/>
             <label htmlFor={`_checkbox-${idNumber}`}>
-                <div className="tick_mark"></div>
+                <div className="tick_mark "></div>
             </label>
         </div>
 

@@ -54,7 +54,7 @@ export default function Lessons({ setLoadingLessons, loadingLessons, userRole })
         <p className="text-3xl sm:text-4xl p-4 font-bold border-2 rounded-xl text-fourth">
           LESSONS
         </p>
-        
+
         {params.weekId && userRole == "ADMIN" && (
           <button
             onClick={() =>
@@ -77,20 +77,27 @@ export default function Lessons({ setLoadingLessons, loadingLessons, userRole })
 
         :
 
-        <div id="listOfLessons" className="grid smd:grid-cols-2 2xl:!grid-cols-3 " >
+        <div id="listOfLessons" className=" grid smd:grid-cols-2 2xl:!grid-cols-3 " >
           {lessons && lessons.length > 0 ? (
-            lessons.map((lesson, index) => (
-              <LessonCard
-                key={index}
-                lesson = {lesson}
-                userRole={userRole}
-              />
-            ))
+            lessons.map((lesson, index) => !lesson.optional ? <LessonCard key={index} lesson={lesson} userRole={userRole} /> : null)
           ) : (
             <div className="col-span-4 text-4xl text-center my-10 text-third animate-flip-down animate-duration-[400ms]">
               - No lessons here -
             </div>
           )}
+
+          <div id="optionalLessonsSection" className="col-span-3 flex  items-center">
+              <h1 className="text-2xl sm:text-3xl min-w-fit p-4 font-bold  rounded-xl text-fourth  ">Optional lessons</h1>
+              <div className="bg-[#afafaf] h-[1.5px] w-full rounded-full"></div>
+          </div>
+
+          {lessons && lessons.length > 0 ? (
+              lessons.map((lesson, index) => lesson.optional ? <LessonCard key={index} lesson={lesson} userRole={userRole} /> : null)
+            ) : (
+              <div className="col-span-4 text-4xl text-center my-10 text-third animate-flip-down animate-duration-[400ms]">
+                - No lessons here -
+              </div>
+            )}
         </div>
       }
 

@@ -6,7 +6,8 @@ completedLessons : atom([]),
 completedWeeks : atom([]),
 completedModules : atom([]),
 
-refresh : atom(0)
+refresh : atom(0),
+refreshWeekProgressBar : atom(0)
 };
 export default state;
 
@@ -39,7 +40,7 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
   }
 
 
-  export function getCompletedStuff(userId, setCompletedLessons, setCompletedWeeks, setCompletedModules){
+  export function getCompletedStuff(userId, setCompletedLessons, setCompletedWeeks, setCompletedModules, setRefreshWeekProgressBar){
     fetch(`http://localhost:8080/users/${userId}/completedStuff`,{
       method : "GET",
       headers :{
@@ -53,13 +54,17 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
       setCompletedLessons(data.completedLessons);
       setCompletedWeeks(data.completedWeeks);
       setCompletedModules(data.completedModules);
-     
+      setRefreshWeekProgressBar(Math.random())
     })
   }
 
   export function returnPercentage(objects, userObjects){
-    console.log( " in function")
     console.log(objects)
     console.log(userObjects)
 
+    let completed = objects.filter(item => userObjects.includes(item.id)).length
+    
+    let result = Math.floor( (completed / objects.length) * 100 );
+    console.log(result)
+    return result;
   }

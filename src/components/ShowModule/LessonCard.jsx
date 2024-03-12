@@ -20,6 +20,7 @@ export default function LessonCard({ lesson, userRole }) {
   const [lessonStatus, setLessonStatus] = useState(completedLessons.includes(lesson.id) ? true : false)
 
   const [loading, setLoading] = useState(false);
+  const [refreshWeekProgressBar, setRefreshWeekProgressBar] = useAtom(state.refreshWeekProgressBar);
   const navigate = useNavigate();
   const params = useParams();
 
@@ -43,12 +44,14 @@ export default function LessonCard({ lesson, userRole }) {
   };
 
   const EditStatusEvent = (e) => {
+    console.log("EditStatusEvent")
     if (e.target.checked) {
       setLessonStatus(true);
     } else {
       setLessonStatus(false);
     }
-    setLoading(true)
+    setLoading(true);
+   
 
     fetch(` http://localhost:8080/users?userId=${user.id}&lessonId=${lesson.id}&weekId=${params.weekId}`, {
       method: "PATCH",
@@ -60,9 +63,8 @@ export default function LessonCard({ lesson, userRole }) {
     })
       .then(res => res.json())
       .then(data => {
-        getCompletedStuff(user.id, setCompletedLessons, setCompletedWeeks, setCompletedModules)
-        console.log(data);
-        setLoading(false)
+        getCompletedStuff(user.id, setCompletedLessons, setCompletedWeeks, setCompletedModules, setRefreshWeekProgressBar)
+        setLoading(false);
       })
       .catch(err => {
         console.log(err)

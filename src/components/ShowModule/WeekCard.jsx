@@ -9,15 +9,26 @@ import {
 import { useAtom } from "jotai";
 import state, { returnPercentage } from "../Atom";
 
+
 export default function WeekCard({ week, setLoadingLessons, userRole }) {
   const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks)
-  //const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons)
+  const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons)
   let weekCard = useRef(null);
   const navigate = useNavigate();
   const params = useParams();
 
-  const  [widthSize, setWidthSize] = useState(20)
 
+  const  [progresBarLength, setProgresBarLength] = useState( null )
+  const [refreshWeekProgressBar, setRefreshWeekProgressBar] = useAtom(state.refreshWeekProgressBar);
+ 
+   
+  useEffect(() =>{
+   if(  !progresBarLength ) {
+    setProgresBarLength( returnPercentage(week.lessons, completedLessons) );
+   } else if (params.weekId == week.id ){
+    setProgresBarLength( returnPercentage(week.lessons, completedLessons) );
+   }
+  },[refreshWeekProgressBar])
   
 
   const deleteWeek = async (e) => {
@@ -125,7 +136,7 @@ export default function WeekCard({ week, setLoadingLessons, userRole }) {
 
           <div className="flex items-center bg-third justify-center h-10 w-full  rounded-lg relative">
             <p className="text-sixth text-center  rounded-lg   text-lg font-bold z-10">{completedWeeks.includes(week.id) ? "Done" : "Todo"}</p>
-            <div className={`absolute bg-fifth h-full rounded-lg left-0 top-0 `} style={{width : `${widthSize}%`}}></div>
+            <div className={`absolute bg-fifth h-full rounded-lg left-0 top-0 transition-all duration-[1s] ease-out `} style={{width : `${progresBarLength}%`}}></div>
           </div>
 
       

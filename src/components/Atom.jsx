@@ -59,12 +59,21 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
   }
 
   export function returnPercentage(objects, userObjects){
-    console.log(objects)
-    console.log(userObjects)
+    // console.log("Lessons ", objects)
+    // console.log("User completed lessons ",userObjects)
+    let oneLessonPercentage = (1 / objects.length) *100
+    let mandatory = objects.filter(item => !item.optional)
+    let optional = objects.filter(item => !item.optional)
 
-    let completed = objects.filter(item => userObjects.includes(item.id)).length
+    let completed = objects.filter(item => userObjects.includes(item.id))
+    let completedMandatory = completed.filter(item => !item.optional)
+    let completedOptional = completed.filter(item => item.optional)
+
+    // console.log("completedMandatory " + completedMandatory.length)
+    // console.log("completedOptional " + completedOptional.length)
     
-    let result = Math.floor( (completed / objects.length) * 100 );
-    console.log(result)
-    return result;
+    let completePercentage = Math.floor( ((completedMandatory.length / mandatory.length) * 100) + completedOptional.length * oneLessonPercentage );
+    let madatoryPercentage = Math.floor( (completedMandatory.length / mandatory.length) * 100 );
+   
+    return [madatoryPercentage, completePercentage];
   }

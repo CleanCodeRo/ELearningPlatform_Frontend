@@ -18,18 +18,23 @@ export default function WeekCard({ week, setLoadingLessons, userRole }) {
   const params = useParams();
 
 
-  const  [progresBarLength, setProgresBarLength] = useState( null )
+  const [progresBarLength, setProgresBarLength] = useState(null)
+  const [truePercentage, setTruePercentage] = useState(0);
   const [refreshWeekProgressBar, setRefreshWeekProgressBar] = useAtom(state.refreshWeekProgressBar);
- 
-   
-  useEffect(() =>{
-   if(  !progresBarLength ) {
-    setProgresBarLength( returnPercentage(week.lessons, completedLessons) );
-   } else if (params.weekId == week.id ){
-    setProgresBarLength( returnPercentage(week.lessons, completedLessons) );
-   }
-  },[refreshWeekProgressBar])
-  
+
+
+  useEffect(() => {
+    if (!progresBarLength) {
+      let [mandatoryPercentage, completePercentage] = returnPercentage(week.lessons, completedLessons)
+       setTruePercentage(completePercentage)
+      setProgresBarLength(mandatoryPercentage);
+    } else if (params.weekId == week.id) {
+      let [mandatoryPercentage, completePercentage] = returnPercentage(week.lessons, completedLessons)
+       setTruePercentage(completePercentage)
+      setProgresBarLength(mandatoryPercentage);
+    }
+  }, [refreshWeekProgressBar])
+
 
   const deleteWeek = async (e) => {
     e.stopPropagation();
@@ -114,32 +119,17 @@ export default function WeekCard({ week, setLoadingLessons, userRole }) {
           {week.name}
         </p>
 
-        <div id="three details" className="flex py-2 justify-between">
-          {/* <div id="group Div For Flex" className="flex items-center">
-            <div id="time" className="flex items-center mr-4">
-              <i className="fa-solid fa-clock mr-1"></i>
-              <p>1h 53min</p>
-            </div>
-
-            <div id="rating" className="flex items-center mr-4">
-              <i className="fa-solid fa-star mr-1"></i>
-              <p>4.3/5</p>
-            </div>
+        <div id="PercentageAndRating" className="flex py-2 justify-between">
+          <p>Progress {truePercentage}%</p>
+          <div id="rating" className="flex items-center mr-4">
+            <p>4.3/5</p>
+            <i className="fa-solid fa-star mr-1"></i>
           </div>
+        </div>
 
-          <div
-            id="price"
-            className="flex items-center bg-black py-3 px-6 rounded-3xl"
-          >
-            <p className="">{completedWeeks.includes(week.id) ? "Done" : "Todo"}</p>
-          </div> */}
-
-          <div className="flex items-center bg-third justify-center h-10 w-full  rounded-lg relative">
-            <p className="text-sixth text-center  rounded-lg   text-lg font-bold z-10">{completedWeeks.includes(week.id) ? "Done" : "Todo"}</p>
-            <div className={`absolute bg-fifth h-full rounded-lg left-0 top-0 transition-all duration-[1s] ease-out `} style={{width : `${progresBarLength}%`}}></div>
-          </div>
-
-      
+        <div id="progressBar" className="flex items-center bg-third justify-center h-10 w-full  rounded-lg relative">
+          <p className="text-sixth text-center  rounded-lg   text-lg font-bold z-10">{completedWeeks.includes(week.id) ? "Done" : "Todo"}</p>
+          <div className={`absolute bg-fifth h-full rounded-lg left-0 top-0 transition-all duration-[1s] ease-out `} style={{ width: `${progresBarLength}%` }}></div>
         </div>
       </div>
     </div>

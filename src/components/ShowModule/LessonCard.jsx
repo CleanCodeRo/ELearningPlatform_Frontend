@@ -16,6 +16,7 @@ export default function LessonCard({lesson, userRole }) {
   const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons);
   const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks);
   const [completedModules, setCompletedModules] = useAtom(state.completedModules);
+  const [completedKatas, setCompletedKatas] = useAtom(state.completedKatas)
   
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -58,7 +59,7 @@ export default function LessonCard({lesson, userRole }) {
     })
     .then(res => res.json())
     .then(data => {
-      getCompletedStuff(user.id, setCompletedLessons, setCompletedWeeks, setCompletedModules)
+      getCompletedStuff(user.id, setCompletedLessons, setCompletedWeeks, setCompletedModules, setCompletedKatas)
       console.log(data);
       setLoading(false)
     })

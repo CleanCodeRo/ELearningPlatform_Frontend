@@ -16,6 +16,7 @@ import Redirect from "./components/Redirect";
 
 import NewKataCard from "./components/HomePage/SpecialKatas/NewKataCard";
 import KataForm from "./pages/Forms/KataForm";
+import KataFormDelete from "./pages/Forms/KataFormDelete";
 
 
 export default function App() {
@@ -119,6 +120,16 @@ export default function App() {
           element={
             !isExpired(localStorage.getItem("ELearningToken")) ? (
               <KataForm />
+            ) : (
+              <Redirect />
+            )
+          }
+        />
+        <Route
+          path="/home/dojo/deleteKata"
+          element={
+            !isExpired(localStorage.getItem("ELearningToken")) ? (
+              <KataFormDelete />
             ) : (
               <Redirect />
             )

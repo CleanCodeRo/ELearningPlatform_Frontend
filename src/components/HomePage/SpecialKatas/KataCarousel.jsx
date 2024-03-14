@@ -5,10 +5,12 @@ import 'slick-carousel/slick/slick-theme.css';
 import { useNavigate } from 'react-router-dom';
 import NewKataCard from './NewKataCard';
 import ModuleCard from '../ModuleCard';
+import Loading from '../../Loading/Loading';
 
-const KataCarousel = ({user}) => {
+const KataCarousel = () => {
   const [katas, setKatas] = useState(null);
   const navigate = useNavigate();
+  const [loading,setLoading] = useState(true);
 
   useEffect(() => {
     fetch("http://localhost:8080/katas", {
@@ -21,6 +23,7 @@ const KataCarousel = ({user}) => {
       .then((res) => res.json())
       .then((data) => {
         setKatas(data);
+        setLoading(false);
         console.log(data);
       })
       .catch((err) => {
@@ -32,60 +35,27 @@ const KataCarousel = ({user}) => {
 
 
 
-
-
-  const settings = {
-    infinite: true,
-    speed: 500,
-    slidesToShow: 6,
-    slidesToScroll: 6,
-    responsive: [
-      {
-        breakpoint: 2054,
-        settings: {
-          slidesToShow: 5,
-          slidesToScroll: 5,
-        },
-      },
-      {
-        breakpoint: 1720,
-        settings: {
-          slidesToShow: 4,
-          slidesToScroll: 4,
-        },
-      },
-      {
-        breakpoint: 1400,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-        },
-      },
-      {
-        breakpoint: 1080,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-        },
-      },
-      {
-        breakpoint: 745,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
-
   return (
-    <Slider {...settings} className="flex mx-auto w-4/5 mt-4">
-      {katas && katas.map((kata, index) => (
+    <div id='kataHolder' className=' w-full relative'>
+      {loading ? (
+        <div id="loading" className="w-full h-[35rem] absolute top-14  flex items-center justify-center">
+        <Loading />
+      </div>
+      ): (
+        <div id='kataHolder' className='grid grid-cols-6 w-full relative'>
+        {katas && katas.map((kata, index) => (
       
-          <NewKataCard key={index} kata={kata} userRole={user}/>
+          <NewKataCard key={index} kata={kata} />
         
       ))}
-    </Slider>
+      </div>
+      )
+    }
+
+   
+    </div>
+      
+    
   );
 };
 

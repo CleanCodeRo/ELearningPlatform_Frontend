@@ -5,13 +5,14 @@ user : atom(null),
 completedLessons : atom([]),
 completedWeeks : atom([]),
 completedModules : atom([]),
+completedKatas : atom([]),
 
 refresh : atom(0)
 };
 export default state;
 
 
-export function getUserWithToken(token, setUser, setCompletedLessons, setCompletedWeeks, setCompletedModules) {
+export function getUserWithToken(token, setUser, setCompletedLessons, setCompletedWeeks, setCompletedModules, setCompletedKatas) {
     fetch("http://localhost:8080/users/getUserWithToken", {
       method: 'GET',
       headers: {
@@ -32,15 +33,17 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
         setCompletedLessons(data.completedLessons);
         setCompletedWeeks(data.completedWeeks);
         setCompletedModules(data.completedModules)
+        setCompletedKatas(data.completedKatas)
+
         // console.log(data.completedLessons);
         // console.log(data.completedWeeks)
-        console.log(data)
-        console.log("here")
+        // console.log(data.completedKatas);
+     
       })
   }
 
 
-  export function getCompletedStuff(userId, setCompletedLessons, setCompletedWeeks, setCompletedModules){
+  export function getCompletedStuff(userId, setCompletedLessons, setCompletedWeeks, setCompletedModules, setCompletedKatas){
     fetch(`http://localhost:8080/users/${userId}/completedStuff`,{
       method : "GET",
       headers :{
@@ -50,12 +53,14 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
     })
     .then(res => res.json())
     .then(data =>{
-      console.log(data)
+    
    
       
       setCompletedLessons(data.completedLessons);
       setCompletedWeeks(data.completedWeeks);
       setCompletedModules(data.completedModules);
+      setCompletedKatas(data.completedKatas)
+     
      
     })
   }

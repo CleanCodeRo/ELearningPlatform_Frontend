@@ -10,7 +10,7 @@ export default function FilterKataList(){
         <p className="text-4xl p-4  font-bold  rounded-lg text-fourth">
           Categories
         </p>
-        <div id="CATTEGORY" className="w-auto h-auto flex flex-row  items-center">
+        <div id="CATTEGORY" className="w-auto h-auto flex flex-row flex-wrap flex-grow-1 justify-around items-center">
             
             <FilterButton image="images/oni_5807989.png" title={"Kyu"} text={""} />
             <FilterButton image="images/oni_5807989.png" title={"Fundamentals"} text={""} />

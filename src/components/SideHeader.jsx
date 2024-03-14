@@ -25,7 +25,7 @@ export default function SideHeader() {
     navigate("/");
   };
 
-  useEffect(() =>{
+  useEffect(() => {
     console.log("works")
     if(!user){
       getUserWithToken(localStorage.getItem("ELearningToken"), setUser, setCompletedLessons, setCompletedWeeks, setCompletedModules,setCompletedKatas)
@@ -34,60 +34,60 @@ export default function SideHeader() {
   }, [])
 
   return (
-    <div className="bg-[#dddcdc] min-w-20 h-screen flex flex-col items-center justify-center sticky top-0 border rounded-r-3xl">
-      
+    <div className="flex md:flex-col bg-[#dddcdc] md:min-w-[5rem]  md:h-screen  md:sticky md:top-0  md:rounded-r-3xl  
+                     h-[4rem] bottom-0 w-screen fixed flex-row-reverse items-center justify-center z-10">
+
+
+      <div id="iconsHolder" className="flex flex-row md:flex-col  gap-3 xs:gap-5 md:!gap-0 absolute right-5 sm:static">
       <div
-        onClick={()=>navigate("/home")}
+        onClick={() => navigate("/home")}
         id="homeButton"
-        className=" rounded-full w-[50px] h-[50px] mb-4 mt-7  cursor-pointer fill-[#afafaf] hover:fill-[#2c8dfe]"
+        className=" rounded-full w-[40px] h-[40px] sm:w-[50px] sm:h-[50px]  mb-4 mt-7  cursor-pointer fill-[#afafaf] hover:fill-[#2c8dfe]"
       >
-         <svg
+        <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="50"
-          height="50"
           viewBox="0 0 256 256"
         >
-          <g  fillRule="nonzero">
+          <g fillRule="nonzero">
             <g transform="scale(4,4)">
               <path d="M32,8c-0.91125,0-1.82195,0.30919-2.56445,0.92969l-20.63477,17.24219c-0.765,0.639-1.0373,1.75333-0.5293,2.61133c0.647,1.092,2.07877,1.30534,3.00977,0.52734l0.71875,-0.59961v18.28906c0,2.761,2.239,5,5,5h30c2.761,0,5-2.239,5-5v-18.28711l0.71875,0.59961c0.374,0.313,0.8273,0.46484,1.2793,0.46484c0.695,0,1.38462,-0.36069,1.76563,-1.05469c0.465,-0.848,0.19122,-1.91906,-0.55078,-2.53906l-3.21289,-2.68555v-8.49805c0,-1.105-0.895,-2-2,-2h-2c-1.105,0-2,0.895-2,2v3.48438l-11.43555,-9.55469c-0.7425,-0.6205-1.6532,-0.92969-2.56445,-0.92969zM32,12.15234c0.11475,0,0.22877,0.03919,0.32227,0.11719l15.67773,13.09961v20.63086c0,1.105-0.895,2-2,2h-8v-14c0,-1.105-0.895,-2-2,-2h-8c-1.105,0-2,0.895-2,2v14h-8c-1.105,0-2,-0.895-2,-2v-20.63281l15.67773,-13.09766c0.0935,-0.078,0.20752,-0.11719,0.32227,-0.11719z"></path>
             </g>
           </g>
         </svg>
       </div>
+
       <div
         id="coursesButton"
-        className=" rounded-full w-[50px] h-[50px] mb-4 mt-7 cursor-pointer fill-[#afafaf] hover:fill-[#2c8dfe]"
+        className=" rounded-full w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] mb-4 mt-7 cursor-pointer fill-[#afafaf] hover:fill-[#2c8dfe]"
       >
         <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="50"
-      height="50"
-      viewBox="0 0 256 256"
-    >
-      <g  fillRule="nonzero">
-        <g transform="scale(4,4)">
-          <path d="M21,13c-4.98,0-8.40906,1.93839-10.28906,3.40039c-1.085,0.844-1.71094,2.14258-1.71094,3.51758v29.1543c0,1.104 0.90858,1.90234 1.89258,1.90234c0.32,0 0.64612,-0.08453 0.95313,-0.26953c2.141,-1.292 5.3533,-2.70508 9.1543,-2.70508c2.973,0 5.40375,0.90245 7.21875,1.93945c1.173,0.671 2.47725,1.00586 3.78125,1.00586c1.304,0 2.60825,-0.33486 3.78125,-1.00586c1.815,-1.037 4.24575,-1.93945 7.21875,-1.93945c3.801,0 7.0133,1.41213 9.1543,2.70313c0.307,0.185 0.63412,0.26953 0.95313,0.26953c0.984,0 1.89258,-0.79639 1.89258,-1.90039v-29.1543c0,-1.375-0.62594,-2.67358-1.71094,-3.51758c-1.88,-1.462-5.30906,-3.40039-10.28906,-3.40039c-8,0-11,4-11,4c0,0-3,-4-11,-4zM21,17c4.10959,0 7.1588,2.04695 9,3.73633v25.23047c-1.83626,-0.89025-4.8779,-1.9668-9,-1.9668c-3.061,0-5.785,0.73139-8,1.65039v-25.92773c0,0 3.028,-2.72266 8,-2.72266zM43,17c4.991,0 8,2.69141 8,2.69141v25.95899c-2.215,-0.919-4.939,-1.65039-8,-1.65039c-4.11464,0-7.1609,1.07812-9,1.96875v-25.23437c1.84032,-1.68904 4.88834,-3.73437 9,-3.73437z"></path>
-        </g>
-      </g>
-    </svg>
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 256 256"
+        >
+          <g fillRule="nonzero">
+            <g transform="scale(4,4)">
+              <path d="M21,13c-4.98,0-8.40906,1.93839-10.28906,3.40039c-1.085,0.844-1.71094,2.14258-1.71094,3.51758v29.1543c0,1.104 0.90858,1.90234 1.89258,1.90234c0.32,0 0.64612,-0.08453 0.95313,-0.26953c2.141,-1.292 5.3533,-2.70508 9.1543,-2.70508c2.973,0 5.40375,0.90245 7.21875,1.93945c1.173,0.671 2.47725,1.00586 3.78125,1.00586c1.304,0 2.60825,-0.33486 3.78125,-1.00586c1.815,-1.037 4.24575,-1.93945 7.21875,-1.93945c3.801,0 7.0133,1.41213 9.1543,2.70313c0.307,0.185 0.63412,0.26953 0.95313,0.26953c0.984,0 1.89258,-0.79639 1.89258,-1.90039v-29.1543c0,-1.375-0.62594,-2.67358-1.71094,-3.51758c-1.88,-1.462-5.30906,-3.40039-10.28906,-3.40039c-8,0-11,4-11,4c0,0-3,-4-11,-4zM21,17c4.10959,0 7.1588,2.04695 9,3.73633v25.23047c-1.83626,-0.89025-4.8779,-1.9668-9,-1.9668c-3.061,0-5.785,0.73139-8,1.65039v-25.92773c0,0 3.028,-2.72266 8,-2.72266zM43,17c4.991,0 8,2.69141 8,2.69141v25.95899c-2.215,-0.919-4.939,-1.65039-8,-1.65039c-4.11464,0-7.1609,1.07812-9,1.96875v-25.23437c1.84032,-1.68904 4.88834,-3.73437 9,-3.73437z"></path>
+            </g>
+          </g>
+        </svg>
       </div>
+
       <div
         id="savedButton"
-        className=" rounded-full w-[50px] h-[50px] mb-4 mt-7 cursor-pointer fill-[#afafaf] hover:fill-[#2c8dfe]"
+        className=" rounded-full w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] mb-4 mt-7 cursor-pointer fill-[#afafaf] hover:fill-[#2c8dfe]"
       >
         <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="50"
-      height="50"
-      viewBox="0 0 256 256"
-    >
-      <g  fillRule="nonzero">
-        <g transform="scale(4,4)">
-          <path d="M41.148,14h-18.296c-0.47,0-0.852,0.382-0.852,0.852v32.36c0,0.297 0.357,0.448 0.57,0.241l8.557,-8.303c0.487,-0.472 1.26,-0.472 1.747,0l8.557,8.303c0.212,0.207 0.569,0.056 0.569,-0.24v-32.36c0,-0.471-0.382,-0.853-0.852,-0.853zM41.148,10c2.679,0 4.852,2.173 4.852,4.852v37.46c0,1.925-2.314,2.903-3.695,1.563l-10.305,-9.998l-10.305,9.999c-1.381,1.34-3.695,0.361-3.695,-1.563v-37.46c0,-2.68 2.173,-4.853 4.852,-4.853z"></path>
-        </g>
-      </g>
-    </svg>
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 256 256"
+        >
+          <g fillRule="nonzero">
+            <g transform="scale(4,4)">
+              <path d="M41.148,14h-18.296c-0.47,0-0.852,0.382-0.852,0.852v32.36c0,0.297 0.357,0.448 0.57,0.241l8.557,-8.303c0.487,-0.472 1.26,-0.472 1.747,0l8.557,8.303c0.212,0.207 0.569,0.056 0.569,-0.24v-32.36c0,-0.471-0.382,-0.853-0.852,-0.853zM41.148,10c2.679,0 4.852,2.173 4.852,4.852v37.46c0,1.925-2.314,2.903-3.695,1.563l-10.305,-9.998l-10.305,9.999c-1.381,1.34-3.695,0.361-3.695,-1.563v-37.46c0,-2.68 2.173,-4.853 4.852,-4.853z"></path>
+            </g>
+          </g>
+        </svg>
       </div>
+
       <div
   id="myKatasButton"
   className=" rounded-full w-[50px] h-[50px] mb-4 mt-7 cursor-pointer fill-[#afafaf] hover:fill-[#2c8dfe] "
@@ -110,12 +110,14 @@ export default function SideHeader() {
       </g>
     </svg>
       </div>
+      </div>
+
       <Menu className="flex justify-end !mt-7 ">
         <MenuHandler>
           <Avatar
             variant="circular"
             alt="tania andrew"
-            className="cursor-pointer mt-5 absolute bottom-5"
+            className="cursor-pointer md:mt-5 absolute left-5 md:bottom-5"
             src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
           />
         </MenuHandler>

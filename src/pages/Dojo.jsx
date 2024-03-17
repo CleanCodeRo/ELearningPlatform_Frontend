@@ -8,19 +8,12 @@ import FilterKataList from '../components/HomePage/SpecialKatas/FilterKataList';
 
 export default function Dojo() {
 
-
-
-
-
-
-
-
   return (
 
     <div className="h-screen select-none flex flex-row text-sixth overflow-x-hidden overflow-y-scroll relative custom-scrollbar" >
       <SideHeader />
 
-      <div className="flex flex-col px-5" style={{ width: "calc(100vw - 5rem)",  maxWidth: "100%"  }}>
+      <div className="flex flex-col px-5" style={{ minWidth: "calc(100vw - 5rem)"  }}>
         {/*title */}
         <FilterKataList />
         

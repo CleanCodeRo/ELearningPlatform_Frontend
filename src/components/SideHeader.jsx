@@ -34,7 +34,8 @@ export default function SideHeader() {
   }, [])
 
   return (
-    <div className="bg-[#dddcdc] min-w-20 h-screen flex flex-col items-center justify-center sticky top-0 border rounded-r-3xl">
+    <div className="flex md:flex-col bg-[#dddcdc] md:min-w-[5rem]  md:h-screen  md:sticky md:top-0  md:rounded-r-3xl  
+                     h-[4rem] bottom-0 w-screen fixed flex-row-reverse items-center justify-center z-10">
       <div id="iconsHolder" className="flex flex-row md:flex-col  gap-3 xs:gap-5 md:!gap-0 absolute right-5 sm:static">
         <div
           onClick={() => navigate("/home")}

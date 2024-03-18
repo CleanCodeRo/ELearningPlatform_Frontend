@@ -24,7 +24,7 @@ export default function SuccessError({ success, error }) {
     return (
       <>
         {message && (
-          <div className={`fixed bottom-0 left-0 w-full text-white py-2 text-center animate-fadeInOut ${colorClass}`}>
+          <div className={`fixed z-40 bottom-0 left-0 w-full text-white py-2 text-center animate-fadeInOut ${colorClass}`}>
             {message}
           </div>
         )}

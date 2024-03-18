@@ -10,6 +10,7 @@ import { useRef, useState } from "react";
 import { useAtom } from "jotai";
 import state, { getCompletedStuff } from "../../Atom";
 import Loading from "../../Loading/Loading";
+import SuccessError from "../../SuccessError";
 
 export default function NewKataCard({ kata }) {
   const kataCardRef = useRef(null);
@@ -17,28 +18,62 @@ export default function NewKataCard({ kata }) {
   const [user, setUser] = useAtom(state.user)
   const [isCompleted, setIsCompleted] = useState(completedKatas.includes(kata.id) ? true : false);
   const [loading, setLoading] = useState(false);
+  const [message ,setMessage] = useState(null);
+  const[error, setError] = useState(null);
+  const[renderError, setRenderError] = useState(false)
 
   const completeKataEvent = (e) => {
-    e.target.disabled = true;
     setLoading(true)
-    fetch(` http://localhost:8080/users/addCompleteKata?userId=${user.id}&kataId=${kata.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`
-      },
+    setRenderError(true)
 
-    })
-      .then(res => res.json())
+    fetch(`https://www.codewars.com/api/v1/users/nn3riot/code-challenges/completed?page=0`, {
+      method: "GET"
+    }).then(res => res.json())
       .then(data => {
-        getCompletedStuff(user.id, setCompletedKatas)
-        setIsCompleted(true);
-        setLoading(false);
+      
+        let checkIfKataExists = data.data.filter(codeKata => codeKata.name.toLowerCase() == kata.title.toLowerCase());
+        if (checkIfKataExists.length > 0) {
+          e.target.disabled = true;
+
+          fetch(` http://localhost:8080/users/addCompleteKata?userId=${user.id}&kataId=${kata.id}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`
+            },
+
+          })
+            .then(res => res.json())
+            .then(data => {
+              getCompletedStuff(user.id, setCompletedKatas)
+              setIsCompleted(true);
+              setLoading(false);
+              setMessage("Kata verification completed");
+              setTimeout(() =>{
+                setRenderError(false)
+              },3000)
+              
+            })
+            .catch(err => {
+              console.log(err)
+            })
+        } else {
+          setLoading(false);
+          setError("Kata name not perfectly equal ?")
+          setTimeout(() =>{
+            setRenderError(false)
+          },3000)
+          
+        }
+
       })
       .catch(err => {
         console.log(err)
       })
 
+       
+    
+      
   }
 
   const deleteKata = (e) => {
@@ -92,10 +127,10 @@ export default function NewKataCard({ kata }) {
   let maxPoints = 48;
   return (
     <div id="cardHolder" className=" w-64 h-fit bg-[#fceeca] flex flex-col items-center border-2 border-[#aa6b48] rounded-2xl relative " ref={kataCardRef} >
-     {loading && 
-      <div id="loadingContainer" className="absolute w-full h-full bg-black bg-opacity-70  items-center justify-center flex  border-2 rounded-2xl">
-      <Loading /> 
-      </div>
+      {loading &&
+        <div id="loadingContainer" className="absolute w-full h-full bg-black bg-opacity-70  items-center justify-center flex  border-2 rounded-2xl">
+          <Loading />
+        </div>
       }
       <p id="title" className="text-[#0b0f1b] mt-2 font-ninja">{kata.title}</p>
       <div id="theme" className="w-48 h-32 mt-2 rounded-xl flex items-center justify-center  border-2 shadow-md border-[#aa6b48]" style={{ backgroundImage: `url('https://img.freepik.com/premium-photo/surprising-luxurious-background-design-with-golden-lotus-lotus-flowers-line-art-design-wallpaper-generative-ai_779468-4131.jpg')`, backgroundPosition: 'center' }}></div>
@@ -109,7 +144,7 @@ export default function NewKataCard({ kata }) {
         </div>
 
         <div id="rightDetails" className=" border-2 rounded-xl border-[#aa6b48] min-w-24">
-          <p id="pointsPerCompetion" className="ml-1 mt-1">Kyu: {kata.level}</p>
+          <p id="pointsPerCompetion" className="ml-1 mt-1">RP: +{(maxPoints-kata.level *6) +6}</p>
           <p id="status" className="ml-1">Status</p>
         </div>
       </div>
@@ -128,7 +163,10 @@ export default function NewKataCard({ kata }) {
         <a id="beginTraining" className="text-[#0b0f1b]  border border-[#aa6b48] rounded-full w-24 font-ninja flex items-center justify-center" href={kata.kataLink} target="_blank">Train</a>
         <EditPen />
       </div>
-
+            {renderError &&
+            <div>
+              <SuccessError success={message} error={error}/>
+            </div>}
     </div>
   );
 
@@ -136,3 +174,4 @@ export default function NewKataCard({ kata }) {
 
 
 {/* <img src="https://img.freepik.com/premium-photo/surprising-luxurious-background-design-with-golden-lotus-lotus-flowers-line-art-design-wallpaper-generative-ai_779468-4131.jpg" /> */ }
+

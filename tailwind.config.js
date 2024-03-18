@@ -27,6 +27,7 @@ module.exports = withMT({
           "xl": "1140px",
           "2xl": "1320px",
           "px1400" : "1400px",
+          "px1669" : "1669px"
       }
     },
   },

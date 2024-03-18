@@ -86,12 +86,12 @@ export default function Lessons({ setLoadingLessons, loadingLessons, userRole })
 
         :
 
-        <div id="listOfLessons" className=" grid smd:grid-cols-2 2xl:!grid-cols-3 " >
+        <div id="listOfLessons" className=" grid gird-cols-1 smd:grid-cols-2 2xl:!grid-cols-3 " >
           {/* RENDERING MADATORY LESSONS */}
           {mandatoryLessons && mandatoryLessons.length > 0 ? (
             mandatoryLessons.map((lesson, index) => <LessonCard key={index} lesson={lesson} userRole={userRole} />)
           ) : (
-            <div className="col-span-4 text-4xl text-center my-10 text-third animate-flip-down animate-duration-[400ms]">
+            <div className="col-span-full text-4xl text-center my-10 text-third animate-flip-down animate-duration-[400ms]">
               - No madatory lessons here -
             </div>
           )}
@@ -99,7 +99,7 @@ export default function Lessons({ setLoadingLessons, loadingLessons, userRole })
           {/* RENDERING OPTIONAL LESSONS */}
           {optionalLessons && optionalLessons.length > 0 ? (
             <>
-              <div id="optionalLessonsSection" className="w-full col-span-4 flex  items-center animate-fade-down animate-ease-in-out">
+              <div id="optionalLessonsSection" className="w-full col-span-full flex  items-center animate-fade-down animate-ease-in-out">
                 <h1 className="text-2xl sm:text-3xl min-w-fit p-4 font-bold  rounded-xl text-fourth  ">Optional lessons</h1>
                 <div className="bg-[#afafaf] h-[1.5px] w-full rounded-full"></div>
               </div>
@@ -108,6 +108,7 @@ export default function Lessons({ setLoadingLessons, loadingLessons, userRole })
           ) : (
             null
           )}
+          
         </div>
       }
     </div>

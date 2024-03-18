@@ -42,7 +42,7 @@ const KataCarousel = () => {
         <Loading />
       </div>
       ): (
-        <div id='kataHolder' className='grid grid-cols-6 w-full relative'>
+        <div id='kataHolder' className='grid grid-cols-3 xl:grid-cols-4 px1400:grid-cols-5 px1669:grid-cols-6 w-full relative'>
         {katas && katas.map((kata, index) => (
       
           <NewKataCard key={index} kata={kata} />

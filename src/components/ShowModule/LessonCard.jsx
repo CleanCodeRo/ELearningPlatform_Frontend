@@ -106,7 +106,7 @@ export default function LessonCard({lesson, userRole }) {
   const EditStatusComponentV2 = () => {
     let defaultChecked = completedLessons.includes(lesson.id) ? true : false;
     return (
-      <div id="container" className="flex flex-col items-center border  rounded-lg">
+      <div id="container" className="flex flex-col items-center border rounded-lg mb-3 lg:mb-0">
         <p id="label" className=" bg-second w-fit px-1" style={{ margin: "-13px 0 0 0px" }}>Modify Status</p>
         <div className="flex items-center gap-5 bg-sixth shadow-md hover:shadow-lg shadow-sixth hover:shadow-sixth px-6 py-2 text-first rounded-lg duration-300">
           <CheckBox idNumber={lesson.id} checkBoxEvent={EditStatusEvent} defaultChecked={defaultChecked} />

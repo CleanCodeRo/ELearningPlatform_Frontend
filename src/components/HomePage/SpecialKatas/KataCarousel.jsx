@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { useNavigate } from 'react-router-dom';
 import NewKataCard from './NewKataCard';
-import ModuleCard from '../ModuleCard';
 import Loading from '../../Loading/Loading';
 
 const KataCarousel = () => {
   const [katas, setKatas] = useState(null);
-  const navigate = useNavigate();
   const [loading,setLoading] = useState(true);
 
   useEffect(() => {
@@ -27,9 +23,7 @@ const KataCarousel = () => {
         console.log(data);
       })
       .catch((err) => {
-        // navigate("/login");
         console.log(err)
-
       });
   }, []);
 
@@ -45,17 +39,13 @@ const KataCarousel = () => {
         <div id='kataHolder' className='grid grid-cols-3 xl:grid-cols-4 px1400:grid-cols-5 px1669:grid-cols-6 w-full relative'>
         {katas && katas.map((kata, index) => (
       
-          <NewKataCard key={index} kata={kata} />
-        
+           <NewKataCard key={index} kata={kata} />
+
       ))}
       </div>
       )
     }
-
-   
-    </div>
-      
-    
+    </div> 
   );
 };
 

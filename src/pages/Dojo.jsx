@@ -1,9 +1,6 @@
 import React from 'react'
 import SideHeader from '../components/SideHeader'
 import KataCarousel from '../components/HomePage/SpecialKatas/KataCarousel';
-import { useAtom } from 'jotai';
-import state from "../components/Atom";
-import { Link } from 'react-router-dom';
 import FilterKataList from '../components/HomePage/SpecialKatas/FilterKataList';
 
 export default function Dojo() {

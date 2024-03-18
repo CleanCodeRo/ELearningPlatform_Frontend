@@ -19,10 +19,6 @@ export default function NewKataCard({ kata }) {
   const [user, setUser] = useAtom(state.user)
 
   let isCompleted = completedKatas.includes(kata.id) ? true :false;
-  // let isCompleted = true;
-  
- 
-
   
   const completeKataEvent = (E) => {
     fetch(` http://localhost:8080/users/addCompleteKata?userId=${user.id}&kataId=${kata.id}`,{
@@ -35,20 +31,18 @@ export default function NewKataCard({ kata }) {
     })
     .then(res => res.json())
     .then(data => {
-      getCompletedStuff(user.id, setCompletedLessons, setCompletedWeeks, setCompletedModules,setCompletedKatas)
+      getCompletedStuff(user.id, setCompletedLessons, setCompletedWeeks, setCompletedModules, setCompletedKatas)
       //console.log(data);
       
     })
     .catch(err => {
       console.log(err)
     })
-
   }
 
   const deleteKata = (e) => {
     e.stopPropagation();
     
-
     fetch(`http://localhost:8080/katas/${kata.id}`, {
       method: "DELETE",
       headers: {

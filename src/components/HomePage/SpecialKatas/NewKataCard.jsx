@@ -13,9 +13,6 @@ import Loading from "../../Loading/Loading";
 
 export default function NewKataCard({ kata }) {
   const kataCardRef = useRef(null);
-  const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons);
-  const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks);
-  const [completedModules, setCompletedModules] = useAtom(state.completedModules);
   const [completedKatas, setCompletedKatas] = useAtom(state.completedKatas)
   const [user, setUser] = useAtom(state.user)
   const [isCompleted, setIsCompleted] = useState(completedKatas.includes(kata.id) ? true : false);
@@ -34,7 +31,7 @@ export default function NewKataCard({ kata }) {
     })
       .then(res => res.json())
       .then(data => {
-        getCompletedStuff(user.id, setCompletedLessons, setCompletedWeeks, setCompletedModules, setCompletedKatas)
+        getCompletedStuff(user.id, setCompletedKatas)
         setIsCompleted(true);
         setLoading(false);
       })

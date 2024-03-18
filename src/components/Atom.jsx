@@ -34,11 +34,9 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
         setCompletedWeeks(data.completedWeeks);
         setCompletedModules(data.completedModules)
         setCompletedKatas(data.completedKatas)
-
         // console.log(data.completedLessons);
         // console.log(data.completedWeeks)
         // console.log(data.completedKatas);
-     
       })
   }
 
@@ -53,30 +51,24 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
     })
     .then(res => res.json())
     .then(data =>{
-      setCompletedLessons(data.completedLessons);
-      setCompletedWeeks(data.completedWeeks);
-      setCompletedModules(data.completedModules);
-      setCompletedKatas(data.completedKatas)
-      setRefreshWeekProgressBar(Math.random())
+      setCompletedLessons ? setCompletedLessons(data.completedLessons) : null;
+      setCompletedWeeks ?  setCompletedWeeks(data.completedWeeks) : null;
+      setCompletedModules ? setCompletedModules(data.completedModules) : null;
+      setCompletedKatas ? setCompletedKatas(data.completedKatas) : null;
+      setRefreshWeekProgressBar ? setRefreshWeekProgressBar(Math.random()) : null
     })
   }
 
   export function returnPercentage(objects, userObjects){
-    // console.log("Lessons ", objects)
-    // console.log("User completed lessons ",userObjects)
     let oneLessonPercentage = (1 / objects.length) *100
     let mandatory = objects.filter(item => !item.optional)
-    let optional = objects.filter(item => !item.optional)
 
     let completed = objects.filter(item => userObjects.includes(item.id))
     let completedMandatory = completed.filter(item => !item.optional)
     let completedOptional = completed.filter(item => item.optional)
-
-    // console.log("completedMandatory " + completedMandatory.length)
-    // console.log("completedOptional " + completedOptional.length)
     
     let completePercentage = Math.floor( ((completedMandatory.length / mandatory.length) * 100) + completedOptional.length * oneLessonPercentage );
-    let madatoryPercentage = Math.floor( (completedMandatory.length / mandatory.length) * 100 );
+    let madatoryPercentage = Math.floor( (completedMandatory.length / mandatory.length) * 100);
    
     return [madatoryPercentage, completePercentage];
   }

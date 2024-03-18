@@ -12,14 +12,13 @@ import Loading from "../Loading/Loading";
 import CheckBox from "../CheckBox/CheckBox";
 
 
-export default function LessonCard({lesson, userRole }) {
+export default function LessonCard({ lesson, userRole }) {
   const [user, setUser] = useAtom(state.user);
 
   const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons);
   const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks);
   const [completedModules, setCompletedModules] = useAtom(state.completedModules);
-  const [completedKatas, setCompletedKatas] = useAtom(state.completedKatas)
-  
+
   const [lessonStatus, setLessonStatus] = useState(completedLessons.includes(lesson.id) ? true : false)
   const [loading, setLoading] = useState(false);
   const [refreshWeekProgressBar, setRefreshWeekProgressBar] = useAtom(state.refreshWeekProgressBar);
@@ -36,10 +35,7 @@ export default function LessonCard({lesson, userRole }) {
           Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
         },
       });
-      
       window.location.reload();
-      
-
     } catch (error) {
       console.error("Error during DELETE operation:", error);
     }
@@ -53,19 +49,19 @@ export default function LessonCard({lesson, userRole }) {
       setLessonStatus(false);
     }
     setLoading(true);
-   
 
-    fetch(` http://localhost:8080/users?userId=${user.id}&lessonId=${lesson.id}&weekId=${params.weekId}`,{
-      method : "PATCH",
-      headers :{
-        "Content-Type" : "application/json",
-        Authorization : `Bearer ${localStorage.getItem("ELearningToken")}`
+
+    fetch(` http://localhost:8080/users?userId=${user.id}&lessonId=${lesson.id}&weekId=${params.weekId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`
       },
       body: JSON.stringify(e.target.checked ? "DONE" : "TODO")
     })
       .then(res => res.json())
       .then(data => {
-        getCompletedStuff(user.id, setCompletedLessons, setCompletedWeeks, setCompletedModules, setCompletedKatas ,setRefreshWeekProgressBar)
+        getCompletedStuff(user.id, setCompletedLessons, setCompletedWeeks, setCompletedModules, setRefreshWeekProgressBar)
         setLoading(false);
       })
       .catch(err => {
@@ -116,7 +112,7 @@ export default function LessonCard({lesson, userRole }) {
     );
   };
 
- 
+
 
   return (
     <div
@@ -127,9 +123,9 @@ export default function LessonCard({lesson, userRole }) {
 
       {/* loading for card */}
       {loading &&
-      <div id="loadinComponent" className="absolute top-0 left-0 bg-gray-100 bg-opacity-20 z-10 w-full h-full flex items-center justify-center">
-        <Loading/>
-      </div>
+        <div id="loadinComponent" className="absolute top-0 left-0 bg-gray-100 bg-opacity-20 z-10 w-full h-full flex items-center justify-center">
+          <Loading />
+        </div>
       }
 
       <div id="topPart" className="flex flex-col">

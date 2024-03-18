@@ -18,6 +18,7 @@ import NewKataCard from "./components/HomePage/SpecialKatas/NewKataCard";
 import KataForm from "./pages/Forms/KataForm";
 import KataFormDelete from "./pages/Forms/KataFormDelete";
 import KataFormv2 from "./pages/Forms/KataFormv2";
+import KataCardV3 from "./components/HomePage/SpecialKatas/KataCardV3";
 
 
 export default function App() {
@@ -120,7 +121,7 @@ export default function App() {
           path="/home/dojo/addKata"
           element={
             !isExpired(localStorage.getItem("ELearningToken")) ? (
-              <KataForm />
+              <KataFormv2 />
             ) : (
               <Redirect />
             )
@@ -137,10 +138,10 @@ export default function App() {
           }
         />
         <Route
-          path="/home/dojo/addKata/test"
+          path="/home/kataTest"
           element={
             !isExpired(localStorage.getItem("ELearningToken")) ? (
-              <KataFormv2 />
+              <KataCardV3 />
             ) : (
               <Redirect />
             )

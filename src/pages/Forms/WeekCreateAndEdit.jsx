@@ -106,7 +106,8 @@ export default function WeekCreateAndEdit() {
     })
       .then((res) => res.json())
       .then(() => {
-        getCompletedStuff(user.id, setCompletedLessons,setCompletedWeeks, setCompletedModules)
+        let userId = user.id;
+        getCompletedStuff({userId, setCompletedLessons,setCompletedWeeks, setCompletedModules})
         window.history.back()
       })
       .catch(() =>{

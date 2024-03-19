@@ -1,135 +1,235 @@
-import React, { useState } from 'react';
-import SuccessError from '../../components/SuccessError';
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import SuccessError from "../../components/SuccessError";
+
+let categories = [
+    "MATH",
+    "LOGICAL",
+    "STRING",
+    "SORTING",
+    "FUNDAMENTALS"
+]
 
 export default function KataForm() {
-  const [formData, setFormData] = useState({
-    title: '',
-    kataLink: '',
-    level: '',
-    category: '',
-  });
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
-
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: name === 'category' ? value.split(',').map(item => item.trim()) : value,
+    const [savedCategory, setSavedCategory] = useState([]);
+    const [kataById, setKataById] = useState({
+        title: "",
+        kataLink: "",
+        level: "",
+        kataCategories: savedCategory,
     });
-  };
+    const [error, setError] = useState(null);
+    const [errorConflict, setErrorConflict] = useState(null);
+    const [success, setSuccess] = useState(null);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  
-    fetch("http://localhost:8080/katas", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
-      },
-      body: JSON.stringify(formData), 
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else if (res.status === 409) {
-          throw new Error("Kata already exists!");
-        } else {
-          throw new Error("Failed to create the lesson");
+    let kataTitle = useRef(null);
+    let kataLevel = useRef(null);
+    let kataLink = useRef(null);
+    let navigate = useNavigate();
+    const params = useParams();
+
+    useEffect(() => {
+        if (params.kataId !== undefined) {
+            fetch(`http://localhost:8080/katas/${params.kataId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
+                },
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    setKataById(data);
+                })
+                .catch(() => {
+                    navigate("/login")
+                })
         }
-      })
-      .then((data) => {
-        setSuccess("Kata created successfully!"); // afisare mesaj
-        setTimeout(() => {
-          setSuccess(null); // curatare eroare
-          window.history.back(); // Redirect after 2 seconds
-        }, 2000);
-      })
-      .catch((error) => {
-        setError(error.message); 
-        setTimeout(() => {
-          setError(null); // curatare eroare
-        }, 2000);
-      })
-  };
-  
-  
-  
-  return (
-    <div>
-      <SuccessError success={success} error={error} />
-      <form onSubmit={handleSubmit} className="max-w-sm mx-auto mt-8">
-        <div className="mb-4">
-          <label htmlFor="title" className="block text-gray-700 font-bold mb-2">Title</label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            value={formData.title}
-            onChange={handleChange}
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Enter title"
-            required
-          />
+    }, [params.kataId]);
+
+    const editKata = (e) => {
+        if (kataLink.current.value.length > 5000) {
+            setError("Can't put links larger than 5k chars");
+            return
+        }
+
+        fetch(`http://localhost:8080/katas/${params.kataId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
+            },
+            body: JSON.stringify({
+                title: kataTitle.current.value,
+                kataLink: kataLink.current.value,
+                level: kataLevel.current.value,
+                category: savedCategory,
+            }),
+        })
+            .then((response) => {
+                console.log(response);
+                if (!response.ok) {
+                    throw new Error(`Failed to update kata: ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data);
+                navigate("/home");
+            })
+            .catch(() => {
+                navigate("/login")
+            })
+    };
+
+    const saveKata = () => {
+        if (
+            kataTitle.current.value === "" ||
+            kataLevel.current.value === "" ||
+            kataLink.current.value === ""
+        ) {
+            setError("Please fill in the required fields");
+            return;
+        }
+
+        fetch("http://localhost:8080/katas", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
+            },
+            body: JSON.stringify({
+                title: kataTitle.current.value,
+                kataLink: kataLink.current.value,
+                level: kataLevel.current.value,
+                category: savedCategory,
+            }),
+        })
+            .then((res) => {
+                if (res.ok) {
+                    return res.json();
+                } else if (res.status === 409) {
+                    throw new Error("Kata already exists!");
+                } else {
+                    throw new Error("Failed to create the kata");
+                }
+            })
+            .then(() => {
+                setSuccess("Kata created successfully!"); // afisare mesaj
+                setTimeout(() => {
+                    setSuccess(null); // curatare eroare
+                    const previousURL = document.referrer; // Redirect after 2 seconds
+                    navigate(`/${previousURL.split('/').slice(3).join("/")}`)
+                }, 2000);
+            })
+            .catch((error) => {
+                setErrorConflict(error.message);
+                setTimeout(() => {
+                    setErrorConflict(null); // curatare eroare
+                }, 3000);
+            })
+    };
+
+    function addCategory(e) {
+        const categoryValue = e.target.value;
+        if (!savedCategory.includes(categoryValue)) {
+            setSavedCategory([...savedCategory, categoryValue]);
+        }
+    }
+
+    function deleteCategory(categoryValueToDelete) {
+        const updatedCategories = savedCategory.filter(category => category !== categoryValueToDelete);
+        setSavedCategory(updatedCategories);
+    }
+
+    return (
+        <div className="flex justify-center items-center p-2 w-screen h-screen font-inter">
+            <SuccessError success={success} error={errorConflict} />
+            <div className="relative flex w-96 h-fit flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+                <img src="/images/CleanCode-removebg-preview.png" />
+                <div className="relative mx-4 -mt-6 mb-4 grid h-28 place-items-center overflow-hidden rounded-xl bg-gradient-to-tr from-cyan-600 to-cyan-400 bg-clip-border text-white shadow-lg shadow-cyan-500/40">
+                    <h3 className="block font-sans text-3xl font-semibold leading-snug tracking-normal text-white antialiased">
+                        {params.kataId !== undefined ? "Edit your kata" : "Create new kata"}{" "}
+                    </h3>
+                </div>
+                <div className="flex flex-col gap-4 p-6">
+                    <div className="relative h-11 w-full min-w-[200px]">
+                        <input
+                            ref={kataTitle}
+                            defaultValue={kataById.title}
+                            className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-cyan-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                        />
+                        <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-cyan-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-cyan-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                            Title
+                        </label>
+                    </div>
+                    <div className="relative h-11 w-full min-w-[200px]">
+                        <input
+                            ref={kataLevel}
+                            defaultValue={kataById.level}
+                            type="number"
+                            max={8}
+                            min={1}
+                            className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-cyan-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                        />
+                        <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-cyan-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-cyan-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                            Kyu
+                        </label>
+                    </div>
+                    <div className="relative h-11 w-full min-w-[200px]">
+                        <input
+                            ref={kataLink}
+                            defaultValue={kataById.kataLink}
+                            className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-cyan-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                        />
+                        <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-cyan-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-cyan-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                            Link
+                        </label>
+                    </div>
+                    <div id="categoryContainer" className="flex flex-wrap gap-1">
+                        {savedCategory.map((category, index) => (
+                            <div key={index} className="w-fit bg-gray-500 h-7 text-white flex items-center px-2 rounded-lg">
+                                {category}
+                                <i className="fa-solid fa-x text-red-500 text-xs ml-2 cursor-pointer" onClick={() => deleteCategory(category)}></i>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="relative h-11 w-full min-w-[200px]">
+                        <select
+
+                            defaultValue={1}
+                            onChange={(e) => addCategory(e)}
+                            className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-cyan-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50">
+                            <option value={1} disabled className="bg-gray-400">SELECT A CATEGORY</option>
+                            {categories.map((category, index) => (
+                                <option key={index} value={category}>{category}</option>
+                            ))}
+                        </select>
+
+                        <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-cyan-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-cyan-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                            Category
+                        </label>
+                    </div>
+                </div>
+                {error && (
+                    <div className="text-red-500 flex justify-center font-inter">
+                        {error}
+                    </div>
+                )}
+                <div className="font-semibold flex items-center justify-center pt-3 pb-5">
+                    <button
+                        onClick={params.kataId !== undefined ? editKata : saveKata}
+                        className=" my-2 xs:my-0 px-8 py-5 bg-fifth rounded-lg text-sixth mr-4 shadow-md shadow-fourth"
+                    >
+                        {params.kataId !== undefined ? "Save" : "Create"}
+                    </button>
+                    <a href="/home">
+                        <button className=" my-2 xs:my-0 px-8 py-5 bg-sixth rounded-lg text-fifth mr-4 shadow-md shadow-fourth">
+                            Cancel
+                        </button>
+                    </a>
+                </div>
+            </div>
         </div>
-        <div className="mb-4">
-          <label htmlFor="kataLink" className="block text-gray-700 font-bold mb-2">Kata Link</label>
-          <input
-            type="text"
-            id="kataLink"
-            name="kataLink"
-            value={formData.kataLink}
-            onChange={handleChange}
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Enter kata link"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="level" className="block text-gray-700 font-bold mb-2">Level</label>
-          <input
-            type="number" 
-            id="level"
-            name="level"
-            value={formData.level}
-            onChange={handleChange}
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Enter level"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="language" className="block text-gray-700 font-bold mb-2">Language</label>
-          <input
-            type="text"
-            id="language"
-            name="language"
-            value={formData.language}
-            onChange={handleChange}
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Enter language"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="category" className="block text-gray-700 font-bold mb-2">Category</label>
-          <input
-            type="text"
-            id="category"
-            name="category"
-            value={formData.category}
-            onChange={handleChange}
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Enter category"
-            required
-          />
-        </div>
-        <div className="flex justify-center">
-          <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Submit</button>
-        </div>
-      </form>
-    </div>
-  );
+    );
 }

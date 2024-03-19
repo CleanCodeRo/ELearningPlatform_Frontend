@@ -93,7 +93,8 @@ const LessonsCreateAndEdit = () => {
         }),
       });
       if (response.ok) {
-        getCompletedStuff(user.id, setCompletedLessons,setCompletedWeeks, setCompletedModules)
+        let userId = user.id;
+        getCompletedStuff({userId, setCompletedLessons,setCompletedWeeks, setCompletedModules})
         window.history.back();
       } else {
         setError("Failed to create the lesson.");

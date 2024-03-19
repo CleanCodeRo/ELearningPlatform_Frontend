@@ -1,12 +1,11 @@
 import React from 'react'
-import SideHeader from '../components/SideHeader'
-import KataCarousel from '../components/HomePage/SpecialKatas/KataCarousel';
-import FilterKataList from '../components/HomePage/SpecialKatas/FilterKataList';
+import SideHeader from '../components/SideHeader';
+import FilterKataList from '../components/SpecialKatas/FilterKataList';
+import ListKata from '../components/SpecialKatas/ListKata';
 
 export default function Dojo() {
 
   return (
-
     <div className="h-screen select-none flex flex-row text-sixth overflow-x-hidden overflow-y-scroll relative custom-scrollbar" >
       <SideHeader />
 
@@ -15,11 +14,11 @@ export default function Dojo() {
         <FilterKataList />
         
           
-          <a id='addKata' href='dojo/addKata' className='bg-green-300 mt-4 w-fit'>Add Kata</a>
+          <a id='addKata' href='/home/dojo/addKata' className='bg-green-300 mt-4 w-fit'>Add Kata</a>
       
         {/* infinite kata */}
         
-        <KataCarousel />
+        <ListKata/>
 
       </div>
     </div>
@@ -29,29 +28,3 @@ export default function Dojo() {
 
   );
 }
-
-
-{/* <div className='select-none flex flex-row text-sixth w-full h-full'>
-      <SideHeader />
-      <div id='dojo' className=' w-[100px] h-full flex-grow flex flex-col'>
-        <KataCarousel />
-
-
-        <Link
-
-          to={"\addKata"}>
-          <button id='addKata' className='bg-green-300 mt-4'>
-
-            Add Kata</button>
-        </Link>
-        <Link
-
-          to={"\deleteKata"}>
-
-          <button id='removeKata' className='bg-red-300 mt-4'>Remove Kata</button>
-        </Link>
-
-      </div>
-
-
-    </div> */}

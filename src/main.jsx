@@ -13,12 +13,9 @@ import ModuleCreateAndEdit from "./pages/Forms/ModuleCreateAndEdit";
 import WeekCreateAndEdit from "./pages/Forms/WeekCreateAndEdit";
 import LessonsCreateAndEdit from "./pages/Forms/LessonsCreateAndEdit";
 import Redirect from "./components/Redirect";
-
-import NewKataCard from "./components/HomePage/SpecialKatas/NewKataCard";
+import KataCardV3 from "./components/SpecialKatas/KataCardV3";
 import KataForm from "./pages/Forms/KataForm";
-import KataFormDelete from "./pages/Forms/KataFormDelete";
-import KataFormv2 from "./pages/Forms/KataFormv2";
-import KataCardV3 from "./components/HomePage/SpecialKatas/KataCardV3";
+
 
 
 export default function App() {
@@ -118,20 +115,20 @@ export default function App() {
           }
         />
         <Route
-          path="/home/dojo/addKata"
+          path="/home/dojo/:pageNumber?"
           element={
             !isExpired(localStorage.getItem("ELearningToken")) ? (
-              <KataFormv2 />
+              <Dojo />
             ) : (
               <Redirect />
             )
           }
         />
         <Route
-          path="/home/dojo/deleteKata"
+          path="/home/dojo/addKata"
           element={
             !isExpired(localStorage.getItem("ELearningToken")) ? (
-              <KataFormDelete />
+              <KataForm />
             ) : (
               <Redirect />
             )

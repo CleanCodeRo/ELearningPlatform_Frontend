@@ -1,5 +1,5 @@
 import React from 'react'
-import "./CheckBox.css"
+import'/src/components/CheckBox/Checkbox.css'
 
 export default function CheckBox({idNumber, checkBoxEvent, defaultChecked, checkBoxRef}) {
     return (

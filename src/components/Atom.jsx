@@ -28,7 +28,10 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
           firstName : data.firstName,
           lastName : data.lastName,
           username : data.username,
-          role : data.role
+          role : data.role,
+          codeWarsUsername : data.codeWarsUsername,
+          rankPoints : data.rankPoints
+
         });
         setCompletedLessons(data.completedLessons);
         setCompletedWeeks(data.completedWeeks);
@@ -41,7 +44,7 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
   }
 
 
-  export function getCompletedStuff(userId, setCompletedLessons, setCompletedWeeks, setCompletedModules,setCompletedKatas, setRefreshWeekProgressBar){
+  export function getCompletedStuff({userId, setCompletedLessons, setCompletedWeeks, setCompletedModules,setCompletedKatas, setRefreshWeekProgressBar}){
     fetch(`http://localhost:8080/users/${userId}/completedStuff`,{
       method : "GET",
       headers :{
@@ -58,6 +61,7 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
       setRefreshWeekProgressBar ? setRefreshWeekProgressBar(Math.random()) : null
     })
   }
+  
 
   export function returnPercentage(objects, userObjects){
     let oneLessonPercentage = (1 / objects.length) *100

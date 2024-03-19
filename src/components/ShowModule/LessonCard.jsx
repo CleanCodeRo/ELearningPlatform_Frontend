@@ -4,7 +4,7 @@ import {
   MenuItem,
   MenuList,
 } from "@material-tailwind/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAtom } from "jotai";
 import state, { getCompletedStuff } from "../Atom";
@@ -61,7 +61,8 @@ export default function LessonCard({ lesson, userRole }) {
     })
       .then(res => res.json())
       .then(data => {
-        getCompletedStuff(user.id, setCompletedLessons, setCompletedWeeks, setCompletedModules, setRefreshWeekProgressBar)
+        let userId = user.id
+        getCompletedStuff({userId, setCompletedLessons, setCompletedWeeks, setCompletedModules, setRefreshWeekProgressBar})
         setLoading(false);
       })
       .catch(err => {

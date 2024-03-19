@@ -6,12 +6,10 @@ export default function KataForm() {
     title: '',
     kataLink: '',
     level: '',
-    language: '',
     category: '',
   });
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const [submitting, setSubmitting] = useState(false);
 
 
   const handleChange = (e) => {
@@ -24,9 +22,6 @@ export default function KataForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (submitting) return; 
-  
-    setSubmitting(true); 
   
     fetch("http://localhost:8080/katas", {
       method: "POST",
@@ -58,9 +53,6 @@ export default function KataForm() {
           setError(null); // curatare eroare
         }, 2000);
       })
-      .finally(() => {
-        setSubmitting(false); 
-      });
   };
   
   

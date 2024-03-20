@@ -34,7 +34,7 @@ export default function KataCard({ kata, deleteEvent, setRefresh }) {
             method: "GET"
         }).then(res => res.json())
             .then(data => {
-                let checkIfKataExists = data.data.filter(codeKata => codeKata.name.toLowerCase() == kata.title.toLowerCase());
+                let checkIfKataExists = data.data.filter(codeKata => codeKata.name == kata.title.toLowerCase());
 
                 if (checkIfKataExists.length > 0) {
                     e.target.disabled = true;
@@ -161,7 +161,7 @@ export default function KataCard({ kata, deleteEvent, setRefresh }) {
             </div>
 
             <div id="buttonsContainer" className="flex flex-row justify-evenly w-full my-3 font-bold">
-                <button id="markedAsDone" className="text-[#eba24f] bg-gray-200 rounded-xl w-2/5 p-2   left-0" onClick={!isCompleted ? completeKataEvent : null}>
+                <button id="markedAsDone" className={`text-[#eba24f] bg-gray-200 rounded-xl w-2/5 p-2 left-0 ${!isCompleted ? "cursor-pointer" : "cursor-default"}`} onClick={!isCompleted ? completeKataEvent : null}>
                     {!isCompleted ? "Done" : "Completed"}
                 </button>
 

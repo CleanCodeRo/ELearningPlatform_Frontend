@@ -3,6 +3,7 @@ import Modules from "../components/HomePage/Modules";
 import SideHeader from "../components/SideHeader";
 import { useAtom } from "jotai";
 import state from "../components/Atom";
+import KatasOfTheDay from "../components/HomePage/KatasOfTheDay/KatasOfTheDay";
 
 function HomePage() {
   const [user, setUser] = useAtom(state.user)
@@ -12,7 +13,12 @@ function HomePage() {
       <SideHeader />
     
       <div id="moduleAndKataHolder" className="flex flex-col px-5 " style={{ minWidth: "calc(100vw - 5rem)"}}>
-       {user && <Modules userRole={user.role}/>}
+       {user && 
+       <>
+       <Modules userRole={user.role}/>
+       <KatasOfTheDay userRole={user.role}/>
+       </>
+      }
       </div>
     </div>
   );

@@ -12,7 +12,7 @@ import state from "../Atom";
 import Loading from "../Loading/Loading";
 import SuccessError from "../SuccessError";
 
-export default function NewKataCard({ kata, deleteEvent }) {
+export default function NewKataCard({ kata, deleteEvent, setRefresh }) {
   const kataCardRef = useRef(null);
   const [completedKatas, setCompletedKatas] = useAtom(state.completedKatas)
   const [user, setUser] = useAtom(state.user)
@@ -82,7 +82,7 @@ export default function NewKataCard({ kata, deleteEvent }) {
           </MenuHandler>
           <MenuList className=" bg-first bg-opacity-40 backdrop-blur-md border-0 text-sixth ">
             <MenuItem
-              onClick={(e) => deleteEvent(e, kata.id)}
+              onClick={(e) => deleteEvent(e, kata.id, setRefresh)}
               className="bg-first bg-opacity-80 mb-1"
             >
               <i className="fa-solid fa-trash-can mr-1" /> Delete
@@ -136,7 +136,7 @@ export default function NewKataCard({ kata, deleteEvent }) {
 
         <div id="rightDetails" className="border-2 rounded-xl border-[#aa6b48] min-w-[6rem]">
           <p id="pointsPerCompetion" className="ml-1 mt-1">RP: +{(maxPoints - kata.level * 6) + 6}</p>
-          <p id="status" className="ml-1">Status</p>
+          <p id="status" className="ml-1">Kyu {kata.level} </p>
         </div>
       </div>
 

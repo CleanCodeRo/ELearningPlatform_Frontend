@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import NewKataCard from './NewKataCard';
 import Loading from '../Loading/Loading';
 import ReactPaginate from 'react-paginate';
 import { Button } from '@material-tailwind/react';
 import { useNavigate, useParams } from 'react-router';
+import KataCard from './KataKard';
 
 const numberOfItems = 5;
 let numberOfPages = 0
@@ -50,21 +50,7 @@ const ListKata = () => {
     navigate(`/home/dojo/${e.selected}`)
   }
 
-  const deleteKata = (e, kataId) => {
-    e.stopPropagation();
 
-    fetch(`http://localhost:8080/katas/${kataId}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
-      },
-    }).then(res => res.json())
-      .then(() => {
-         setRefresh(refresh + 1)
-      })
-
-  };
 
 
   return (
@@ -93,7 +79,7 @@ const ListKata = () => {
         
         <div id='kataHolder' className='grid grid-cols-3 xl:grid-cols-4 px1400:grid-cols-5 px1669:grid-cols-6 w-full relative'>
           {katas && katas.map((kata, index) => (
-            <NewKataCard key={index} kata={kata} deleteEvent={deleteKata} />
+            <KataCard key={index} kata={kata} deleteEvent={deleteKata} setRefresh={setRefresh} />
           ))}
         </div>
       )
@@ -103,3 +89,18 @@ const ListKata = () => {
 };
 
 export default ListKata;
+
+export const deleteKata = (e, kataId, setRefresh) => {
+  e.stopPropagation();
+
+  fetch(`http://localhost:8080/katas/${kataId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
+    },
+  }).then(res => res.json())
+    .then(() => {
+       setRefresh(Math.random())
+    })
+};

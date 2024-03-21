@@ -48,7 +48,7 @@ export default function KatasOfTheDay({ userRole }) {
                     </button> : null}
             </div>
 
-            <div id='kataHolder' className='grid grid-cols-3 xl:grid-cols-4 px1400:grid-cols-5 px1669:grid-cols-6 w-full relative py-7 '>
+            <div id='kataHolder' className='flex justify-center items-center w-full relative py-7 gap-20 '>
                 {katas && katas.map((kata, index) => (
                     <KataCard key={index} kata={kata} deleteEvent={(e) =>{
                         deleteKata(e, kata.id, setRefresh);

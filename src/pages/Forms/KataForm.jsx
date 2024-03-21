@@ -27,6 +27,7 @@ export default function KataForm() {
     let kataLink = useRef(null);
     let navigate = useNavigate();
     const params = useParams();
+    const previousURL = document.referrer;
 
     useEffect(() => {
         if (params.kataId !== undefined) {
@@ -118,8 +119,7 @@ export default function KataForm() {
                 setSuccess("Kata created successfully!"); // afisare mesaj
                 setTimeout(() => {
                     setSuccess(null); // curatare eroare
-                    const previousURL = document.referrer; // Redirect after 2 seconds
-                    navigate(`/${previousURL.split('/').slice(3).join("/")}`)
+                    navigate(`/${previousURL.split('/').slice(3).join("/")}`) // Redirect after 2 seconds
                 }, 2000);
             })
             .catch((error) => {
@@ -223,7 +223,7 @@ export default function KataForm() {
                     >
                         {params.kataId !== undefined ? "Save" : "Create"}
                     </button>
-                    <a href="/home">
+                    <a href={`/${previousURL.split('/').slice(3).join("/")}`}>
                         <button className=" my-2 xs:my-0 px-8 py-5 bg-sixth rounded-lg text-fifth mr-4 shadow-md shadow-fourth">
                             Cancel
                         </button>

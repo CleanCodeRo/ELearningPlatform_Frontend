@@ -7,7 +7,7 @@ import { Button } from '@material-tailwind/react';
 import { useNavigate, useParams } from 'react-router';
 import KataCard from './KataKard';
 
-const numberOfItems = 5;
+const numberOfItems = 10;
 let numberOfPages = 0
 
 const ListKata = () => {
@@ -47,16 +47,13 @@ const ListKata = () => {
   }, [pageNumber, refresh]);
 
   const handlePageClick = (e) => {
-    navigate(`/home/dojo/${e.selected}`)
+    navigate(`/dojo/${e.selected}`)
   }
 
-
-
-
   return (
-    <div id='kataHolder' className=' w-full relative'>
+    <div id='kataHolder' className=' w-full relative py-10'>
       <ReactPaginate
-            className=' w-full text-first flex justify-center items-center my-3 '
+            className=' w-full text-first flex justify-center items-center mb-7 mt-3'
             pageClassName=" mx-1 w-10 h-10 rounded-xl flex items-center justify-center hover:bg-gray-300 duration-200"
             breakClassName=" p-1"
             activeClassName="bg-second text-sixth shadow-sm shadow hover:text-first duration-200"
@@ -77,7 +74,7 @@ const ListKata = () => {
         </div>
       ) : (
         
-        <div id='kataHolder' className='grid grid-cols-3 xl:grid-cols-4 px1400:grid-cols-5 px1669:grid-cols-6 w-full relative'>
+        <div id='kataHolder' className='grid grid-cols-3 xl:grid-cols-4 px1400:grid-cols-5 px1669:grid-cols-6 w-full relative gap-y-10'>
           {katas && katas.map((kata, index) => (
             <KataCard key={index} kata={kata} deleteEvent={deleteKata} setRefresh={setRefresh} />
           ))}

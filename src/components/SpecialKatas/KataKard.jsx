@@ -1,10 +1,10 @@
-import { Navigate, useNavigate } from "react-router";
-import Stars from "./Stars";
+import { Navigate } from "react-router";
 import {
     Menu,
     MenuHandler,
     MenuItem,
     MenuList,
+    Tooltip,
 } from "@material-tailwind/react";
 import { useEffect, useRef, useState } from "react";
 import { useAtom } from "jotai";
@@ -104,20 +104,20 @@ export default function KataCard({ kata, deleteEvent, setRefresh }) {
     };
 
     function getFontSizeClass(categoryLength) {
-        if (categoryLength <= 3) {
+        if (categoryLength <= 1) {
             return "text-sm";
-        } else if (categoryLength > 3) {
+        } else if (categoryLength > 1) {
             return "text-xs"; // Extra small font size
-        } else {
-            return "text-xxs"; // Very small font size (adjust as needed)
-        }
+        } 
     }
 
     let maxPoints = 48;
     return (
-        <div id="cardHolder" className="w-64 max-h-17 bg-[#eee0c3] flex flex-col items-center justify-between border-2 shadow-gray-300 shadow-sm rounded-2xl relative" ref={kataCardRef}>
+        <div id="cardHolder" className="w-64 max-h-17 bg-[#eee0c3] flex flex-col items-center justify-between border-2 shadow-[#e6b57e] shadow-xl rounded-2xl relative bg-cover bg-center" ref={kataCardRef}
+            style={{ backgroundImage: `url("/images/bgTextureJapanese.jpg")` }}
+        >
             {loading &&
-                <div id="loadingContainer" className="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center border-2 rounded-2xl">
+                <div id="loadingContainer" className="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center border-2 rounded-2xl z-20">
                     <Loading />
                 </div>
             }
@@ -126,33 +126,38 @@ export default function KataCard({ kata, deleteEvent, setRefresh }) {
             {/* i need this holderwithoutEndButtons to separate it from the button and apply a justify between so the buttons can be allways at the bottom of the card */}
             <div id="holderwithoutEndButtons" className="flex flex-col w-full items-center h-full">
                 <div id="titleAndEditPen" className="text-[#0b0f1b] mt-2 relative w-full flex justify-center ">
-                    <p id="title" className="w-[60%] text-center text-xl font-bold line-clamp-1">{kata.title}</p>
                     <div id="penContainer" className="absolute w-full flex justify-end ">
                         <EditPen />
                     </div>
                 </div>
 
-                <img id="KyuImage" className="w-[12rem] z-10" src={`/kataIcons/kataIcons(${kata.level}).png`} style={{ margin: "0px 0px -50px 0px" }}></img>
+                <img id="KyuImage" className="w-[12rem] z-10 " src={`/kataIcons/kataIcons(${kata.level}).png`} style={{ margin: "-38px 0px -50px 0px" }}></img>
 
-                <div id="Details" className="text-[#0b0f1b] flex flex-col w-11/12 pt-5 rounded-lg bg-[#e9b273] p-2 h-full ">
-                    <p id="subtitle" className="text-[#0b0f1b] text-2xl text-center mb-2 z-20 backdrop-blur-xs font-bold ">Training details</p>
+                <div id="Details" className="text-[#0b0f1b] flex flex-col w-11/12 pt-12 rounded-lg bg-[#e9b273] p-2 h-full backdrop-brightness-60 bg-opacity-[85%]">
+                    <div name="spacingLine" className="w-full h-[2px] bg-[#f5d4b0] "></div>
+
+                    <Tooltip className="bg-opacity-70 " content={kata.title}>
+                        <p id="title" className="w-full text-center text-xl font-bold line-clamp-1 my-2 ">{kata.title}</p>
+                    </Tooltip>
 
                     <div id="rightDetails" className=" rounded-xl text-2xl min-w-[6rem] flex justify-around my-1 font-ninja font-semibold">
                         <div className="flex flex-col items-center ">
                             <img className="w-[1.8rem]" src='/images/samurai.png' />
                             <p id="pointsPerCompetion" className="mt-0.5 tracking-widest" >+{(maxPoints - kata.level * 6) + 6}P</p>
                         </div>
-                        <div  className="flex flex-col items-center ">
+                        <div className="flex flex-col items-center ">
                             <img className="w-[2rem]" src='/images/torii-gate.png' />
                             <p id="status" className="mt-0.5 tracking-widest">Kyu {kata.level}  </p>
                         </div>
                     </div>
 
-                    <div className="w-full h-[2px] bg-[#f5d4b0]"></div>
 
-                    <div id="leftDetails" className=" rounded-xl flex flex-wrap justify-center p-2 min-w-[8rem] my-1 gap-1">
+
+                    <div name="spacingLine" className="w-full h-[2px] bg-[#f5d4b0]"></div>
+
+                    <div id="leftDetails" className=" rounded-xl flex flex-wrap justify-center p-2 min-w-[8rem] my-1 gap-1 font-bold">
                         {kata.category?.map((category, index) => (
-                            <p key={index} className={`p-1 bg-[#eee0c3] rounded-lg ${getFontSizeClass(kata.category.length)}`}>
+                            <p key={index} className={`py-1 px-2 bg-[#eee0c3] rounded-lg ${getFontSizeClass(kata.category.length)}`}>
                                 {category}
                             </p>
                         ))}
@@ -165,7 +170,7 @@ export default function KataCard({ kata, deleteEvent, setRefresh }) {
                     {!isCompleted ? "Done" : "Completed"}
                 </button>
 
-                <a id="beginTraining" className="text-sixth bg-fifth rounded-full h-fit p-2 w-24 text-center" href={kata.kataLink} target="_blank">
+                <a id="beginTraining" className="text-sixth bg-fifth rounded-lg h-fit p-2 w-24 text-center" href={kata.kataLink} target="_blank">
                     Train
                 </a>
             </div>

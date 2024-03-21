@@ -104,8 +104,9 @@ export default function App() {
           path="/home/module/:moduleId/week/:weekId/editLesson/:lessonId"
           element={<LessonsCreateAndEdit />}
         />
+       
         <Route
-          path="/home/dojo"
+          path="/dojo/:pageNumber?"
           element={
             !isExpired(localStorage.getItem("ELearningToken")) ? (
               <Dojo />
@@ -115,17 +116,7 @@ export default function App() {
           }
         />
         <Route
-          path="/home/dojo/:pageNumber?"
-          element={
-            !isExpired(localStorage.getItem("ELearningToken")) ? (
-              <Dojo />
-            ) : (
-              <Redirect />
-            )
-          }
-        />
-        <Route
-          path="/home/dojo/addKata"
+          path="/dojo/addKata"
           element={
             !isExpired(localStorage.getItem("ELearningToken")) ? (
               <KataForm />

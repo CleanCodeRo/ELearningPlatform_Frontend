@@ -18,6 +18,8 @@ export default function SideHeader() {
   const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks);
   const [completedModules, setCompletedModules] = useAtom(state.completedModules);
   const [completedKatas, setCompletedKatas] = useAtom(state.completedKatas);
+  let path = window.location.pathname.split("/");
+  let hoverColor = path.includes("dojo") ? "hover:fill-[#da8f06] " : "hover:fill-[#2c8dfe]"; 
 
   const logout = (e) => {
     e.preventDefault();
@@ -34,13 +36,13 @@ export default function SideHeader() {
   }, [])
 
   return (
-    <div className="flex md:flex-col bg-[#dddcdc] md:min-w-[5rem]  md:h-screen  md:sticky md:top-0  md:rounded-r-3xl  
-                     h-[4rem] bottom-0 w-screen fixed flex-row-reverse items-center justify-center z-10">
+    <div className={`flex md:flex-col bg-[#dddcdc] md:min-w-[5rem]  md:h-screen  md:sticky md:top-0  md:rounded-r-3xl  
+                     h-[4rem] bottom-0 w-screen fixed flex-row-reverse items-center justify-center z-10 ${path.includes("dojo") ? "bg-[#e9d4c0]" : "bg-[#bed7e2]" } `}>
       <div id="iconsHolder" className="flex flex-row md:flex-col  gap-3 xs:gap-5 md:!gap-0 absolute right-5 sm:static">
         <div
           onClick={() => navigate("/home")}
           id="homeButton"
-          className=" rounded-full w-[40px] h-[40px] sm:w-[50px] sm:h-[50px]  mb-4 mt-7  cursor-pointer fill-[#afafaf] hover:fill-[#2c8dfe]"
+          className={` rounded-full w-[40px] h-[40px] sm:w-[50px] sm:h-[50px]  mb-4 mt-7  cursor-pointer fill-[#464543]  ${hoverColor}`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -56,7 +58,7 @@ export default function SideHeader() {
 
         <div
           id="coursesButton"
-          className=" rounded-full w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] mb-4 mt-7 cursor-pointer fill-[#afafaf] hover:fill-[#2c8dfe]"
+          className={` rounded-full w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] mb-4 mt-7 cursor-pointer fill-[#464543] ${hoverColor}`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +74,7 @@ export default function SideHeader() {
 
         <div
           id="savedButton"
-          className=" rounded-full w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] mb-4 mt-7 cursor-pointer fill-[#afafaf] hover:fill-[#2c8dfe]"
+          className={` rounded-full w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] mb-4 mt-7 cursor-pointer fill-[#464543]  ${hoverColor}`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -88,8 +90,8 @@ export default function SideHeader() {
 
         <div
           id="myKatasButton"
-          className=" rounded-full w-[50px] h-[50px] mb-4 mt-7 cursor-pointer fill-[#afafaf] hover:fill-[#2c8dfe] "
-          onClick={() => navigate("/home/dojo/0")}
+          className={` rounded-full w-[50px] h-[50px] mb-4 mt-7 cursor-pointer fill-[#464543]  ${hoverColor} `}
+          onClick={() => navigate("/dojo/0")}
         >
           <svg
 

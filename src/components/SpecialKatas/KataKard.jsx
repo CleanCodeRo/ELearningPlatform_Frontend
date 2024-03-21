@@ -34,7 +34,7 @@ export default function KataCard({ kata, deleteEvent, setRefresh }) {
         }).then(res => res.json())
             .then(data => {
                 let checkIfKataExists = data.data.filter(codeKata => codeKata.name.toLowerCase() == kata.title.toLowerCase());
-
+                
                 if (checkIfKataExists.length > 0) {
                     e.target.disabled = true;
                     fetch(` http://localhost:8080/users/addCompleteKata?userId=${user.id}&kataId=${kata.id}`, {

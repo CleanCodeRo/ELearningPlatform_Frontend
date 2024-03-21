@@ -61,7 +61,7 @@ export default function Lessons({ setLoadingLessons, loadingLessons, userRole })
     <div className="pt-5 pb-10 font-inter" >
       <div className=" flex items-center ">
         <p className="text-3xl sm:text-4xl p-4 font-bold border-2 rounded-xl text-fourth">
-          LESSONS
+          Lessons
         </p>
 
         {params.weekId && userRole == "ADMIN" && (
@@ -92,7 +92,7 @@ export default function Lessons({ setLoadingLessons, loadingLessons, userRole })
             mandatoryLessons.map((lesson, index) => <LessonCard key={index} lesson={lesson}  />)
           ) : (
             <div className="col-span-full text-4xl text-center my-10 text-third animate-flip-down animate-duration-[400ms]">
-              - No madatory lessons here -
+              - No mandatory lessons here -
             </div>
           )}
 

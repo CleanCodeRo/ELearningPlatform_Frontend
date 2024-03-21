@@ -89,7 +89,7 @@ export default function KataCard({ kata, deleteEvent, setRefresh }) {
 
     let maxPoints = 48;
     return (
-        <div id="cardHolder" className="w-64 max-h-17 bg-[#eee0c3] flex flex-col items-center justify-between border-2 shadow-[#e6b57e] shadow-xl rounded-2xl relative bg-cover bg-center" ref={kataCardRef}
+        <div id="cardHolder" className=" w-64 max-h-17 bg-[#eee0c3] flex flex-col items-center justify-between border-2 shadow-[#e6b57e] shadow-xl rounded-2xl relative bg-cover bg-center" ref={kataCardRef}
             style={{ backgroundImage: `url("/images/bgTextureJapanese.jpg")` }}
         >
             {loading &&
@@ -113,7 +113,7 @@ export default function KataCard({ kata, deleteEvent, setRefresh }) {
                     <div name="spacingLine" className="w-full h-[2px] bg-[#f5d4b0] "></div>
 
                     <Tooltip className="bg-opacity-70 " content={kata.title}>
-                        <p id="title" className="w-full text-center text-xl font-bold line-clamp-1 my-2 ">{kata.title}</p>
+                        <p id="title" className="w-full text-center font-bold font-ninja text-[1.5rem] tracking-wider line-clamp-1 my-2 ">{kata.title}</p>
                     </Tooltip>
 
                     <div id="rightDetails" className=" rounded-xl text-2xl min-w-[6rem] flex justify-around my-1 font-ninja font-semibold">

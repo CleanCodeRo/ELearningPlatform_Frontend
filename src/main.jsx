@@ -13,7 +13,6 @@ import ModuleCreateAndEdit from "./pages/Forms/ModuleCreateAndEdit";
 import WeekCreateAndEdit from "./pages/Forms/WeekCreateAndEdit";
 import LessonsCreateAndEdit from "./pages/Forms/LessonsCreateAndEdit";
 import Redirect from "./components/Redirect";
-import KataCardV3 from "./components/SpecialKatas/KataCardV3";
 import KataForm from "./pages/Forms/KataForm";
 
 
@@ -120,16 +119,6 @@ export default function App() {
           element={
             !isExpired(localStorage.getItem("ELearningToken")) ? (
               <KataForm />
-            ) : (
-              <Redirect />
-            )
-          }
-        />
-        <Route
-          path="/home/kataTest"
-          element={
-            !isExpired(localStorage.getItem("ELearningToken")) ? (
-              <KataCardV3 />
             ) : (
               <Redirect />
             )

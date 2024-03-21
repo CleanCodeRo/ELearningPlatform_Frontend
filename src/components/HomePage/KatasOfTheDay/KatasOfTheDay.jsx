@@ -8,7 +8,6 @@ export default function KatasOfTheDay({ userRole }) {
     const [refresh, setRefresh] = useState(0);
 
     useEffect(() => {
-        console.log(refreshHasBeenMade)
         fetch(`http://localhost:8080/katas/katasOfTheDay?requestRefresh=${refreshHasBeenMade}`, {
             method: "GET",
             headers: {
@@ -18,7 +17,6 @@ export default function KatasOfTheDay({ userRole }) {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
                 setKatas(data)
                 refreshHasBeenMade = false
             })

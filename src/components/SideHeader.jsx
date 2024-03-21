@@ -28,7 +28,6 @@ export default function SideHeader() {
   };
 
   useEffect(() => {
-    console.log("works")
     if (!user) {
       getUserWithToken(localStorage.getItem("ELearningToken"), setUser, setCompletedLessons, setCompletedWeeks, setCompletedModules, setCompletedKatas)
       console.log("user recived use effect")

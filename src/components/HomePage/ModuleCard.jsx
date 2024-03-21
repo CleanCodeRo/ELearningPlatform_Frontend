@@ -1,14 +1,9 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Menu,
-  MenuHandler,
-  MenuList,
-  MenuItem,
-} from "@material-tailwind/react";
 import Loading from "../Loading/Loading";
 import { useAtom } from "jotai";
 import state from "../Atom";
+import EditPen from "../EditPen";
 
 export default function ModuleCard({ id, title, subtitle, image, userRole }) {
   let moduleCard = useRef(null);
@@ -21,18 +16,23 @@ export default function ModuleCard({ id, title, subtitle, image, userRole }) {
     setLoading(true);
 
     fetch(`http://localhost:8080/modules?moduleId=${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
-        },
-      })
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
+      },
+    })
       .then(res => res.json())
-      .then(data =>{
-         console.log(data)
-         moduleCard.current.remove()
-        })
+      .then(data => {
+        console.log(data)
+        moduleCard.current.remove()
+      })
   };
+
+  const editEvent = (e, navigate) => {
+    e.stopPropagation();
+    navigate(`/editModule/${id}`);
+  }
 
   return (
     <div
@@ -43,13 +43,12 @@ export default function ModuleCard({ id, title, subtitle, image, userRole }) {
       onClick={() => navigate(`module/${id}`)}
     >
 
-    {/* loading for card */}
-    {loading &&
-      <div id="loadinComponent" className="absolute top-0 left-0 bg-gray-100 bg-opacity-20 z-10 w-full h-full flex items-center justify-center">
-        <Loading/>
-      </div>
+      {/* loading for card */}
+      {loading &&
+        <div id="loadinComponent" className="absolute top-0 left-0 bg-gray-100 bg-opacity-20 z-10 w-full h-full flex items-center justify-center">
+          <Loading />
+        </div>
       }
-
 
       <div
         id="image"
@@ -64,37 +63,12 @@ export default function ModuleCard({ id, title, subtitle, image, userRole }) {
         {title}
       </div>
 
-
-      {userRole == "ADMIN" ?
       <div
         id="deleteAndModify"
-        className="absolute top-2 right-2 p-1 text-first bg-[rgba(255,255,255,0.7)] hover:bg-[rgba(255,255,255,1)] rounded-xl duration-300 cursor-pointer "
+        className="absolute top-2 right-2 p-1 "
       >
-        <Menu>
-          <MenuHandler>
-            <i className="fa-solid fa-pen p-1"></i>
-          </MenuHandler>
-          <MenuList className=" bg-first bg-opacity-40 backdrop-blur-md border-0 text-[#afafaf] ">
-            <MenuItem
-              onClick={(e) => {
-                deleteModule(e);
-              }}
-              className="bg-first bg-opacity-80 mb-1"
-            >
-              <i className="fa-solid fa-trash-can mr-1" /> Delete
-            </MenuItem>
-            <MenuItem
-              onClick={(e) => {
-                e.stopPropagation();
-                navigate(`/editModule/${id}`);
-              }}
-              className="bg-first bg-opacity-80"
-            >
-              <i className="fa-solid fa-pen-to-square mr-1" /> Edit
-            </MenuItem>
-          </MenuList>
-        </Menu>
-      </div> : null }
+        <EditPen user={{ role: userRole }} deleteEvent={(e) => deleteModule(e)} editEvent={(e) => editEvent(e, navigate)} />
+      </div>
 
       <div id="other info" className="flex flex-col p-2 text-[#afafaf]">
         <p id="subtitle" className="text-3xl line-clamp-1 ">

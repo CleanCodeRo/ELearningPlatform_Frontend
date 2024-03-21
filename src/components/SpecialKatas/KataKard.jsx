@@ -1,9 +1,5 @@
-import { Navigate } from "react-router";
+
 import {
-    Menu,
-    MenuHandler,
-    MenuItem,
-    MenuList,
     Tooltip,
 } from "@material-tailwind/react";
 import { useEffect, useRef, useState } from "react";
@@ -11,6 +7,8 @@ import { useAtom } from "jotai";
 import state from "../Atom";
 import Loading from "../Loading/Loading";
 import SuccessError from "../SuccessError";
+import EditPen from "../EditPen";
+import { useNavigate } from "react-router-dom";
 
 export default function KataCard({ kata, deleteEvent, setRefresh }) {
     const kataCardRef = useRef(null);
@@ -21,6 +19,7 @@ export default function KataCard({ kata, deleteEvent, setRefresh }) {
     const [message, setMessage] = useState(null);
     const [error, setError] = useState(null);
     const [renderError, setRenderError] = useState(false)
+    const navigate = useNavigate()
 
     useEffect(() => {
         setIsCompleted(completedKatas.includes(kata.id) ? true : false)
@@ -73,42 +72,19 @@ export default function KataCard({ kata, deleteEvent, setRefresh }) {
             })
     }
 
-    const EditPen = () => {
-        return (
-            user && user.role == "ADMIN" ?
-                <Menu>
-                    <MenuHandler>
-                        <i className="fa-solid fa-pen p-2 text-first bg-[rgba(167,166,166,0.7)] hover:bg-[rgba(255,255,255,1)] rounded-xl duration-300 cursor-pointer mx-1 " ></i>
-                    </MenuHandler>
-                    <MenuList className=" bg-first bg-opacity-40 backdrop-blur-md border-0 text-sixth ">
-                        <MenuItem
-                            onClick={(e) => deleteEvent(e, kata.id, setRefresh)}
-                            className="bg-first bg-opacity-80 mb-1"
-                        >
-                            <i className="fa-solid fa-trash-can mr-1" /> Delete
-                        </MenuItem>
-                        <MenuItem
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                Navigate(
-                                    `/home`
-                                );
-                            }}
-                            className="bg-first bg-opacity-80"
-                        >
-                            <i className="fa-solid fa-pen-to-square mr-1" /> Edit
-                        </MenuItem>
-                    </MenuList>
-                </Menu> : null
-        );
-    };
-
     function getFontSizeClass(categoryLength) {
         if (categoryLength <= 1) {
             return "text-sm";
         } else if (categoryLength > 1) {
             return "text-xs"; // Extra small font size
         } 
+    }
+
+    const editEvent = (e, navigate) =>{
+        e.stopPropagation();
+        navigate(
+            `/home`
+        );
     }
 
     let maxPoints = 48;
@@ -127,7 +103,7 @@ export default function KataCard({ kata, deleteEvent, setRefresh }) {
             <div id="holderwithoutEndButtons" className="flex flex-col w-full items-center h-full">
                 <div id="titleAndEditPen" className="text-[#0b0f1b] mt-2 relative w-full flex justify-center ">
                     <div id="penContainer" className="absolute w-full flex justify-end ">
-                        <EditPen />
+                        <EditPen user={user} deleteEvent={(e) => deleteEvent(e, kata.id, setRefresh)} editEvent={(e) => editEvent(e, navigate)}/>
                     </div>
                 </div>
 
@@ -150,8 +126,6 @@ export default function KataCard({ kata, deleteEvent, setRefresh }) {
                             <p id="status" className="mt-0.5 tracking-widest">Kyu {kata.level}  </p>
                         </div>
                     </div>
-
-
 
                     <div name="spacingLine" className="w-full h-[2px] bg-[#f5d4b0]"></div>
 

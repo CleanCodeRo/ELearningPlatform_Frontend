@@ -1,18 +1,13 @@
-import {
-  Menu,
-  MenuHandler,
-  MenuItem,
-  MenuList,
-} from "@material-tailwind/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAtom } from "jotai";
 import state, { getCompletedStuff } from "../Atom";
 import Loading from "../Loading/Loading";
 import CheckBox from "../CheckBox/CheckBox";
+import EditPen from "../EditPen";
 
 
-export default function LessonCard({ lesson, userRole }) {
+export default function LessonCard({ lesson }) {
   const [user, setUser] = useAtom(state.user);
 
   const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons);
@@ -25,10 +20,10 @@ export default function LessonCard({ lesson, userRole }) {
   const navigate = useNavigate();
   const params = useParams();
 
-  const deleteLesson = async (e) => {
+  const deleteLesson = async (e, lessonId, weekId) => {
     e.stopPropagation();
     try {
-      await fetch(`http://localhost:8080/lessons?lessonId=${lesson.id}&weekId=${params.weekId}`, {
+      await fetch(`http://localhost:8080/lessons?lessonId=${lessonId}&weekId=${weekId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -42,14 +37,12 @@ export default function LessonCard({ lesson, userRole }) {
   };
 
   const EditStatusEvent = (e) => {
-    console.log("EditStatusEvent")
     if (e.target.checked) {
       setLessonStatus(true);
     } else {
       setLessonStatus(false);
     }
     setLoading(true);
-
 
     fetch(` http://localhost:8080/users?userId=${user.id}&lessonId=${lesson.id}&weekId=${params.weekId}`, {
       method: "PATCH",
@@ -60,9 +53,9 @@ export default function LessonCard({ lesson, userRole }) {
       body: JSON.stringify(e.target.checked ? "DONE" : "TODO")
     })
       .then(res => res.json())
-      .then(data => {
+      .then(() => {
         let userId = user.id
-        getCompletedStuff({userId, setCompletedLessons, setCompletedWeeks, setCompletedModules, setRefreshWeekProgressBar})
+        getCompletedStuff({ userId, setCompletedLessons, setCompletedWeeks, setCompletedModules, setRefreshWeekProgressBar })
         setLoading(false);
       })
       .catch(err => {
@@ -70,35 +63,12 @@ export default function LessonCard({ lesson, userRole }) {
       })
   }
 
-  const EditPen = () => {
-    return (
-      userRole == "ADMIN" ?
-        <Menu>
-          <MenuHandler>
-            <i className="fa-solid fa-pen p-2 text-first bg-[rgba(255,255,255,0.7)] hover:bg-[rgba(255,255,255,1)] rounded-xl duration-300 cursor-pointer mx-3"></i>
-          </MenuHandler>
-          <MenuList className=" bg-first bg-opacity-40 backdrop-blur-md border-0 text-sixth ">
-            <MenuItem
-              onClick={(e) => { deleteLesson(e) }}
-              className="bg-first bg-opacity-80 mb-1"
-            >
-              <i className="fa-solid fa-trash-can mr-1" /> Delete
-            </MenuItem>
-            <MenuItem
-              onClick={(e) => {
-                e.stopPropagation();
-                navigate(
-                  `/home/module/${params.moduleId}/week/${params.weekId}/editLesson/${lesson.id}`
-                );
-              }}
-              className="bg-first bg-opacity-80"
-            >
-              <i className="fa-solid fa-pen-to-square mr-1" /> Edit
-            </MenuItem>
-          </MenuList>
-        </Menu> : null
+  const editEvent = (e, moduleId, weekId, lessonId) => {
+    e.stopPropagation();
+    navigate(
+      `/home/module/${moduleId}/week/${weekId}/editLesson/${lessonId}`
     );
-  };
+  }
 
   const EditStatusComponentV2 = () => {
     let defaultChecked = completedLessons.includes(lesson.id) ? true : false;
@@ -112,8 +82,6 @@ export default function LessonCard({ lesson, userRole }) {
       </div>
     );
   };
-
-
 
   return (
     <div
@@ -134,7 +102,9 @@ export default function LessonCard({ lesson, userRole }) {
           <p className="my-3 text-2xl sm:text-3xl  line-clamp-2 w-full   font-bold">
             {lesson.name}
           </p>
-          <EditPen />
+          <EditPen user={{ role: user.role }} 
+                  deleteEvent={(e) => deleteLesson(e, lesson.id, params.weekId)} 
+                  editEvent={(e) =>editEvent(e, params.moduleId, params.weekId, lesson.id)} />
         </div>
         <p id="description" className="my-3 line-clamp-5 text-sm sm:text-base">
           {lesson.description}
@@ -155,7 +125,6 @@ export default function LessonCard({ lesson, userRole }) {
         </a>
 
         < EditStatusComponentV2 />
-
       </div>
     </div>
   );

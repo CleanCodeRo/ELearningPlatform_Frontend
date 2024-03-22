@@ -20,12 +20,12 @@ export let kataProgress = [
 ]
 
 export let kataDifficulty = [
-    "8_kyu",
-    "7_kyu",
-    "6_kyu",
-    "5_kyu",
-    "4_kyu",
-    "3_kyu",
-    "2_kyu",
-    "1_kyu",
+    "8 KYU",
+    "7 KYU",
+    "6 KYU",
+    "5 KYU",
+    "4 KYU",
+    "3 KYU",
+    "2 KYU",
+    "1 KYU",
 ]

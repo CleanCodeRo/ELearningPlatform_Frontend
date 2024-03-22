@@ -80,10 +80,10 @@ export default function KataCard({ kata, deleteEvent, setRefresh }) {
         } 
     }
 
-    const editEvent = (e, navigate) =>{
+    const editEvent = (e, navigate, kataId) =>{
         e.stopPropagation();
         navigate(
-            `/home`
+            `/dojo/editKata/${kataId}`
         );
     }
 
@@ -103,7 +103,7 @@ export default function KataCard({ kata, deleteEvent, setRefresh }) {
             <div id="holderwithoutEndButtons" className="flex flex-col w-full items-center h-full">
                 <div id="titleAndEditPen" className="text-[#0b0f1b] mt-2 relative w-full flex justify-center ">
                     <div id="penContainer" className="absolute w-full flex justify-end ">
-                        <EditPen user={user} deleteEvent={(e) => deleteEvent(e, kata.id, setRefresh)} editEvent={(e) => editEvent(e, navigate)}/>
+                        <EditPen user={user} deleteEvent={(e) => deleteEvent(e, kata.id, setRefresh)} editEvent={(e) => editEvent(e, navigate, kata.id)}/>
                     </div>
                 </div>
 

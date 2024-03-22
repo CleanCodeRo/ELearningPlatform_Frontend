@@ -124,7 +124,19 @@ export default function App() {
             )
           }
         />
+        <Route
+          path="/dojo/editKata/:kataId"
+          element={
+            !isExpired(localStorage.getItem("ELearningToken")) ? (
+              <KataForm />
+            ) : (
+              <Redirect />
+            )
+          }
+        />
       </Routes>
+
+      
 
     </BrowserRouter>
   );

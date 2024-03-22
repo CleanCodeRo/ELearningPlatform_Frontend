@@ -7,7 +7,7 @@ import { Button } from '@material-tailwind/react';
 import { useNavigate, useParams } from 'react-router';
 import KataCard from './KataKard';
 
-const numberOfItems = 10;
+const numberOfItems = 4;
 let numberOfPages = 0
 
 const ListKata = () => {

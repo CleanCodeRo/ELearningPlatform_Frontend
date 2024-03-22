@@ -4,21 +4,6 @@ import SuccessError from "../../components/SuccessError";
 import DropdownFilter from "../../components/SpecialKatas/DropdownFilter";
 import { kataCategories } from "../../components/SpecialKatas/FilterObjects";
 
-// let categories = [
-//     "ARRAYS",
-//     "ALGORITHMS",
-//     "DATE_TIME",
-//     "FUNDAMENTALS",
-//     "GEOMETRY",
-//     "LOGICAL",
-//     "MATH",
-//     "PUZZLES",
-//     "RECURSION",
-//     "REGULAR_EXPRESSIONS",
-//     "STRING",
-//     "SORTING"
-// ]
-
 export default function KataForm() {
     const [savedCategory, setSavedCategory] = useState([]);
     const [kataById, setKataById] = useState({
@@ -31,12 +16,13 @@ export default function KataForm() {
     const [errorConflict, setErrorConflict] = useState(null);
     const [success, setSuccess] = useState(null);
 
-    let kataTitle = useRef(null);
-    let kataLevel = useRef(null);
-    let kataLink = useRef(null);
-    let navigate = useNavigate();
+    const kataTitle = useRef(null);
+    const kataLevel = useRef(null);
+    const kataLink = useRef(null);
+    const navigate = useNavigate();
     const params = useParams();
     const previousURL = document.referrer;
+    // console.log(previousURL.split('/').slice(3).join("/"))
 
     useEffect(() => {
         if (params.kataId !== undefined) {
@@ -49,17 +35,18 @@ export default function KataForm() {
             })
                 .then((res) => res.json())
                 .then((data) => {
+                    console.log(data)
                     setKataById(data);
+                    setSavedCategory(data.category)
                 })
-                .catch(() => {
-                    navigate("/login")
+                .catch((err) => {
+                    console.log(err)
                 })
         }
     }, [params.kataId]);
 
     const editKata = (e) => {
-        if (kataLink.current.value.length > 5000) {
-            setError("Can't put links larger than 5k chars");
+        if(!checkIfAllFieldsCompleted()){
             return
         }
 
@@ -70,6 +57,7 @@ export default function KataForm() {
                 Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
             },
             body: JSON.stringify({
+                id: params.kataId,
                 title: kataTitle.current.value,
                 kataLink: kataLink.current.value,
                 level: kataLevel.current.value,
@@ -84,22 +72,24 @@ export default function KataForm() {
                 return response.json();
             })
             .then((data) => {
-                console.log(data);
-                navigate("/home");
+                setSuccess("Kata edited successfully!"); // afisare mesaj
+                setTimeout(() => {
+                    setSuccess(null); // curatare eroare
+                    window.history.back() // Redirect after 2 seconds
+                }, 2000);
+               
             })
-            .catch(() => {
-                navigate("/login")
+            .catch((error) => {
+                setErrorConflict(error.message + " already exists");
+                setTimeout(() => {
+                    setErrorConflict(null); // curatare eroare
+                }, 3000);
             })
     };
 
     const saveKata = () => {
-        if (
-            kataTitle.current.value === "" ||
-            kataLevel.current.value === "" ||
-            kataLink.current.value === ""
-        ) {
-            setError("Please fill in the required fields");
-            return;
+        if(!checkIfAllFieldsCompleted()){
+            return
         }
 
         fetch("http://localhost:8080/katas", {
@@ -139,14 +129,26 @@ export default function KataForm() {
             })
     };
 
-    function addCategory(e) {
-        const categoryValue = e.target.value;
-        console.log(savedCategory.length)
-        if(savedCategory.length < 5){
+    const checkIfAllFieldsCompleted = () =>{
+        if (
+            kataTitle.current.value === "" ||
+            kataLevel.current.value === "" ||
+            kataLink.current.value === "" ||
+            savedCategory.length == 0
+        ) {
+            setError("Please fill in the required fields");
+            return false;
+        }else{
+           return true
+        }
+    }
+
+    function addCategory(categoryValue) {
+        if (savedCategory.length < 5) {
             if (!savedCategory.includes(categoryValue)) {
                 setSavedCategory([...savedCategory, categoryValue]);
             }
-        }else{
+        } else {
             setErrorConflict("Can't add more than 5 categories");
             setTimeout(() => {
                 setErrorConflict(null); // curatare eroare
@@ -211,7 +213,7 @@ export default function KataForm() {
                             </div>
                         ))}
                     </div>
-                    <DropdownFilter onChangeEvent={addCategory} options={kataCategories}/>
+                    <DropdownFilter onChangeEvent={addCategory} options={kataCategories} label="Category" />
                 </div>
                 {error && (
                     <div className="text-red-500 flex justify-center font-inter">
@@ -225,11 +227,11 @@ export default function KataForm() {
                     >
                         {params.kataId !== undefined ? "Save" : "Create"}
                     </button>
-                    <a href={`/${previousURL.split('/').slice(3).join("/")}`}>
-                        <button className=" my-2 xs:my-0 px-8 py-5 bg-sixth rounded-lg text-fifth mr-4 shadow-md shadow-fourth">
-                            Cancel
-                        </button>
-                    </a>
+
+                    <button className=" my-2 xs:my-0 px-8 py-5 bg-sixth rounded-lg text-fifth mr-4 shadow-md shadow-fourth" onClick={() => window.history.back()}>
+                        Cancel
+                    </button>
+
                 </div>
             </div>
         </div>

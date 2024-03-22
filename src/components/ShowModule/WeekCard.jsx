@@ -1,45 +1,38 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  Menu,
-  MenuHandler,
-  MenuList,
-  MenuItem,
-} from "@material-tailwind/react";
 import { useAtom } from "jotai";
 import state, { returnPercentage } from "../Atom";
+import EditPen from "../EditPen";
 
 
 export default function WeekCard({ week, setLoadingLessons, userRole }) {
   const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks)
   const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons)
-  let weekCard = useRef(null);
-  const navigate = useNavigate();
-  const params = useParams();
-
 
   const [progresBarLength, setProgresBarLength] = useState(null)
   const [truePercentage, setTruePercentage] = useState(0);
   const [refreshWeekProgressBar, setRefreshWeekProgressBar] = useAtom(state.refreshWeekProgressBar);
 
+  let weekCard = useRef(null);
+  const navigate = useNavigate();
+  const params = useParams();
 
   useEffect(() => {
     if (!progresBarLength) {
       let [mandatoryPercentage, completePercentage] = returnPercentage(week.lessons, completedLessons)
-       setTruePercentage(completePercentage)
+      setTruePercentage(completePercentage)
       setProgresBarLength(mandatoryPercentage);
     } else if (params.weekId == week.id) {
       let [mandatoryPercentage, completePercentage] = returnPercentage(week.lessons, completedLessons)
-       setTruePercentage(completePercentage)
+      setTruePercentage(completePercentage)
       setProgresBarLength(mandatoryPercentage);
     }
   }, [refreshWeekProgressBar])
 
-
-  const deleteWeek = async (e) => {
+  const deleteWeek = async (e, weekId) => {
     e.stopPropagation();
     try {
-      await fetch(`http://localhost:8080/weeks?weekId=${week.id}`, {
+      await fetch(`http://localhost:8080/weeks?weekId=${weekId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -52,6 +45,11 @@ export default function WeekCard({ week, setLoadingLessons, userRole }) {
       console.error("Error during DELETE operation:", error);
     }
   };
+
+  const editEvent = (e, moduleId, weekId) =>{
+    e.stopPropagation();
+    navigate(`/home/module/${moduleId}/editWeek/${weekId}`); 
+  }
 
   return (
     <div
@@ -81,38 +79,12 @@ export default function WeekCard({ week, setLoadingLessons, userRole }) {
         {`Week ${week.number}`}
       </div>
 
-      {userRole == "ADMIN" ?
         <div
           id="deleteAndModify"
-          className="absolute top-2 right-2 p-1 text-first bg-[rgba(255,255,255,0.7)] hover:bg-[rgba(255,255,255,1)] rounded-xl duration-300 cursor-pointer "
+          className="absolute top-2 right-2  "
         >
-          <Menu>
-            <MenuHandler>
-              <i className="fa-solid fa-pen p-1"></i>
-            </MenuHandler>
-            <MenuList className=" bg-first bg-opacity-40 backdrop-blur-md border-0 text-sixth ">
-              <MenuItem
-                onClick={(e) => {
-                  deleteWeek(e);
-                }}
-                className="bg-first bg-opacity-80 mb-1"
-              >
-                <i className="fa-solid fa-trash-can mr-1" /> Delete
-              </MenuItem>
-              <MenuItem
-                onClick={(e) => {
-                  {
-                    e.stopPropagation();
-                    navigate(`/home/module/${params.moduleId}/editWeek/${week.id}`);
-                  }
-                }}
-                className="bg-first bg-opacity-80"
-              >
-                <i className="fa-solid fa-pen-to-square mr-1" /> Edit
-              </MenuItem>
-            </MenuList>
-          </Menu>
-        </div> : null}
+         <EditPen user={{role : userRole}} deleteEvent={(e) => deleteWeek(e, week.id)} editEvent={(e) => editEvent(e, params.moduleId, week.id) }/>
+        </div>
 
       <div id="other info" className="flex flex-col p-2">
         <p id="subtitle" className="text-3xl line-clamp-1">

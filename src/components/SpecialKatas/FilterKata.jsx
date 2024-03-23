@@ -1,46 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DropdownFilter from "./DropdownFilter";
-
 import { kataCategories, kataDifficulty, kataProgress } from "./FilterObjects";
-import { useAtom } from "jotai";
-import state from "../Atom";
+import { useParams } from "react-router-dom";
 
-export default function FilterKata() {
-    const [user, setUser] = useAtom(state.user)
+const numberOfItems = 4;
 
+export default function FilterKata({userId}) {
     const [filterResultTest, setFilterResultTest] = useState({
-        cat: null,
-        prog: null,
-        dif: null
+        category: "ALL",
+        progress: "ALL",
+        difficulty: "ALL"
     });
+    const [refresh, setRefresh] = useState(0);
+    const { pageNumber } = useParams();
 
-    const handleCategoryChange = (value) => {
-        setFilterResultTest(prevState => ({ ...prevState, cat: value }));
-    };
-
-    const handleProgressChange = (value) => {
-        setFilterResultTest(prevState => ({ ...prevState, prog: value }));
-    };
-
-    const handleDifficultyChange = (value) => {
-        if (value) {
-            // If value is not null, split and convert to integer
-            const difficulty = value.split(' ')[0];
-            setFilterResultTest(prevState => ({ ...prevState, dif: difficulty*1 }));
-            console.log(filterResultTest.dif)
-        } else {
-            // If value is null, set dif to null
-            setFilterResultTest(prevState => ({ ...prevState, dif: null }));
-            console.log(filterResultTest.dif)
-        }
-    };
-    const handleSearch = () => {
+    useEffect(() =>{
         const queryParams = new URLSearchParams();
-        queryParams.append("category", filterResultTest.cat);
-        queryParams.append("status", filterResultTest.prog);
-        queryParams.append("difficulty", filterResultTest.dif);
-        queryParams.append("userId", user.id);
-        console.log(filterResultTest)
+        queryParams.append("category", filterResultTest.category);
+        queryParams.append("status", filterResultTest.progress);
+        queryParams.append("difficulty", filterResultTest.difficulty);
+        queryParams.append("userId", userId);
+        queryParams.append("pageNumber", pageNumber);
+        queryParams.append("numberOfItems", numberOfItems);
     
         fetch(`http://localhost:8080/katas/filtered?${queryParams.toString()}`, {
             method: "GET",
@@ -63,8 +44,30 @@ export default function FilterKata() {
             // Handle any errors that occur during the fetch request
             console.error("Error fetching data:", error);
         });
+    }, [pageNumber,refresh])
+
+
+    const handleCategoryChange = (value) => {
+        console.log(value)
+        setFilterResultTest(prevState => ({ ...prevState, category : value }));
     };
-    
+
+    const handleProgressChange = (value) => {
+        console.log(value)
+        setFilterResultTest(prevState => ({ ...prevState, progress : value}));
+    };
+
+    const handleDifficultyChange = (value) => {
+        console.log(value)
+        if (value != "ALL") {
+            // If value is not null, split and convert to integer
+            const difficulty = value.split(' ')[0];
+            setFilterResultTest(prevState => ({ ...prevState, difficulty: difficulty*1 }));
+        } else {
+            // If value is null, set difficulty to null
+            setFilterResultTest(prevState => ({ ...prevState, difficulty: "ALL" }));
+        }
+    };
 
     return (
         <div className="flex flex-row w-full">
@@ -73,7 +76,7 @@ export default function FilterKata() {
                 <DropdownFilter onChangeEvent={handleCategoryChange} options={kataCategories} label="Category"/>
                 <DropdownFilter onChangeEvent={handleProgressChange} options={kataProgress} label="Status"/>
                 <DropdownFilter onChangeEvent={handleDifficultyChange} options={kataDifficulty} label="Difficulty"/>
-                <button onClick={handleSearch} className="bg-black w-fit h-10 px-3">Apply</button>
+                <button onClick={() => setRefresh(refresh + 1)} className="bg-black w-fit h-10 px-3">Apply</button>
             </div>
         </div>
     );

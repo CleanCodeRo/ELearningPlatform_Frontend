@@ -1,4 +1,5 @@
 export let kataCategories = [
+    "ALL",
     "ARRAYS",
     "ALGORITHMS",
     "DATE_TIME",
@@ -20,6 +21,7 @@ export let kataProgress = [
 ]
 
 export let kataDifficulty = [
+    "ALL",
     "8 KYU",
     "7 KYU",
     "6 KYU",

@@ -18,15 +18,16 @@ module.exports = withMT({
         "ninja" : ['Ninja','sans']
       },
       screens:{
-          xxs: "300px",
-          xs: "400px",
-          sm: "540px",
-          smd: "620px",
-          md: "720px",
-          lg: "960px",
-          xl: "1140px",
+          "xxs": "300px",
+          "xs": "400px",
+          "sm": "540px",
+          "smd": "620px",
+          "md": "720px",
+          "lg": "960px",
+          "xl": "1140px",
           "2xl": "1320px",
-          px1400 : "1400px",
+          "px1400" : "1400px",
+          "px1669" : "1669px"
       }
     },
   },

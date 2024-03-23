@@ -37,18 +37,38 @@
 }
 
 #beginTraining {
-  background: rgb(234, 142, 58);
-  background: linear-gradient(175deg, rgba(234, 142, 58, 1) 4%, rgba(221, 132, 55, 1) 20%, rgba(215, 127, 54, 1) 35%, rgba(207, 121, 52, 1) 59%, rgba(135, 66, 39, 1) 100%);
+  box-shadow: rgba(207, 121, 52, 0.3) 0px 10px 15px, rgba(0, 0, 0, 0.22) 0px 5px 8px;
+  background: linear-gradient(175deg, rgba(234, 172, 58, 1) 4%, rgba(221, 152, 55, 1) 20%, rgb(209, 125, 57) 35%, rgb(216, 128, 56) 59%, rgb(245, 194, 55) 100%);
+}
+
+
+#beginTraining1{
+  background: linear-gradient(45deg, rgba(34, 110, 195, 1) 13%, rgba(38, 164, 215, 1) 36%, rgba(70, 200, 247, 1) 100%);
+  box-shadow: rgba(70, 200, 247, 0.3) 0px 15px 20px, rgba(0, 0, 0, 0.22) 0px 5px 8px;
 }
 
 
 @font-face {
   font-family: 'Ninja';
   /* Font family name */
-  src: url('/public/Fonts/AssassinNinja-7BYyR.ttf') format('truetype');
-  /* Path to your font file */
-  font-weight: normal;
-  /* Font weight */
-  font-style: normal;
-  /* Font style */
+  src: url('/Fonts/Assazinc.ttf') format('truetype');
 }
+
+/*success error animation*/
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-fadeInOut {
+  animation: fadeInOut 2s ease-out;
+}
+

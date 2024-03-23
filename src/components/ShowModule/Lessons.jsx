@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import LessonCard from "./LessonCard";
 import Loading from "../Loading/Loading";
+import CheckBox from "../CheckBox/CheckBox";
 
 export default function Lessons({ setLoadingLessons, loadingLessons, userRole }) {
-  const [lessons, setLessons] = useState(null);
+  const [mandatoryLessons, setMandatoryLessons] = useState(null)
+  const [optionalLessons, setOptionalLessons] = useState(null)
   const params = useParams();
   const navigate = useNavigate();
 
@@ -19,16 +21,24 @@ export default function Lessons({ setLoadingLessons, loadingLessons, userRole })
       })
         .then((res) => res.json())
         .then((data) => {
-          setLessons([])
-          let dummyArr = []
+          setOptionalLessons([]);
+          setMandatoryLessons([]);
+          let dummyMandatory = [];
+          let dummyOptional = [];
           let i = 0;
 
           async function renderLessons() {
             if (i == data.length) {
               return;
             } else {
-              dummyArr.push(data[i])
-              setLessons([...dummyArr]);
+              if (data[i].optional) {
+                dummyOptional.push(data[i]);
+                setOptionalLessons([...dummyOptional]);
+              } else {
+                dummyMandatory.push(data[i]);
+                setMandatoryLessons([...dummyMandatory]);
+              }
+
               i++;
               setTimeout(() => renderLessons(), 400)
             }
@@ -50,9 +60,10 @@ export default function Lessons({ setLoadingLessons, loadingLessons, userRole })
   return (
     <div className="pt-5 pb-10 font-inter" >
       <div className=" flex items-center ">
-        <p className="text-4xl p-4 font-bold border-2 rounded-xl text-fourth">
-          LESSONS
+        <p className="text-3xl sm:text-4xl p-4 font-bold border-2 rounded-xl text-fourth">
+          Lessons
         </p>
+
         {params.weekId && userRole == "ADMIN" && (
           <button
             onClick={() =>
@@ -75,26 +86,31 @@ export default function Lessons({ setLoadingLessons, loadingLessons, userRole })
 
         :
 
-        <div id="listOfLessons" className="grid grid-cols-3 " >
-          {lessons && lessons.length > 0 ? (
-            lessons.map((lesson, index) => (
-              <LessonCard
-                key={index}
-                id={lesson.id}
-                name={lesson.name}
-                description={lesson.description}
-                gitHubLink={lesson.gitHubLink}
-                userRole={userRole}
-              />
-            ))
+        <div id="listOfLessons" className=" grid gird-cols-1 smd:grid-cols-2 2xl:!grid-cols-3 " >
+          {/* RENDERING MADATORY LESSONS */}
+          {mandatoryLessons && mandatoryLessons.length > 0 ? (
+            mandatoryLessons.map((lesson, index) => <LessonCard key={index} lesson={lesson}  />)
           ) : (
-            <div className="col-span-4 text-4xl text-center my-10 text-third animate-flip-down animate-duration-[400ms]">
-              - No lessons here -
+            <div className="col-span-full text-4xl text-center my-10 text-third animate-flip-down animate-duration-[400ms]">
+              - No mandatory lessons here -
             </div>
           )}
+
+          {/* RENDERING OPTIONAL LESSONS */}
+          {optionalLessons && optionalLessons.length > 0 ? (
+            <>
+              <div id="optionalLessonsSection" className="w-full col-span-full flex  items-center animate-fade-down animate-ease-in-out">
+                <h1 className="text-2xl sm:text-3xl min-w-fit p-4 font-bold  rounded-xl text-fourth  ">Optional lessons</h1>
+                <div className="bg-[#afafaf] h-[1.5px] w-full rounded-full"></div>
+              </div>
+              {optionalLessons.map((lesson, index) => <LessonCard key={index} lesson={lesson} userRole={userRole} />)}
+            </>
+          ) : (
+            null
+          )}
+          
         </div>
       }
-
     </div>
   );
 }

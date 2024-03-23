@@ -6,6 +6,7 @@ import Loading from "../Loading/Loading";
 export default function Weeks({setLoadingLessons, userRole}) {
   const [weeks, setWeeks] = useState(null);
   const [loading, setLoading] = useState(true);
+
   const params = useParams();
   const navigate = useNavigate();
 
@@ -42,10 +43,10 @@ export default function Weeks({setLoadingLessons, userRole}) {
   }, []);
 
   return (
-    <div className="pt-5 pb-10 px-5  ">
+    <div className="pt-5 pb-10   ">
       <div id="titleAndAddButton" className="flex items-center ">
-        <p className="text-4xl p-4  font-bold border-2 rounded-xl text-fourth">
-          WEEKS
+        <p className="text-3xl sm:text-4xl p-4  font-bold border-2 rounded-xl text-fourth">
+          Weeks
         </p>
 
         {userRole == "ADMIN" ? 
@@ -68,10 +69,7 @@ export default function Weeks({setLoadingLessons, userRole}) {
             weeks.map((week, index) => (
               <WeekCard
                 key={index}
-                id={week.id}
-                title={`Week ${week.number}`}
-                subtitle={week.name}
-                image={week.imgLink}
+                week = {week}
                 setLoadingLessons={setLoadingLessons}
                 userRole={userRole}
               />

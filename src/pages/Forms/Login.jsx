@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import state from "../../components/Atom";
-import { useAtom } from "jotai";
 import { isExpired } from "react-jwt";
 
 const Login = () => {
@@ -9,10 +7,10 @@ const Login = () => {
   const [username, setUsername] = useState("Oli");
   const [password, setPassword] = useState("1234");
   const [error, setError] = useState(null);
-  const [user, setUser] = useAtom(state.user);
 
   async function login(e) {
     e.preventDefault();
+    e.target.disabled = true
 
     if (!username || !password) {
       setError("Username and password are required");
@@ -27,7 +25,10 @@ const Login = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ username, password }),
+          body: JSON.stringify({
+             username : username.trim() ,
+             password 
+            }),
         }
       );
 
@@ -36,6 +37,7 @@ const Login = () => {
         setError("Incorrect username or password");
         setUsername("");
         setPassword("");
+        e.target.disabled = false
       } else {
         setError(null);
         const data = await response.json();
@@ -45,6 +47,7 @@ const Login = () => {
         console.log("is expired : " , isExpired(token)) 
         navigate("/home");
         window.location.reload();
+        
       }
     } catch (error) {
       console.error("Login error:", error);

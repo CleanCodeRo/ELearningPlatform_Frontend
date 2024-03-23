@@ -5,15 +5,16 @@ import { isExpired } from "react-jwt";
 import HomePage from "./pages/HomePage";
 
 import PresentationPage from "./pages/PresentationPage";
-// import Login from "./pages/Forms/Login";
+import Dojo from "./pages/Dojo";
+import Login from "./pages/Forms/Login";
 import Contact from "./pages/Forms/Contact";
 import ShowModule from "./pages/ShowModule";
 import ModuleCreateAndEdit from "./pages/Forms/ModuleCreateAndEdit";
 import WeekCreateAndEdit from "./pages/Forms/WeekCreateAndEdit";
 import LessonsCreateAndEdit from "./pages/Forms/LessonsCreateAndEdit";
 import Redirect from "./components/Redirect";
-import LoginService from "./pages/Forms/LoginService";
-import NewKataCard from "./components/HomePage/SpecialKatas/NewKataCard";
+import KataForm from "./pages/Forms/KataForm";
+
 
 
 export default function App() {
@@ -102,11 +103,40 @@ export default function App() {
           path="/home/module/:moduleId/week/:weekId/editLesson/:lessonId"
           element={<LessonsCreateAndEdit />}
         />
+       
         <Route
-          path="/home/develop"
-          element={<NewKataCard />}
+          path="/dojo/:pageNumber?"
+          element={
+            !isExpired(localStorage.getItem("ELearningToken")) ? (
+              <Dojo />
+            ) : (
+              <Redirect />
+            )
+          }
+        />
+        <Route
+          path="/dojo/addKata"
+          element={
+            !isExpired(localStorage.getItem("ELearningToken")) ? (
+              <KataForm />
+            ) : (
+              <Redirect />
+            )
+          }
+        />
+        <Route
+          path="/dojo/editKata/:kataId"
+          element={
+            !isExpired(localStorage.getItem("ELearningToken")) ? (
+              <KataForm />
+            ) : (
+              <Redirect />
+            )
+          }
         />
       </Routes>
+
+      
 
     </BrowserRouter>
   );

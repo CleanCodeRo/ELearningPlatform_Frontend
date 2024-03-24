@@ -58,7 +58,7 @@ export default function KataForm() {
             },
             body: JSON.stringify({
                 id: params.kataId,
-                title: kataTitle.current.value,
+                title: kataTitle.current.value.trim(),
                 kataLink: kataLink.current.value,
                 level: kataLevel.current.value,
                 category: savedCategory,
@@ -99,7 +99,7 @@ export default function KataForm() {
                 Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
             },
             body: JSON.stringify({
-                title: kataTitle.current.value,
+                title: kataTitle.current.value.trim(),
                 kataLink: kataLink.current.value,
                 level: kataLevel.current.value,
                 category: savedCategory,
@@ -213,7 +213,7 @@ export default function KataForm() {
                             </div>
                         ))}
                     </div>
-                    <DropdownFilter onChangeEvent={addCategory} options={kataCategories} label="Category" />
+                    <DropdownFilter onChangeEvent={addCategory} options={kataCategories.slice(1)} label="Category" />
                 </div>
                 {error && (
                     <div className="text-red-500 flex justify-center font-inter">

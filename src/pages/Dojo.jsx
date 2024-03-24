@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SideHeader from '../components/SideHeader';
 import ListKata from '../components/SpecialKatas/ListKata';
 import { useAtom } from 'jotai';
@@ -7,6 +7,7 @@ import FilterKata from '../components/SpecialKatas/FilterKata';
 
 export default function Dojo() {
   const [user, setUser] = useAtom(state.user)
+  const [katas, setKatas] = useState(null);
 
   return (
     <div className="h-screen select-none flex flex-row text-sixth overflow-x-hidden overflow-y-scroll relative custom-scrollbar" >
@@ -25,9 +26,9 @@ export default function Dojo() {
           }
         </div>
 
-        <FilterKata />
+        {user && <FilterKata userId={user.id}/>}
 
-        <ListKata />
+        <ListKata katas={katas}/>
 
       </div>
     </div>

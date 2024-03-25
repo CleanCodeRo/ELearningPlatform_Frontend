@@ -92,6 +92,8 @@ export default function KataForm() {
             return
         }
 
+        if(kataLevel.current.value > 8) kataLevel.current.value = 8;
+
         fetch("http://localhost:8080/katas", {
             method: "POST",
             headers: {

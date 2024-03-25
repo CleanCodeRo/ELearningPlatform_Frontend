@@ -10,7 +10,7 @@ import SuccessError from "../SuccessError";
 import EditPen from "../EditPen";
 import { useNavigate } from "react-router-dom";
 
-export default function KataCard({ kata, deleteEvent, setRefresh }) {
+export default function KataCard({ kata, deleteEvent, setRefreshKatas }) {
     const kataCardRef = useRef(null);
     const [user, setUser] = useAtom(state.user)
     const [isCompleted, setIsCompleted] = useState(false);
@@ -21,7 +21,6 @@ export default function KataCard({ kata, deleteEvent, setRefresh }) {
     const navigate = useNavigate()
 
     useEffect(() => {
-        console.log(kata)
        setIsCompleted(kata.completedByUsers.includes(user.id) ? true : false)
     }, [isCompleted])
 
@@ -103,7 +102,7 @@ export default function KataCard({ kata, deleteEvent, setRefresh }) {
             <div id="holderwithoutEndButtons" className="flex flex-col w-full items-center h-full">
                 <div id="titleAndEditPen" className="text-[#0b0f1b] mt-2 relative w-full flex justify-center ">
                     <div id="penContainer" className="absolute w-full flex justify-end ">
-                        <EditPen user={user} deleteEvent={(e) => deleteEvent(e, kata.id, setRefresh)} editEvent={(e) => editEvent(e, navigate, kata.id)}/>
+                        <EditPen user={user} deleteEvent={(e) => deleteEvent(e, kata.id, setRefreshKatas)} editEvent={(e) => editEvent(e, navigate, kata.id)}/>
                     </div>
                 </div>
 

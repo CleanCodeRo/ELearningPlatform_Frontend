@@ -33,8 +33,9 @@ const ListKata = () => {
       })
         .then((res) => res.json())
         .then((data) => {
+          console.log(data)
           if(data.katas.length == 0 && pageNumber >= 0){ // case where kata is last on page
-            navigate(`/home/dojo/${pageNumber - 1}`)
+            navigate(`/dojo/${pageNumber - 1}`)
           }
           setKatas([...data.katas]);
           numberOfPages = Math.ceil(data.numberOfKatas / numberOfItems);

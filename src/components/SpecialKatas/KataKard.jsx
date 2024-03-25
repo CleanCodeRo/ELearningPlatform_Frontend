@@ -12,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 
 export default function KataCard({ kata, deleteEvent, setRefresh }) {
     const kataCardRef = useRef(null);
-    const [completedKatas, setCompletedKatas] = useAtom(state.completedKatas)
     const [user, setUser] = useAtom(state.user)
     const [isCompleted, setIsCompleted] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -22,8 +21,9 @@ export default function KataCard({ kata, deleteEvent, setRefresh }) {
     const navigate = useNavigate()
 
     useEffect(() => {
-        setIsCompleted(completedKatas.includes(kata.id) ? true : false)
-    }, [completedKatas])
+        console.log(kata)
+       setIsCompleted(kata.completedByUsers.includes(user.id) ? true : false)
+    }, [isCompleted])
 
     const completeKataEvent = (e) => {
         setLoading(true)
@@ -37,7 +37,7 @@ export default function KataCard({ kata, deleteEvent, setRefresh }) {
                 
                 if (checkIfKataExists.length > 0) {
                     e.target.disabled = true;
-                    fetch(` http://localhost:8080/users/addCompleteKata?userId=${user.id}&kataId=${kata.id}`, {
+                    fetch(` http://localhost:8080/katas/addUserToKata?userId=${user.id}&kataId=${kata.id}`, {
                         method: "PATCH",
                         headers: {
                             "Content-Type": "application/json",
@@ -46,7 +46,7 @@ export default function KataCard({ kata, deleteEvent, setRefresh }) {
                     })
                         .then(res => res.json())
                         .then(() => {
-                            setCompletedKatas([...completedKatas, kata.id])
+                            kata.completedByUsers.push(user.id)
                             setIsCompleted(true);
                             setLoading(false);
                             setMessage("Kata verification completed");

@@ -14,8 +14,7 @@ import WeekCreateAndEdit from "./pages/Forms/WeekCreateAndEdit";
 import LessonsCreateAndEdit from "./pages/Forms/LessonsCreateAndEdit";
 import Redirect from "./components/Redirect";
 import KataForm from "./pages/Forms/KataForm";
-
-
+import ProfileAndEditPage from "./components/ProfileAndEditPage";
 
 export default function App() {
   return (
@@ -24,6 +23,16 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<PresentationPage />} />
         <Route path="/contact" element={<Contact />} />
+        <Route
+          path="/myprofile"
+          element={
+            !isExpired(localStorage.getItem("ELearningToken")) ? (
+              <ProfileAndEditPage />
+            ) : (
+              <Redirect />
+            )
+          }
+        />
 
         <Route
           path="/home"
@@ -103,7 +112,7 @@ export default function App() {
           path="/home/module/:moduleId/week/:weekId/editLesson/:lessonId"
           element={<LessonsCreateAndEdit />}
         />
-       
+
         <Route
           path="/dojo/:pageNumber?"
           element={
@@ -135,9 +144,6 @@ export default function App() {
           }
         />
       </Routes>
-
-      
-
     </BrowserRouter>
   );
 }

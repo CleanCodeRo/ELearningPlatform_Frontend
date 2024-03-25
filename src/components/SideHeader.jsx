@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
   Menu,
   MenuHandler,
@@ -15,19 +15,25 @@ import { useAtom } from "jotai";
 let animateTooltip = {
   mount: { scale: 1, x: 5 },
   unmount: { scale: 0, x: 80 },
-}
+};
 
-let classNameTooltip = "text-lg bg-opacity-80 font-bold "
+let classNameTooltip = "text-lg bg-opacity-80 font-bold ";
 
 export default function SideHeader() {
   const navigate = useNavigate();
-  const [user, setUser] = useAtom(state.user)
-  const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons);
+  const [user, setUser] = useAtom(state.user);
+  const [completedLessons, setCompletedLessons] = useAtom(
+    state.completedLessons
+  );
   const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks);
-  const [completedModules, setCompletedModules] = useAtom(state.completedModules);
+  const [completedModules, setCompletedModules] = useAtom(
+    state.completedModules
+  );
   const [completedKatas, setCompletedKatas] = useAtom(state.completedKatas);
   let path = window.location.pathname.split("/");
-  let hoverColor = path.includes("dojo") ? "hover:fill-[#da8f06] " : "hover:fill-[#2c8dfe]";
+  let hoverColor = path.includes("dojo")
+    ? "hover:fill-[#da8f06] "
+    : "hover:fill-[#2c8dfe]";
 
   const logout = (e) => {
     e.preventDefault();
@@ -37,26 +43,41 @@ export default function SideHeader() {
 
   useEffect(() => {
     if (!user) {
-      getUserWithToken(localStorage.getItem("ELearningToken"), setUser, setCompletedLessons, setCompletedWeeks, setCompletedModules, setCompletedKatas)
-      console.log("user recived use effect")
+      getUserWithToken(
+        localStorage.getItem("ELearningToken"),
+        setUser,
+        setCompletedLessons,
+        setCompletedWeeks,
+        setCompletedModules,
+        setCompletedKatas
+      );
+      console.log("user recived use effect");
     }
-  }, [])
+  }, []);
 
   return (
-    <div className={`flex md:flex-col bg-[#dddcdc] md:min-w-[5rem]  md:h-screen  md:sticky md:top-0  md:rounded-r-3xl  
-                     h-[4rem] bottom-0 w-screen fixed flex-row-reverse items-center justify-center z-10 ${path.includes("dojo") ? "bg-[#e9d4c0]" : "bg-[#bed7e2]"} `}>
-      <div id="iconsHolder" className="flex flex-row md:flex-col  gap-3 xs:gap-5 md:!gap-0 absolute right-5 sm:static">
-        <Tooltip className={classNameTooltip} content={"Home"} placement={"right"}
-          animate={animateTooltip}>
+    <div
+      className={`flex md:flex-col bg-[#dddcdc] md:min-w-[5rem]  md:h-screen  md:sticky md:top-0  md:rounded-r-3xl  
+                     h-[4rem] bottom-0 w-screen fixed flex-row-reverse items-center justify-center z-10 ${
+                       path.includes("dojo") ? "bg-[#e9d4c0]" : "bg-[#bed7e2]"
+                     } `}
+    >
+      <div
+        id="iconsHolder"
+        className="flex flex-row md:flex-col  gap-3 xs:gap-5 md:!gap-0 absolute right-5 sm:static"
+      >
+        <Tooltip
+          className={classNameTooltip}
+          content={"Home"}
+          placement={"right"}
+          animate={animateTooltip}
+        >
           <div
             onClick={() => navigate("/home")}
             id="homeButton"
             className={` rounded-full w-[40px] h-[40px] sm:w-[50px] sm:h-[50px]  mb-4 mt-7  cursor-pointer fill-[#464543]  ${hoverColor}`}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 256 256"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
               <g fillRule="nonzero">
                 <g transform="scale(4,4)">
                   <path d="M32,8c-0.91125,0-1.82195,0.30919-2.56445,0.92969l-20.63477,17.24219c-0.765,0.639-1.0373,1.75333-0.5293,2.61133c0.647,1.092,2.07877,1.30534,3.00977,0.52734l0.71875,-0.59961v18.28906c0,2.761,2.239,5,5,5h30c2.761,0,5-2.239,5-5v-18.28711l0.71875,0.59961c0.374,0.313,0.8273,0.46484,1.2793,0.46484c0.695,0,1.38462,-0.36069,1.76563,-1.05469c0.465,-0.848,0.19122,-1.91906,-0.55078,-2.53906l-3.21289,-2.68555v-8.49805c0,-1.105-0.895,-2-2,-2h-2c-1.105,0-2,0.895-2,2v3.48438l-11.43555,-9.55469c-0.7425,-0.6205-1.6532,-0.92969-2.56445,-0.92969zM32,12.15234c0.11475,0,0.22877,0.03919,0.32227,0.11719l15.67773,13.09961v20.63086c0,1.105-0.895,2-2,2h-8v-14c0,-1.105-0.895,-2-2,-2h-8c-1.105,0-2,0.895-2,2v14h-8c-1.105,0-2,-0.895-2,-2v-20.63281l15.67773,-13.09766c0.0935,-0.078,0.20752,-0.11719,0.32227,-0.11719z"></path>
@@ -66,16 +87,17 @@ export default function SideHeader() {
           </div>
         </Tooltip>
 
-        <Tooltip className={classNameTooltip} content={"Courses"} placement={"right"}
-          animate={animateTooltip}>
+        <Tooltip
+          className={classNameTooltip}
+          content={"Courses"}
+          placement={"right"}
+          animate={animateTooltip}
+        >
           <div
             id="coursesButton"
             className={` rounded-full w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] mb-4 mt-7 cursor-pointer fill-[#464543] ${hoverColor}`}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 256 256"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
               <g fillRule="nonzero">
                 <g transform="scale(4,4)">
                   <path d="M21,13c-4.98,0-8.40906,1.93839-10.28906,3.40039c-1.085,0.844-1.71094,2.14258-1.71094,3.51758v29.1543c0,1.104 0.90858,1.90234 1.89258,1.90234c0.32,0 0.64612,-0.08453 0.95313,-0.26953c2.141,-1.292 5.3533,-2.70508 9.1543,-2.70508c2.973,0 5.40375,0.90245 7.21875,1.93945c1.173,0.671 2.47725,1.00586 3.78125,1.00586c1.304,0 2.60825,-0.33486 3.78125,-1.00586c1.815,-1.037 4.24575,-1.93945 7.21875,-1.93945c3.801,0 7.0133,1.41213 9.1543,2.70313c0.307,0.185 0.63412,0.26953 0.95313,0.26953c0.984,0 1.89258,-0.79639 1.89258,-1.90039v-29.1543c0,-1.375-0.62594,-2.67358-1.71094,-3.51758c-1.88,-1.462-5.30906,-3.40039-10.28906,-3.40039c-8,0-11,4-11,4c0,0-3,-4-11,-4zM21,17c4.10959,0 7.1588,2.04695 9,3.73633v25.23047c-1.83626,-0.89025-4.8779,-1.9668-9,-1.9668c-3.061,0-5.785,0.73139-8,1.65039v-25.92773c0,0 3.028,-2.72266 8,-2.72266zM43,17c4.991,0 8,2.69141 8,2.69141v25.95899c-2.215,-0.919-4.939,-1.65039-8,-1.65039c-4.11464,0-7.1609,1.07812-9,1.96875v-25.23437c1.84032,-1.68904 4.88834,-3.73437 9,-3.73437z"></path>
@@ -85,16 +107,17 @@ export default function SideHeader() {
           </div>
         </Tooltip>
 
-        <Tooltip className={classNameTooltip} content={"Future Plan"} placement={"right"}
-          animate={animateTooltip}>
+        <Tooltip
+          className={classNameTooltip}
+          content={"Future Plan"}
+          placement={"right"}
+          animate={animateTooltip}
+        >
           <div
             id="savedButton"
             className={` rounded-full w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] mb-4 mt-7 cursor-pointer fill-[#464543]  ${hoverColor}`}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 256 256"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
               <g fillRule="nonzero">
                 <g transform="scale(4,4)">
                   <path d="M41.148,14h-18.296c-0.47,0-0.852,0.382-0.852,0.852v32.36c0,0.297 0.357,0.448 0.57,0.241l8.557,-8.303c0.487,-0.472 1.26,-0.472 1.747,0l8.557,8.303c0.212,0.207 0.569,0.056 0.569,-0.24v-32.36c0,-0.471-0.382,-0.853-0.852,-0.853zM41.148,10c2.679,0 4.852,2.173 4.852,4.852v37.46c0,1.925-2.314,2.903-3.695,1.563l-10.305,-9.998l-10.305,9.999c-1.381,1.34-3.695,0.361-3.695,-1.563v-37.46c0,-2.68 2.173,-4.853 4.852,-4.853z"></path>
@@ -104,8 +127,12 @@ export default function SideHeader() {
           </div>
         </Tooltip>
 
-        <Tooltip className={classNameTooltip} content={"Dojo"} placement={"right"}
-          animate={animateTooltip}>
+        <Tooltip
+          className={classNameTooltip}
+          content={"Dojo"}
+          placement={"right"}
+          animate={animateTooltip}
+        >
           <div
             id="dojo"
             className={` rounded-full w-[50px] h-[50px] mb-4 mt-7 cursor-pointer fill-[#464543]  ${hoverColor} `}
@@ -139,24 +166,26 @@ export default function SideHeader() {
           />
         </MenuHandler>
         <MenuList>
-          <MenuItem className="flex items-center gap-2">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M16 8C16 10.1217 15.1571 12.1566 13.6569 13.6569C12.1566 15.1571 10.1217 16 8 16C5.87827 16 3.84344 15.1571 2.34315 13.6569C0.842855 12.1566 0 10.1217 0 8C0 5.87827 0.842855 3.84344 2.34315 2.34315C3.84344 0.842855 5.87827 0 8 0C10.1217 0 12.1566 0.842855 13.6569 2.34315C15.1571 3.84344 16 5.87827 16 8ZM10 5C10 5.53043 9.78929 6.03914 9.41421 6.41421C9.03914 6.78929 8.53043 7 8 7C7.46957 7 6.96086 6.78929 6.58579 6.41421C6.21071 6.03914 6 5.53043 6 5C6 4.46957 6.21071 3.96086 6.58579 3.58579C6.96086 3.21071 7.46957 3 8 3C8.53043 3 9.03914 3.21071 9.41421 3.58579C9.78929 3.96086 10 4.46957 10 5ZM8 9C7.0426 8.99981 6.10528 9.27449 5.29942 9.7914C4.49356 10.3083 3.85304 11.0457 3.454 11.916C4.01668 12.5706 4.71427 13.0958 5.49894 13.4555C6.28362 13.8152 7.13681 14.0009 8 14C8.86319 14.0009 9.71638 13.8152 10.5011 13.4555C11.2857 13.0958 11.9833 12.5706 12.546 11.916C12.147 11.0457 11.5064 10.3083 10.7006 9.7914C9.89472 9.27449 8.9574 8.99981 8 9Z"
-                fill="#90A4AE"
-              />
-            </svg>
+          <Link to="/myprofile">
+            <MenuItem className="flex items-center gap-2">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M16 8C16 10.1217 15.1571 12.1566 13.6569 13.6569C12.1566 15.1571 10.1217 16 8 16C5.87827 16 3.84344 15.1571 2.34315 13.6569C0.842855 12.1566 0 10.1217 0 8C0 5.87827 0.842855 3.84344 2.34315 2.34315C3.84344 0.842855 5.87827 0 8 0C10.1217 0 12.1566 0.842855 13.6569 2.34315C15.1571 3.84344 16 5.87827 16 8ZM10 5C10 5.53043 9.78929 6.03914 9.41421 6.41421C9.03914 6.78929 8.53043 7 8 7C7.46957 7 6.96086 6.78929 6.58579 6.41421C6.21071 6.03914 6 5.53043 6 5C6 4.46957 6.21071 3.96086 6.58579 3.58579C6.96086 3.21071 7.46957 3 8 3C8.53043 3 9.03914 3.21071 9.41421 3.58579C9.78929 3.96086 10 4.46957 10 5ZM8 9C7.0426 8.99981 6.10528 9.27449 5.29942 9.7914C4.49356 10.3083 3.85304 11.0457 3.454 11.916C4.01668 12.5706 4.71427 13.0958 5.49894 13.4555C6.28362 13.8152 7.13681 14.0009 8 14C8.86319 14.0009 9.71638 13.8152 10.5011 13.4555C11.2857 13.0958 11.9833 12.5706 12.546 11.916C12.147 11.0457 11.5064 10.3083 10.7006 9.7914C9.89472 9.27449 8.9574 8.99981 8 9Z"
+                  fill="#90A4AE"
+                />
+              </svg>
 
-            <Typography variant="small" className="font-medium">
-              My Profile
-            </Typography>
-          </MenuItem>
+              <Typography variant="small" className="font-medium">
+                My Profile
+              </Typography>
+            </MenuItem>
+          </Link>
           <MenuItem className="flex items-center gap-2">
             <svg
               width="16"
@@ -201,6 +230,5 @@ export default function SideHeader() {
         </MenuList>
       </Menu>
     </div>
-
   );
 }

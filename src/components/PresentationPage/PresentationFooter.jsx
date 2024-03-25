@@ -1,5 +1,4 @@
 import { Typography } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
 const PresentationFooter = () => {
   const currentYear = new Date().getFullYear();
 

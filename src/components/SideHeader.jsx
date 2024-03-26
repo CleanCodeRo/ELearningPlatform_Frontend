@@ -25,7 +25,6 @@ export default function SideHeader() {
   const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons);
   const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks);
   const [completedModules, setCompletedModules] = useAtom(state.completedModules);
-  const [completedKatas, setCompletedKatas] = useAtom(state.completedKatas);
   let path = window.location.pathname.split("/");
   let hoverColor = path.includes("dojo") ? "hover:fill-[#da8f06] " : "hover:fill-[#2c8dfe]";
 
@@ -37,7 +36,7 @@ export default function SideHeader() {
 
   useEffect(() => {
     if (!user) {
-      getUserWithToken(localStorage.getItem("ELearningToken"), setUser, setCompletedLessons, setCompletedWeeks, setCompletedModules, setCompletedKatas)
+      getUserWithToken(localStorage.getItem("ELearningToken"), setUser, setCompletedLessons, setCompletedWeeks, setCompletedModules)
       console.log("user recived use effect")
     }
   }, [])

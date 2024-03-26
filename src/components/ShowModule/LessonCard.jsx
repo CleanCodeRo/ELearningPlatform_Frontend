@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAtom } from "jotai";
-import state, { getCompletedStuff } from "../Atom";
-import Loading from "../Loading/Loading";
-import CheckBox from "../CheckBox/CheckBox";
-import EditPen from "../EditPen";
+import state, { getCompletedStuff } from "../ReusableComponents/Atom";
+import EditPen from "../ReusableComponents/EditPen";
+import CheckBox from "../ReusableComponents/CheckBox/CheckBox";
+import Loading from "../ReusableComponents/Loading/Loading";
 
 
 export default function LessonCard({ lesson }) {

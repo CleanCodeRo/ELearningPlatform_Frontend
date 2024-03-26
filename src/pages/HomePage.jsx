@@ -2,8 +2,8 @@ import React from "react";
 import Modules from "../components/HomePage/Modules";
 import SideHeader from "../components/SideHeader";
 import { useAtom } from "jotai";
-import state from "../components/Atom";
 import KatasOfTheDay from "../components/HomePage/KatasOfTheDay/KatasOfTheDay";
+import state from "../components/ReusableComponents/Atom";
 
 function HomePage() {
   const [user, setUser] = useAtom(state.user)

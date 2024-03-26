@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import LessonCard from "./LessonCard";
-import Loading from "../Loading/Loading";
-import CheckBox from "../CheckBox/CheckBox";
+import Loading from "../ReusableComponents/Loading/Loading";
+
+
 
 export default function Lessons({ setLoadingLessons, loadingLessons, userRole }) {
   const [mandatoryLessons, setMandatoryLessons] = useState(null)

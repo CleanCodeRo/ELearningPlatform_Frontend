@@ -1,8 +1,8 @@
 import { useAtom } from "jotai";
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
-import state, { getCompletedStuff } from "../../components/Atom";
-import CheckBox from "../../components/CheckBox/CheckBox";
+import state, { getCompletedStuff } from "../../components/ReusableComponents/Atom";
+import CheckBox from "../../components/ReusableComponents/CheckBox/CheckBox";
 
 const LessonsCreateAndEdit = () => {
   const [error, setError] = useState(null);

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import SuccessError from "../../components/SuccessError";
+import SuccessError from "../../components/ReusableComponents/SuccessError";
 import DropdownFilter from "../../components/SpecialKatas/DropdownFilter";
 import { kataCategories } from "../../components/SpecialKatas/FilterObjects";
 

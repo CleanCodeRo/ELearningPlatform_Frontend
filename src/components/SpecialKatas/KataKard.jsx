@@ -4,10 +4,10 @@ import {
 } from "@material-tailwind/react";
 import { useEffect, useRef, useState } from "react";
 import { useAtom } from "jotai";
-import state from "../Atom";
-import Loading from "../Loading/Loading";
-import SuccessError from "../SuccessError";
-import EditPen from "../EditPen";
+import state from "../ReusableComponents/Atom";
+import Loading from "../ReusableComponents/Loading/Loading";
+import SuccessError from "../ReusableComponents/SuccessError";
+import EditPen from "../ReusableComponents/EditPen";
 import { useNavigate } from "react-router-dom";
 
 export default function KataCard({ kata, deleteEvent, setRefreshKatas }) {

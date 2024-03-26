@@ -1,11 +1,11 @@
 import React from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Loading from '../Loading/Loading';
 import ReactPaginate from 'react-paginate';
 import { Button } from '@material-tailwind/react';
 import { useNavigate, useParams } from 'react-router';
 import KataCard from './KataKard';
+import Loading from '../ReusableComponents/Loading/Loading';
 
 const ListKata = ({katas, numberOfPages, loadingKatas, setRefreshKatas }) => {
   const { pageNumber } = useParams();

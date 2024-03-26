@@ -9,7 +9,7 @@ import {
   Typography,
   Tooltip,
 } from "@material-tailwind/react";
-import state, { getUserWithToken } from "./Atom";
+import state, { getUserWithToken } from "./ReusableComponents/Atom";
 import { useAtom } from "jotai";
 
 let animateTooltip = {

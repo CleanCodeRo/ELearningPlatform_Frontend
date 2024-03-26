@@ -12,10 +12,8 @@ import ShowModule from "./pages/ShowModule";
 import ModuleCreateAndEdit from "./pages/Forms/ModuleCreateAndEdit";
 import WeekCreateAndEdit from "./pages/Forms/WeekCreateAndEdit";
 import LessonsCreateAndEdit from "./pages/Forms/LessonsCreateAndEdit";
-import Redirect from "./components/Redirect";
 import KataForm from "./pages/Forms/KataForm";
-
-
+import Redirect from "./components/ReusableComponents/Redirect";
 
 export default function App() {
   return (

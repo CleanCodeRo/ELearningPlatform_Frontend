@@ -3,7 +3,7 @@ import SideHeader from '../components/SideHeader'
 import Weeks from '../components/ShowModule/Weeks'
 import Lessons from '../components/ShowModule/Lessons'
 import { useAtom } from 'jotai';
-import state from '../components/Atom';
+import state from '../components/ReusableComponents/Atom';
 
 export default function ShowModule() {
     const [loadingLessons, setLoadingLessons] = useState(true);

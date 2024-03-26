@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import state, { getCompletedStuff } from "../../components/Atom";
+import state, { getCompletedStuff } from "../../components/ReusableComponents/Atom";
 
 export default function WeekCreateAndEdit() {
   let weekName = useRef(null);

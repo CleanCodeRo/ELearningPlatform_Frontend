@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAtom } from "jotai";
-import state, { returnPercentage } from "../Atom";
-import EditPen from "../EditPen";
+import state, { returnPercentage } from "../ReusableComponents/Atom";
+import EditPen from "../ReusableComponents/EditPen";
 
 
 export default function WeekCard({ week, setLoadingLessons, userRole }) {

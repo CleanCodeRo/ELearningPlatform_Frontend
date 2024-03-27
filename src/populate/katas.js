@@ -1,12 +1,25 @@
 
 import XlsxPopulate from 'xlsx-populate';
 
+// Use this populate script if you add a increased ammout of katas, if you want to add a few use the iterface provided, else add in the populate
+// folder the file with all the kataLinks that you want in db, with the old ones, the DB will be completly refreshed with the old ones and the new katas that you added in 
+// the new file
+// Again Steps if you want to add new katas with populate
+//    Take the kataLinks file from the project and the katas links that you want to add and introduce them in the file, 
+//    then enter in terminal in the populate folder and run "node katas.js", after take the new categories
+//    and put them in the category object, make sure you dont delete the first option "ALL"
+
 const getKataLinks = async () => {
     let data = []
     try {
-        const workbook = await XlsxPopulate.fromFileAsync('./kataLinks.xlsx');
+        const workbook = await XlsxPopulate.fromFileAsync('./KataLinks1.xlsx'); // here change the name of the file if you add another file with aother name
         const sheet = workbook.sheet(0);
-        data = await sheet.usedRange().value();
+        data = await sheet.usedRange().value().filter((value, index, self) => {
+            // Convert each inner array to a string for comparison
+            let stringValue = value[0];
+            // Check if the current string is the first occurrence in the array
+            return self.findIndex(arr => arr[0] === stringValue) === index;
+          });  // with this filter i remove the doubles if exist 
           console.log("Links length ", data.length)
     } catch (error) {
         console.error("Error:", error);

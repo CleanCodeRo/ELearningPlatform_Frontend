@@ -48,7 +48,7 @@ export default function FilterKata({ userId, setKatas, setNumberOfPages, setLoad
                     if (data.katas.length == 0 && pageNumber >= 0) {
                         navigate(`/dojo/${pageNumber - 1}`)
                     }
-                    // console.log(data);
+                     console.log(data);
                 })
                 .catch(error => {
                     // Handle any errors that occur during the fetch request

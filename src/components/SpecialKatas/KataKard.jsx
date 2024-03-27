@@ -21,54 +21,78 @@ export default function KataCard({ kata, deleteEvent, setRefreshKatas }) {
     const navigate = useNavigate()
 
     useEffect(() => {
-       setIsCompleted(kata.completedByUsers.includes(user.id) ? true : false)
+        setIsCompleted(kata.completedByUsers.includes(user.id) ? true : false)
     }, [isCompleted])
+
+    const checkAndAddCompletedKata = (e, allCompletedKatas) => {
+        let checkIfKataExists = allCompletedKatas.filter((codeKata) => codeKata.name != undefined && codeKata.name.toLowerCase() == kata.title.toLowerCase())
+
+        if (checkIfKataExists.length > 0) {
+            e.target.disabled = true;
+            fetch(` http://localhost:8080/katas/addUserToKata?userId=${user.id}&kataId=${kata.id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`
+                },
+            })
+                .then(res => res.json())
+                .then(() => {
+                    kata.completedByUsers.push(user.id)
+                    setIsCompleted(true);
+                    setLoading(false);
+                    setMessage("Kata verification completed");
+                    setTimeout(() => {
+                        setRenderError(false)
+                    }, 3000)
+
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        } else {
+            setLoading(false);
+            setError("Kata name not perfectly equal ?")
+            setTimeout(() => {
+                setRenderError(false)
+            }, 3000)
+        }
+    }
 
     const completeKataEvent = (e) => {
         setLoading(true)
         setRenderError(true)
+        let numberOfCompletedKatasPages;
+        let allCompletedKatas = []
 
-        fetch(`https://www.codewars.com/api/v1/users/${user.codeWarsUsername}/code-challenges/completed?page=0`, {
-            method: "GET"
-        }).then(res => res.json())
-            .then(data => {
-                let checkIfKataExists = data.data.filter(codeKata => codeKata.name.toLowerCase() == kata.title.toLowerCase());
-                
-                if (checkIfKataExists.length > 0) {
-                    e.target.disabled = true;
-                    fetch(` http://localhost:8080/katas/addUserToKata?userId=${user.id}&kataId=${kata.id}`, {
-                        method: "PATCH",
-                        headers: {
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`
-                        },
-                    })
-                        .then(res => res.json())
-                        .then(() => {
-                            kata.completedByUsers.push(user.id)
-                            setIsCompleted(true);
-                            setLoading(false);
-                            setMessage("Kata verification completed");
-                            setTimeout(() => {
-                                setRenderError(false)
-                            }, 3000)
+        const searchInAllKataPages = (i) => {
+            if (i == numberOfCompletedKatasPages) {
+                return;
+            }
+            // user.codeWarsUsername
+            fetch(`https://www.codewars.com/api/v1/users/${"Blind4Basics"}/code-challenges/completed?page=${i}`, {
+                method: "GET"
+            }).then(res => res.json())
+                .then(data => {
+                    // console.log(i, " / ", numberOfCompletedKatasPages)
+                    allCompletedKatas = [...allCompletedKatas, ...data.data]
+                    numberOfCompletedKatasPages = data.totalPages;
 
-                        })
-                        .catch(err => {
-                            console.log(err)
-                        })
-                } else {
-                    setLoading(false);
-                    setError("Kata name not perfectly equal ?")
-                    setTimeout(() => {
-                        setRenderError(false)
-                    }, 3000)
-                }
+                    if (i + 1 == numberOfCompletedKatasPages) { // this means we got to the last page
+                        checkAndAddCompletedKata(e, allCompletedKatas)
+                        console.log("HERE IS THE LAST PAGE")
+                    } else {
+                        setTimeout(() => {
+                            searchInAllKataPages(i + 1);
+                        }, 100)
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
 
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        searchInAllKataPages(0);
     }
 
     function getFontSizeClass(categoryLength) {
@@ -76,10 +100,10 @@ export default function KataCard({ kata, deleteEvent, setRefreshKatas }) {
             return "text-sm";
         } else if (categoryLength > 1) {
             return "text-xs"; // Extra small font size
-        } 
+        }
     }
 
-    const editEvent = (e, navigate, kataId) =>{
+    const editEvent = (e, navigate, kataId) => {
         e.stopPropagation();
         navigate(
             `/dojo/editKata/${kataId}`
@@ -102,7 +126,7 @@ export default function KataCard({ kata, deleteEvent, setRefreshKatas }) {
             <div id="holderwithoutEndButtons" className="flex flex-col w-full items-center h-full">
                 <div id="titleAndEditPen" className="text-[#0b0f1b] mt-2 relative w-full flex justify-center ">
                     <div id="penContainer" className="absolute w-full flex justify-end ">
-                        <EditPen user={user} deleteEvent={(e) => deleteEvent(e, kata.id, setRefreshKatas)} editEvent={(e) => editEvent(e, navigate, kata.id)}/>
+                        <EditPen user={user} deleteEvent={(e) => deleteEvent(e, kata.id, setRefreshKatas)} editEvent={(e) => editEvent(e, navigate, kata.id)} />
                     </div>
                 </div>
 

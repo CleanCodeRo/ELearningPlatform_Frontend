@@ -4,7 +4,7 @@ import { kataCategories, kataDifficulty, kataProgress } from "./FilterObjects";
 import { useNavigate, useParams } from "react-router-dom";
 import CostumInput from "../ReusableComponents/CostumInput";
 
-const numberOfItems = 4;
+const numberOfItems = 12;
 
 export default function FilterKata({ userId, setKatas, setNumberOfPages, setLoadingKatas, refreshKatas, setRefreshKatas }) {
     const [filterResultTest, setFilterResultTest] = useState({
@@ -22,7 +22,7 @@ export default function FilterKata({ userId, setKatas, setNumberOfPages, setLoad
             const queryParams = new URLSearchParams();
             queryParams.append("category", filterResultTest.category);
             queryParams.append("status", filterResultTest.status);
-            queryParams.append("level", filterResultTest.level);
+            queryParams.append("level", filterResultTest.level.split(" ")[0]);
             queryParams.append("userId", userId);
             queryParams.append("pageNumber", pageNumber);
             queryParams.append("numberOfItems", numberOfItems);
@@ -53,6 +53,7 @@ export default function FilterKata({ userId, setKatas, setNumberOfPages, setLoad
                 .catch(error => {
                     // Handle any errors that occur during the fetch request
                     console.error("Error fetching data:", error);
+                    setNumberOfPages(0)
                 });
         }
         setLoadingKatas(false);
@@ -71,7 +72,7 @@ export default function FilterKata({ userId, setKatas, setNumberOfPages, setLoad
         if (value != "ALL") {
             // If value is not null, split and convert to integer
             const level = value.split(' ')[0];
-            setFilterResultTest(prevState => ({ ...prevState, level: level * 1 }));
+            setFilterResultTest(prevState => ({ ...prevState, level: `${level} KYU` }));
         } else {
             // If value is null, set level to null
             setFilterResultTest(prevState => ({ ...prevState, level: "ALL" }));

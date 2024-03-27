@@ -2,7 +2,6 @@ import { Option, Select } from '@material-tailwind/react'
 import React from 'react'
 
 export default function DropdownFilter({ onChangeEvent, options, label, value }) {
-    console.log(value)
     return (
         <Select value={value} label={label} onChange={onChangeEvent}>
             {options.map((category, index) => (

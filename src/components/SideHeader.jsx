@@ -9,7 +9,7 @@ import {
   Typography,
   Tooltip,
 } from "@material-tailwind/react";
-import state, { getUserWithToken } from "./Atom";
+import state, { getUserWithToken } from "./ReusableComponents/Atom";
 import { useAtom } from "jotai";
 
 let animateTooltip = {
@@ -26,10 +26,7 @@ export default function SideHeader() {
     state.completedLessons
   );
   const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks);
-  const [completedModules, setCompletedModules] = useAtom(
-    state.completedModules
-  );
-  const [completedKatas, setCompletedKatas] = useAtom(state.completedKatas);
+  const [completedModules, setCompletedModules] = useAtom(state.completedModules);
   let path = window.location.pathname.split("/");
   let hoverColor = path.includes("dojo")
     ? "hover:fill-[#da8f06] "
@@ -43,15 +40,8 @@ export default function SideHeader() {
 
   useEffect(() => {
     if (!user) {
-      getUserWithToken(
-        localStorage.getItem("ELearningToken"),
-        setUser,
-        setCompletedLessons,
-        setCompletedWeeks,
-        setCompletedModules,
-        setCompletedKatas
-      );
-      console.log("user recived use effect");
+      getUserWithToken(localStorage.getItem("ELearningToken"), setUser, setCompletedLessons, setCompletedWeeks, setCompletedModules)
+      console.log("user recived use effect")
     }
   }, []);
 

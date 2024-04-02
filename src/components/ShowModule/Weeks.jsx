@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import WeekCard from "./WeekCard";
-import Loading from "../Loading/Loading";
+import Loading from "../ReusableComponents/Loading/Loading";
 
 export default function Weeks({setLoadingLessons, userRole}) {
   const [weeks, setWeeks] = useState(null);

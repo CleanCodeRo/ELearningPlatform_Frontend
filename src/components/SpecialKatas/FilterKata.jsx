@@ -1,82 +1,107 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DropdownFilter from "./DropdownFilter";
 import { kataCategories, kataDifficulty, kataProgress } from "./FilterObjects";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import CostumInput from "../ReusableComponents/CostumInput";
 
-const numberOfItems = 4;
+const numberOfItems = 12;
 
-export default function FilterKata({userId}) {
+export default function FilterKata({ userId, setKatas, setNumberOfPages, setLoadingKatas, refreshKatas, setRefreshKatas }) {
     const [filterResultTest, setFilterResultTest] = useState({
         category: "ALL",
-        progress: "ALL",
-        difficulty: "ALL"
+        status: "ALL",
+        level: "ALL"
     });
-    const [refresh, setRefresh] = useState(0);
     const { pageNumber } = useParams();
+    const navigate = useNavigate();
+    const inputRef = useRef(null);
 
-    useEffect(() =>{
-        const queryParams = new URLSearchParams();
-        queryParams.append("category", filterResultTest.category);
-        queryParams.append("status", filterResultTest.progress);
-        queryParams.append("difficulty", filterResultTest.difficulty);
-        queryParams.append("userId", userId);
-        queryParams.append("pageNumber", pageNumber);
-        queryParams.append("numberOfItems", numberOfItems);
-    
-        fetch(`http://localhost:8080/katas/filtered?${queryParams.toString()}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`
-            }
-        })
-        .then(res => {
-            if (!res.ok) {
-                throw new Error("Network response was not ok");
-            }
-            return res.json();
-        })
-        .then(data => {
-            // Handle the response data here
-            console.log(data);
-        })
-        .catch(error => {
-            // Handle any errors that occur during the fetch request
-            console.error("Error fetching data:", error);
-        });
-    }, [pageNumber,refresh])
+    useEffect(() => {
+        if (pageNumber){
+            setKatas([]);
+            const queryParams = new URLSearchParams();
+            queryParams.append("category", filterResultTest.category);
+            queryParams.append("status", filterResultTest.status);
+            queryParams.append("level", filterResultTest.level.split(" ")[0]);
+            queryParams.append("userId", userId);
+            queryParams.append("pageNumber", pageNumber);
+            queryParams.append("numberOfItems", numberOfItems);
+            queryParams.append("searchByName", inputRef.current.value);
+
+            fetch(`http://localhost:8080/katas/filtered?${queryParams.toString()}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`
+                }
+            })
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return res.json();
+                })
+                .then(data => {
+                    // Handle the response data here
+                    setKatas(data.katas);
+                    setNumberOfPages(data.numberOfKatas / numberOfItems)
+                    if (data.katas.length == 0 && pageNumber >= 0) {
+                        navigate(`/dojo/${pageNumber - 1}`)
+                    }
+                     console.log(data);
+                })
+                .catch(error => {
+                    // Handle any errors that occur during the fetch request
+                    console.error("Error fetching data:", error);
+                    setNumberOfPages(0)
+                });
+        }
+        setLoadingKatas(false);
+    }, [pageNumber, refreshKatas])
 
 
     const handleCategoryChange = (value) => {
-        console.log(value)
-        setFilterResultTest(prevState => ({ ...prevState, category : value }));
+        setFilterResultTest(prevState => ({ ...prevState, category: value }));
     };
 
     const handleProgressChange = (value) => {
-        console.log(value)
-        setFilterResultTest(prevState => ({ ...prevState, progress : value}));
+        setFilterResultTest(prevState => ({ ...prevState, status: value }));
     };
 
     const handleDifficultyChange = (value) => {
-        console.log(value)
         if (value != "ALL") {
             // If value is not null, split and convert to integer
-            const difficulty = value.split(' ')[0];
-            setFilterResultTest(prevState => ({ ...prevState, difficulty: difficulty*1 }));
+            const level = value.split(' ')[0];
+            setFilterResultTest(prevState => ({ ...prevState, level: `${level} KYU` }));
         } else {
-            // If value is null, set difficulty to null
-            setFilterResultTest(prevState => ({ ...prevState, difficulty: "ALL" }));
+            // If value is null, set level to null
+            setFilterResultTest(prevState => ({ ...prevState, level: "ALL" }));
         }
     };
 
+    const emptyAllFilters = () =>{
+        setFilterResultTest({
+            category: "ALL",
+            status: "ALL",
+            level: "ALL"
+        });
+        inputRef.current.value = "";
+        setRefreshKatas(refreshKatas + 1)
+    }
+
     return (
-        <div className="flex flex-row w-full">
-            <p className="text-3xl mr-6 font-bold rounded-lg text-fourth">Filters</p>
+        <div id='allFilterInputs' className="flex flex-col w-full gap-4">
+            <div className="flex flex-row gap-4">
+                <p className="text-3xl  mr-4 font-bold rounded-lg text-fourth">Filters</p>
+                <button onClick={() => setRefreshKatas(refreshKatas + 1)} className="bg-black w-fit h-10 px-3 rounded-lg">Apply</button>
+                <button onClick={emptyAllFilters} className="bg-black w-fit h-10 px-3 rounded-lg">Empty filters</button>
+            </div>
+
             <div id="CATEGORY" className="w-full gap-8 flex flex-row justify-around items-center">
-                <DropdownFilter onChangeEvent={handleCategoryChange} options={kataCategories} label="Category"/>
-                <DropdownFilter onChangeEvent={handleProgressChange} options={kataProgress} label="Status"/>
-                <DropdownFilter onChangeEvent={handleDifficultyChange} options={kataDifficulty} label="Difficulty"/>
-                <button onClick={() => setRefresh(refresh + 1)} className="bg-black w-fit h-10 px-3">Apply</button>
+                <CostumInput id={"searchKata"} inputRef={inputRef} label={"Search by name"} icon={<i className="fa-solid fa-magnifying-glass text-gray-600" />} />
+                <DropdownFilter onChangeEvent={handleCategoryChange} options={kataCategories} label="Category" value={filterResultTest.category}/>
+                <DropdownFilter onChangeEvent={handleProgressChange} options={kataProgress} label="Status" value={filterResultTest.status}/>
+                <DropdownFilter onChangeEvent={handleDifficultyChange} options={kataDifficulty} label="Difficulty" value={filterResultTest.level}/>
             </div>
         </div>
     );

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ModuleCard from "./ModuleCard";
 import { Link, useNavigate } from "react-router-dom";
-import Loading from "../Loading/Loading";
+import Loading from "../ReusableComponents/Loading/Loading";
 
 export default function Modules({userRole}) {
   const [modules, setModules] = useState([]);

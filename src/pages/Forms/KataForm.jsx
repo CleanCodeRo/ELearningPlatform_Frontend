@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import SuccessError from "../../components/SuccessError";
+import SuccessError from "../../components/ReusableComponents/SuccessError";
 import DropdownFilter from "../../components/SpecialKatas/DropdownFilter";
 import { kataCategories } from "../../components/SpecialKatas/FilterObjects";
 
@@ -91,6 +91,8 @@ export default function KataForm() {
         if(!checkIfAllFieldsCompleted()){
             return
         }
+
+        if(kataLevel.current.value > 8) kataLevel.current.value = 8;
 
         fetch("http://localhost:8080/katas", {
             method: "POST",

@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Loading from "../Loading/Loading";
 import { useAtom } from "jotai";
-import state from "../Atom";
-import EditPen from "../EditPen";
+import state from "../ReusableComponents/Atom";
+import EditPen from "../ReusableComponents/EditPen";
+import Loading from "../ReusableComponents/Loading/Loading";
 
 export default function ModuleCard({ id, title, subtitle, image, userRole }) {
   let moduleCard = useRef(null);

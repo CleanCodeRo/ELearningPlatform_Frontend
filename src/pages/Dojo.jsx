@@ -2,12 +2,15 @@ import React, { useState } from 'react'
 import SideHeader from '../components/SideHeader';
 import ListKata from '../components/SpecialKatas/ListKata';
 import { useAtom } from 'jotai';
-import state from '../components/Atom';
 import FilterKata from '../components/SpecialKatas/FilterKata';
+import state from '../components/ReusableComponents/Atom';
 
 export default function Dojo() {
-  const [user, setUser] = useAtom(state.user)
+  const [user, setUser] = useAtom(state.user);
   const [katas, setKatas] = useState(null);
+  const [numberOfPages, setNumberOfPages] = useState(0);
+  const [loadingKatas, setLoadingKatas] = useState(true);
+  const [refreshKatas , setRefreshKatas] = useState(0);
 
   return (
     <div className="h-screen select-none flex flex-row text-sixth overflow-x-hidden overflow-y-scroll relative custom-scrollbar" >
@@ -26,9 +29,9 @@ export default function Dojo() {
           }
         </div>
 
-        {user && <FilterKata userId={user.id}/>}
+        {user && <FilterKata userId={user.id} setKatas={setKatas} setNumberOfPages={setNumberOfPages} setLoadingKatas={setLoadingKatas} refreshKatas={refreshKatas} setRefreshKatas={setRefreshKatas}/>}
 
-        <ListKata katas={katas}/>
+        <ListKata katas={katas} numberOfPages={numberOfPages} loadingKatas={loadingKatas}/>
 
       </div>
     </div>

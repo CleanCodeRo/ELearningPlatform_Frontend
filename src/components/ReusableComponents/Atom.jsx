@@ -5,7 +5,6 @@ user : atom(null),
 completedLessons : atom([]),
 completedWeeks : atom([]),
 completedModules : atom([]),
-completedKatas : atom([]),
 
 refresh : atom(0),
 refreshWeekProgressBar : atom(0)
@@ -13,7 +12,7 @@ refreshWeekProgressBar : atom(0)
 export default state;
 
 
-export function getUserWithToken(token, setUser, setCompletedLessons, setCompletedWeeks, setCompletedModules, setCompletedKatas) {
+export function getUserWithToken(token, setUser, setCompletedLessons, setCompletedWeeks, setCompletedModules) {
     fetch("http://localhost:8080/users/getUserWithToken", {
       method: 'GET',
       headers: {
@@ -36,7 +35,6 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
         setCompletedLessons(data.completedLessons);
         setCompletedWeeks(data.completedWeeks);
         setCompletedModules(data.completedModules)
-        setCompletedKatas(data.completedKatas)
         // console.log(data.completedLessons);
         // console.log(data.completedWeeks)
         // console.log(data.completedKatas);

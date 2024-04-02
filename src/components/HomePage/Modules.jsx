@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ModuleCard from "./ModuleCard";
 import { Link, useNavigate } from "react-router-dom";
 import Loading from "../ReusableComponents/Loading/Loading";
+import { startLink } from "../../constants/Constants";
 
 export default function Modules({userRole}) {
   const [modules, setModules] = useState([]);
@@ -10,7 +11,7 @@ export default function Modules({userRole}) {
 
   useEffect(() => {
   
-    fetch("http://localhost:8080/modules", {
+    fetch(`${startLink}/modules`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

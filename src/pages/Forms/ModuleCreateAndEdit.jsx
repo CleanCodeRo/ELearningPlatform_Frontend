@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { startLink } from "../../constants/Constants";
 
 export default function ModuleCreateAndEdit() {
   let moduleName = useRef(null);
@@ -19,7 +20,7 @@ export default function ModuleCreateAndEdit() {
 
   useEffect(() => {
     if (params.moduleId !== undefined) {
-      fetch(`http://localhost:8080/modules/${params.moduleId}`, {
+      fetch(`${startLink}/modules/${params.moduleId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -42,7 +43,7 @@ export default function ModuleCreateAndEdit() {
       return
     }
 
-    fetch(`http://localhost:8080/modules/${params.moduleId}`, {
+    fetch(`${startLink}/modules/${params.moduleId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -83,7 +84,7 @@ export default function ModuleCreateAndEdit() {
       return
     }
 
-    fetch("http://localhost:8080/modules", {
+    fetch(`${startLink}/modules`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

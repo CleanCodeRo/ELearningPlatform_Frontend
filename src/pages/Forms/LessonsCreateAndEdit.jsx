@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import state, { getCompletedStuff } from "../../components/ReusableComponents/Atom";
 import CheckBox from "../../components/ReusableComponents/CheckBox/CheckBox";
+import { startLink } from "../../constants/Constants";
 
 const LessonsCreateAndEdit = () => {
   const [error, setError] = useState(null);
@@ -26,7 +27,7 @@ const LessonsCreateAndEdit = () => {
 
   useEffect(() => {
     if (params.lessonId !== undefined) {
-      fetch(`http://localhost:8080/lessons/findById/  ${params.lessonId}`, {
+      fetch(`${startLink}/lessons/findById/${params.lessonId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -45,7 +46,7 @@ const LessonsCreateAndEdit = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:8080/lessons/${params.lessonId}`,
+        `${startLink}/lessons/${params.lessonId}`,
         {
           method: "PUT",
           headers: {
@@ -73,7 +74,7 @@ const LessonsCreateAndEdit = () => {
   async function postLesson() {
    
     try {
-      const response = await fetch("http://localhost:8080/lessons", {
+      const response = await fetch(`${startLink}/lessons`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

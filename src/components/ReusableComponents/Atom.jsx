@@ -1,4 +1,5 @@
 import { atom } from "jotai";
+import { startLink } from "../../constants/Constants";
 
 const state = {
 user : atom(null),
@@ -13,7 +14,7 @@ export default state;
 
 
 export function getUserWithToken(token, setUser, setCompletedLessons, setCompletedWeeks, setCompletedModules) {
-    fetch("http://localhost:8080/users/getUserWithToken", {
+    fetch(`${startLink}/users/getUserWithToken`, {
       method: 'GET',
       headers: {
         "ContentType": "application/json",
@@ -43,7 +44,7 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
 
 
   export function getCompletedStuff({userId, setCompletedLessons, setCompletedWeeks, setCompletedModules,setCompletedKatas, setRefreshWeekProgressBar}){
-    fetch(`http://localhost:8080/users/${userId}/completedStuff`,{
+    fetch(`${startLink}/users/${userId}/completedStuff`,{
       method : "GET",
       headers :{
         "Content-Type" : "application/json",

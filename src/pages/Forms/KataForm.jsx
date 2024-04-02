@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import SuccessError from "../../components/ReusableComponents/SuccessError";
 import DropdownFilter from "../../components/SpecialKatas/DropdownFilter";
 import { kataCategories } from "../../components/SpecialKatas/FilterObjects";
+import { startLink } from "../../constants/Constants";
 
 export default function KataForm() {
     const [savedCategory, setSavedCategory] = useState([]);
@@ -26,7 +27,7 @@ export default function KataForm() {
 
     useEffect(() => {
         if (params.kataId !== undefined) {
-            fetch(`http://localhost:8080/katas/${params.kataId}`, {
+            fetch(`${startLink}/katas/${params.kataId}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -50,7 +51,7 @@ export default function KataForm() {
             return
         }
 
-        fetch(`http://localhost:8080/katas/${params.kataId}`, {
+        fetch(`${startLink}/katas/${params.kataId}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -94,7 +95,7 @@ export default function KataForm() {
 
         if(kataLevel.current.value > 8) kataLevel.current.value = 8;
 
-        fetch("http://localhost:8080/katas", {
+        fetch(`${startLink}/katas`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

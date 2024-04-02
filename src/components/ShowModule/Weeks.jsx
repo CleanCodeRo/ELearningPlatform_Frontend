@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import WeekCard from "./WeekCard";
 import Loading from "../ReusableComponents/Loading/Loading";
+import { startLink } from "../../constants/Constants";
 
 export default function Weeks({setLoadingLessons, userRole}) {
   const [weeks, setWeeks] = useState(null);
@@ -11,7 +12,7 @@ export default function Weeks({setLoadingLessons, userRole}) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:8080/weeks/${params.moduleId}`, {
+    fetch(`${startLink}/weeks/${params.moduleId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

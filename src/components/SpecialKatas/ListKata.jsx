@@ -6,6 +6,22 @@ import { Button } from '@material-tailwind/react';
 import { useNavigate, useParams } from 'react-router';
 import KataCard from './KataKard';
 import Loading from '../ReusableComponents/Loading/Loading';
+import { startLink } from '../../constants/Constants';
+
+export const deleteKata = (e, kataId, setRefresh) => {
+  e.stopPropagation();
+
+  fetch(`${startLink}/katas/${kataId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
+    },
+  }).then(res => res.json())
+    .then(() => {
+       setRefresh(Math.random())
+    })
+};
 
 const ListKata = ({katas, numberOfPages, loadingKatas, setRefreshKatas }) => {
   const { pageNumber } = useParams();
@@ -53,17 +69,3 @@ const ListKata = ({katas, numberOfPages, loadingKatas, setRefreshKatas }) => {
 
 export default ListKata;
 
-export const deleteKata = (e, kataId, setRefresh) => {
-  e.stopPropagation();
-
-  fetch(`http://localhost:8080/katas/${kataId}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
-    },
-  }).then(res => res.json())
-    .then(() => {
-       setRefresh(Math.random())
-    })
-};

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { isExpired } from "react-jwt";
+import { startLink } from "../../constants/Constants";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const Login = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:8080/users/auth/authenticate",
+        `${startLink}/users/auth/authenticate`,
         {
           method: "POST",
           headers: {

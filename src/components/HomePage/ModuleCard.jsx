@@ -4,6 +4,7 @@ import { useAtom } from "jotai";
 import state from "../ReusableComponents/Atom";
 import EditPen from "../ReusableComponents/EditPen";
 import Loading from "../ReusableComponents/Loading/Loading";
+import { startLink } from "../../constants/Constants";
 
 export default function ModuleCard({ id, title, subtitle, image, userRole }) {
   let moduleCard = useRef(null);
@@ -15,7 +16,7 @@ export default function ModuleCard({ id, title, subtitle, image, userRole }) {
     e.stopPropagation();
     setLoading(true);
 
-    fetch(`http://localhost:8080/modules?moduleId=${id}`, {
+    fetch(`${startLink}/modules?moduleId=${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

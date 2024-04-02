@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAtom } from "jotai";
 import state, { returnPercentage } from "../ReusableComponents/Atom";
 import EditPen from "../ReusableComponents/EditPen";
+import { startLink } from "../../constants/Constants";
 
 
 export default function WeekCard({ week, setLoadingLessons, userRole }) {
@@ -32,7 +33,7 @@ export default function WeekCard({ week, setLoadingLessons, userRole }) {
   const deleteWeek = async (e, weekId) => {
     e.stopPropagation();
     try {
-      await fetch(`http://localhost:8080/weeks?weekId=${weekId}`, {
+      await fetch(`${startLink}/weeks?weekId=${weekId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

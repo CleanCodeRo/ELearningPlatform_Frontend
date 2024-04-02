@@ -5,6 +5,7 @@ import state, { getCompletedStuff } from "../ReusableComponents/Atom";
 import EditPen from "../ReusableComponents/EditPen";
 import CheckBox from "../ReusableComponents/CheckBox/CheckBox";
 import Loading from "../ReusableComponents/Loading/Loading";
+import { startLink } from "../../constants/Constants";
 
 
 export default function LessonCard({ lesson }) {
@@ -23,7 +24,7 @@ export default function LessonCard({ lesson }) {
   const deleteLesson = async (e, lessonId, weekId) => {
     e.stopPropagation();
     try {
-      await fetch(`http://localhost:8080/lessons?lessonId=${lessonId}&weekId=${weekId}`, {
+      await fetch(`${startLink}/lessons?lessonId=${lessonId}&weekId=${weekId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -44,7 +45,7 @@ export default function LessonCard({ lesson }) {
     }
     setLoading(true);
 
-    fetch(` http://localhost:8080/users?userId=${user.id}&lessonId=${lesson.id}&weekId=${params.weekId}`, {
+    fetch(`${startLink}/users?userId=${user.id}&lessonId=${lesson.id}&weekId=${params.weekId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

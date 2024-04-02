@@ -2,6 +2,7 @@ import { useAtom } from "jotai";
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import state, { getCompletedStuff } from "../../components/ReusableComponents/Atom";
+import { startLink } from "../../constants/Constants";
 
 export default function WeekCreateAndEdit() {
   let weekName = useRef(null);
@@ -25,7 +26,7 @@ export default function WeekCreateAndEdit() {
 
   useEffect(() => {
     if (params.weekId !== undefined) {
-      fetch(`http://localhost:8080/weeks?weekId=${params.weekId}`, {
+      fetch(`${startLink}/weeks?weekId=${params.weekId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -49,7 +50,7 @@ export default function WeekCreateAndEdit() {
       return
     }
 
-    fetch(`http://localhost:8080/weeks/${params.weekId}`, {
+    fetch(`${startLink}/weeks/${params.weekId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -89,7 +90,7 @@ export default function WeekCreateAndEdit() {
       return
     }
 
-    fetch("http://localhost:8080/weeks", {
+    fetch(`${startLink}/weeks`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

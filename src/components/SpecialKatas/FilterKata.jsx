@@ -3,6 +3,7 @@ import DropdownFilter from "./DropdownFilter";
 import { kataCategories, kataDifficulty, kataProgress } from "./FilterObjects";
 import { useNavigate, useParams } from "react-router-dom";
 import CostumInput from "../ReusableComponents/CostumInput";
+import { startLink } from "../../constants/Constants";
 
 const numberOfItems = 12;
 
@@ -28,7 +29,7 @@ export default function FilterKata({ userId, setKatas, setNumberOfPages, setLoad
             queryParams.append("numberOfItems", numberOfItems);
             queryParams.append("searchByName", inputRef.current.value);
 
-            fetch(`http://localhost:8080/katas/filtered?${queryParams.toString()}`, {
+            fetch(`${startLink}/katas/filtered?${queryParams.toString()}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

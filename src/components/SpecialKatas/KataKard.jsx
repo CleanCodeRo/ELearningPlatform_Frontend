@@ -9,6 +9,7 @@ import Loading from "../ReusableComponents/Loading/Loading";
 import SuccessError from "../ReusableComponents/SuccessError";
 import EditPen from "../ReusableComponents/EditPen";
 import { useNavigate } from "react-router-dom";
+import { startLink } from "../../constants/Constants";
 
 export default function KataCard({ kata, deleteEvent, setRefreshKatas }) {
     const kataCardRef = useRef(null);
@@ -29,7 +30,7 @@ export default function KataCard({ kata, deleteEvent, setRefreshKatas }) {
 
         if (checkIfKataExists.length > 0) {
             e.target.disabled = true;
-            fetch(` http://localhost:8080/katas/addUserToKata?userId=${user.id}&kataId=${kata.id}`, {
+            fetch(`${startLink}/katas/addUserToKata?userId=${user.id}&kataId=${kata.id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -69,12 +70,13 @@ export default function KataCard({ kata, deleteEvent, setRefreshKatas }) {
             if (i == numberOfCompletedKatasPages) {
                 return;
             }
+            // "Blind4Basics"
             // user.codeWarsUsername
-            fetch(`https://www.codewars.com/api/v1/users/${"Blind4Basics"}/code-challenges/completed?page=${i}`, {
+            fetch(`https://www.codewars.com/api/v1/users/${user.codeWarsUsername}/code-challenges/completed?page=${i}`, {
                 method: "GET"
             }).then(res => res.json())
                 .then(data => {
-                    // console.log(i, " / ", numberOfCompletedKatasPages)
+                     console.log(i, " / ", numberOfCompletedKatasPages)
                     allCompletedKatas = [...allCompletedKatas, ...data.data]
                     numberOfCompletedKatasPages = data.totalPages;
 

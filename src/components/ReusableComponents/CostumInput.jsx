@@ -9,6 +9,7 @@ export default function CostumInput({id, label, inputRef, costumInputClass, colo
         icon={icon}
         label={label}
         inputRef={inputRef}
+        variant='standard'
         className={`${costumInputClass} `}
       />
     </div>

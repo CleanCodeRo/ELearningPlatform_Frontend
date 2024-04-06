@@ -6,12 +6,28 @@ module.exports = withMT({
   theme: {
     extend: {
       colors: {
-        first: "#192428",
-        second: "#2d383c",
-        third: "#414c50",
-        fourth: "#353535",
-        fifth: "#39ace7",
-        sixth : "#F8F6F0"  // for text pearl white
+        generalColors :{
+          "light-gray" : "#BEBCBF",
+          "medium-grey" : "#727271",
+          "dark-grey" : "#2B2A29",
+          "medium- yellow" : "#FFE75C",
+          "dark-red" : "#Ff4500",
+          "medium-green" : "#4EC49D",
+          "light-blue" : "#94C0EB",
+          "medium-blue" : "#1E90FF",
+          "dark-blue" : "#174072",
+        },
+        secondaryColors : {
+          "light-purple" : "#C7CEFF", 
+          "medium-purple" : "#6974FB",
+          "dark-purple" : "#2D3ACC",
+          "light-green" : "#92D4BE",
+          "medium-green" : "#4EC49D",
+          "dark-green" : "#18966C",
+          "light-orange" : "#FFAA5A",
+          "regular-orange" : "#FA885F",
+          "dark-red" : "#Ff4500"
+        }
       },
       fontFamily : {
         "inter" : "Inter, sans-serif",

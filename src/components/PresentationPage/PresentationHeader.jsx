@@ -28,7 +28,7 @@ const PresentationHeader = () => {
         <div className="flex space-x-1.5">
           <Button
             id="loginButton"
-            className="bg-fourth font-inter shadow-2xl"
+            className=" bg-black font-inter shadow-2xl"
             onClick={() => checkLogin()}
           >
             Login

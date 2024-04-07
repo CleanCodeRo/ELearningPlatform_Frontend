@@ -63,6 +63,9 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
   
 
   export function returnPercentage(objects, userObjects){
+    if(objects.length <= 0){
+      return [0,0]
+    }
     let oneLessonPercentage = (1 / objects.length) *100
     let mandatory = objects.filter(item => !item.optional)
 

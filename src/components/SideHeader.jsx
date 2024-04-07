@@ -30,7 +30,7 @@ export default function SideHeader() {
 
   let hoverColor = path.includes("dojo") ? "hover:fill-[#da8f06] " : "hover:fill-[#2c8dfe]";
   let classNameTooltip = "text-lg bg-opacity-80 font-bold "
-  let iconClassName = ` rounded-full w-[40px] h-[40px] sm:w-[50px] sm:h-[50px]  mb-4 mt-7  cursor-pointer fill-[#464543]  ${hoverColor}`
+  let iconClassName = ` rounded-full w-[40px] h-[40px] sm:w-[50px] sm:h-[50px]  mb-4 mt-7  cursor-pointer fill-white  ${hoverColor}`
 
   const [open, setOpen] = useState(false);
   const openDrawer = () => setOpen(true);
@@ -66,8 +66,8 @@ export default function SideHeader() {
 
   return (
     <div id="SideHeaderHolder"
-      className={`flex md:flex-col justify-between bg-[#dddcdc] md:min-w-[5rem]  md:h-screen  md:sticky md:top-0  md:rounded-r-3xl  
-                    h-[4rem] bottom-0 w-screen fixed items-center  z-50 ${path.includes("dojo") ? "bg-[#e9d4c0]" : "bg-[#bed7e2]"} `}
+      className={`flex md:flex-col justify-between md:min-w-[5rem]  md:h-screen  md:sticky md:top-0  md:rounded-r-3xl  
+                    h-[4rem] bottom-0 w-screen fixed items-center  z-50"} `}
     >
 
       <div id="logoAndHamburgerMenu" className="ml-7 md:ml-0 mt-0 md:mt-7 flex items-center">

@@ -9,7 +9,7 @@ function HomePage() {
   const [user, setUser] = useAtom(state.user)
   
   return (
-    <div className="h-screen select-none flex flex-row text-sixth overflow-x-hidden overflow-y-scroll relative custom-scrollbar">
+    <div className="h-screen select-none flex flex-row text-sixth overflow-x-hidden overflow-y-scroll relative custom-scrollbar bg-generalColors-dark-blue text-gray-100">
       <SideHeader />
     
       <div id="moduleAndKataHolder" className="flex flex-col px-7 " style={{ minWidth: "calc(100vw - 5rem)"}}>

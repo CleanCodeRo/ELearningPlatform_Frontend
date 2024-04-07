@@ -4,6 +4,13 @@ import { Link, useNavigate } from "react-router-dom";
 import Loading from "../ReusableComponents/Loading/Loading";
 import { startLink } from "../../constants/Constants";
 
+const moduleColors = [
+  "#4EC49D",
+  "#FFE75C",
+  "#94C0EB",
+  "#1E90FF"
+]
+
 export default function Modules({userRole}) {
   const [modules, setModules] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -20,6 +27,7 @@ export default function Modules({userRole}) {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data)
         let dummyArr = []
         let i = 0;
 
@@ -47,7 +55,7 @@ export default function Modules({userRole}) {
   
 
   return (
-    <div className="pt-5 pb-10" >
+    <div className="pt-5 pb-10 bg-generalColors-dark-blue" >
       <div id="titleAndAddButton" className="flex items-center ">
         <p className="text-3xl sm:text-4xl p-4  font-bold  rounded-lg text-fourth">
           Modules
@@ -74,10 +82,11 @@ export default function Modules({userRole}) {
             return <ModuleCard
             key={index}
             id={module.id}
-            title={`Module ${module.number}`}
-            subtitle={module.name}
-            image={module.imgLink}
+            title={module.name}
             userRole={userRole}
+            weeks={module.weeks}
+            color={moduleColors[index]}
+            moduleIndex={index}
           />
             
           })}

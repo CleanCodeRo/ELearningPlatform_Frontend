@@ -40,10 +40,11 @@
 }
 
 
-#beginTraining1{
+#beginTraining1 {
   background: linear-gradient(45deg, rgba(34, 110, 195, 1) 13%, rgba(38, 164, 215, 1) 36%, rgba(70, 200, 247, 1) 100%);
   box-shadow: rgba(70, 200, 247, 0.3) 0px 15px 20px, rgba(0, 0, 0, 0.22) 0px 5px 8px;
 }
+
 
 
 @font-face {
@@ -58,9 +59,11 @@
   0% {
     opacity: 0;
   }
+
   50% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
   }
@@ -69,4 +72,3 @@
 .animate-fadeInOut {
   animation: fadeInOut 2s ease-out;
 }
-

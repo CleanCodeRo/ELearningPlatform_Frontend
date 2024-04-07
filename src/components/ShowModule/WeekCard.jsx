@@ -4,13 +4,14 @@ import { useAtom } from "jotai";
 import state, { returnPercentage } from "../ReusableComponents/Atom";
 import EditPen from "../ReusableComponents/EditPen";
 import { startLink } from "../../constants/Constants";
+import ProgressBar from "../ReusableComponents/ProgressBar";
 
 
 export default function WeekCard({ week, setLoadingLessons, userRole }) {
   const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks)
   const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons)
 
-  const [progresBarLength, setProgresBarLength] = useState(null)
+  const [progressBarLength, setProgresBarLength] = useState(null)
   const [truePercentage, setTruePercentage] = useState(0);
   const [refreshWeekProgressBar, setRefreshWeekProgressBar] = useAtom(state.refreshWeekProgressBar);
 
@@ -19,7 +20,7 @@ export default function WeekCard({ week, setLoadingLessons, userRole }) {
   const params = useParams();
 
   useEffect(() => {
-    if (!progresBarLength) {
+    if (!progressBarLength) {
       let [mandatoryPercentage, completePercentage] = returnPercentage(week.lessons, completedLessons)
       setTruePercentage(completePercentage)
       setProgresBarLength(mandatoryPercentage);
@@ -100,10 +101,12 @@ export default function WeekCard({ week, setLoadingLessons, userRole }) {
           </div>
         </div>
 
-        <div id="progressBar" className="flex items-center bg-third justify-center h-10 w-full  rounded-lg relative">
+        {/* <div id="progressBar" className="flex items-center bg-third justify-center h-10 w-full  rounded-lg relative">
           <p className="text-sixth text-center  rounded-lg   text-lg font-bold z-10">{completedWeeks.includes(week.id) ? "Done" : "Todo"}</p>
-          <div className={`absolute bg-fifth h-full rounded-lg left-0 top-0 transition-all duration-[1s] ease-out `} style={{ width: `${progresBarLength}%` }}></div>
-        </div>
+          <div className={`absolute bg-generalColors-medium-blue h-full rounded-lg left-0 top-0 transition-all duration-[1s] ease-out `} style={{ width: `${progressBarLength}%` }}></div>
+        </div> */}
+
+        <ProgressBar progressBarLength={progressBarLength} />
       </div>
     </div>
   );

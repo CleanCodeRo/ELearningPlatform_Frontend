@@ -1,16 +1,28 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAtom } from "jotai";
-import state from "../ReusableComponents/Atom";
+import state, { returnPercentage } from "../ReusableComponents/Atom";
 import EditPen from "../ReusableComponents/EditPen";
 import Loading from "../ReusableComponents/Loading/Loading";
 import { startLink } from "../../constants/Constants";
+import ProgressBar from "../ReusableComponents/ProgressBar";
 
-export default function ModuleCard({ id, title, subtitle, image, userRole }) {
+export default function ModuleCard({ id, title, userRole, weeks, color, moduleIndex }) {
   let moduleCard = useRef(null);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [completedModules, setCompletedModules] = useAtom(state.completedModules);
+
+  const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks);
+  const [progressBarLength, setProgresBarLength] = useState(null)
+
+  const [refreshWeekProgressBar, setRefreshWeekProgressBar] = useAtom(state.refreshWeekProgressBar);
+
+  useEffect(() => {
+    if (!progressBarLength) {
+      let [mandatoryPercentage, completePercentage] = returnPercentage(weeks, completedWeeks)
+      setProgresBarLength(mandatoryPercentage);
+    }
+  }, [refreshWeekProgressBar])
 
   const deleteModule = async (e) => {
     e.stopPropagation();
@@ -40,8 +52,9 @@ export default function ModuleCard({ id, title, subtitle, image, userRole }) {
       name="wholeCard"
       id={id}
       ref={moduleCard}
-      className="animate-fade-left animate-ease-in-out flex flex-col relative cursor-pointer min-w-[18rem]  max-w-80  bg-white rounded-2xl mx-3 p-1 border-b-[3px] border-transparent  shadow-md hover:shadow-[#2c8dfe] duration-100"
+      className="animate-fade-left animate-ease-in-out flex flex-col relative cursor-pointer  rounded-2xl mx-3 border-[4.5px] border-white duration-100 text-generalColors-dark-blue"
       onClick={() => navigate(`module/${id}`)}
+      style={{ backgroundColor: color }}
     >
 
       {/* loading for card */}
@@ -51,52 +64,31 @@ export default function ModuleCard({ id, title, subtitle, image, userRole }) {
         </div>
       }
 
-      <div
-        id="image"
-        className="h-40 w-full rounded-lg rounded-t-2xl bg-no-repeat bg-center bg-cover"
-        style={{ backgroundImage: `url(${image})` }}
-      ></div>
-      <div
-        id="title"
-        className=" bg-[#2c8dfe] w-fit p-2 rounded-xl my-0  top-0"
-        style={{ margin: "-16px 0 0 7px" }}
-      >
-        {title}
-      </div>
-
-      <div
-        id="deleteAndModify"
-        className="absolute top-2 right-2 p-1 "
-      >
+      <div id="deleteAndModify" className="flex items-center justify-center absolute top-0 right-0 rounded-tr-xl rounded-bl-xl  bg-white w-11 h-11">
         <EditPen user={{ role: userRole }} deleteEvent={(e) => deleteModule(e)} editEvent={(e) => editEvent(e, navigate)} />
       </div>
 
-      <div id="other info" className="flex flex-col p-2 text-[#afafaf]">
-        <p id="subtitle" className="text-3xl line-clamp-1 ">
-          {subtitle}
-        </p>
-
-        <div id="three details" className="flex py-2 justify-between">
-          <div id="group Div For Flex" className="flex items-center">
-            <div id="time" className="flex items-center mr-4 ">
-              <i className="fa-solid fa-clock mr-1"></i>
-              <p>1h 53min</p>
-            </div>
-
-            <div id="rating" className="flex items-center mr-4 ">
-              <i className="fa-solid fa-star mr-1"></i>
-              <p>4.3/5</p>
-            </div>
-          </div>
-
-          <div
-            id="price"
-            className="flex text-sixth items-center bg-[#2c8dfe] py-3 px-6 rounded-3xl"
-          >
-            <p className="">{completedModules.includes(id) ? "Done" : "Todo"}</p>
-          </div>
-        </div>
+      <div id="moduleNumber" className="flex items-center justify-center text-xl font-bold absolute top-0 left-0 rounded-tl-xl rounded-br-xl  bg-white w-11 h-11">
+        <p>{moduleIndex + 1}</p>
       </div>
+
+      <div id="moduleLogo" className={` p-[3.8rem] pb-[4.3rem] `} >
+        <img className="w-[10rem] " src={`/moduleIcons/quest-module_${moduleIndex}_icon.png`} />
+      </div>
+
+      <div id="restOfDetails" className="bg-white w-full rounded-t-2xl text-generalColors-dark-grey pt-4 p-1">
+        <p className="text-center font-bold text-sm mb-7">{title}</p>
+
+        <ProgressBar progressBarLength={progressBarLength} />
+      </div>
+
+      <div id="totalPercentage" className=" flex justify-end bg-white pt-12">
+        <p className="flex items-center justify-center h-12 w-16 bg-generalColors-light-gray rounded-br-xl rounded-tl-xl text-sm ">{progressBarLength}%</p>
+      </div>
+
+
+
+
     </div>
   );
 }

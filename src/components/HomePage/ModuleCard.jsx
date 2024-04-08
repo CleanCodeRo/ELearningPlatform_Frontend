@@ -52,9 +52,8 @@ export default function ModuleCard({ id, title, userRole, weeks, color, moduleIn
       name="wholeCard"
       id={id}
       ref={moduleCard}
-      className="animate-fade-left animate-ease-in-out flex flex-col relative cursor-pointer  rounded-2xl mx-3 border-[4.5px] border-white duration-100 text-generalColors-dark-blue"
+      className={`${userRole == "USER" && progressBarLength == 0 ? "bg-generalColors-light-gray" : color} animate-fade-left animate-ease-in-out flex flex-col relative cursor-pointer min-w-[16rem] rounded-2xl mx-3 border-[4.5px] border-white duration-100 text-generalColors-dark-blue`}
       onClick={() => navigate(`module/${id}`)}
-      style={{ backgroundColor: color }}
     >
 
       {/* loading for card */}
@@ -64,7 +63,7 @@ export default function ModuleCard({ id, title, userRole, weeks, color, moduleIn
         </div>
       }
 
-      <div id="deleteAndModify" className="flex items-center justify-center absolute top-0 right-0 rounded-tr-xl rounded-bl-xl  bg-white w-11 h-11">
+      <div id="deleteAndModify" className="flex items-center justify-center absolute top-0 right-0 r w-11 h-11">
         <EditPen user={{ role: userRole }} deleteEvent={(e) => deleteModule(e)} editEvent={(e) => editEvent(e, navigate)} />
       </div>
 
@@ -72,8 +71,8 @@ export default function ModuleCard({ id, title, userRole, weeks, color, moduleIn
         <p>{moduleIndex + 1}</p>
       </div>
 
-      <div id="moduleLogo" className={` p-[3.8rem] pb-[4.3rem] `} >
-        <img className="w-[10rem] " src={`/moduleIcons/quest-module_${moduleIndex}_icon.png`} />
+      <div id="moduleLogo" className={` w-full h-[17rem] flex items-center justify-center`} >
+        <img className="w-[10rem] mb-2 " src={`/moduleIcons/quest-module_${moduleIndex}_icon.png`} />
       </div>
 
       <div id="restOfDetails" className="bg-white w-full rounded-t-2xl text-generalColors-dark-grey pt-4 p-1">

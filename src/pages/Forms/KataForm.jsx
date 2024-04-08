@@ -208,7 +208,7 @@ export default function KataForm() {
                             Link
                         </label>
                     </div>
-                    <div id="categoryContainer" className="flex flex-wrap gap-1">
+                    <div id="categoryContainerWeek" className="flex flex-wrap gap-1">
                         {savedCategory.map((category, index) => (
                             <div key={index} className="w-fit bg-gray-500 h-7 text-white flex items-center px-2 rounded-lg">
                                 {category}

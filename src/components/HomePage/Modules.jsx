@@ -5,10 +5,10 @@ import Loading from "../ReusableComponents/Loading/Loading";
 import { startLink } from "../../constants/Constants";
 
 const moduleColors = [
-  "#4EC49D",
-  "#FFE75C",
-  "#94C0EB",
-  "#1E90FF"
+  "bg-generalColors-medium-green",
+  "bg-generalColors-medium-yellow",
+  "bg-generalColors-light-blue",
+  "bg-generalColors-medium-blue"
 ]
 
 export default function Modules({userRole}) {
@@ -56,7 +56,7 @@ export default function Modules({userRole}) {
 
   return (
     <div className="pt-5 pb-10 bg-generalColors-dark-blue" >
-      <div id="titleAndAddButton" className="flex items-center ">
+      <div id="titleAndAddButton" className="flex items-center justify-center">
         <p className="text-3xl sm:text-4xl p-4  font-bold  rounded-lg text-fourth">
           Modules
         </p>

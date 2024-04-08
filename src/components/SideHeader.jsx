@@ -66,7 +66,7 @@ export default function SideHeader() {
 
   return (
     <div id="SideHeaderHolder"
-      className={`flex md:flex-col justify-between md:min-w-[5rem]  md:h-screen  md:sticky md:top-0  md:rounded-r-3xl  
+      className={`flex md:flex-col justify-between md:min-w-[5rem]  md:h-screen  md:sticky md:top-0  md:rounded-r-3xl bg-generalColors-dark-blue z-10
                     h-[4rem] bottom-0 w-screen fixed items-center  z-50"} `}
     >
 
@@ -107,7 +107,7 @@ export default function SideHeader() {
             </div>
           </Drawer>
         </React.Fragment>
-        <img id="CleanCodeLogo" alt="CleanCodeLogo" className="rounded-lg w-[6rem]" src="/images/CleanCode-removebg-preview.png"></img>
+        <img id="CleanCodeLogo" alt="CleanCodeLogo" className=" w-[3rem]" src="/SVGs/colorLogo.svg"></img>
       </div>
 
       <div id="iconsHolder" className="hidden sm:flex flex-row md:flex-col  gap-3 xs:gap-5 md:!gap-0 ">

@@ -3,11 +3,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import state, { getCompletedStuff } from "../../components/ReusableComponents/Atom";
 import { startLink } from "../../constants/Constants";
+import DropdownFilter from "../../components/SpecialKatas/DropdownFilter";
+import { kataCategories } from "../../components/SpecialKatas/FilterObjects";
 
 export default function WeekCreateAndEdit() {
   let weekName = useRef(null);
   let weekNumber = useRef(null);
-  let imageLink = useRef(null);
   let navigate = useNavigate();
 
   const [error, setError] = useState(null);
@@ -16,10 +17,12 @@ export default function WeekCreateAndEdit() {
   const [completedModules, setCompletedModules] = useAtom(state.completedModules);
   const [user, setUser] = useAtom(state.user);
 
+  const [savedCategory, setSavedCategory] = useState([]);
+
   const [weekById, setWeekById] = useState({
     name: "",
     number: "",
-    imgLink: "",
+    categories : savedCategory,
   });
 
   const params = useParams();
@@ -35,20 +38,17 @@ export default function WeekCreateAndEdit() {
       })
         .then((res) => res.json())
         .then((data) => {
-            console.log(data)
-            setWeekById(data);
+          console.log("This is editing week ", data)
+          setWeekById(data);
+          setSavedCategory(data.categories)
         })
-        .catch(() =>{
+        .catch(() => {
           navigate("/login")
-         })
+        })
     }
   }, [params.weekId]);
 
   const editWeek = () => {
-    if( imageLink.current.value.length > 5000){
-      setError("Can't put links larger than 5k chars");
-      return
-    }
 
     fetch(`${startLink}/weeks/${params.weekId}`, {
       method: "PUT",
@@ -59,7 +59,7 @@ export default function WeekCreateAndEdit() {
       body: JSON.stringify({
         name: weekName.current.value,
         number: weekNumber.current.value,
-        imgLink: imageLink.current.value,
+        categories : savedCategory
       }),
     })
       .then((response) => {
@@ -72,23 +72,19 @@ export default function WeekCreateAndEdit() {
       .then(() => {
         window.history.back()
       })
-      .catch(() =>{
+      .catch(() => {
         navigate("/login")
-       })
+      })
   };
 
   const saveWeek = () => {
     if (
       weekName.current.value === "" ||
-      weekNumber.current.value === "" ||
-      imageLink.current.value === ""
+      weekNumber.current.value === "" 
     ) {
       setError("Please fill in the required fields");
       return;
-    } else  if( imageLink.current.value.length > 5000){
-      setError("Can't put links larger than 5k chars");
-      return
-    }
+    } 
 
     fetch(`${startLink}/weeks`, {
       method: "POST",
@@ -99,22 +95,37 @@ export default function WeekCreateAndEdit() {
       body: JSON.stringify({
         name: weekName.current.value,
         number: weekNumber.current.value,
-        imgLink: imageLink.current.value,
-        module:{
-            id: params.moduleId
+        categories : savedCategory,
+        module: {
+          id: params.moduleId
         }
       }),
     })
       .then((res) => res.json())
       .then(() => {
         let userId = user.id;
-        getCompletedStuff({userId, setCompletedLessons,setCompletedWeeks, setCompletedModules})
+        getCompletedStuff({ userId, setCompletedLessons, setCompletedWeeks, setCompletedModules })
         window.history.back()
       })
-      .catch(() =>{
+      .catch(() => {
         navigate("/login")
-       })
+      })
   };
+
+  function addCategory(categoryValue) {
+    if (savedCategory.length < 5) {
+        if (!savedCategory.includes(categoryValue)) {
+            setSavedCategory([...savedCategory, categoryValue]);
+        }
+    } else {
+        setError("Can't add more than 5 categories");
+    }
+}
+
+function deleteCategory(categoryValueToDelete) {
+  const updatedCategories = savedCategory.filter(category => category !== categoryValueToDelete);
+  setSavedCategory(updatedCategories);
+}
 
   return (
     <div className="flex justify-center items-center p-2 w-screen h-screen font-inter">
@@ -147,16 +158,15 @@ export default function WeekCreateAndEdit() {
               Week Number
             </label>
           </div>
-          <div className="relative h-11 w-full min-w-[200px]">
-            <input
-              ref={imageLink}
-              defaultValue={weekById.imgLink}
-              className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-cyan-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-            />
-            <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-cyan-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-cyan-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-              ImageLink
-            </label>
+          <div id="categoryContainer" className="flex flex-wrap gap-1">
+            {savedCategory.map((category, index) => (
+              <div key={index} className="w-fit bg-gray-500 h-7 text-white flex items-center px-2 rounded-lg">
+                {category}
+                <i className="fa-solid fa-x text-red-500 text-xs ml-2 cursor-pointer" onClick={() => deleteCategory(category)}></i>
+              </div>
+            ))}
           </div>
+          <DropdownFilter onChangeEvent={addCategory} options={kataCategories.slice(1)} label="Category" />
         </div>
         {error && (
           <div className="text-red-500 flex justify-center font-inter">
@@ -170,11 +180,11 @@ export default function WeekCreateAndEdit() {
           >
             {params.weekId !== undefined ? "Save" : "Create"}
           </button>
-         
-            <button onClick={() => window.history.back()} className=" my-2 xs:my-0 px-8 py-5 bg-sixth rounded-lg text-fifth mr-4 shadow-md shadow-fourth">
-              Cancel
-            </button>
-          
+
+          <button onClick={() => window.history.back()} className=" my-2 xs:my-0 px-8 py-5 bg-sixth rounded-lg text-fifth mr-4 shadow-md shadow-fourth">
+            Cancel
+          </button>
+
         </div>
       </div>
     </div>

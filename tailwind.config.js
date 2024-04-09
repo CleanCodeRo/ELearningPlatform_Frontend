@@ -8,8 +8,8 @@ module.exports = withMT({
       colors: {
         generalColors :{
           "light-gray" : "#BEBCBF",
-          "medium-grey" : "#727271",
-          "dark-grey" : "#2B2A29",
+          "medium-gray" : "#727271",
+          "dark-gray" : "#2B2A29",
           "medium-yellow" : "#FFE75C",
           "dark-red" : "#Ff4500",
           "medium-green" : "#4EC49D",

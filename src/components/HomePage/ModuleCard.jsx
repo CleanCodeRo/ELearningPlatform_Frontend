@@ -52,7 +52,7 @@ export default function ModuleCard({ id, title, userRole, weeks, color, moduleIn
       name="wholeCard"
       id={id}
       ref={moduleCard}
-      className={`${userRole == "USER" && progressBarLength == 0 ? "bg-generalColors-light-gray" : color} animate-fade-left animate-ease-in-out flex flex-col relative cursor-pointer min-w-[16rem] rounded-2xl mx-3 border-[4.5px] border-white duration-100 text-generalColors-dark-blue`}
+      className={`${userRole == "USER" && progressBarLength == 0 ? "bg-generalColors-light-gray" : color} animate-fade-left animate-ease-in-out flex flex-col relative cursor-pointer min-w-[16rem] max-w-[16.1] rounded-2xl mx-3 border-[4.5px] border-white duration-100 text-generalColors-dark-blue`}
       onClick={() => navigate(`module/${id}`)}
     >
 
@@ -71,17 +71,16 @@ export default function ModuleCard({ id, title, userRole, weeks, color, moduleIn
         <p>{moduleIndex + 1}</p>
       </div>
 
-      <div id="moduleLogo" className={` w-full h-[17rem] flex items-center justify-center`} >
+      <div id="moduleLogo" className={` w-full h-[15rem] flex items-center justify-center`} >
         <img className="w-[10rem] mb-2 " src={`/moduleIcons/quest-module_${moduleIndex}_icon.png`} />
       </div>
 
       <div id="restOfDetails" className="bg-white w-full rounded-t-2xl text-generalColors-dark-grey pt-4 p-1">
         <p className="text-center font-bold text-sm mb-7">{title}</p>
-
         <ProgressBar progressBarLength={progressBarLength} />
       </div>
 
-      <div id="totalPercentage" className=" flex justify-end bg-white pt-12">
+      <div id="totalPercentage" className=" flex justify-end bg-white pt-9">
         <p className="flex items-center justify-center h-12 w-16 bg-generalColors-light-gray rounded-br-xl rounded-tl-xl text-sm ">{progressBarLength}%</p>
       </div>
 

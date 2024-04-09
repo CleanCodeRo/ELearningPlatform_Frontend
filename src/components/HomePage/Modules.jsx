@@ -77,7 +77,7 @@ export default function Modules({userRole}) {
 
         :
 
-        <div id="listOfModules" className="flex items-center py-7 overflow-x-scroll w-full custom-scrollbar">
+        <div id="listOfModules" className="flex items-center py-7 justify-center gap-x-4 overflow-x-scroll w-full custom-scrollbar">
            {modules != [] &&  modules.map((module, index) => {
             return <ModuleCard
             key={index}

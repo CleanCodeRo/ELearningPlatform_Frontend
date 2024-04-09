@@ -6,7 +6,7 @@ import { startLink } from "../../constants/Constants";
 
 
 
-export default function Lessons({ setLoadingLessons, loadingLessons, userRole }) {
+export default function Lessons({ setLoadingLessons, loadingLessons, userRole, setWeekNumber }) {
   const [mandatoryLessons, setMandatoryLessons] = useState(null)
   const [optionalLessons, setOptionalLessons] = useState(null)
   const params = useParams();
@@ -14,7 +14,8 @@ export default function Lessons({ setLoadingLessons, loadingLessons, userRole })
 
   useEffect(() => {
     if (params.weekId) {
-      fetch(`${startLink}/lessons/${params.weekId}`, {
+      // fetch(`${startLink}/lessons/${params.weekId}`, {
+        fetch(`${startLink}/weeks?weekId=${params.weekId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -23,6 +24,7 @@ export default function Lessons({ setLoadingLessons, loadingLessons, userRole })
       })
         .then((res) => res.json())
         .then((data) => {
+          setWeekNumber(data.number)
           setOptionalLessons([]);
           setMandatoryLessons([]);
           let dummyMandatory = [];
@@ -30,14 +32,14 @@ export default function Lessons({ setLoadingLessons, loadingLessons, userRole })
           let i = 0;
 
           async function renderLessons() {
-            if (i == data.length) {
+            if (i == data.lessons.length) {
               return;
             } else {
-              if (data[i].optional) {
-                dummyOptional.push(data[i]);
+              if (data.lessons[i].optional) {
+                dummyOptional.push(data.lessons[i]);
                 setOptionalLessons([...dummyOptional]);
               } else {
-                dummyMandatory.push(data[i]);
+                dummyMandatory.push(data.lessons[i]);
                 setMandatoryLessons([...dummyMandatory]);
               }
 
@@ -62,9 +64,9 @@ export default function Lessons({ setLoadingLessons, loadingLessons, userRole })
   return (
     <div className="pt-5 pb-10 font-inter" >
       <div className=" flex items-center ">
-        <p className="text-3xl sm:text-4xl p-4 font-bold border-2 rounded-xl text-fourth">
+        {/* <p className="text-3xl sm:text-4xl p-4 font-bold border-2 rounded-xl text-fourth">
           Lessons
-        </p>
+        </p> */}
 
         {params.weekId && userRole == "ADMIN" && (
           <button

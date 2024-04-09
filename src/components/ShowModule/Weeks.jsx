@@ -3,8 +3,9 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import WeekCard from "./WeekCard1";
 import Loading from "../ReusableComponents/Loading/Loading";
 import { startLink } from "../../constants/Constants";
+import BreadCrumbs from "../ReusableComponents/BreadCrumbs/BreadCrumbs";
 
-export default function Weeks({ setLoadingLessons, userRole }) {
+export default function Weeks({ setLoadingLessons, userRole, setModule }) {
   const [weeks, setWeeks] = useState(null);
   const [loading, setLoading] = useState(true);
   const [[moduleName, moduleNumber], setModuleDetails] = useState([])
@@ -28,22 +29,22 @@ export default function Weeks({ setLoadingLessons, userRole }) {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("weeks ", data)
+        let dataWeeks = data.weeks.sort((a,b) => a.number - b.number)
+        setModule(data)
         setModuleDetails([data.name, data.number])
         let dummyArr = []
         let i = 0;
 
         async function renderWeeks() {
-          if (i == data.weeks.length) {
+          if (i == dataWeeks.length) {
             return;
           } else {
-            dummyArr.push(data.weeks[i])
+            dummyArr.push(dataWeeks[i])
             setWeeks([...dummyArr]);
             i++;
             setTimeout(() => renderWeeks(), 400)
           }
         }
-
         renderWeeks();
         setLoading(false)
       })
@@ -53,22 +54,15 @@ export default function Weeks({ setLoadingLessons, userRole }) {
   }, []);
 
   return (
-    <div className="pt-5 pb-10   ">
-
-      
-
-      <div id="titleAndAddButton" className="flex items-center ">
-        <p className="text-3xl sm:text-4xl p-4  font-bold border-2 rounded-xl text-fourth">
-          Weeks
-        </p>
-
+    <div className="pt-5 pb-10">
+     
         {userRole == "ADMIN" ?
           <Link to={`/home/module/${params.moduleId}/createWeek`}>
-            <button className="h-10 w-10 rounded-full bg-fifth flex items-center justify-center text-xl mx-2">
-              <i className="fa-solid fa-plus"></i>
+            <button className="gap-3 rounded-full bg-fifth flex items-center justify-center text-xl mx-2 text-1xl sm:text-2xl px-16 py-1 font-bold border-2 text-generalColors-dark-blue bg-white">
+              Add Week <i className="fa-solid fa-plus"></i>
             </button>
           </Link> : null}
-      </div>
+      
 
       {loading ?
         <div id="loading" className="w-full h-[10rem] flex items-center justify-center">
@@ -77,7 +71,7 @@ export default function Weeks({ setLoadingLessons, userRole }) {
 
         :
 
-        <div id="listOfWeek" className="flex items-center py-7  overflow-x-scroll custom-scrollbar" >
+        <div id="listOfWeek" className="flex items-center py-7 w-full overflow-x-scroll custom-scrollbar" >
           {weeks && weeks.length > 0 ? (
             weeks.map((week, index) => (
               <WeekCard

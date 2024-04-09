@@ -26,11 +26,11 @@ export default function SideHeader() {
   const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons);
   const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks);
   const [completedModules, setCompletedModules] = useAtom(state.completedModules);
-  let path = window.location.pathname.split("/");
 
-  let hoverColor = path.includes("dojo") ? "hover:fill-[#da8f06] " : "hover:fill-[#2c8dfe]";
+
+
   let classNameTooltip = "text-lg bg-opacity-80 font-bold "
-  let iconClassName = ` rounded-full w-[40px] h-[40px] sm:w-[50px] sm:h-[50px]  mb-4 mt-7  cursor-pointer fill-white  ${hoverColor}`
+  let iconClassName = `rounded-full w-[40px] h-[40px] sm:w-[50px] sm:h-[50px]  mb-4 mt-7  cursor-pointer fill-white hover:fill-generalColors-medium-blue`
 
   const [open, setOpen] = useState(false);
   const openDrawer = () => setOpen(true);
@@ -56,7 +56,7 @@ export default function SideHeader() {
         <div
           onClick={iconEvent}
           id="homeButton"
-          className={`${iconClassName}  ${hoverColor}`}
+          className={`${iconClassName} `}
         >
           {pathChildren}
         </div>
@@ -65,12 +65,19 @@ export default function SideHeader() {
   }
 
   return (
+    
+
     <div id="SideHeaderHolder"
-      className={`flex md:flex-col justify-between md:min-w-[5rem]  md:h-screen  md:sticky md:top-0  md:rounded-r-3xl bg-generalColors-dark-blue z-10
+      className={`flex md:flex-col justify-between md:min-w-[5rem] md:h-screen  md:sticky md:top-0 border-r-[1px] border-generalColors-light-gray bg-generalColors-dark-blue z-10
                     h-[4rem] bottom-0 w-screen fixed items-center  z-50"} `}
+      style={{boxShadow: "1px 0px 5px 3px #BEBCBF", clipPath: "inset(0px -9px 0px 0px)"}}
     >
 
-      <div id="logoAndHamburgerMenu" className="ml-7 md:ml-0 mt-0 md:mt-7 flex items-center">
+      {/* <div id="shadowComponent" className="w-full h-full bg-generalColors-light-gray absolute blur-xl z-0">
+        <div className="w-full h-full bg-generalColors-dark-blue "></div>
+      </div> */}
+
+      <div id="logoAndHamburgerMenu" className="ml-7 md:ml-0 mt-0 md:mt-7 flex items-center z-10">
         <React.Fragment>
           <div className="bg-transparent" onClick={openDrawer}><i className="fa-solid fa-bars flex sm:hidden text-black text-2xl mr-2"></i></div>
           <Drawer overlay={false} open={open} onClose={closeDrawer} className="p-4">
@@ -107,26 +114,10 @@ export default function SideHeader() {
             </div>
           </Drawer>
         </React.Fragment>
-        <img id="CleanCodeLogo" alt="CleanCodeLogo" className=" w-[3rem]" src="/SVGs/colorLogo.svg"></img>
+        <img onClick={() => navigate("/home")} id="CleanCodeLogo" alt="CleanCodeLogo" className=" w-[3rem]" src="/SVGs/colorLogo.svg"></img>
       </div>
 
-      <div id="iconsHolder" className="hidden sm:flex flex-row md:flex-col  gap-3 xs:gap-5 md:!gap-0 ">
-        <MenuIcon pathChildren={
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 256 256"
-          >
-            <g fillRule="nonzero">
-              <g transform="scale(4,4)">
-                <path d="M32,8c-0.91125,0-1.82195,0.30919-2.56445,0.92969l-20.63477,17.24219c-0.765,0.639-1.0373,1.75333-0.5293,2.61133c0.647,1.092,2.07877,1.30534,3.00977,0.52734l0.71875,-0.59961v18.28906c0,2.761,2.239,5,5,5h30c2.761,0,5-2.239,5-5v-18.28711l0.71875,0.59961c0.374,0.313,0.8273,0.46484,1.2793,0.46484c0.695,0,1.38462,-0.36069,1.76563,-1.05469c0.465,-0.848,0.19122,-1.91906,-0.55078,-2.53906l-3.21289,-2.68555v-8.49805c0,-1.105-0.895,-2-2,-2h-2c-1.105,0-2,0.895-2,2v3.48438l-11.43555,-9.55469c-0.7425,-0.6205-1.6532,-0.92969-2.56445,-0.92969zM32,12.15234c0.11475,0,0.22877,0.03919,0.32227,0.11719l15.67773,13.09961v20.63086c0,1.105-0.895,2-2,2h-8v-14c0,-1.105-0.895,-2-2,-2h-8c-1.105,0-2,0.895-2,2v14h-8c-1.105,0-2,-0.895-2,-2v-20.63281l15.67773,-13.09766c0.0935,-0.078,0.20752,-0.11719,0.32227,-0.11719z"></path>
-              </g>
-            </g>
-          </svg>
-        }
-          toolTipContent={"Home"}
-          iconEvent={() => navigate("/home")}>
-        </MenuIcon>
-
+      <div id="iconsHolder" className="hidden sm:flex flex-row md:flex-col  gap-3 xs:gap-5 md:!gap-0 z-10">
         <MenuIcon pathChildren={
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -72,7 +72,7 @@ export default function WeekCard({ week, weekColor, setLoadingLessons, userRole,
       id={week.id}
       ref={weekCard}
       // style={{backgroundColor : weekColor}}
-      className={`w-[17rem] ${progressBarLength == 0 && userRole == "USER"? "bg-generalColors-light-gray" : weekColor } animate-fade-left animate-ease-in-out flex flex-col relative cursor-pointer  rounded-2xl mx-3  border-[4.5px] border-white duration-100 text-generalColors-dark-blue`}
+      className={`min-w-[17rem] max-w-[17.1rem] ${progressBarLength == 0 && userRole == "USER"? "bg-generalColors-light-gray" : weekColor } animate-fade-left animate-ease-in-out flex flex-col relative cursor-pointer  rounded-2xl mx-3  border-[4.5px] border-white duration-100 text-generalColors-dark-blue`}
       onClick={(e) => {
         e.stopPropagation();
         let nextPath = `/home/module/${params.moduleId}/week/${week.id}`
@@ -104,7 +104,7 @@ export default function WeekCard({ week, weekColor, setLoadingLessons, userRole,
           <ProgressBar progressBarLength={progressBarLength} />
         </div>
 
-        <div id="listCategoriesWeek" className="flex flex-wrap items-center gap-1 my-2 p-1 h-16  text-xs overflow-y-scroll">
+        <div id="listCategoriesWeek" className="flex flex-wrap items-center gap-1 my-2 p-1 h-16  text-xs overflow-y-scroll lowercase">
           {week.categories.map((category, index) => (
             <div key={index} className="w-fit bg-gray-500 h-7 text-white flex items-center px-2 rounded-lg">
               {category}

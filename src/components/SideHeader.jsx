@@ -147,7 +147,7 @@ export default function SideHeader() {
           </svg>
         }
           toolTipContent={"FuturePlan"}
-          iconEvent={() => navigate("/home")}>
+          iconEvent={() => navigate("/leaderboard")}>
         </MenuIcon>
 
         <MenuIcon pathChildren={

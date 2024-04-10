@@ -16,6 +16,7 @@ import KataForm from "./pages/Forms/KataForm";
 import Redirect from "./components/ReusableComponents/Redirect";
 import ShowWeeks from "./pages/ShowWeeks";
 import ShowLessons from "./pages/ShowLessons";
+import LeaderBoard from "./pages/LeaderBoard";
 
 
 export default function App() {
@@ -130,6 +131,16 @@ export default function App() {
           element={
             !isExpired(localStorage.getItem("ELearningToken")) ? (
               <KataForm />
+            ) : (
+              <Redirect />
+            )
+          }
+        />
+        <Route
+          path="/leaderboard"
+          element={
+            !isExpired(localStorage.getItem("ELearningToken")) ? (
+              <LeaderBoard />
             ) : (
               <Redirect />
             )

@@ -7,29 +7,42 @@ import { startLink } from "../../constants/Constants";
 import ProgressBar from "../ReusableComponents/ProgressBar";
 
 
-export default function WeekCard({ week, setLoadingLessons, userRole }) {
+export default function WeekCard({ week, weekColor, userRole, moduleName }) {
   const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks)
   const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons)
-
   const [progressBarLength, setProgresBarLength] = useState(null)
   const [truePercentage, setTruePercentage] = useState(0);
   const [refreshWeekProgressBar, setRefreshWeekProgressBar] = useAtom(state.refreshWeekProgressBar);
+  const [[statusImage, statusColor], setStatusInfo] = useState([]);
 
   let weekCard = useRef(null);
   const navigate = useNavigate();
   const params = useParams();
-
+  
   useEffect(() => {
     if (!progressBarLength) {
       let [mandatoryPercentage, completePercentage] = returnPercentage(week.lessons, completedLessons)
       setTruePercentage(completePercentage)
       setProgresBarLength(mandatoryPercentage);
+      setStatusIcon(mandatoryPercentage)
     } else if (params.weekId == week.id) {
       let [mandatoryPercentage, completePercentage] = returnPercentage(week.lessons, completedLessons)
       setTruePercentage(completePercentage)
       setProgresBarLength(mandatoryPercentage);
+      setStatusIcon(mandatoryPercentage)
     }
+
   }, [refreshWeekProgressBar])
+
+  const setStatusIcon = (progressBarLength) =>{
+    if(progressBarLength == 0){
+      setStatusInfo(["/SVGs/statusSVGs/closed.svg", "bg-generalColors-dark-red"])
+    } else if (completedWeeks.includes(week.id)){
+      setStatusInfo([ "/SVGs/statusSVGs/done.svg", "bg-secondaryColors-dark-green"])
+    }else{
+      setStatusInfo(["/SVGs/statusSVGs/open.svg", "bg-secondaryColors-light-orange"])
+    }
+  }
 
   const deleteWeek = async (e, weekId) => {
     e.stopPropagation();
@@ -48,66 +61,61 @@ export default function WeekCard({ week, setLoadingLessons, userRole }) {
     }
   };
 
-  const editEvent = (e, moduleId, weekId) =>{
+  const editEvent = (e, moduleId, weekId) => {
     e.stopPropagation();
-    navigate(`/home/module/${moduleId}/editWeek/${weekId}`); 
+    navigate(`/home/module/${moduleId}/editWeek/${weekId}`);
   }
 
   return (
     <div
-      name="wholeCard"
+      name="wholeWeekCard"
       id={week.id}
       ref={weekCard}
+      // style={{backgroundColor : weekColor}}
+      className={`min-w-[17rem] max-w-[17.1rem] ${progressBarLength == 0 && userRole == "USER"? "bg-generalColors-light-gray" : weekColor } animate-fade-left animate-ease-in-out flex flex-col relative cursor-pointer  rounded-2xl   border-[4.5px] border-white duration-100 text-generalColors-dark-blue`}
       onClick={(e) => {
         e.stopPropagation();
         let nextPath = `/home/module/${params.moduleId}/week/${week.id}`
         if (nextPath != window.location.pathname) {
-          setLoadingLessons(true);
           navigate(nextPath);
         }
       }}
-      className="flex flex-col relative cursor-pointer animate-fade-left animate-ease-in-out  min-w-[18rem]  max-w-80 text-[#afafaf] bg-white rounded-2xl mx-3 p-1 border-b-[3px] border-transparent hover:border-light-blue-200 shadow-lg hover:shadow-light-blue-100 duration-100"
+    // style={{ backgroundColor: color }}
     >
-      <div
-        id="image"
-        className=" h-40 w-full rounded-lg rounded-t-2xl bg-no-repeat bg-center bg-cover"
-        style={{ backgroundImage: `url(${week.imgLink})` }}
-      ></div>
-      <div
-        id="title"
-        className="text-sixth bg-[#2c8dfe] w-fit p-2 rounded-xl my-0  top-0"
-        style={{ margin: "-16px 0 0 7px" }}
-      >
-        {`Week ${week.number}`}
+
+
+
+      <div id="deleteAndModifyWeek" className="flex items-center justify-center absolute top-0 right-0 w-11 h-11">
+        <EditPen user={{ role: userRole }} deleteEvent={(e) => deleteWeek(e, week.id)} editEvent={(e) => editEvent(e, params.moduleId, week.id)} />
       </div>
 
-        <div
-          id="deleteAndModify"
-          className="absolute top-2 right-2  "
-        >
-         <EditPen user={{role : userRole}} deleteEvent={(e) => deleteWeek(e, week.id)} editEvent={(e) => editEvent(e, params.moduleId, week.id) }/>
-        </div>
-
-      <div id="other info" className="flex flex-col p-2">
-        <p id="subtitle" className="text-3xl line-clamp-1">
-          {week.name}
-        </p>
-
-        <div id="PercentageAndRating" className="flex py-2 justify-between">
-          <p>Progress {truePercentage}%</p>
-          <div id="rating" className="flex items-center mr-4">
-            <p>4.3/5</p>
-            <i className="fa-solid fa-star mr-1"></i>
-          </div>
-        </div>
-
-        {/* <div id="progressBar" className="flex items-center bg-third justify-center h-10 w-full  rounded-lg relative">
-          <p className="text-sixth text-center  rounded-lg   text-lg font-bold z-10">{completedWeeks.includes(week.id) ? "Done" : "Todo"}</p>
-          <div className={`absolute bg-generalColors-medium-blue h-full rounded-lg left-0 top-0 transition-all duration-[1s] ease-out `} style={{ width: `${progressBarLength}%` }}></div>
-        </div> */}
-
-        <ProgressBar progressBarLength={progressBarLength} />
+      <div id="weeknumber" className={`flex items-center justify-center ${statusColor} text-xl font-bold absolute top-0 left-0 rounded-tl-xl rounded-br-xl  w-11 h-11`}>
+        <img className="w-[40%]" src={statusImage}/>
       </div>
+
+      <div id="weekHero" className={` flex flex-col items-center w-full h-[5rem] rounded-xl mt-14`} >
+        <p className="text-center font-bold text-sm mb-4">{moduleName}</p>
+        <div className="flex items-center justify-center bg-generalColors-dark-blue text-white font-bold w-[70%] py-1 rounded-full">Week {week.number}</div>
+      </div>
+
+      <div className="flex flex-col bg-white">
+        <div id="restOfDetails" className=" w-full rounded-t-2xl text-generalColors-dark-grey pt-4 p-1">
+          <ProgressBar progressBarLength={progressBarLength} />
+        </div>
+
+        <div id="listCategoriesWeek" className="flex flex-wrap items-center gap-1 my-2 p-1 h-16  text-xs overflow-y-scroll lowercase">
+          {week.categories.map((category, index) => (
+            <div key={index} className="w-fit bg-gray-500 h-7 text-white flex items-center px-2 rounded-lg">
+              {category}
+            </div>
+          ))}
+        </div>
+
+        <div id="totalPercentage" className=" flex justify-end  ">
+          <p className="flex items-center justify-center h-12 w-16 bg-generalColors-light-gray rounded-br-xl rounded-tl-xl text-sm ">{truePercentage}%</p>
+        </div>
+      </div>
+
     </div>
   );
 }

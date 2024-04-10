@@ -88,7 +88,7 @@ export default function LessonCard({ lesson }) {
     <div
       name="principleHolder"
       id={lesson.id}
-      className="flex flex-col justify-between min-w-[15rem]  bg-white p-3 m-3 rounded-xl animate-fade-down animate-ease-in-out relative"
+      className="flex  items-center justify-between min-w-[15rem]  bg-white p-3 m-3 rounded-xl animate-fade-down animate-ease-in-out relative"
     >
 
       {/* loading for card */}
@@ -98,24 +98,23 @@ export default function LessonCard({ lesson }) {
         </div>
       }
 
-      <div id="topPart" className="flex flex-col">
-        <div id="lessonTitle" className="flex items-center">
-          <p className="my-3 text-2xl sm:text-3xl  line-clamp-2 w-full   font-bold">
+      <div id="topPart" className="flex ">
+          <img className="w-10 mx-2" src={lesson.optional ? `/SVGs/statusSVGs/optional.svg` : `/SVGs/statusSVGs/mandatory.svg`}/>
+          <p className="my-3 text-2xl sm:text-2xl  line-clamp-2 w-full ">
             {lesson.name}
           </p>
-          <EditPen user={{ role: user.role }} 
-                  deleteEvent={(e) => deleteLesson(e, lesson.id, params.weekId)} 
-                  editEvent={(e) =>editEvent(e, params.moduleId, params.weekId, lesson.id)} />
-        </div>
-        <p id="description" className="my-3 line-clamp-5 text-sm sm:text-base">
-          {lesson.description}
-        </p>
+
+          <div id='editPenContainer' className="flex items-center">
+          <EditPen user={{ role: user.role }}
+            deleteEvent={(e) => deleteLesson(e, lesson.id, params.weekId)}
+            editEvent={(e) => editEvent(e, params.moduleId, params.weekId, lesson.id)} />
+          </div>
       </div>
 
       <div
         name="bottomPart"
         id="redirectButtonAndStatus"
-        className="flex flex-col-reverse lg:flex-row  justify-between items-center px-4 mt-6"
+        className="flex flex-col-reverse lg:flex-row  justify-between items-center px-4 "
       >
         <a
           href={lesson.gitHubLink}

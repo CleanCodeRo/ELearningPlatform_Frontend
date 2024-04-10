@@ -8,7 +8,6 @@ import { useParams } from 'react-router-dom';
 
 export default function ShowLessons() {
     const [user, setUser] = useAtom(state.user)
-    const [module, setModule] = useState(null)
     const [weekNumber, setWeekNumber] = useState(null);
     const [[moduleNumber, moduleName], setModuleDetails] = useAtom(state.moduleNumberAndName)
 
@@ -19,11 +18,6 @@ export default function ShowLessons() {
             <SideHeader />
 
             <div id='weeksAndLessons' className="flex flex-col px-7 text-generalColors-dark-blue" style={{ minWidth: "calc(100vw - 5rem)", maxWidth: "100%" }}>
-                {/* {module && 
-                     <BreadCrumbs children={[
-                        <p>Module {module.number} : <b>{module.name}</b></p>,
-                        weekNumber && <p>Week {weekNumber}</p>,
-                      ]}/>} */}
                 <BreadCrumbs children={[
                     <a href={`/home/module/${params.moduleId}`}>Module {moduleNumber} : <b>{moduleName}</b></a>,
                     <b className='cursor-pointer'>Week {weekNumber}</b>,

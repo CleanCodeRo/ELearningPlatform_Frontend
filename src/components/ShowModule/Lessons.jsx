@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import LessonCard1 from "./LessonCard1";
+import LessonCard from "./LessonCard";
 import Loading from "../ReusableComponents/Loading/Loading";
 import { startLink } from "../../constants/Constants";
 
@@ -92,7 +92,7 @@ export default function Lessons({ userRole, setWeekNumber }) {
         <div id="listOfLessons" className="flex flex-col  " >
           {/* RENDERING MADATORY LESSONS */}
           {mandatoryLessons && mandatoryLessons.length > 0 ? (
-            mandatoryLessons.map((lesson, index) => <LessonCard1 key={index} lesson={lesson}  />)
+            mandatoryLessons.map((lesson, index) => <LessonCard key={index} lesson={lesson}  />)
           ) : (
             <div className="col-span-full text-4xl text-center my-10 text-third animate-flip-down animate-duration-[400ms]">
               - No mandatory lessons here -
@@ -106,7 +106,7 @@ export default function Lessons({ userRole, setWeekNumber }) {
                 <h1 className="text-2xl sm:text-3xl min-w-fit p-4 font-bold  rounded-xl text-fourth  ">Optional lessons</h1>
                 <div className="bg-generalColors-dark-blue h-[1.5px] w-full rounded-full"></div>
               </div>
-              {optionalLessons.map((lesson, index) => <LessonCard1 key={index} lesson={lesson} userRole={userRole} />)}
+              {optionalLessons.map((lesson, index) => <LessonCard key={index} lesson={lesson} />)}
             </>
           ) : (
             null

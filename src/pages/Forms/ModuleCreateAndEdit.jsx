@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { startLink } from "../../constants/Constants";
+import CostumInput from "../../components/ReusableComponents/CostumInput";
+import { Checkbox } from "@material-tailwind/react";
 
 export default function ModuleCreateAndEdit() {
   let moduleName = useRef(null);
@@ -29,9 +31,9 @@ export default function ModuleCreateAndEdit() {
         .then((data) => {
           setModuleById(data);
         })
-        .catch(() =>{
+        .catch(() => {
           navigate("/login")
-         })
+        })
     }
   }, [params.moduleId]);
 
@@ -59,9 +61,9 @@ export default function ModuleCreateAndEdit() {
         console.log(data);
         navigate("/home");
       })
-      .catch(() =>{
+      .catch(() => {
         navigate("/login")
-       })
+      })
   };
 
   const saveModule = () => {
@@ -71,7 +73,7 @@ export default function ModuleCreateAndEdit() {
     ) {
       setError("Please fill in the required fields");
       return;
-    } 
+    }
 
     fetch(`${startLink}/modules`, {
       method: "POST",
@@ -89,61 +91,63 @@ export default function ModuleCreateAndEdit() {
         console.log(data);
         navigate("/home");
       })
-      .catch(() =>{
+      .catch(() => {
         navigate("/login")
-       })
+      })
   };
 
   return (
-    <div className="flex justify-center items-center p-2 w-screen h-screen font-inter">
-      <div className="relative flex w-96 h-fit flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
-        <img src="/images/CleanCode-removebg-preview.png" />
-        <div className="relative mx-4 -mt-6 mb-4 grid h-28 place-items-center overflow-hidden rounded-xl bg-gradient-to-tr from-cyan-600 to-cyan-400 bg-clip-border text-white shadow-lg shadow-cyan-500/40">
-          <h3 className="block font-sans text-3xl font-semibold leading-snug tracking-normal text-white antialiased">
-            {params.moduleId !== undefined ? "Edit your Module" : "Create new module"}{" "}
-          </h3>
+    <div id="wholePageHolderModule"
+      className="flex justify-center items-center p-2 w-screen h-screen bg-center bg-cover" style={{ backgroundImage: "url(/images/backGrounds/online-programming-course-hero-section-bg.jpg)" }}>
+      <div id="formLogin" className="relative w-[24rem] flex flex-col items-center px-8 py-5 h-fit rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+
+        {/* <img id="ghostImage" alt="ghost" className="w-[7rem] my-9" src="/SVGs/colorLogo.svg" /> */}
+        <img id="ghostImage" alt="ghost" className="w-[7rem] my-9" src="/SVGs/ghost.svg" />
+        <p className="text-2xl font-bold text-generalColors-dark-blue my-5"> {params.moduleId !== undefined ? "Edit your Module" : "Create new module"}</p>
+
+        <div id="usernameContainer" className="flex items-center mb-6 w-full">
+          <CostumInput
+            id={"moduleName"}
+            label={"Module Name"}
+            inputRef={moduleName}
+            defaultValue={moduleById.name}
+            costumInputClass=""
+            color="gray"
+          />
         </div>
-        <div className="flex flex-col gap-4 p-6">
-          <div className="relative h-11 w-full min-w-[200px]">
-            <input
-              ref={moduleName}
-              defaultValue={moduleById.name}
-              className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-cyan-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-            />
-            <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-cyan-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-cyan-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-              Module Name
-            </label>
-          </div>
-          <div className="relative h-11 w-full min-w-[200px]">
-            <input
-              ref={moduleNumber}
-              defaultValue={moduleById.number}
-              type="number"
-              className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-cyan-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-            />
-            <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-cyan-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-cyan-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-              Module Number
-            </label>
-          </div>
+
+        <div id="passwordContainer" className="flex items-center mb-6 w-full">
+          <CostumInput
+            id={"passwordId"}
+            label={"Module Number"}
+            inputRef={moduleNumber}
+            defaultValue={moduleById.number}
+            costumInputClass=""
+            color="gray"
+          />
         </div>
-        {error && (
-          <div className="text-red-500 flex justify-center font-inter">
-            {error}
-          </div>
-        )}
-        <div className="font-semibold flex items-center justify-center pt-3 pb-5">
+
+        <div className=" font-semibold flex items-center justify-center pt-3 pb-5">
           <button
             onClick={params.moduleId !== undefined ? editModule : saveModule}
-            className=" my-2 xs:my-0 px-8 py-5 bg-fifth rounded-lg text-sixth mr-4 shadow-md shadow-fourth"
+            className="bg-generalColors-dark-blue text-white rounded-lg py-4 my-2 xs:my-0 px-8  bg-fifth  text-sixth mr-4 shadow-md shadow-fourth"
           >
             {params.moduleId !== undefined ? "Save" : "Create"}
           </button>
           <a href="/home">
-            <button className=" my-2 xs:my-0 px-8 py-5 bg-sixth rounded-lg text-fifth mr-4 shadow-md shadow-fourth">
+            <button className=" my-2 xs:my-0 px-8 py-5 rounded-lg text-generalColors-dark-blue mr-4 shadow-md shadow-fourth">
               Cancel
             </button>
           </a>
         </div>
+
+        
+
+
+        {error && (
+          <div className="text-red-500 flex justify-center">{error}</div>
+        )}
+
       </div>
     </div>
   );

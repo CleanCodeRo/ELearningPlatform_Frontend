@@ -5,9 +5,9 @@ import state, { getCompletedStuff } from "../../components/ReusableComponents/At
 import { startLink } from "../../constants/Constants";
 import DropdownFilter from "../../components/SpecialKatas/DropdownFilter";
 import { kataCategories } from "../../components/SpecialKatas/FilterObjects";
+import CostumInput from "../../components/ReusableComponents/CostumInput";
 
 export default function WeekCreateAndEdit() {
-  let weekName = useRef(null);
   let weekNumber = useRef(null);
   let navigate = useNavigate();
 
@@ -22,7 +22,7 @@ export default function WeekCreateAndEdit() {
   const [weekById, setWeekById] = useState({
     name: "",
     number: "",
-    categories : savedCategory,
+    categories: savedCategory,
   });
 
   const params = useParams();
@@ -48,7 +48,23 @@ export default function WeekCreateAndEdit() {
     }
   }, [params.weekId]);
 
+
+  function validateFields() {
+    if (
+      weekNumber.current.value === "" ||
+      savedCategory.length == 0
+    ) {
+      setError("Please fill in the required fields");
+      return false;
+    } else if (/[a-zA-Z]/.test(weekNumber.current.value)) {
+      setError("Week number is text type");
+      return false;
+    }
+    return true
+  }
+
   const editWeek = () => {
+    if(!validateFields()) return
 
     fetch(`${startLink}/weeks/${params.weekId}`, {
       method: "PUT",
@@ -57,9 +73,8 @@ export default function WeekCreateAndEdit() {
         Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
       },
       body: JSON.stringify({
-        name: weekName.current.value,
         number: weekNumber.current.value,
-        categories : savedCategory
+        categories: savedCategory
       }),
     })
       .then((response) => {
@@ -78,13 +93,7 @@ export default function WeekCreateAndEdit() {
   };
 
   const saveWeek = () => {
-    if (
-      weekName.current.value === "" ||
-      weekNumber.current.value === "" 
-    ) {
-      setError("Please fill in the required fields");
-      return;
-    } 
+    if(!validateFields()) return
 
     fetch(`${startLink}/weeks`, {
       method: "POST",
@@ -93,9 +102,8 @@ export default function WeekCreateAndEdit() {
         Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
       },
       body: JSON.stringify({
-        name: weekName.current.value,
         number: weekNumber.current.value,
-        categories : savedCategory,
+        categories: savedCategory,
         module: {
           id: params.moduleId
         }
@@ -114,77 +122,64 @@ export default function WeekCreateAndEdit() {
 
   function addCategory(categoryValue) {
     if (savedCategory.length < 5) {
-        if (!savedCategory.includes(categoryValue)) {
-            setSavedCategory([...savedCategory, categoryValue]);
-        }
+      if (!savedCategory.includes(categoryValue)) {
+        setSavedCategory([...savedCategory, categoryValue]);
+      }
     } else {
-        setError("Can't add more than 5 categories");
+      setError("Can't add more than 5 categories");
     }
-}
+  }
 
-function deleteCategory(categoryValueToDelete) {
-  const updatedCategories = savedCategory.filter(category => category !== categoryValueToDelete);
-  setSavedCategory(updatedCategories);
-}
+  function deleteCategory(categoryValueToDelete) {
+    const updatedCategories = savedCategory.filter(category => category !== categoryValueToDelete);
+    setSavedCategory(updatedCategories);
+  }
 
   return (
-    <div className="flex justify-center items-center p-2 w-screen h-screen font-inter">
-      <div className="relative flex w-96 h-fit flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
-        <img src="/images/CleanCode-removebg-preview.png" />
-        <div className="relative mx-4 -mt-6 mb-4 grid h-28 place-items-center overflow-hidden rounded-xl bg-gradient-to-tr from-cyan-600 to-cyan-400 bg-clip-border text-white shadow-lg shadow-cyan-500/40">
-          <h3 className="block font-sans text-3xl font-semibold leading-snug tracking-normal text-white antialiased">
-            {params.weekId !== undefined ? "Edit your Week" : "Create new Week"}{" "}
-          </h3>
+    <div id="wholePageHolderModule"
+      className="flex justify-center items-center p-2 w-screen h-screen bg-center bg-cover" style={{ backgroundImage: "url(/images/backGrounds/online-programming-course-hero-section-bg.jpg)" }}>
+      <div id="formLogin" className="relative w-[24rem] flex flex-col items-center px-8 py-5 h-fit rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+
+        {/* <img id="ghostImage" alt="ghost" className="w-[7rem] my-9" src="/SVGs/colorLogo.svg" /> */}
+        <img id="ghostImage" alt="ghost" className="w-[7rem] my-9" src="/SVGs/ghost.svg" />
+        <p className="text-2xl font-bold text-generalColors-dark-blue my-5"> {params.weekId !== undefined ? "Edit your Module" : "Create new module"}</p>
+
+        <div id="weekNumberContainer" className="flex items-center mb-6 w-full">
+          <CostumInput
+            id={"weekNumberInput"}
+            label={"Week Number"}
+            inputRef={weekNumber}
+            defaultValue={weekById.number}
+            costumInputClass=""
+            color="gray"
+          />
         </div>
-        <div className="flex flex-col gap-4 p-6">
-          <div className="relative h-11 w-full min-w-[200px]">
-            <input
-              ref={weekName}
-              defaultValue={weekById.name}
-              className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-cyan-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-            />
-            <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-cyan-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-cyan-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-              Week Name
-            </label>
-          </div>
-          <div className="relative h-11 w-full min-w-[200px]">
-            <input
-              ref={weekNumber}
-              defaultValue={weekById.number}
-              type="number"
-              className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-cyan-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-            />
-            <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-cyan-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-cyan-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-              Week Number
-            </label>
-          </div>
-          <div id="categoryContainer" className="flex flex-wrap gap-1">
-            {savedCategory.map((category, index) => (
-              <div key={index} className="w-fit bg-gray-500 h-7 text-white flex items-center px-2 rounded-lg">
-                {category}
-                <i className="fa-solid fa-x text-red-500 text-xs ml-2 cursor-pointer" onClick={() => deleteCategory(category)}></i>
-              </div>
-            ))}
-          </div>
-          <DropdownFilter onChangeEvent={addCategory} options={kataCategories.slice(1)} label="Category" />
+
+        <DropdownFilter onChangeEvent={addCategory} options={kataCategories.slice(1)} label="Category" />
+
+        <div id="categoryContainer" className="flex flex-wrap gap-1 my-5">
+          {savedCategory.map((category, index) => (
+            <div key={index} className="w-fit bg-gray-500 h-7 text-white flex items-center px-2 rounded-lg">
+              {category}
+              <i className="fa-solid fa-x text-red-500 text-xs ml-2 cursor-pointer" onClick={() => deleteCategory(category)}></i>
+            </div>
+          ))}
         </div>
+
         {error && (
-          <div className="text-red-500 flex justify-center font-inter">
-            {error}
-          </div>
+          <div className="text-red-500 flex justify-center">{error}</div>
         )}
-        <div className="font-semibold flex items-center justify-center pt-3 pb-5">
+
+        <div className=" font-semibold flex items-center justify-center pt-3 pb-5 ">
           <button
             onClick={params.weekId !== undefined ? editWeek : saveWeek}
-            className=" my-2 xs:my-0 px-8 py-5 bg-fifth rounded-lg text-sixth mr-4 shadow-md shadow-fourth"
+            className="bg-generalColors-dark-blue text-white rounded-lg py-4 my-2 xs:my-0 px-8  bg-fifth  text-sixth mr-4 shadow-md shadow-fourth"
           >
             {params.weekId !== undefined ? "Save" : "Create"}
           </button>
-
-          <button onClick={() => window.history.back()} className=" my-2 xs:my-0 px-8 py-5 bg-sixth rounded-lg text-fifth mr-4 shadow-md shadow-fourth">
+          <button onClick={() => window.history.back()} className=" my-2 xs:my-0 px-8 py-5 rounded-lg text-generalColors-dark-blue mr-4 shadow-md shadow-fourth">
             Cancel
           </button>
-
         </div>
       </div>
     </div>

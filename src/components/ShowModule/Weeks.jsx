@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import WeekCard from "./WeekCard1";
+import WeekCard from "./WeekCard";
 import Loading from "../ReusableComponents/Loading/Loading";
 import { startLink } from "../../constants/Constants";
-import BreadCrumbs from "../ReusableComponents/BreadCrumbs/BreadCrumbs";
 import { useAtom } from "jotai";
 import state from "../ReusableComponents/Atom";
 
-export default function Weeks({ setLoadingLessons, userRole, setModule }) {
+export default function Weeks({ userRole, setModule }) {
   const [weeks, setWeeks] = useState(null);
   const [loading, setLoading] = useState(true);
   const [[moduleNumber, moduleName], setModuleDetails] = useAtom(state.moduleNumberAndName)
@@ -80,7 +79,6 @@ export default function Weeks({ setLoadingLessons, userRole, setModule }) {
                 key={index}
                 week={week}
                 weekColor={moduleColors[moduleNumber-1]}
-                setLoadingLessons={setLoadingLessons}
                 userRole={userRole}
                 moduleName={moduleName}
               />

@@ -28,21 +28,22 @@ export default function Modules({userRole}) {
       .then((res) => res.json())
       .then((data) => {
         console.log(data)
-        let dummyArr = []
-        let i = 0;
+        // let dummyArr = []
+        // let i = 0;
 
-        async function renderModules(){
-          if(i == data.length){
-            return;
-          }else{
-            dummyArr.push(data[i])
-            setModules([...dummyArr]);
-            i++;
-            setTimeout(() => renderModules(), 400)
-          }
-        }
+        // async function renderModules(){
+        //   if(i == data.length){
+        //     return;
+        //   }else{
+        //     dummyArr.push(data[i])
+        //     setModules([...dummyArr]);
+        //     i++;
+        //     setTimeout(() => renderModules(), 400)
+        //   }
+        // }
 
-        renderModules();
+        // renderModules();
+        setModules(data)
         setLoading(false);
       })
       .catch((err) => {

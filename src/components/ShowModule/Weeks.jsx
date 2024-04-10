@@ -4,11 +4,13 @@ import WeekCard from "./WeekCard1";
 import Loading from "../ReusableComponents/Loading/Loading";
 import { startLink } from "../../constants/Constants";
 import BreadCrumbs from "../ReusableComponents/BreadCrumbs/BreadCrumbs";
+import { useAtom } from "jotai";
+import state from "../ReusableComponents/Atom";
 
 export default function Weeks({ setLoadingLessons, userRole, setModule }) {
   const [weeks, setWeeks] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [[moduleName, moduleNumber], setModuleDetails] = useState([])
+  const [[moduleNumber, moduleName], setModuleDetails] = useAtom(state.moduleNumberAndName)
   const params = useParams();
   const navigate = useNavigate();
 
@@ -31,7 +33,7 @@ export default function Weeks({ setLoadingLessons, userRole, setModule }) {
       .then((data) => {
         let dataWeeks = data.weeks.sort((a,b) => a.number - b.number)
         setModule(data)
-        setModuleDetails([data.name, data.number])
+        setModuleDetails([data.number, data.name])
         let dummyArr = []
         let i = 0;
 
@@ -42,7 +44,7 @@ export default function Weeks({ setLoadingLessons, userRole, setModule }) {
             dummyArr.push(dataWeeks[i])
             setWeeks([...dummyArr]);
             i++;
-            setTimeout(() => renderWeeks(), 400)
+            setTimeout(() => renderWeeks(), 100)
           }
         }
         renderWeeks();
@@ -71,7 +73,7 @@ export default function Weeks({ setLoadingLessons, userRole, setModule }) {
 
         :
 
-        <div id="listOfWeek" className="flex items-center py-7 w-full overflow-x-scroll custom-scrollbar" >
+        <div id="listOfWeek" className="w-full flex flex-wrap items-center py-7 gap-[3rem] overflow-x-scroll custom-scrollbar" >
           {weeks && weeks.length > 0 ? (
             weeks.map((week, index) => (
               <WeekCard

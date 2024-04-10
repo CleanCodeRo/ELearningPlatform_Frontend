@@ -14,6 +14,9 @@ import WeekCreateAndEdit from "./pages/Forms/WeekCreateAndEdit";
 import LessonsCreateAndEdit from "./pages/Forms/LessonsCreateAndEdit";
 import KataForm from "./pages/Forms/KataForm";
 import Redirect from "./components/ReusableComponents/Redirect";
+import ShowWeeks from "./pages/ShowWeeks";
+import ShowLessons from "./pages/ShowLessons";
+
 
 export default function App() {
   return (
@@ -57,7 +60,7 @@ export default function App() {
           path="/home/module/:moduleId"
           element={
             !isExpired(localStorage.getItem("ELearningToken")) ? (
-              <ShowModule />
+              <ShowWeeks />
             ) : (
               <Redirect />
             )
@@ -67,7 +70,7 @@ export default function App() {
           path="/home/module/:moduleId/week/:weekId"
           element={
             !isExpired(localStorage.getItem("ELearningToken")) ? (
-              <ShowModule />
+              <ShowLessons />
             ) : (
               <Redirect />
             )

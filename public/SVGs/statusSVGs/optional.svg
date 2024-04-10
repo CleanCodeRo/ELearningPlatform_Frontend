@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="10mm" height="7.0208mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 60.69 42.61"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil0 {fill:#173F6E;fill-rule:nonzero}
+    .fil1 {fill:#173F6E;fill-rule:nonzero}
+   ]]>
+  </style>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="_2370633833904">
+   <polygon class="fil0" points="9.98,42.61 -0,42.61 -0,0 9.98,0 9.98,4.81 4.81,4.81 4.81,37.8 9.98,37.8 "/>
+   <polygon class="fil0" points="60.69,42.61 50.71,42.61 50.71,37.8 55.88,37.8 55.88,4.81 50.71,4.81 50.71,0 60.69,0 "/>
+  </g>
+  <g id="_2370633842160">
+   <path class="fil1" d="M36.05 10.92c1.15,0 2.08,-0.93 2.08,-2.08 0,-1.15 -0.93,-2.08 -2.08,-2.08l-24.91 0c-1.15,0 -2.08,0.93 -2.08,2.08 0,1.15 0.93,2.08 2.08,2.08l24.91 0z"/>
+   <path class="fil1" d="M31.9 33.76c0,1.15 -0.93,2.08 -2.08,2.08l-18.69 0c-1.15,0 -2.08,-0.93 -2.08,-2.08 0,-1.15 0.93,-2.08 2.08,-2.08l18.69 0c1.15,0 2.08,0.93 2.08,2.08z"/>
+   <path class="fil1" d="M24.63 19.23c1.15,0 2.08,-0.93 2.08,-2.08 0,-1.15 -0.93,-2.08 -2.08,-2.08l-13.5 0c-1.15,0 -2.08,0.93 -2.08,2.08 0,1.15 0.93,2.08 2.08,2.08l13.5 0z"/>
+   <path class="fil1" d="M17.37 25.46c0,1.15 -0.93,2.08 -2.08,2.08l-4.15 0c-1.15,0 -2.08,-0.93 -2.08,-2.08 0,-1.15 0.93,-2.08 2.08,-2.08l4.15 0c1.15,0 2.08,0.93 2.08,2.08l0 -0z"/>
+   <path class="fil1" d="M49.55 10.92c1.15,0 2.08,-0.93 2.08,-2.08 0,-1.15 -0.93,-2.08 -2.08,-2.08l-6.23 0c-1.15,0 -2.08,0.93 -2.08,2.08 0,1.15 0.93,2.08 2.08,2.08l6.23 0z"/>
+   <path class="fil1" d="M51.63 17.15c0,1.15 -0.93,2.08 -2.08,2.08l-17.65 0c-1.15,0 -2.08,-0.93 -2.08,-2.08 0,-1.15 0.93,-2.08 2.08,-2.08l17.65 0c1.15,0 2.08,0.93 2.08,2.08z"/>
+   <path class="fil1" d="M49.55 27.53c1.15,0 2.08,-0.93 2.08,-2.08 0,-1.15 -0.93,-2.08 -2.08,-2.08l-25.95 0c-1.15,0 -2.08,0.93 -2.08,2.08 0,1.15 0.93,2.08 2.08,2.08l25.95 0z"/>
+  </g>
+ </g>
+</svg>

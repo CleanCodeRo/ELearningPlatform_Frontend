@@ -8,7 +8,9 @@ completedWeeks : atom([]),
 completedModules : atom([]),
 
 refresh : atom(0),
-refreshWeekProgressBar : atom(0)
+refreshWeekProgressBar : atom(0),
+
+moduleNumberAndName : atom([0, ""]),
 };
 export default state;
 

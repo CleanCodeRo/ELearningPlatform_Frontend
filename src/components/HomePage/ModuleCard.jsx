@@ -16,6 +16,7 @@ export default function ModuleCard({ id, title, userRole, weeks, color, moduleIn
   const [progressBarLength, setProgresBarLength] = useState(null)
 
   const [refreshWeekProgressBar, setRefreshWeekProgressBar] = useAtom(state.refreshWeekProgressBar);
+  const [[moduleNumber, moduleName], setModuleDetails] = useAtom(state.moduleNumberAndName)
 
   useEffect(() => {
     if (!progressBarLength) {
@@ -53,7 +54,9 @@ export default function ModuleCard({ id, title, userRole, weeks, color, moduleIn
       id={id}
       ref={moduleCard}
       className={`${userRole == "USER" && progressBarLength == 0 ? "bg-generalColors-light-gray" : color} animate-fade-left animate-ease-in-out flex flex-col relative cursor-pointer min-w-[16rem] max-w-[16.1] rounded-2xl mx-3 border-[4.5px] border-white duration-100 text-generalColors-dark-blue`}
-      onClick={() => navigate(`module/${id}`)}
+      onClick={() => {
+        navigate(`module/${id}`);
+        }}
     >
 
       {/* loading for card */}

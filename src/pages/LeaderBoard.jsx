@@ -24,7 +24,7 @@ export default function LeaderBoard() {
         .catch(err => {
             console.log(err);
         });
-    }, []); // empty dependency array to run only once on component mount
+    }, []); 
 
     function Person({ rank ,name ,xp}) {
 

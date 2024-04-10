@@ -88,7 +88,7 @@ export default function LessonCard({ lesson }) {
     <div
       name="principleHolder"
       id={lesson.id}
-      className="flex flex-col justify-between min-w-[15rem]  bg-second p-3 m-3 rounded-xl animate-fade-down animate-ease-in-out relative"
+      className="flex flex-col justify-between min-w-[15rem]  bg-white p-3 m-3 rounded-xl animate-fade-down animate-ease-in-out relative"
     >
 
       {/* loading for card */}

@@ -38,7 +38,7 @@ const ListKata = ({katas, numberOfPages, loadingKatas, setRefreshKatas }) => {
             className=' w-full text-first flex justify-center items-center mb-7 mt-3'
             pageClassName=" mx-1 w-10 h-10 rounded-xl flex items-center justify-center hover:bg-gray-300 duration-200"
             breakClassName=" p-1"
-            activeClassName="bg-second text-sixth shadow-sm shadow hover:text-first duration-200"
+            activeClassName=" bg-generalColors-dark-gray text-white shadow-sm shadow hover:text-first duration-200"
             marginPagesDisplayed={3}
             breakLabel=". . ."
             onPageChange={handlePageClick}

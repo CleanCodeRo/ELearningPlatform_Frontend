@@ -93,9 +93,9 @@ export default function FilterKata({ userId, setKatas, setNumberOfPages, setLoad
     return (
         <div id='allFilterInputs' className="flex flex-col w-full gap-4">
             <div className="flex flex-row gap-4">
-                <p className="text-3xl  mr-4 font-bold rounded-lg text-fourth">Filters</p>
-                <button onClick={() => setRefreshKatas(refreshKatas + 1)} className="bg-black w-fit h-10 px-3 rounded-lg">Apply</button>
-                <button onClick={emptyAllFilters} className="bg-black w-fit h-10 px-3 rounded-lg">Empty filters</button>
+                <p className="text-3xl  mr-4 font-bold rounded-lg ">Filters</p>
+                <button onClick={() => setRefreshKatas(refreshKatas + 1)} className=" bg-generalColors-dark-blue w-fit h-10 px-3 rounded-lg text-white">Apply</button>
+                <button onClick={emptyAllFilters} className="bg-generalColors-dark-blue w-fit h-10 px-3 rounded-lg text-white">Empty filters</button>
             </div>
 
             <div id="CATEGORY" className="w-full gap-8 flex flex-row justify-around items-center">

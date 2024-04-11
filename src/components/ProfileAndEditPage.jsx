@@ -1,74 +1,97 @@
-import state from "./Atom";
 import { useAtom } from "jotai";
-import { useState } from "react";
+import React from "react";
+import { useState, useEffect } from "react";
+import state, { getUserWithToken } from "./ReusableComponents/Atom";
 
 const ProfileAndEditPage = () => {
-    const [user, setUser] = useAtom(state.user);
-    const [selectedImage,setSelectedImage] = useState("")
+  const cloud_name = "dpsgzmpez";
+  const preset_key = "elearning";
 
-  //   const handleUpload = (e) => {
-  //     console.log(e.target.files[0]);
-  //   };
+  const [image, setImage] = useState("");
+  const [user, setUser] = useAtom(state.user);
+  const [completedLessons, setCompletedLessons] = useAtom(
+    state.completedLessons
+  );
+  const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks);
+  const [completedModules, setCompletedModules] = useAtom(
+    state.completedModules
+  );
+
+  // const handleFile = async (e) => {
+  //   const file = e.target.files[0];
+  //   const formData = new FormData();
+  //   formData.append("file", file);
+  //   formData.append("uploadPreset", preset_key);
+
+  //   fetch(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, {
+  //     method: "POST",
+  //     body: formData,
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => console.log(data));
+  // };
+  // console.log(image);
+
+  const handleImageUpload = async () => {
+    window.cloudinary.openUploadWidget(
+      {
+        cloudName: cloud_name,
+        uploadPreset: preset_key,
+      },
+      async (error, result) => {
+        if (!error && result && result.event === "success") {
+          setImage(await result.info["secure_url"]);
+        }
+      }
+    );
+  };
+
+  console.log(image);
+
+  useEffect(() => {
+    if (!user) {
+      getUserWithToken(
+        localStorage.getItem("ELearningToken"),
+        setUser,
+        setCompletedLessons,
+        setCompletedWeeks,
+        setCompletedModules
+      );
+      console.log("User received use effect");
+    }
+  }, []);
+
+  console.log(user);
 
   return (
-    <div className="">
-      <div className="container mx-auto py-8 ">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <div className="text-center md:text-left">
-            <h1 className="text-3xl font-bold mb-4">
-              Profile of {user.username}
-            </h1>
-            <button>
-              <label className="cursor-pointer">
-                <img
-                  src="/images/noprofilepicture.png"
-                  alt="Profile Picture"
-                  className="w-48 h-48 rounded-xl mx-auto md:mx-0 mb-4"
-                  
-                />
-                <input
-                  id="profilePictureInput"
-                  type="file"
-                  className="hidden"
-                  //   onChange={handleFileInputChange}
-                />
-              </label>
-            </button>
-            <div>
-              <button className="flex bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl focus:outline-none">
-                Upload Image
+    <div className="flex  justify-center items-center ">
+      <div className="bg-white p-8 rounded-lg shadow-lg">
+        <div className="mb-4">
+          <h1 className="text-xl font-semibold">My Profile</h1>
+          <button
+            className="bg-blue-500 text-white"
+            type="button"
+            onClick={handleImageUpload}
+          >
+            Select your image
+          </button>
+        </div>
+
+        <div>
+          {/* <h1 className="text-xl font-semibold">My profile</h1> */}
+          {user ? (
+            <div className="text-center">
+              <h2>Username: {user.username}</h2>
+              <h2>Firstname: {user.firstName}</h2>
+              <h2>Lastname: {user.lastName}</h2>
+              <h2>Your rank points: {user.rankPoints}</h2>
+              <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg shadow">
+                Edit
               </button>
             </div>
-          </div>
-          <div className="flex justify-center">
-            <table className="table-auto text-xl ">
-              <tbody className="border-2 border-black">
-                <tr className="">
-                  <td className="font-inter ">Username:</td>
-                  <td>{user.username}</td>
-                </tr>
-                <tr className="">
-                  <td className="font-inter">First Name:</td>
-                  <td>{user.firstName}</td>
-                </tr>
-                <tr className="">
-                  <td className="font-inter">Last Name:</td>
-                  <td>{user.lastName}</td>
-                </tr>
-                <tr className="">
-                  <td className="font-inter">Email:</td>
-                  <td>{user.email}</td>
-                </tr>
-                <tr className="">
-                  <td className="font-inter">Address:</td>
-                  <td>{user.address}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <button className="border-4 bg-blue-400 text-white rounded-xl">
-            Edit your profile
-          </button>
+          ) : (
+            <h2>Loading...</h2>
+          )}
         </div>
       </div>
     </div>

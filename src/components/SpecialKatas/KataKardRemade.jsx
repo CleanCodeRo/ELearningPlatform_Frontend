@@ -126,7 +126,7 @@ export default function KataCardRemade({ kata, deleteEvent, setRefreshKatas }) {
 
     let maxPoints = 48;
     return (
-        <div id="cardHolder" className=" w-64 max-h-17 " ref={kataCardRef}
+        <div id="cardHolder" className=" w-64 max-h-17 text-generalColors-dark-blue rounded-3xl" ref={kataCardRef}
 
         >
             {(loading) &&
@@ -150,7 +150,7 @@ export default function KataCardRemade({ kata, deleteEvent, setRefreshKatas }) {
                 
                 <div id='titleAndButtonContainer' className='absolute w-full h-fit flex flex-col items-center justify-center  mt-16'>
                     <Tooltip className="bg-opacity-70 " content={kata.title}>
-                        <p id='title' className='text-xl  text-center w-full px-5 line-clamp-1 '>{kata.title}</p>
+                        <p id='title' className='text-xl  font-bold text-center w-full px-5 line-clamp-1 '>{kata.title}</p>
                     </Tooltip>
                     <button id='train' className=' w-fit px-5 h-8 text-white text-xl text-center justify-center items-center bg-generalColors-dark-blue rounded-2xl mt-3'>
                         {!isCompleted ? "Train" : "Train again"}

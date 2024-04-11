@@ -41,7 +41,7 @@ export default function LeaderBoard() {
                         <p className=' text-xl'>Module 2</p>
                     </div>
                     <div className="w-1/3 flex items-center justify-center ">
-                        <p className=' text-xl'>{xp }xp</p>
+                        <p className=' text-xl'>{xp? xp : 0 }xp</p>
                     </div>
                 </div>
 
@@ -59,7 +59,7 @@ export default function LeaderBoard() {
                         <p className=' text-xl'>Module 2</p>
                     </div>
                     <div className="w-1/3 flex items-center justify-center ">
-                        <p className=' text-xl'>{xp }xp</p>
+                        <p className=' text-xl'>{xp? xp : 0  }xp</p>
                     </div>
                 </div>
 
@@ -77,7 +77,7 @@ export default function LeaderBoard() {
                         <p className=' text-xl'>Module 2</p>
                     </div>
                     <div className="w-1/3 flex items-center justify-center ">
-                        <p className=' text-xl'>{xp}xp</p>
+                        <p className=' text-xl'>{xp? xp : 0 }xp</p>
                     </div>
                 </div>
 
@@ -93,7 +93,7 @@ export default function LeaderBoard() {
                         <p className=' text-xl'>Module 2</p>
                     </div>
                     <div className="w-1/3 flex items-center justify-center ">
-                        <p className=' text-xl'>{xp }xp</p>
+                        <p className=' text-xl'>{xp? xp : 0  }xp</p>
                     </div>
                 </div>
 
@@ -107,7 +107,7 @@ export default function LeaderBoard() {
             <div id="moduleAndKataHolder" className="px-7" style={{ minWidth: "calc(100vw - 5rem)" }}>
                 {user && 
                     <div id='container' className='w-full px-9 h-full justify-center flex flex-col'>
-                        <p id='title' className='text-3xl justify-center flex text-white mb-16'>Leaderboard</p>
+                        <p id='title' className='text-5xl justify-center flex text-white mb-16'>Leaderboard</p>
                         <div id='buttonContainer' className='flex justify'>
                             <button id='allTime' className='bg-[#4ec49d] text-[#fefefe] text-2xl px-9 rounded-full'>All time</button>
                             <button id='thisWeek' className='text-white text-2xl px-9 rounded-full border-2 border-white ml-3'>This Week</button>

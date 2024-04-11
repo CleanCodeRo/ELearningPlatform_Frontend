@@ -1,6 +1,7 @@
-import state from "./Atom";
+
 import { useAtom } from "jotai";
 import { useState } from "react";
+import state from "./ReusableComponents/Atom";
 
 const ProfileAndEditPage = () => {
     const [user, setUser] = useAtom(state.user);

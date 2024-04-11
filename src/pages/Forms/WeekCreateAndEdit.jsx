@@ -142,7 +142,7 @@ export default function WeekCreateAndEdit() {
 
         {/* <img id="ghostImage" alt="ghost" className="w-[7rem] my-9" src="/SVGs/colorLogo.svg" /> */}
         <img id="ghostImage" alt="ghost" className="w-[7rem] my-9" src="/SVGs/ghost.svg" />
-        <p className="text-2xl font-bold text-generalColors-dark-blue my-5"> {params.weekId !== undefined ? "Edit your Module" : "Create new module"}</p>
+        <p className="text-2xl font-bold text-generalColors-dark-blue my-5"> {params.weekId !== undefined ? "Edit your week" : "Create new week"}</p>
 
         <div id="weekNumberContainer" className="flex items-center mb-6 w-full">
           <CostumInput

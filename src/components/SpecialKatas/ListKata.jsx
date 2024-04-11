@@ -7,6 +7,7 @@ import { useNavigate, useParams } from 'react-router';
 import KataCard from './KataKard';
 import Loading from '../ReusableComponents/Loading/Loading';
 import { startLink } from '../../constants/Constants';
+import KataCardRemade from './KataKardRemade';
 
 export const deleteKata = (e, kataId, setRefresh) => {
   e.stopPropagation();
@@ -58,7 +59,7 @@ const ListKata = ({katas, numberOfPages, loadingKatas, setRefreshKatas }) => {
         
         <div id='kataHolder' className='grid grid-cols-3 xl:grid-cols-4 px1400:grid-cols-5 px1669:grid-cols-6 w-full relative gap-y-10'>
           {katas && katas.map((kata, index) => (
-            <KataCard key={index} kata={kata} deleteEvent={deleteKata} setRefreshKatas={setRefreshKatas} />
+            <KataCardRemade key={index} kata={kata} deleteEvent={deleteKata} setRefreshKatas={setRefreshKatas} />
           ))}
         </div>
       )

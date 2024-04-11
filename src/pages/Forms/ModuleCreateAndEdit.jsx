@@ -32,8 +32,8 @@ export default function ModuleCreateAndEdit() {
           setModuleById(data);
         })
         .catch(() => {
-          navigate("/login")
-        })
+          navigate("/login");
+        });
     }
   }, [params.moduleId]);
 
@@ -62,8 +62,8 @@ export default function ModuleCreateAndEdit() {
         navigate("/home");
       })
       .catch(() => {
-        navigate("/login")
-      })
+        navigate("/login");
+      });
   };
 
   const saveModule = () => {

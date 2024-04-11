@@ -32,7 +32,8 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
           username : data.username,
           role : data.role,
           codeWarsUsername : data.codeWarsUsername,
-          rankPoints : data.rankPoints
+          rankPoints: data.rankPoints,
+          profileImageUrl: data.profileImageUrl
 
         });
         setCompletedLessons(data.completedLessons);

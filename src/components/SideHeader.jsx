@@ -154,7 +154,7 @@ export default function SideHeader() {
             </g>
           </svg>
         }
-          toolTipContent={"FuturePlan"}
+          toolTipContent={"LeaderBoard"}
           iconEvent={() => navigate("/leaderboard")}>
         </MenuIcon>
 

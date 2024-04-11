@@ -1,7 +1,9 @@
 import { useAtom } from "jotai";
-import React from "react";
+import React, { useRef } from "react";
 import { useState, useEffect } from "react";
 import state, { getUserWithToken } from "./ReusableComponents/Atom";
+import { startLink } from "../constants/Constants";
+import CostumInput from "./ReusableComponents/CostumInput";
 
 const ProfileAndEditPage = () => {
   const cloud_name = "dpsgzmpez";
@@ -16,6 +18,34 @@ const ProfileAndEditPage = () => {
   const [completedModules, setCompletedModules] = useAtom(
     state.completedModules
   );
+
+  const firstNameRef = useRef(null);
+  const lastNameRef = useRef(null);
+  const emailRef = useRef(null);
+  const phoneNumberRef = useRef(null);
+  const locationRef = useRef(null);
+  const addressRef = useRef(null);
+  const githubUsernameRef = useRef(null);
+  const codeWarsUsernameRef = useRef(null);
+
+  let updateObject = {}
+
+  const updateUser = () => {
+    fetch(`${startLink}/users/${user.id}`, {
+      method : "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
+    },
+      body: JSON.stringify(updateObject)
+    })
+      .then(res => res.json())
+      .then(data => console.log(data))
+  }
+  
+  const onChangeEvent = (e) =>{
+      updateObject[e.target.id] = e.target.value
+  }
 
   // const handleFile = async (e) => {
   //   const file = e.target.files[0];
@@ -46,8 +76,6 @@ const ProfileAndEditPage = () => {
     );
   };
 
-  console.log(image);
-
   useEffect(() => {
     if (!user) {
       getUserWithToken(
@@ -60,8 +88,6 @@ const ProfileAndEditPage = () => {
       console.log("User received use effect");
     }
   }, []);
-
-  console.log(user);
 
   return (
     <div className="flex  justify-center items-center ">
@@ -80,12 +106,79 @@ const ProfileAndEditPage = () => {
         <div>
           {/* <h1 className="text-xl font-semibold">My profile</h1> */}
           {user ? (
-            <div className="text-center">
+            <div className="flex flex-col text-center gap-10">
               <h2>Username: {user.username}</h2>
               <h2>Firstname: {user.firstName}</h2>
               <h2>Lastname: {user.lastName}</h2>
               <h2>Your rank points: {user.rankPoints}</h2>
-              <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg shadow">
+
+              <CostumInput
+                id={"firstName"}
+                label={"First Name"}
+                inputRef={firstNameRef}
+                color="gray"
+                costumInputClass=""
+                onChange={onChangeEvent}
+              />
+
+              <CostumInput
+                id={"lastName"}
+                label={"Last Name"}
+                inputRef={lastNameRef}
+                costumInputClass=""
+                onChange={onChangeEvent}
+                color="gray"
+              />
+              
+              <CostumInput
+                id={"phoneNumber"}
+                label={"Phone Number"}
+                inputRef={phoneNumberRef}
+                costumInputClass=""
+                onChange={onChangeEvent}
+                color="gray"
+              />
+
+              <CostumInput
+                id={"location"}
+                label={"Location"}
+                inputRef={locationRef}
+                costumInputClass=""
+                onChange={onChangeEvent}
+                color="gray"
+              />
+
+              <CostumInput
+                id={"address"}
+                label={"Address"}
+                inputRef={addressRef}
+                costumInputClass=""
+                onChange={onChangeEvent}
+                color="gray"
+              />
+
+              <CostumInput
+                id={"githubUsername"}
+                label={"Github Username"}
+                inputRef={githubUsernameRef}
+                costumInputClass=""
+                onChange={onChangeEvent}
+                color="gray"
+              />
+
+              <CostumInput
+                id={"codeWarsUsername"}
+                label={"Code Wars Username"}
+                inputRef={codeWarsUsernameRef}
+                costumInputClass=""
+                onChange={onChangeEvent}
+                color="gray"
+              />
+
+
+
+
+              <button onClick={updateUser} className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg shadow">
                 Edit
               </button>
             </div>

@@ -2,8 +2,10 @@ import { useAtom } from "jotai";
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import state, { getCompletedStuff } from "../../components/ReusableComponents/Atom";
-import CheckBox from "../../components/ReusableComponents/CheckBox/CheckBox";
 import { startLink } from "../../constants/Constants";
+import CostumInput from "../../components/ReusableComponents/CostumInput";
+import CosutmCheckBox from "../../components/ReusableComponents/CheckBox/CosutmCheckBox";
+import { Checkbox } from "@material-tailwind/react";
 
 const LessonsCreateAndEdit = () => {
   const [error, setError] = useState(null);
@@ -17,11 +19,12 @@ const LessonsCreateAndEdit = () => {
   const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons);
   const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks);
   const [completedModules, setCompletedModules] = useAtom(state.completedModules);
+  const [checkBoxSelected, setCheckBoxSelected] = useState(0);
 
   const lessonName = useRef(null);
   const lessonDescription = useRef(null);
   const lessonGitHubLink = useRef(null);
-  const optional = useRef(null);
+  const optionalRef = useRef(null);
 
   const params = useParams();
 
@@ -38,11 +41,16 @@ const LessonsCreateAndEdit = () => {
         .then((data) => {
           console.log(data);
           setLessonById(data);
+          if(data.optional){
+            optionalRef.current.querySelector('input[type="checkbox"]').checked = true
+            setCheckBoxSelected(checkBoxSelected + 1)
+          }
         });
     }
   }, [params.lessonId]);
 
-  async function updateLesson() {
+  async function editLesson() {
+     console.log( optionalRef.current.checked)
 
     try {
       const response = await fetch(
@@ -57,7 +65,7 @@ const LessonsCreateAndEdit = () => {
             name: lessonName.current.value,
             description: lessonDescription.current.value,
             gitHubLink: lessonGitHubLink.current.value,
-            optional : optional.current.checked,
+            optional : optionalRef.current.querySelector('input[type="checkbox"]').checked,
           }),
         }
       );
@@ -71,7 +79,7 @@ const LessonsCreateAndEdit = () => {
     }
   }
 
-  async function postLesson() {
+  async function saveLesson() {
    
     try {
       const response = await fetch(`${startLink}/lessons`, {
@@ -84,7 +92,7 @@ const LessonsCreateAndEdit = () => {
           name: lessonName.current.value,
           description: lessonDescription.current.value,
           gitHubLink: lessonGitHubLink.current.value,
-          optional : optional.current.checked,
+          optional :  optionalRef.current.querySelector('input[type="checkbox"]').checked,
           week: {
             id: params.weekId,
             module :{
@@ -107,88 +115,80 @@ const LessonsCreateAndEdit = () => {
   }
 
   return (
-    <div className="flex justify-center items-center p-2 w-screen h-screen font-inter">
-      <div className="relative flex w-96 h-fit flex-col rounded-xl bg-gray-300 bg-clip-border text-gray-700 shadow-md">
-        <div className="flex justify-center">
-          <img src="/images/CleanCode-removebg-preview.png" />
+    <div id="wholePageHolderModule"
+      className="flex justify-center items-center p-2 w-screen h-screen bg-center bg-cover" style={{ backgroundImage: "url(/images/backGrounds/online-programming-course-hero-section-bg.jpg)" }}>
+      <div id="formLesson" className="relative w-[24rem] flex flex-col items-center px-8 py-5 h-fit rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+
+        {/* <img id="ghostImage" alt="ghost" className="w-[7rem] my-9" src="/SVGs/colorLogo.svg" /> */}
+        <img id="ghostImage" alt="ghost" className="w-[7rem] my-9" src="/SVGs/ghost.svg" />
+        <p className="text-2xl font-bold text-generalColors-dark-blue my-5"> {params.lessonId !== undefined ? "Edit your Lesson" : "Create new lesson"}</p>
+
+        <div id="usernameContainer" className="flex items-center mb-6 w-full">
+          <CostumInput
+            id={"lessonName"}
+            label={"Lesson Name"}
+            inputRef={lessonName}
+            defaultValue={lessonById.name}
+            costumInputClass=""
+            color="gray"
+          />
         </div>
 
-        <div className="relative mx-4 -mt-6 mb-4 grid h-28 place-items-center overflow-hidden rounded-xl bg-gradient-to-tr from-cyan-600 to-cyan-400 bg-clip-border text-white shadow-lg shadow-cyan-500/40">
-          <h3 className="block  text-3xl font-semibold leading-snug tracking-normal text-white antialiased">
-            {params.lessonId !== undefined
-              ? "Edit your lesson"
-              : "Add a new lesson"}
-          </h3>
+        <div id="passwordContainer" className="flex items-center mb-6 w-full">
+          <CostumInput
+            id={"lessonDescription"}
+            label={"Lesson Description"}
+            inputRef={lessonDescription}
+            defaultValue={lessonById.description}
+            costumInputClass=""
+            color="gray"
+          />
         </div>
 
-        <div className="flex flex-col gap-4 p-6">
-          <div className="relative h-11 w-full min-w-[200px]">
-            <input
-              type="text"
-              ref={lessonName}
-              defaultValue={lessonById.name}
-              className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3  text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-cyan-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-            />
-            <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-cyan-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-cyan-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-              Name
-            </label>
-          </div>
+        <div id="passwordContainer" className="flex items-center mb-6 w-full">
+          <CostumInput
+            id={"gitHubLink"}
+            label={"Git Hub Link"}
+            inputRef={lessonGitHubLink}
+            defaultValue={lessonById.gitHubLink}
+            costumInputClass=""
+            color="gray"
+          />
+        </div>
 
-          <div className="relative  w-full min-w-[200px]">
-            <textarea
-              type="text"
-              ref={lessonDescription}
-              defaultValue={lessonById.description}
-              className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3  text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-cyan-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-            />
-            <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-cyan-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-cyan-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-              Description
-            </label>
-          </div>
-
-          <div className="relative h-11 w-full min-w-[200px]">
-            <input
-              type="text"
-              ref={lessonGitHubLink}
-              defaultValue={lessonById.gitHubLink}
-              className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3  text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-cyan-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-            />
-            <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-cyan-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-cyan-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-              GitHub Link
-            </label>
-          </div>
-
-          <div id="isOptionalInput"  className="relative  w-full min-w-[200px] flex items-center justify-end gap-2 rounded-lg">
+        <div id="isOptionalInput"  className="relative my-3  w-full min-w-[200px] flex items-center justify-end gap-2 rounded-lg font-bold text-generalColors-dark-blue">
             <label className="text-xl">
               Is lesson optional ?
             </label>
-            <CheckBox idNumber={1} defaultChecked={lessonById.optional} checkBoxRef={optional}/>
+            {/* <CosutmCheckBox idNumber={1} defaultChecked={lessonById.optional} checkBoxRef={optional}/> */}
+            <Checkbox 
+              style={{ backgroundColor: `${checkBoxSelected % 2 == 0 ? "#ffffff" : "#174072"}` }}
+              onChange={() => setCheckBoxSelected(checkBoxSelected + 1)}
+              className={`border-2 `} 
+              ref={optionalRef}
+              />
           </div>
-        </div>
-        {error && (
-          <div className="text-red-500 flex justify-center font-inter">
-            {error}
-          </div>
-        )}
 
-        <div className="p-6 pt-0 ">
+        <div className=" font-semibold flex items-center justify-center pt-3 pb-5">
           <button
-            data-ripple-light="true"
-            type="button"
-            onClick={params.lessonId === undefined ? postLesson : updateLesson}
-            className="block w-full select-none rounded-lg bg-gradient-to-tr from-cyan-600 to-cyan-400 py-3 px-6 text-center align-middle  text-xs font-bold uppercase text-white shadow-md shadow-cyan-500/20 transition-all hover:shadow-lg hover:shadow-cyan-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            onClick={params.lessonId !== undefined ? editLesson : saveLesson}
+            className="bg-generalColors-dark-blue text-white rounded-lg py-4 my-2 xs:my-0 px-8  bg-fifth  text-sixth mr-4 shadow-md shadow-fourth"
           >
             {params.lessonId !== undefined ? "Save" : "Create"}
           </button>
-          <button
-            data-ripple-light="true"
-            type="button"
-            onClick={() => window.history.back()}
-            className="block w-full select-none mt-1 rounded-lg bg-gradient-to-tr from-cyan-600 to-cyan-400 py-3 px-6 text-center align-middle  text-xs font-bold uppercase text-white shadow-md shadow-cyan-500/20 transition-all hover:shadow-lg hover:shadow-cyan-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-          >
-            Cancel
-          </button>
+            <button onClick={() => window.history.back()} className=" my-2 xs:my-0 px-8 py-5 rounded-lg text-generalColors-dark-blue mr-4 shadow-md shadow-fourth">
+              Cancel
+            </button>
+          
         </div>
+
+        
+
+
+        {error && (
+          <div className="text-red-500 flex justify-center">{error}</div>
+        )}
+
       </div>
     </div>
   );

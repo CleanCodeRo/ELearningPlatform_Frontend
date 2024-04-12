@@ -1,7 +1,7 @@
 import React from 'react'
 import'./Checkbox.css'
 
-export default function CheckBox({idNumber, checkBoxEvent, defaultChecked, checkBoxRef}) {
+export default function CosutmCheckBox({idNumber, checkBoxEvent, defaultChecked, checkBoxRef}) {
     return (
         <div className="checkbox-wrapper ">
             <input ref={checkBoxRef} defaultChecked={defaultChecked} onChange={checkBoxEvent} id={`_checkbox-${idNumber}`} type="checkbox"/>

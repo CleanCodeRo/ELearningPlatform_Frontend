@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAtom } from "jotai";
 import state, { getCompletedStuff } from "../ReusableComponents/Atom";
 import EditPen from "../ReusableComponents/EditPen";
-import CheckBox from "../ReusableComponents/CheckBox/CheckBox";
+import CosutmCheckBox from "../ReusableComponents/CheckBox/CosutmCheckBox";
 import Loading from "../ReusableComponents/Loading/Loading";
 import { startLink } from "../../constants/Constants";
 
@@ -20,9 +20,11 @@ export default function LessonCard({ lesson }) {
   const [refreshWeekProgressBar, setRefreshWeekProgressBar] = useAtom(state.refreshWeekProgressBar);
   const navigate = useNavigate();
   const params = useParams();
+  const lessonRef = useRef(null)
 
   const deleteLesson = async (e, lessonId, weekId) => {
     e.stopPropagation();
+    setLoading(true)
     try {
       await fetch(`${startLink}/lessons?lessonId=${lessonId}&weekId=${weekId}`, {
         method: "DELETE",
@@ -31,8 +33,10 @@ export default function LessonCard({ lesson }) {
           Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
         },
       });
-      window.location.reload();
+      setLoading(false)
+      lessonRef.current.remove()
     } catch (error) {
+      setLoading(false)
       console.error("Error during DELETE operation:", error);
     }
   };
@@ -77,7 +81,7 @@ export default function LessonCard({ lesson }) {
       <div id="container" className="flex flex-col items-center border rounded-lg mb-3 lg:mb-0">
         <p id="label" className=" bg-second w-fit px-1" style={{ margin: "-13px 0 0 0px" }}>Modify Status</p>
         <div className="flex items-center gap-5 bg-sixth shadow-md hover:shadow-lg shadow-sixth hover:shadow-sixth px-6 py-2 text-first rounded-lg duration-300">
-          <CheckBox idNumber={lesson.id} checkBoxEvent={EditStatusEvent} defaultChecked={defaultChecked} />
+          <CosutmCheckBox idNumber={lesson.id} checkBoxEvent={EditStatusEvent} defaultChecked={defaultChecked} />
           <label className="text-2xl font-bold">{lessonStatus ? "Done" : "Todo"}</label>
         </div>
       </div>
@@ -89,6 +93,7 @@ export default function LessonCard({ lesson }) {
       name="principleHolder"
       id={lesson.id}
       className="flex  items-center justify-between min-w-[15rem]  bg-white p-3 m-3 rounded-xl animate-fade-down animate-ease-in-out relative"
+      ref={lessonRef}
     >
 
       {/* loading for card */}

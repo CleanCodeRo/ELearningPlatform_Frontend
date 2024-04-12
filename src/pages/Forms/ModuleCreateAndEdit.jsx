@@ -5,8 +5,8 @@ import CostumInput from "../../components/ReusableComponents/CostumInput";
 import { Checkbox } from "@material-tailwind/react";
 
 export default function ModuleCreateAndEdit() {
-  let moduleName = useRef(null);
-  let moduleNumber = useRef(null);
+  const moduleName = useRef(null);
+  const moduleNumber = useRef(null);
   let navigate = useNavigate();
 
   const [error, setError] = useState(null);
@@ -19,6 +19,7 @@ export default function ModuleCreateAndEdit() {
   const params = useParams();
 
   useEffect(() => {
+    moduleNumber.current.type = "number"
     if (params.moduleId !== undefined) {
       fetch(`${startLink}/modules/${params.moduleId}`, {
         method: "GET",

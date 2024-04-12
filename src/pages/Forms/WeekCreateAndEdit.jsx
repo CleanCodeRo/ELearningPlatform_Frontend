@@ -8,7 +8,7 @@ import { kataCategories } from "../../components/SpecialKatas/FilterObjects";
 import CostumInput from "../../components/ReusableComponents/CostumInput";
 
 export default function WeekCreateAndEdit() {
-  let weekNumber = useRef(null);
+  const weekNumber = useRef(null);
   let navigate = useNavigate();
 
   const [error, setError] = useState(null);
@@ -28,6 +28,7 @@ export default function WeekCreateAndEdit() {
   const params = useParams();
 
   useEffect(() => {
+    weekNumber.current.type = "number"
     if (params.weekId !== undefined) {
       fetch(`${startLink}/weeks?weekId=${params.weekId}`, {
         method: "GET",
@@ -56,10 +57,7 @@ export default function WeekCreateAndEdit() {
     ) {
       setError("Please fill in the required fields");
       return false;
-    } else if (/[a-zA-Z]/.test(weekNumber.current.value)) {
-      setError("Week number is text type");
-      return false;
-    }
+    } 
     return true
   }
 

@@ -1,6 +1,5 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { isExpired } from "react-jwt";
 import { startLink } from "../../constants/Constants";
 import CostumInput from "../../components/ReusableComponents/CostumInput";
 import { Checkbox } from "@material-tailwind/react";
@@ -21,7 +20,13 @@ const Login = () => {
     rememberMe = rememberMe ? false : true;
   }
 
+  useEffect(() =>{
+    passwordRef.current.type = "password"
+    emailRef.current.type = "email"
+  })
+
   async function login(e) {
+
     e.preventDefault();
     e.target.disabled = true
 
@@ -62,6 +67,7 @@ const Login = () => {
       }
     } catch (error) {
       console.error("Login error:", error);
+      e.target.disabled = false
     }
   }
 

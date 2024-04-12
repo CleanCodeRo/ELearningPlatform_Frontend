@@ -27,6 +27,7 @@ export default function KataForm() {
     // console.log(previousURL.split('/').slice(3).join("/"))
 
     useEffect(() => {
+        kataLevel.current.type = "number"
         if (params.kataId !== undefined) {
             fetch(`${startLink}/katas/${params.kataId}`, {
                 method: "GET",
@@ -134,6 +135,11 @@ export default function KataForm() {
     };
 
     const checkIfAllFieldsCompleted = () => {
+        if (kataLevel.current.value > 8){
+            kataLevel.current.value = 8;
+        }else if(kataLevel.current.value <= 0){
+            kataLevel.current.value = 1;
+        }
         if (
             kataTitle.current.value === "" ||
             kataLevel.current.value === "" ||

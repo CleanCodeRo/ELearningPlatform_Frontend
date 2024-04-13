@@ -1,0 +1,166 @@
+import { useAtom } from 'jotai';
+import React, { useEffect, useRef, useState } from 'react'
+import state from '../components/ReusableComponents/Atom';
+import { startLink } from '../constants/Constants';
+import SideHeader from '../components/SideHeader';
+import CostumInput from '../components/ReusableComponents/CostumInput';
+import {
+    Accordion,
+    AccordionHeader,
+    AccordionBody,
+} from "@material-tailwind/react";
+import { useNavigate } from 'react-router-dom';
+import Loading from '../components/ReusableComponents/Loading/Loading';
+import SuccessError from '../components/ReusableComponents/SuccessError';
+
+export default function Permisions() {
+    const [modules, setModules] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [searchedUsers, setSearchedUsers] = useState([])
+    const [selectedUser, setSelectedUser] = useState(null);
+    const [open, setOpen] = React.useState(1);
+    const searchRef = useRef(null);
+    const navigate = useNavigate()
+    let savedSeconds = new Date().getSeconds();
+
+    const [errorConflict, setErrorConflict] = useState(null);
+
+    const handleOpen = (value) => setOpen(open === value ? 0 : value);
+
+    useEffect(() => {
+        console.log(searchRef.current.getBoundingClientRect().top)
+        fetch(`${startLink}/modules`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data)
+
+                setModules(data)
+                setLoading(false);
+            })
+            .catch((err) => {
+                console.log(err)
+                navigate("/login");
+            });
+    }, []);
+
+    const searchUsersEvent = () => {
+        var currentTime = new Date();
+
+        if (Math.abs(currentTime.getSeconds() - savedSeconds) > 0.5) {
+            savedSeconds = currentTime.getSeconds()
+
+            fetch(`${startLink}/users/${searchRef.current.value}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    setSearchedUsers(data)
+                })
+                .catch(err => {
+                    console.log(err);
+                    setSearchedUsers([])
+                });
+        }
+    }
+
+    const selectUserEvent = (e) =>{
+        console.log(e.target.id.split("_")[0])
+        setSelectedUser(searchedUsers[e.target.id.split("_")[0]])
+        setSearchedUsers([])
+        searchRef.current.value = ""
+    }
+
+    const modifyAccessWeek = (e) =>{
+        if(!selectedUser){
+            setErrorConflict("Please select a user first")
+            setTimeout(() =>{
+                setErrorConflict(null)
+            }, 2000)
+        }
+        
+        fetch(`${startLink}/weeks/permissions?weekId=${e.target.id}&userId=${selectedUser.id}`, {
+            method : "PATCH",
+            headers : {
+                "Content-Type" : "application/json",
+                Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
+            }
+        })
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch((err) => console.log(err))
+    }
+
+    return (
+        <div className="h-screen flex flex-row text-sixth overflow-x-hidden overflow-y-scroll relative custom-scrollbar bg-white" >
+            <SideHeader />
+            <SuccessError error={errorConflict} />
+
+            <div id='permisionContainer' className="flex flex-col px-7 text-generalColors-dark-blue" style={{ minWidth: "calc(100vw - 5rem)", maxWidth: "100%" }}>
+                <p className="text-3xl sm:text-4xl p-4  font-bold  rounded-lg text-fourth">
+                    Permissions
+                </p>
+
+                <div id="SearchContainer" className="relative flex items-center mb-6 w-fit">
+                    <img alt="user" className="w-4 mr-3" src="/SVGs/user.svg" />
+                    <CostumInput
+                                id={"searchRef"}
+                                label={"Search User"}
+                                inputRef={searchRef}
+                                costumInputClass=""
+                                color="gray"
+                                onChange={searchUsersEvent}
+                            />
+
+                    
+                </div>
+
+                {searchedUsers.length != 0 &&
+                        <div className={`absolute h-fit w-fit  bg-generalColors-light-gray rounded-lg z-10`} style={{top : `${searchRef.current.getBoundingClientRect().top + 50}px`}}>
+                            {searchedUsers.map((user, index) => 
+                                <div key={index} onClick={selectUserEvent} id={index + "_" + user.firstName} className='p-1.5'>{user.firstName} {user.lastName} ({user.email})</div>
+                            )}
+                        </div>
+                    }
+
+                <div>
+                    Selected User : {selectedUser?.firstName} {selectedUser?.lastName} ({selectedUser?.email})
+                </div>
+
+                {loading ?
+                    <div id="loading" className="w-full h-[10rem] flex items-center justify-center">
+                        <Loading />
+                    </div>
+                    :
+                    <>
+                        {modules && modules.map((module, index) =>
+                            <Accordion key={index} open={open === index}>
+                                <AccordionHeader className='text-generalColors-dark-blue' onClick={() => handleOpen(index)}>
+                                    {module.name}
+                                </AccordionHeader>
+                                <AccordionBody>
+
+
+                                    {module.weeks.map((week, index) =>
+                                        <div key={index} className='flex flex-row items-center my-2 h-10 text-xl bg-generalColors-light-gray text-white p-3'>
+                                            <p>Week {week.number} </p>
+                                            <img onClick={modifyAccessWeek} id={week.id} className='w-5 rounded-lg z-10 mx-10 ' src="/SVGs/statusSVGs/closed.svg" />
+                                        </div>)}
+                                </AccordionBody>
+                            </Accordion>)}
+                    </>
+                }
+            </div>
+        </div>
+    )
+}

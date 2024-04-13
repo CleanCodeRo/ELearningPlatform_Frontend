@@ -34,7 +34,7 @@ export default function SideHeader() {
 
 
   let classNameTooltip = "text-lg bg-opacity-80 font-bold "
-  let iconClassName = `rounded-full w-[40px] h-[40px] sm:w-[50px] sm:h-[50px]  mb-4 mt-7  cursor-pointer fill-white hover:fill-generalColors-medium-blue`
+  let iconClassName = `flex items-center justify-center rounded-full w-[40px] h-[40px] sm:w-[50px] sm:h-[50px]  mb-4 mt-7  cursor-pointer fill-white hover:fill-generalColors-medium-blue`
 
   const [open, setOpen] = useState(false);
   const openDrawer = () => setOpen(true);
@@ -63,7 +63,7 @@ export default function SideHeader() {
         animate={animateTooltip}>
         <div
           onClick={iconEvent}
-          id="homeButton"
+          id={toolTipContent}
           className={`${iconClassName} `}
         >
           {pathChildren}
@@ -178,6 +178,17 @@ export default function SideHeader() {
           iconEvent={() => navigate("/dojo/0")}>
 
         </MenuIcon>
+
+        {user?.role == "ADMIN" &&
+        <MenuIcon pathChildren={
+          <img className="w-[2rem]" src="/SVGs/statusSVGs/closed.svg"></img>
+        }
+          toolTipContent={"Permisions"}
+          iconEvent={() => navigate("/permissions")}
+          >
+
+        </MenuIcon>
+        }
       </div>
 
       <Menu className="!mt-7">

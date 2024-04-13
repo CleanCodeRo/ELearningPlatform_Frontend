@@ -15,13 +15,13 @@ export default function ShowWeeks() {
 
             <div id='weeksAndLessons' className="flex flex-col px-7" style={{ minWidth: "calc(100vw - 5rem)",  maxWidth: "100%" }}>
                 {module && 
-                     <BreadCrumbs children={[
-                        <p>Module {module.number} : <b>{module.name}</b></p>
+                     <BreadCrumbs key={0} children={[
+                        <p key={0}>Module {module.number} : <b>{module.name}</b></p>
                       ]}
                       className="text-white"
                       />}
 
-                {user && <Weeks userRole={user.role} setModule={setModule} />}
+                {user && <Weeks key={1}  userRole={user.role} setModule={setModule} />}
             </div>
         </div>
     )

@@ -8,7 +8,6 @@ import PresentationPage from "./pages/PresentationPage";
 import Dojo from "./pages/Dojo";
 import Login from "./pages/Forms/Login";
 import Contact from "./pages/Forms/Contact";
-import ShowModule from "./pages/ShowModule";
 import ModuleCreateAndEdit from "./pages/Forms/ModuleCreateAndEdit";
 import WeekCreateAndEdit from "./pages/Forms/WeekCreateAndEdit";
 import LessonsCreateAndEdit from "./pages/Forms/LessonsCreateAndEdit";
@@ -17,14 +16,17 @@ import Redirect from "./components/ReusableComponents/Redirect";
 import ShowWeeks from "./pages/ShowWeeks";
 import ShowLessons from "./pages/ShowLessons";
 import LeaderBoard from "./pages/LeaderBoard";
-
 import ProfileAndEditPage from "./components/ProfileAndEditPage";
+import Permisions from "./pages/Permisions";
+import { useAtom } from "jotai";
+import state from "./components/ReusableComponents/Atom";
 
 export default function App() {
+  const [user, setUser] = useAtom(state.user)
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login/>} />
+        <Route path="/login" element={<Login />} />
         <Route path="/" element={<PresentationPage />} />
         <Route path="/contact" element={<Contact />} />
         <Route
@@ -157,6 +159,21 @@ export default function App() {
             )
           }
         />
+
+
+        <Route
+          path="/permissions"
+          element={
+            !isExpired(localStorage.getItem("ELearningToken")) && user?.role == "ADMIN" ? (
+              <Permisions />
+            ) : (
+              <Redirect />
+            )
+          }
+        />
+
+       
+
       </Routes>
     </BrowserRouter>
   );

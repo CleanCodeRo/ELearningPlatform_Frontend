@@ -79,7 +79,7 @@ const Login = () => {
 
         <img id="ghostImage" alt="ghost" className="w-[7rem] my-9" src="/SVGs/ghost.svg" />
 
-        <div id="usernameContainer" className="flex items-center mb-6 w-full">
+        <div id="emailContainer" className="flex items-center mb-6 w-full">
           <img alt="user" className="w-4 mr-3" src="/SVGs/user.svg" />
           <CostumInput
             id={"emailId"}

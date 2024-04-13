@@ -30,6 +30,7 @@ export default function Weeks({ userRole, setModule }) {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data)
         let dataWeeks = data.weeks.sort((a,b) => a.number - b.number)
         setModule(data)
         setModuleDetails([data.number, data.name])

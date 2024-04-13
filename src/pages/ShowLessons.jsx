@@ -19,8 +19,8 @@ export default function ShowLessons() {
 
             <div id='weeksAndLessons' className="flex flex-col px-7 text-generalColors-dark-blue" style={{ minWidth: "calc(100vw - 5rem)", maxWidth: "100%" }}>
                 <BreadCrumbs children={[
-                    <a href={`/home/module/${params.moduleId}`}>Module {moduleNumber} : <b>{moduleName}</b></a>,
-                    <b className='cursor-pointer'>Week {weekNumber}</b>,
+                    <a key={1} href={`/home/module/${params.moduleId}`}>Module {moduleNumber} : <b>{moduleName}</b></a>,
+                    <b key={2} className='cursor-pointer'>Week {weekNumber}</b>,
                 ]} 
                 className=" justify-center"
                 />

@@ -112,7 +112,6 @@ export default function KataCardRemade({ kata, deleteEvent, setRefreshKatas }) {
         );
     }
 
-
     let colors = [
         "bg-generalColors-medium-yellow",
         "bg-generalColors-light-gray",
@@ -152,9 +151,9 @@ export default function KataCardRemade({ kata, deleteEvent, setRefreshKatas }) {
                     <Tooltip className="bg-opacity-70 " content={kata.title}>
                         <p id='title' className='text-xl  font-bold text-center w-full px-5 line-clamp-1 '>{kata.title}</p>
                     </Tooltip>
-                    <button id='train' className=' w-fit px-5 h-8 text-white text-xl text-center justify-center items-center bg-generalColors-dark-blue rounded-2xl mt-3'>
+                    <a href={kata.kataLink} target="_blank" id='train' className=' w-fit px-5 h-8 text-white text-xl text-center justify-center items-center bg-generalColors-dark-blue rounded-2xl mt-3'>
                         {!isCompleted ? "Train" : "Train again"}
-                    </button>
+                    </a>
                 </div>
                 <div id='category' className='w-full h-1/2 rounded-3xl bg-white absolute bottom-0 border-2 border-generalColors-light-gray'>
                     <div id='categoryHolder' className='w-full px-4 mt-7 flex flex-wrap justify-evenly ' >
@@ -176,7 +175,11 @@ export default function KataCardRemade({ kata, deleteEvent, setRefreshKatas }) {
                 </div>
                 <div id="completedHolder" className="w-full flex justify-center items-center absolute bottom-0 h-30">
 
-                <button id="markedAsDone" className={`text-generalColors-dark-blue bg-gray-200 rounded-3xl w-2/3 p-2 left-0   z-10 ${!isCompleted ? "cursor-pointer" : "cursor-default"}`} onClick={!isCompleted ? completeKataEvent : null}>
+                <button
+                  id="markedAsDone" 
+                  className={`text-generalColors-dark-blue bg-gray-200 rounded-3xl w-2/3 p-2 left-0   z-10 ${!isCompleted ? "cursor-pointer" : "cursor-default"}`} 
+                  onClick={!isCompleted ? completeKataEvent : null}
+                  >  
                     {!isCompleted ? "Done" : "Completed"}
                 </button>
                 </div>

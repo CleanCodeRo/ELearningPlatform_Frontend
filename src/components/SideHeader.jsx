@@ -122,7 +122,7 @@ export default function SideHeader() {
             </div>
           </Drawer>
         </React.Fragment>
-        <img onClick={() => navigate("/home")} id="CleanCodeLogo" alt="CleanCodeLogo" className=" w-[3rem]" src="/SVGs/colorLogo.svg"></img>
+        <img draggable={false} onClick={() => navigate("/home")} id="CleanCodeLogo" alt="CleanCodeLogo" className=" w-[3rem]" src="/SVGs/colorLogo.svg"></img>
       </div>
 
       <div id="iconsHolder" className="hidden sm:flex flex-row md:flex-col  gap-3 xs:gap-5 md:!gap-0 z-10">
@@ -181,7 +181,7 @@ export default function SideHeader() {
 
         {user?.role == "ADMIN" &&
         <MenuIcon pathChildren={
-          <img className="w-[2rem]" src="/SVGs/statusSVGs/closed.svg"></img>
+          <img draggable={false} className="w-[2rem]" src="/SVGs/statusSVGs/closed.svg"></img>
         }
           toolTipContent={"Permisions"}
           iconEvent={() => navigate("/permissions")}

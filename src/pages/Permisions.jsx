@@ -87,8 +87,10 @@ export default function Permisions() {
             setTimeout(() => {
                 setErrorConflict(null)
             }, 2000)
+            return
         }
 
+        setLoading(true);
         fetch(`${startLink}/weeks/permissions?weekId=${e.target.id}&userId=${selectedUser.id}`, {
             method: "PATCH",
             headers: {
@@ -97,19 +99,23 @@ export default function Permisions() {
             }
         })
             .then(res => res.json())
-            .then(data =>{
-                let updatedModules = modules.map(module =>{
+            .then(data => {
+                setLoading(false);
+                let updatedModules = modules.map(module => {
                     return {
                         ...module,
-                        weeks : module.weeks.map(week =>{
-                           return week.id == e.target.id ? data : week 
+                        weeks: module.weeks.map(week => {
+                            return week.id == e.target.id ? data : week
                         })
                     }
                 })
-               
+
                 setModules([...updatedModules]);
             })
-            .catch((err) => console.log(err))
+            .catch((err) => {
+                console.log(err);
+                setLoading(false);
+            })
     }
 
     return (
@@ -117,7 +123,7 @@ export default function Permisions() {
             <SideHeader />
             <SuccessError error={errorConflict} />
 
-            <div id='permisionContainer' className="flex flex-col px-7 text-generalColors-dark-blue" style={{ minWidth: "calc(100vw - 5rem)", maxWidth: "100%" }}>
+            <div id='permisionContainer' className=" relative flex flex-col px-7 text-generalColors-dark-blue" style={{ minWidth: "calc(100vw - 5rem)", maxWidth: "100%" }}>
                 <p className="text-3xl sm:text-4xl p-4  font-bold  rounded-lg text-fourth">
                     Permissions
                 </p>
@@ -150,36 +156,43 @@ export default function Permisions() {
                     Selected User : {selectedUser?.firstName} {selectedUser?.lastName} ({selectedUser?.email})
                 </div>
 
-                {loading ?
-                    <div id="loading" className="w-full h-[10rem] flex items-center justify-center">
+                
+
+                <div id="modulesHolder" className='relative'>
+                {loading &&
+                    <div id="loading" className="w-full h-full z-20 bg-black bg-opacity-50 flex items-center justify-center absolute">
                         <Loading />
                     </div>
-                    :
-                    <>
-                        {modules && modules.map((module, index) =>
-                            <Accordion key={index} open={open === index}>
-                                <AccordionHeader className='text-generalColors-dark-blue' onClick={() => handleOpen(index)}>
-                                    {module.name}
-                                </AccordionHeader>
-                                <AccordionBody>
-
-
-                                    {module.weeks?.map((week, index) =>
-                                        <div key={index} className='flex flex-row items-center justify-between py-3 text-xl bg-white text-generalColors-dark-blue border-b border-generalColors-light-gray p-3 cursor-pointer'>
-                                            <p>Week {week.number}  </p>
-
-                                            <div className='flex items-center'>
-                                                <p>{week.usersWithAccessWeek.includes(selectedUser?.id) ? "Unlocked" : "Locked"}</p>
-                                                <img onClick={modifyAccessWeek}
-                                                    id={week.id}
-                                                    className={` rounded-lg z-10 mx-3 p-2.5 ${week.usersWithAccessWeek.includes(selectedUser?.id) ? "bg-green-500" : "bg-red-500"}`}
-                                                    src={`${week.usersWithAccessWeek.includes(selectedUser?.id) ? "/SVGs/statusSVGs/open.svg" : "/SVGs/statusSVGs/closed.svg"} `} />
-                                            </div>
-                                        </div>)}
-                                </AccordionBody>
-                            </Accordion>)}
-                    </>
                 }
+
+                    {modules && modules.map((module, index) =>
+                        <Accordion key={index} open={open === index}>
+                            <AccordionHeader className='text-generalColors-dark-blue' onClick={() => handleOpen(index)}>
+                                {module.name}
+                            </AccordionHeader>
+                            <AccordionBody>
+
+
+                                {module.weeks?.map((week, index) =>
+                                    <div key={index} className='flex flex-row items-center justify-between  py-3 text-xl bg-white text-generalColors-dark-blue border-b border-generalColors-light-gray p-3 cursor-pointer'>
+                                        <p>Week {week.number}  </p>
+
+                                        <div className='flex items-center relative'>
+                                            <p>{week.usersWithAccessWeek.includes(selectedUser?.id) ? "Unlocked" : "Locked"}</p>
+                                            <img onClick={modifyAccessWeek}
+                                                id={week.id}
+                                                className={` rounded-lg z-10 mx-3 p-2.5 ${week.usersWithAccessWeek.includes(selectedUser?.id) ? "bg-green-500" : "bg-red-500"}`}
+                                                src={`${week.usersWithAccessWeek.includes(selectedUser?.id) ? "/SVGs/statusSVGs/open.svg" : "/SVGs/statusSVGs/closed.svg"} `}
+                                            />
+                                        </div>
+
+
+                                    </div>)}
+                            </AccordionBody>
+                        </Accordion>)}
+                </div>
+
+
             </div>
         </div>
     )

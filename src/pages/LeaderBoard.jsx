@@ -32,7 +32,7 @@ export default function LeaderBoard() {
             return (
                 <div id='titles' className='w-full h-12 mt-1  flex flex-row px-7 text-[#5f5f5d]'>
                     <div className=' w-20 text-xl flex items-center justify-center'>
-                        <img src='/images/quest-leaderboard-1st-place.png' className=' scale-50'></img>
+                        <img draggable="false" src='/images/quest-leaderboard-1st-place.png' className=' scale-50'></img>
                     </div>
                     <div className="w-2/6 flex items-center justify-center ">
                     <p className=' text-xl '>{name}</p>

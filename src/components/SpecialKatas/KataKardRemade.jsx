@@ -139,11 +139,11 @@ export default function KataCardRemade({ kata, deleteEvent, setRefreshKatas }) {
                 </div>
                 {!isCompleted ?
                     <div id='locker' className=' w-[20%] h-[15%] bg-secondaryColors-light-orange rounded-ss-3xl rounded-ee-3xl flex justify-center items-center absolute top-0 left-0'>
-                        <img src='/images/locker-closed.png' className=' w-[40%]'></img>
+                        <img draggable={false} src='/images/locker-closed.png' className=' w-[40%]'></img>
                     </div>
                     :
                     <div id='locker' className=' w-[20%] h-[15%] bg-secondaryColors-dark-green rounded-ss-3xl rounded-ee-3xl flex justify-center items-center absolute top-0 left-0'>
-                        <img src='/images/done.png' className=' w-[40%]'></img>
+                        <img draggable={false} src='/images/done.png' className=' w-[40%]'></img>
                     </div>
                 }
                 

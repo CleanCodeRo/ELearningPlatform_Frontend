@@ -10,6 +10,7 @@ import ProgressBar from "../ReusableComponents/ProgressBar";
 export default function WeekCard({ week, weekColor, userRole, moduleName }) {
   const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks)
   const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons)
+  const [user, setUser] = useAtom(state.user);
   const [progressBarLength, setProgresBarLength] = useState(null)
   const [truePercentage, setTruePercentage] = useState(0);
   const [refreshWeekProgressBar, setRefreshWeekProgressBar] = useAtom(state.refreshWeekProgressBar);
@@ -24,18 +25,18 @@ export default function WeekCard({ week, weekColor, userRole, moduleName }) {
       let [mandatoryPercentage, completePercentage] = returnPercentage(week.lessons, completedLessons)
       setTruePercentage(completePercentage)
       setProgresBarLength(mandatoryPercentage);
-      setStatusIcon(mandatoryPercentage)
+      setStatusIcon()
     } else if (params.weekId == week.id) {
       let [mandatoryPercentage, completePercentage] = returnPercentage(week.lessons, completedLessons)
       setTruePercentage(completePercentage)
       setProgresBarLength(mandatoryPercentage);
-      setStatusIcon(mandatoryPercentage)
+      setStatusIcon()
     }
 
   }, [refreshWeekProgressBar])
 
-  const setStatusIcon = (progressBarLength) =>{
-    if(progressBarLength == 0){
+  const setStatusIcon = () =>{
+    if( !week.usersWithAccessWeek.includes(user.id)){
       setStatusInfo(["/SVGs/statusSVGs/closed.svg", "bg-generalColors-dark-red"])
     } else if (completedWeeks.includes(week.id)){
       setStatusInfo([ "/SVGs/statusSVGs/done.svg", "bg-secondaryColors-dark-green"])
@@ -71,16 +72,14 @@ export default function WeekCard({ week, weekColor, userRole, moduleName }) {
       name="wholeWeekCard"
       id={week.id}
       ref={weekCard}
-      // style={{backgroundColor : weekColor}}
-      className={`min-w-[17rem] max-w-[17.1rem] ${progressBarLength == 0 && userRole == "USER"? "bg-generalColors-light-gray" : weekColor } animate-fade-left animate-ease-in-out flex flex-col relative cursor-pointer  rounded-2xl   border-[4.5px] border-white duration-100 text-generalColors-dark-blue`}
+      className={`min-w-[17rem] max-w-[17.1rem] ${!week.usersWithAccessWeek.includes(user.id) || userRole == "USER"? "bg-generalColors-light-gray" : weekColor } animate-fade-left animate-ease-in-out flex flex-col relative cursor-pointer  rounded-2xl   border-[4.5px] border-white duration-100 text-generalColors-dark-blue`}
       onClick={(e) => {
         e.stopPropagation();
         let nextPath = `/home/module/${params.moduleId}/week/${week.id}`
-        if (nextPath != window.location.pathname) {
+        if (week.usersWithAccessWeek.includes(user.id) || userRole == "ADMIN") {
           navigate(nextPath);
         }
       }}
-    // style={{ backgroundColor: color }}
     >
 
 
@@ -89,8 +88,8 @@ export default function WeekCard({ week, weekColor, userRole, moduleName }) {
         <EditPen user={{ role: userRole }} deleteEvent={(e) => deleteWeek(e, week.id)} editEvent={(e) => editEvent(e, params.moduleId, week.id)} />
       </div>
 
-      <div id="weeknumber" className={`flex items-center justify-center ${statusColor} text-xl font-bold absolute top-0 left-0 rounded-tl-xl rounded-br-xl  w-11 h-11`}>
-        <img className="w-[40%]" src={statusImage}/>
+      <div id="weekStatus" className={`flex items-center justify-center ${statusColor} text-xl font-bold absolute top-0 left-0 rounded-tl-xl rounded-br-xl  w-11 h-11`}>
+        <img draggable={false} className="w-[40%]" src={statusImage}/>
       </div>
 
       <div id="weekHero" className={` flex flex-col items-center w-full h-[5rem] rounded-xl mt-14`} >

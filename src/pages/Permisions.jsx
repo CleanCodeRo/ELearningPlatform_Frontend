@@ -74,31 +74,42 @@ export default function Permisions() {
         }
     }
 
-    const selectUserEvent = (e) =>{
+    const selectUserEvent = (e) => {
         console.log(e.target.id.split("_")[0])
         setSelectedUser(searchedUsers[e.target.id.split("_")[0]])
         setSearchedUsers([])
         searchRef.current.value = ""
     }
 
-    const modifyAccessWeek = (e) =>{
-        if(!selectedUser){
+    const modifyAccessWeek = (e) => {
+        if (!selectedUser) {
             setErrorConflict("Please select a user first")
-            setTimeout(() =>{
+            setTimeout(() => {
                 setErrorConflict(null)
             }, 2000)
         }
-        
+
         fetch(`${startLink}/weeks/permissions?weekId=${e.target.id}&userId=${selectedUser.id}`, {
-            method : "PATCH",
-            headers : {
-                "Content-Type" : "application/json",
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
             }
         })
-        .then(res => res.json())
-        .then(data => console.log(data))
-        .catch((err) => console.log(err))
+            .then(res => res.json())
+            .then(data =>{
+                let updatedModules = modules.map(module =>{
+                    return {
+                        ...module,
+                        weeks : module.weeks.map(week =>{
+                           return week.id == e.target.id ? data : week 
+                        })
+                    }
+                })
+               
+                setModules([...updatedModules]);
+            })
+            .catch((err) => console.log(err))
     }
 
     return (
@@ -114,24 +125,26 @@ export default function Permisions() {
                 <div id="SearchContainer" className="relative flex items-center mb-6 w-fit">
                     <img alt="user" className="w-4 mr-3" src="/SVGs/user.svg" />
                     <CostumInput
-                                id={"searchRef"}
-                                label={"Search User"}
-                                inputRef={searchRef}
-                                costumInputClass=""
-                                color="gray"
-                                onChange={searchUsersEvent}
-                            />
+                        id={"searchRef"}
+                        label={"Search User"}
+                        inputRef={searchRef}
+                        costumInputClass=""
+                        color="gray"
+                        onChange={searchUsersEvent}
+                    />
 
-                    
+
                 </div>
 
                 {searchedUsers.length != 0 &&
-                        <div className={`absolute h-fit w-fit  bg-generalColors-light-gray rounded-lg z-10`} style={{top : `${searchRef.current.getBoundingClientRect().top + 50}px`}}>
-                            {searchedUsers.map((user, index) => 
-                                <div key={index} onClick={selectUserEvent} id={index + "_" + user.firstName} className='p-1.5'>{user.firstName} {user.lastName} ({user.email})</div>
-                            )}
-                        </div>
-                    }
+                    <div id="result users"
+                        className={`absolute h-fit w-fit rounded-sm bg-white z-10 cursor-pointer`}
+                        style={{ top: `${searchRef.current.getBoundingClientRect().top + 50}px`, boxShadow: "1px 0px 5px 3px #BEBCBF", clipPath: "inset(-5px -10px -10px -10px)" }}>
+                        {searchedUsers.map((user, index) =>
+                            <div key={index} onClick={selectUserEvent} id={index + "_" + user.firstName} className='p-1.5'>{user.firstName} {user.lastName} ({user.email})</div>
+                        )}
+                    </div>
+                }
 
                 <div>
                     Selected User : {selectedUser?.firstName} {selectedUser?.lastName} ({selectedUser?.email})
@@ -151,10 +164,17 @@ export default function Permisions() {
                                 <AccordionBody>
 
 
-                                    {module.weeks.map((week, index) =>
-                                        <div key={index} className='flex flex-row items-center my-2 h-10 text-xl bg-generalColors-light-gray text-white p-3'>
-                                            <p>Week {week.number} </p>
-                                            <img onClick={modifyAccessWeek} id={week.id} className='w-5 rounded-lg z-10 mx-10 ' src="/SVGs/statusSVGs/closed.svg" />
+                                    {module.weeks?.map((week, index) =>
+                                        <div key={index} className='flex flex-row items-center justify-between py-3 text-xl bg-white text-generalColors-dark-blue border-b border-generalColors-light-gray p-3 cursor-pointer'>
+                                            <p>Week {week.number}  </p>
+
+                                            <div className='flex items-center'>
+                                                <p>{week.usersWithAccessWeek.includes(selectedUser?.id) ? "Unlocked" : "Locked"}</p>
+                                                <img onClick={modifyAccessWeek}
+                                                    id={week.id}
+                                                    className={` rounded-lg z-10 mx-3 p-2.5 ${week.usersWithAccessWeek.includes(selectedUser?.id) ? "bg-green-500" : "bg-red-500"}`}
+                                                    src={`${week.usersWithAccessWeek.includes(selectedUser?.id) ? "/SVGs/statusSVGs/open.svg" : "/SVGs/statusSVGs/closed.svg"} `} />
+                                            </div>
                                         </div>)}
                                 </AccordionBody>
                             </Accordion>)}

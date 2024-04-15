@@ -76,8 +76,8 @@ export default function SideHeader() {
     
 
     <div id="SideHeaderHolder"
-      className={`flex md:flex-col justify-between md:min-w-[5rem] md:h-screen  md:sticky md:top-0 border-r-[1px] border-generalColors-light-gray bg-generalColors-dark-blue z-10
-                    h-[4rem] bottom-0 w-screen fixed items-center  z-50"} `}
+      className={`flex md:flex-col justify-between md:min-w-[5rem] md:h-screen  md:sticky md:top-0 border-r-[1px] border-generalColors-light-gray bg-generalColors-dark-blue
+                    h-[4rem] bottom-0 w-screen fixed items-center z-30 absolute"} `}
       style={{boxShadow: "1px 0px 5px 3px #BEBCBF", clipPath: "inset(0px -9px 0px 0px)"}}
     >
 

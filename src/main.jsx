@@ -32,7 +32,7 @@ export default function App() {
         <Route
           path="/myprofile"
           element={
-            !isExpired(localStorage.getItem("ELearningToken")) ? (
+             !isExpired(localStorage.getItem("ELearningToken")) ? (
               <ProfileAndEditPage />
             ) : (
               <Redirect />

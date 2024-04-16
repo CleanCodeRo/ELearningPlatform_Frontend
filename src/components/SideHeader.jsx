@@ -31,8 +31,6 @@ export default function SideHeader() {
   const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks);
   const [completedModules, setCompletedModules] = useAtom(state.completedModules);
 
-
-
   let classNameTooltip = "text-lg bg-opacity-80 font-bold "
   let iconClassName = `flex items-center justify-center rounded-full w-[40px] h-[40px] sm:w-[50px] sm:h-[50px]  mb-4 mt-7  cursor-pointer fill-white hover:fill-generalColors-medium-blue`
 

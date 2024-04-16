@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import state, { getCompletedStuff } from "../../components/ReusableComponents/Atom";
+import state, { checkIfUserAdmin, getCompletedStuff } from "../../components/ReusableComponents/Atom";
 import { startLink } from "../../constants/Constants";
 import DropdownFilter from "../../components/SpecialKatas/DropdownFilter";
 import { kataCategories } from "../../components/SpecialKatas/FilterObjects";
@@ -28,7 +28,9 @@ export default function WeekCreateAndEdit() {
   const params = useParams();
 
   useEffect(() => {
+    checkIfUserAdmin()
     weekNumber.current.type = "number"
+
     if (params.weekId !== undefined) {
       fetch(`${startLink}/weeks?weekId=${params.weekId}`, {
         method: "GET",

@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
-import state, { getCompletedStuff } from "../../components/ReusableComponents/Atom";
+import state, { checkIfUserAdmin, getCompletedStuff } from "../../components/ReusableComponents/Atom";
 import { startLink } from "../../constants/Constants";
 import CostumInput from "../../components/ReusableComponents/CostumInput";
 import CosutmCheckBox from "../../components/ReusableComponents/CheckBox/CosutmCheckBox";
@@ -29,6 +29,7 @@ const LessonsCreateAndEdit = () => {
   const params = useParams();
 
   useEffect(() => {
+     checkIfUserAdmin();
     if (params.lessonId !== undefined) {
       fetch(`${startLink}/lessons/findById/${params.lessonId}`, {
         method: "GET",

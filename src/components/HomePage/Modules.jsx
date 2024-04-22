@@ -57,7 +57,7 @@ export default function Modules({userRole}) {
 
   return (
     <div className="pt-5 pb-10 bg-generalColors-dark-blue" >
-      <div id="titleAndAddButton" className="flex items-center justify-center">
+      <div id="titleAndAddButton" className="flex items-center justify-start">
         <p className="text-3xl sm:text-4xl p-4  font-bold  rounded-lg text-fourth">
           Modules
         </p>

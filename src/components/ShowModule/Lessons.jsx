@@ -6,7 +6,7 @@ import { startLink } from "../../constants/Constants";
 
 
 
-export default function Lessons({ userRole, setWeekNumber }) {
+export default function Lessons({ userRole, setWeekNumber, setConfirmNavigate, setNavigateLink }) {
   const [mandatoryLessons, setMandatoryLessons] = useState(null)
   const [optionalLessons, setOptionalLessons] = useState(null)
   const [loadingLessons, setLoadingLessons] = useState(true);
@@ -64,7 +64,7 @@ export default function Lessons({ userRole, setWeekNumber }) {
   }, [params.weekId]);
 
   return (
-    <div className="w-full flex flex-col items-center pt-5 pb-10 font-inter " >
+    <div className="w-full flex flex-col items-start pt-5 pb-10 font-inter " >
       <div className=" flex items-center ">
 
         {params.weekId && userRole == "ADMIN" && (
@@ -89,10 +89,10 @@ export default function Lessons({ userRole, setWeekNumber }) {
 
         :
 
-        <div id="listOfLessons" className="flex flex-col  " >
+        <div id="listOfLessons" className="flex flex-col w-full " >
           {/* RENDERING MADATORY LESSONS */}
           {mandatoryLessons && mandatoryLessons.length > 0 ? (
-            mandatoryLessons.map((lesson, index) => <LessonCard key={index} lesson={lesson}  />)
+            mandatoryLessons.map((lesson, index) => <LessonCard key={index} lesson={lesson} setConfirmNavigate={setConfirmNavigate} setNavigateLink={setNavigateLink} />)
           ) : (
             <div className="col-span-full text-4xl text-center my-10 text-third animate-flip-down animate-duration-[400ms]">
               - No mandatory lessons here -
@@ -106,7 +106,7 @@ export default function Lessons({ userRole, setWeekNumber }) {
                 <h1 className="text-2xl sm:text-3xl min-w-fit p-4 font-bold  rounded-xl text-fourth  ">Optional lessons</h1>
                 <div className="bg-generalColors-dark-blue h-[1.5px] w-full rounded-full"></div>
               </div>
-              {optionalLessons.map((lesson, index) => <LessonCard key={index} lesson={lesson} />)}
+              {optionalLessons.map((lesson, index) => <LessonCard key={index} lesson={lesson} setConfirmNavigate={setConfirmNavigate} setNavigateLink={setNavigateLink} />)}
             </>
           ) : (
             null

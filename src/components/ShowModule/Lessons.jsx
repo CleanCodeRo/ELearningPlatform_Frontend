@@ -6,7 +6,7 @@ import { startLink } from "../../constants/Constants";
 
 
 
-export default function Lessons({ userRole, setWeekNumber, setConfirmNavigate, setNavigateLink }) {
+export default function Lessons({ userRole, userId, setWeekNumber, setConfirmNavigate, setNavigateLink }) {
   const [mandatoryLessons, setMandatoryLessons] = useState(null)
   const [optionalLessons, setOptionalLessons] = useState(null)
   const [loadingLessons, setLoadingLessons] = useState(true);
@@ -15,7 +15,6 @@ export default function Lessons({ userRole, setWeekNumber, setConfirmNavigate, s
 
   useEffect(() => {
     if (params.weekId) {
-      // fetch(`${startLink}/lessons/${params.weekId}`, {
         fetch(`${startLink}/weeks?weekId=${params.weekId}`, {
         method: "GET",
         headers: {
@@ -25,7 +24,9 @@ export default function Lessons({ userRole, setWeekNumber, setConfirmNavigate, s
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data)
+          if(!data.usersWithAccessWeek.includes(userId)){
+            window.history.back();
+          }
           setWeekNumber(data.number)
           setOptionalLessons([]);
           setMandatoryLessons([]);

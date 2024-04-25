@@ -51,7 +51,7 @@ export default function ShowLessons() {
                 ]}
                     className=""
                 />
-                {user && <Lessons userRole={user.role} setWeekNumber={setWeekNumber} setConfirmNavigate={setConfirmNavigate} setNavigateLink={setNavigateLink}/>}
+                {user && <Lessons userRole={user.role} userId={user.id} setWeekNumber={setWeekNumber} setConfirmNavigate={setConfirmNavigate} setNavigateLink={setNavigateLink}/>}
             </div>
         </div>
     )

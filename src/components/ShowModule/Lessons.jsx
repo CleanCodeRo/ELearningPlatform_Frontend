@@ -24,7 +24,7 @@ export default function Lessons({ userRole, userId, setWeekNumber, setConfirmNav
       })
         .then((res) => res.json())
         .then((data) => {
-          if(!data.usersWithAccessWeek.includes(userId)){
+          if(!data.usersWithAccessWeek.includes(userId) && userRole == "USER"){
             window.history.back();
           }
           setWeekNumber(data.number)

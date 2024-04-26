@@ -31,22 +31,28 @@ const Contact = () => {
       emailjs.send("service_2e65612", "template_o50nwpl", params, "0xmgmieFKpePRO7xl").then(() => {
         setSuccess("Email sent!"); // afisare mesaj
         setTimeout(() => {
-          setSuccess(null); // curatare eroare
-          window.location.href = "/"// Redirect after 2 seconds
+          setSuccess(null); 
+          window.location.href = "/"
+        }, 2000);
+      }).catch((err) =>{
+        setError("Something went wrong!");
+        setTimeout(() => {
+          setError(null); 
         }, 2000);
       })
+    }else{
+      setError("Must complete all the fields!"); 
+        setTimeout(() => {
+          setError(null); 
+        }, 2000);
     }
   }
-
-
-
-
 
   return (
     <div id="wholePageHolder"
       className="flex justify-center items-center p-2 w-screen h-screen bg-center bg-cover" style={{ backgroundImage: "url(/images/backGrounds/online-programming-course-hero-section-bg.jpg)" }}>
       <div id="formLogin" className="relative w-[24rem] flex flex-col items-center px-8 py-5 h-fit rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
-        <SuccessError success={success} />
+        <SuccessError success={success} error={error}/>
         <img id="ghostImage" alt="ghost" className="w-[7rem] my-9" src="/SVGs/ghost.svg" />
 
 
@@ -87,11 +93,6 @@ const Contact = () => {
           <a href="/" className="  bg-generalColors-dark-blue text-white rounded-full py-4 px-7 " >Back</a>
           <button onClick={sendMail} className=" bg-generalColors-dark-blue text-white rounded-full py-4 px-7" >Send</button>
         </div>
-
-
-        {error && (
-          <div className="text-red-500 flex justify-center">{error}</div>
-        )}
 
       </div>
     </div>

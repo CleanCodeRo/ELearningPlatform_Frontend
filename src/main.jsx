@@ -17,9 +17,11 @@ import ShowWeeks from "./pages/ShowWeeks";
 import ShowLessons from "./pages/ShowLessons";
 import LeaderBoard from "./pages/LeaderBoard";
 import ProfileAndEditPage from "./components/ProfileAndEditPage";
+
 import Permisions from "./pages/Permisions";
 import { useAtom } from "jotai";
 import state from "./components/ReusableComponents/Atom";
+import Profile from "./pages/Profile";
 
 export default function App() {
   const [user, setUser] = useAtom(state.user)
@@ -33,7 +35,7 @@ export default function App() {
           path="/myprofile"
           element={
              !isExpired(localStorage.getItem("ELearningToken")) ? (
-              <ProfileAndEditPage />
+              <Profile />
             ) : (
               <Redirect />
             )

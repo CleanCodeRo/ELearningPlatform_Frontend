@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { startLink } from "../../constants/Constants";
 import CostumInput from "../../components/ReusableComponents/CostumInput";
-import { Checkbox } from "@material-tailwind/react";
+import { checkIfUserAdmin } from "../../components/ReusableComponents/Atom";
 
 export default function ModuleCreateAndEdit() {
   const moduleName = useRef(null);
@@ -19,7 +19,9 @@ export default function ModuleCreateAndEdit() {
   const params = useParams();
 
   useEffect(() => {
+    checkIfUserAdmin()
     moduleNumber.current.type = "number"
+
     if (params.moduleId !== undefined) {
       fetch(`${startLink}/modules/${params.moduleId}`, {
         method: "GET",

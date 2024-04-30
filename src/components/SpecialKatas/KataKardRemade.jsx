@@ -125,7 +125,7 @@ export default function KataCardRemade({ kata, deleteEvent, setRefreshKatas }) {
 
     let maxPoints = 48;
     return (
-        <div id="cardHolder" className=" w-64 max-h-17 text-generalColors-dark-blue rounded-3xl" ref={kataCardRef}
+        <div id="cardHolder" className=" w-64 mx-3 max-h-17 text-generalColors-dark-blue rounded-3xl" ref={kataCardRef}
 
         >
             {(loading) &&
@@ -138,11 +138,11 @@ export default function KataCardRemade({ kata, deleteEvent, setRefreshKatas }) {
                     <EditPen user={user} deleteEvent={(e) => deleteEvent(e, kata.id, setRefreshKatas)} editEvent={(e) => editEvent(e, navigate, kata.id)} />
                 </div>
                 {!isCompleted ?
-                    <div id='locker' className=' w-[20%] h-[15%] bg-secondaryColors-light-orange rounded-ss-3xl rounded-ee-3xl flex justify-center items-center absolute top-0 left-0'>
+                    <div id='locker' className=' w-[20%] h-[15%] bg-secondaryColors-light-orange rounded-se-3xl rounded-es-3xl flex justify-center items-center absolute bottom-0 left-0 z-10'>
                         <img draggable={false} src='/images/locker-closed.png' className=' w-[40%]'></img>
                     </div>
                     :
-                    <div id='locker' className=' w-[20%] h-[15%] bg-secondaryColors-dark-green rounded-ss-3xl rounded-ee-3xl flex justify-center items-center absolute top-0 left-0'>
+                    <div id='locker' className=' w-[20%] h-[15%] bg-secondaryColors-dark-green rounded-se-3xl rounded-es-3xl flex justify-center items-center absolute bottom-0 left-0 z-10'>
                         <img draggable={false} src='/images/done.png' className=' w-[40%]'></img>
                     </div>
                 }
@@ -167,20 +167,20 @@ export default function KataCardRemade({ kata, deleteEvent, setRefreshKatas }) {
                     </div>
 
                 </div>
-                <div id='xp' className=' w-[30%] h-[15%] bg-generalColors-dark-blue text-white rounded-se-3xl rounded-es-3xl flex justify-center items-center absolute bottom-0 left-0 z-20'>
+                <div id='xp' className=' w-[30%] h-[15%] bg-generalColors-dark-blue text-white rounded-ss-3xl rounded-ee-3xl flex justify-center items-center absolute top-0 left-0 '>
                     + {(maxPoints - kata.level * 6) + 6}xp
                 </div>
-                <div id='kyu' className={` w-[30%] h-[15%] ${colors[kata.level - 1]} text-white rounded-ss-3xl rounded-ee-3xl flex justify-center items-center absolute bottom-0 right-0 z-20`}>
+                {/* <div id='kyu' className={` w-[30%] h-[15%] ${colors[kata.level - 1]} text-white rounded-ss-3xl rounded-ee-3xl flex justify-center items-center absolute bottom-0 right-0 z-20`}>
                     {kata.level} kyu
-                </div>
+                </div> */}
                 <div id="completedHolder" className="w-full flex justify-center items-center absolute bottom-0 h-30">
 
                 <button
                   id="markedAsDone" 
-                  className={`text-generalColors-dark-blue bg-gray-200 rounded-3xl w-2/3 p-2 left-0   z-10 ${!isCompleted ? "cursor-pointer" : "cursor-default"}`} 
+                  className={`text-generalColors-dark-blue bg-gray-200 rounded-b-3xl w-full p-2 left-0  ${!isCompleted ? "cursor-pointer" : "cursor-default"}`} 
                   onClick={!isCompleted ? completeKataEvent : null}
                   >  
-                    {!isCompleted ? "Done" : "Completed"}
+                    {!isCompleted ? "Submit" : "Completed"}
                 </button>
                 </div>
 

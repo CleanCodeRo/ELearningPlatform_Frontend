@@ -8,7 +8,7 @@ import Loading from "../ReusableComponents/Loading/Loading";
 import { startLink } from "../../constants/Constants";
 
 
-export default function LessonCard({ lesson }) {
+export default function LessonCard({ lesson, setConfirmNavigate, setNavigateLink }) {
   const [user, setUser] = useAtom(state.user);
 
   const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons);
@@ -42,6 +42,7 @@ export default function LessonCard({ lesson }) {
   };
 
   const EditStatusEvent = (e) => {
+    e.stopPropagation()
     if (e.target.checked) {
       setLessonStatus(true);
     } else {
@@ -78,7 +79,8 @@ export default function LessonCard({ lesson }) {
   const EditStatusComponentV2 = () => {
     let defaultChecked = completedLessons.includes(lesson.id) ? true : false;
     return (
-      <div id="container" className="flex flex-col items-center border rounded-lg mb-3 lg:mb-0">
+      <div id="_container" className="flex flex-col items-center border rounded-lg mb-3 lg:mb-0 relative">
+        <div id="_cover" className="absolute w-full h-full "></div>
         <p id="label" className=" bg-second w-fit px-1" style={{ margin: "-13px 0 0 0px" }}>Modify Status</p>
         <div className="flex items-center gap-5 bg-sixth shadow-md hover:shadow-lg shadow-sixth hover:shadow-sixth px-6 py-2 text-first rounded-lg duration-300">
           <CosutmCheckBox idNumber={lesson.id} checkBoxEvent={EditStatusEvent} defaultChecked={defaultChecked} />
@@ -88,13 +90,20 @@ export default function LessonCard({ lesson }) {
     );
   };
 
+  const navigateToLesson = (e) =>{
+    e.stopPropagation()
+    setNavigateLink(lesson.gitHubLink)
+    setConfirmNavigate((value) => value + 1)
+  }
+
   return (
     <div
       name="principleHolder"
       id={lesson.id}
-      className="flex  items-center justify-between min-w-[15rem]  bg-white p-3 m-3 rounded-xl animate-fade-down animate-ease-in-out relative"
+      className="flex flex-col w-2/3  bg-white p-3 m-3 rounded-xl animate-fade-down animate-ease-in-out relative"
       ref={lessonRef}
     >
+
 
       {/* loading for card */}
       {loading &&
@@ -103,34 +112,30 @@ export default function LessonCard({ lesson }) {
         </div>
       }
 
-      <div id="topPart" className="flex ">
-          <img className="w-10 mx-2" src={lesson.optional ? `/SVGs/statusSVGs/optional.svg` : `/SVGs/statusSVGs/mandatory.svg`}/>
-          <p className="my-3 text-2xl sm:text-2xl  line-clamp-2 w-full ">
-            {lesson.name}
-          </p>
+      <div id="top-part" className="flex justify-between items-center w-full">
+        <img className="w-10 mx-2" src={lesson.optional ? `/SVGs/statusSVGs/optional.svg` : `/SVGs/statusSVGs/mandatory.svg`} />
+        <p className=" text-2xl sm:text-2xl  line-clamp-2 w-full ">
+          {lesson.name}
+        </p>
 
-          <div id='editPenContainer' className="flex items-center">
-          <EditPen user={{ role: user.role }}
-            deleteEvent={(e) => deleteLesson(e, lesson.id, params.weekId)}
-            editEvent={(e) => editEvent(e, params.moduleId, params.weekId, lesson.id)} />
-          </div>
-      </div>
-
-      <div
-        name="bottomPart"
-        id="redirectButtonAndStatus"
-        className="flex flex-col-reverse lg:flex-row  justify-between items-center px-4 "
-      >
-        <a
-          href={lesson.gitHubLink}
-          target="_blank"
-          className="cursor-pointer w-full lg:w-fit my-2 xs:my-0  lg:mr-4  px-6 py-2   bg-sixth rounded-lg text-first shadow-md hover:shadow-lg hover:shadow-sixth shadow-sixth text-2xl font-bold text-center duration-300"
-        >
-          Learn
-        </a>
+        <EditPen user={{ role: user.role }}
+          deleteEvent={(e) => deleteLesson(e, lesson.id, params.weekId)}
+          editEvent={(e) => editEvent(e, params.moduleId, params.weekId, lesson.id)} />
 
         < EditStatusComponentV2 />
       </div>
+
+      <p id="description" className="mt-4">
+        {lesson.description}
+      </p>
+
+      <button
+          onClick={navigateToLesson}
+          target="_blank"
+          className=" cursor-pointer w-full lg:w-fit my-4  lg:mr-4  px-6 py-2   bg-sixth rounded-lg text-first shadow-md hover:shadow-lg hover:shadow-sixth shadow-sixth text-2xl font-bold text-center duration-300"
+        >
+          Learn
+        </button>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { atom } from "jotai";
 import { startLink } from "../../constants/Constants";
+import { jwtDecode } from "jwt-decode";
 
 const state = {
 user : atom(null),
@@ -80,4 +81,11 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
     let madatoryPercentage = Math.floor( (completedMandatory.length / mandatory.length) * 100);
    
     return [madatoryPercentage, completePercentage];
+  }
+
+  export function checkIfUserAdmin(){
+    let decodedToken = jwtDecode(localStorage.getItem("ELearningToken"));
+    if(decodedToken.role != "ADMIN"){
+     window.history.back();
+    }
   }

@@ -12,25 +12,29 @@ const Login = () => {
 
   const emailRef = useRef(null)
   const passwordRef = useRef(null)
+  const rememberMeRef = useRef(null)
 
   const [checkBoxSelected, setCheckBoxSelected] = useState(0);
+  const [seePass, setSeePass] = useState(0);
 
-  const rememberEvent = () =>{
+  const rememberEvent = () => {
     setCheckBoxSelected(checkBoxSelected + 1)
     rememberMe = rememberMe ? false : true;
   }
 
-  useEffect(() =>{
-    passwordRef.current.type = "password"
+  useEffect(() => {
+    passwordRef.current.type = seePass % 2 != 0 ? "text" : "password"
+    passwordRef.current.value = 1234
     emailRef.current.type = "email"
+    emailRef.current.value = "student@"
+    localStorage.setItem("ELearningToken", "Bearer");
   })
 
   async function login(e) {
-
     e.preventDefault();
     e.target.disabled = true
 
-    if (emailRef.current.value == "" || passwordRef.current.value =="") {
+    if (emailRef.current.value == "" || passwordRef.current.value == "") {
       setError("Email and password are required");
       e.target.disabled = false
       return;
@@ -46,7 +50,8 @@ const Login = () => {
           },
           body: JSON.stringify({
             email: emailRef.current.value.trim(),
-            password: passwordRef.current.value
+            password: passwordRef.current.value,
+            rememberMe : rememberMeRef.current.checked,
           }),
         }
       );
@@ -60,7 +65,7 @@ const Login = () => {
         const data = await response.json();
         const token = data.response;
 
-         localStorage.setItem("ELearningToken", token);
+        localStorage.setItem("ELearningToken", token);
         navigate("/home");
         window.location.reload();
 
@@ -71,10 +76,13 @@ const Login = () => {
     }
   }
 
+  const seePassEvent = () =>{
+    setSeePass(seePass + 1);
+  }
 
   return (
-    <div id="wholePageHolder" 
-         className="flex justify-center items-center p-2 w-screen h-screen bg-center bg-cover" style={{ backgroundImage: "url(/images/backGrounds/online-programming-course-hero-section-bg.jpg)" }}>
+    <div id="wholePageHolder"
+      className="flex justify-center items-center p-2 w-screen h-screen bg-center bg-cover" style={{ backgroundImage: "url(/images/backGrounds/online-programming-course-hero-section-bg.jpg)" }}>
       <div id="formLogin" className="relative w-[24rem] flex flex-col items-center px-8 py-5 h-fit rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
 
         <img id="ghostImage" alt="ghost" className="w-[7rem] my-9" src="/SVGs/ghost.svg" />
@@ -87,6 +95,7 @@ const Login = () => {
             inputRef={emailRef}
             costumInputClass=""
             color="gray"
+          
           />
         </div>
 
@@ -98,6 +107,14 @@ const Login = () => {
             inputRef={passwordRef}
             costumInputClass=""
             color="gray"
+            icon={
+              <div className="" onClick={seePassEvent}>
+               { seePass % 2 == 0 ?
+                <i className ="fa-solid fa-eye"></i>
+                :
+                <i className ="fa-solid fa-eye-slash"></i>}
+              </div>
+            }
           />
         </div>
 
@@ -105,7 +122,10 @@ const Login = () => {
 
         <div id="rememberAndForget" className="w-full flex flex-row items-center justify-between text-generalColors-dark-blue mb-20">
           <div id="checkbox" className="flex items-center w-fit">
-            <Checkbox style={{ backgroundColor: `${checkBoxSelected % 2 == 0 ? "#ffffff" : "#174072"}` }} onChange={rememberEvent} className={`border-2 `} />
+            <Checkbox 
+                style={{ backgroundColor: `${checkBoxSelected % 2 == 0 ? "#ffffff" : "#174072"}` }} 
+                onChange={rememberEvent} className={`border-2 `} 
+                inputRef={rememberMeRef}/>
             <label className="text-sm ">Remember Me</label>
           </div>
 

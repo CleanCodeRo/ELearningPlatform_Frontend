@@ -16,6 +16,7 @@ module.exports = withMT({
           "light-blue" : "#94C0EB",
           "medium-blue" : "#1E90FF",
           "dark-blue" : "#174072",
+          "white" : "#FAFAFA"
         },
         secondaryColors : {
           "light-purple" : "#C7CEFF", 

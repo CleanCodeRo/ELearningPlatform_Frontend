@@ -14,7 +14,7 @@ export default function Person({ rank, name, xp , time }) {
             <div className='w-20 text-xl flex items-center justify-center'>
                 {getPlaceImage(rank)}
             </div>
-            <div className="w-2/6 flex items-center justify-center line-clamp-1">
+            <div className="w-2/6 flex items-center  line-clamp-1 pl-14">
                 <p className='text-xl'>{name}</p>
             </div>
             <div className="w-1/3 flex items-center justify-center line-clamp-1">

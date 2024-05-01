@@ -4,10 +4,10 @@ import React from 'react'
 
 export default function CostumInput({ id, label, inputRef, defaultValue, costumInputClass, color, icon, onChange ,placeholder,size}) {
   return (
-    <div className=" w-4/5 ml-3 min-w-[200px] font-xl">
+    <div className=" w-4/5 ml-3  font-xl">
       <Input
         id={id}
-        size={'sm'}
+        size={'md'}
         color={color}
         icon={icon}
         label={label}

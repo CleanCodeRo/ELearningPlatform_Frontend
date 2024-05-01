@@ -24,7 +24,9 @@ const Login = () => {
 
   useEffect(() => {
     passwordRef.current.type = seePass % 2 != 0 ? "text" : "password"
+    passwordRef.current.value = 1234
     emailRef.current.type = "email"
+    emailRef.current.value = "student@"
     localStorage.setItem("ELearningToken", "Bearer");
   })
 

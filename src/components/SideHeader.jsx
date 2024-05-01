@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
-  Menu,
-  MenuHandler,
-  MenuList,
-  MenuItem,
   Avatar,
-  Typography,
-  Tooltip,
-  Drawer,
-  Button,
   IconButton,
+  SpeedDial,
+  SpeedDialAction,
+  SpeedDialContent,
+  SpeedDialHandler,
+  Tooltip,
 } from "@material-tailwind/react";
 import state, { getUserWithToken } from "./ReusableComponents/Atom";
 import { useAtom } from "jotai";
@@ -33,16 +30,6 @@ export default function SideHeader() {
 
   let classNameTooltip = "text-lg bg-opacity-80 font-bold "
   let iconClassName = `flex items-center justify-center rounded-full w-[40px] h-[40px] sm:w-[50px] sm:h-[50px]  mb-4 mt-7  cursor-pointer fill-white hover:fill-generalColors-medium-blue`
-
-  const [open, setOpen] = useState(false);
-  const openDrawer = () => setOpen(true);
-  const closeDrawer = () => setOpen(false);
-  let path = window.location.pathname.split("/");
-  let hoverColor = path.includes("dojo")
-    ? "hover:fill-[#da8f06] "
-    : "hover:fill-[#2c8dfe]";
-
- 
 
   useEffect(() => {
     if (!user) {
@@ -67,55 +54,39 @@ export default function SideHeader() {
   }
 
   return (
-    
+
 
     <div id="SideHeaderHolder"
       className={`flex md:flex-col justify-between md:min-w-[5rem] md:h-screen  md:sticky md:top-0 border-r-[1px] border-generalColors-light-gray bg-generalColors-dark-blue 
                     h-[4rem] bottom-0 w-screen fixed items-center  z-50 overflow-visible `}
-      style={{boxShadow: "1px 0px 5px 3px #BEBCBF", clipPath: "inset(0px -9px 0px 0px)"}}
+      style={{ boxShadow: "1px 0px 5px 3px #BEBCBF", clipPath: "inset(0px -9px 0px 0px)" }}
     >
 
-      {/* <div id="shadowComponent" className="w-full h-full bg-generalColors-light-gray absolute blur-xl z-0">
-        <div className="w-full h-full bg-generalColors-dark-blue "></div>
-      </div> */}
 
       <div id="logoAndHamburgerMenu" className=" ml-7 md:ml-0 mt-0 md:mt-7 flex items-center z-20">
-        <React.Fragment>
-          <div className="bg-transparent" onClick={openDrawer}><i className="fa-solid fa-bars flex sm:hidden text-black text-2xl mr-2 "></i></div>
-          <Drawer overlay={false} open={open} onClose={closeDrawer} className="p-4 absolute top-0" style={{width: "100vw"}}>
-            <div className="mb-6 flex items-center justify-between">
-              <Typography variant="h5" color="blue-gray">
-                Material Tailwind
-              </Typography>
-              <IconButton variant="text" color="blue-gray" onClick={closeDrawer}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
-                  className="h-5 w-5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </IconButton>
-            </div>
-            <Typography color="gray" className="mb-8 pr-4 font-normal">
-              Material Tailwind features multiple React and HTML components, all
-              written with Tailwind CSS classes and Material Design guidelines.
-            </Typography>
-            <div className="flex gap-2">
-              <Button size="sm" variant="outlined">
-                Documentation
-              </Button>
-              <Button size="sm">Get Started</Button>
-            </div>
-          </Drawer>
-        </React.Fragment>
+        {/* <div className="bg-transparent" ><i className="fa-solid fa-bars flex sm:hidden text-black text-2xl mr-2 "></i></div> */}
+        <div className="relative h-80 w-full">
+      <div className="absolute bottom-0 right-0">
+        <SpeedDial>
+          <SpeedDialHandler>
+            <IconButton size="lg" className="rounded-full">
+              <i className="fa-solid fa-bars flex sm:hidden text-black text-2xl mr-2 " />
+            </IconButton>
+          </SpeedDialHandler>
+          <SpeedDialContent>
+            <SpeedDialAction>
+            <i className="fa-solid fa-bars flex sm:hidden text-black text-2xl mr-2 "/>
+            </SpeedDialAction>
+            <SpeedDialAction>
+            <i className="fa-solid fa-bars flex sm:hidden text-black text-2xl mr-2 "/>
+            </SpeedDialAction>
+            <SpeedDialAction>
+            <i className="fa-solid fa-bars flex sm:hidden text-black text-2xl mr-2 "/>
+            </SpeedDialAction>
+          </SpeedDialContent>
+        </SpeedDial>
+        </div>
+    </div>
         <img draggable={false} onClick={() => navigate("/home")} id="CleanCodeLogo" alt="CleanCodeLogo" className=" w-[3rem]" src="/SVGs/colorLogo.svg"></img>
       </div>
 
@@ -174,24 +145,24 @@ export default function SideHeader() {
         </MenuIcon>
 
         {user?.role == "ADMIN" &&
-        <MenuIcon pathChildren={
-          <img draggable={false} className="w-[2rem]" src="/SVGs/statusSVGs/closed.svg"></img>
-        }
-          toolTipContent={"Permisions"}
-          iconEvent={() => navigate("/permissions")}
+          <MenuIcon pathChildren={
+            <img draggable={false} className="w-[2rem]" src="/SVGs/statusSVGs/closed.svg"></img>
+          }
+            toolTipContent={"Permisions"}
+            iconEvent={() => navigate("/permissions")}
           >
 
-        </MenuIcon>
+          </MenuIcon>
         }
       </div>
 
-       <Avatar
-       onClick={() => navigate("/myprofile")}
-            variant="circular"
-            alt="tania andrew"
-            className="cursor-pointer mr-7 md:mr-0 mb-0 md:mb-7"
-            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
-          />
+      <Avatar
+        onClick={() => navigate("/myprofile")}
+        variant="circular"
+        alt="tania andrew"
+        className="cursor-pointer mr-7 md:mr-0 mb-0 md:mb-7"
+        src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+      />
     </div>
   );
 }

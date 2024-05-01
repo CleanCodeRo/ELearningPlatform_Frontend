@@ -27,22 +27,6 @@ export default function Modules({userRole}) {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
-        // let dummyArr = []
-        // let i = 0;
-
-        // async function renderModules(){
-        //   if(i == data.length){
-        //     return;
-        //   }else{
-        //     dummyArr.push(data[i])
-        //     setModules([...dummyArr]);
-        //     i++;
-        //     setTimeout(() => renderModules(), 400)
-        //   }
-        // }
-
-        // renderModules();
         setModules(data)
         setLoading(false);
       })
@@ -56,31 +40,29 @@ export default function Modules({userRole}) {
   
 
   return (
-    <div className="pt-5 pb-10 bg-generalColors-dark-blue" >
-      <div id="titleAndAddButton" className="flex items-center justify-start">
-        <p className="text-3xl sm:text-4xl p-4  font-bold  rounded-lg text-fourth">
-          Modules
-        </p>
+    <div className="pt-5 pb-10 bg-generalColors-dark-blue">
+  <div id="titleAndAddButton" className="flex items-center justify-between px-4 sm:px-6 lg:px-8 mb-4">
+    <p className="text-3xl sm:text-4xl font-bold text-fourth">Modules</p>
+    {userRole === "ADMIN" && (
+      <Link
+        to="/createModule"
+        className="h-10 w-10 rounded-full bg-fourth flex items-center justify-center text-xl hover:bg-[#2c8dfe]"
+      >
+        <i className="fa-solid fa-plus"></i>
+      </Link>
+    )}
+  </div>
 
-        {userRole == "ADMIN" ?
-        <Link
-          to="/createModule"
-          className="h-10 w-10 rounded-full bg-fourth flex items-center justify-center text-xl mx-2 hover:bg-[#2c8dfe]"
-        >
-          <i className="fa-solid fa-plus"></i>
-        </Link> : null }
-      </div>
-
-      {loading ?
-        <div id="loading" className="w-full h-[10rem] flex items-center justify-center">
-          <Loading />
-        </div>
-
-        :
-
-        <div id="listOfModules" className="flex items-center py-7 justify-center gap-x-4 overflow-x-scroll w-full custom-scrollbar">
-           {modules != [] &&  modules.map((module, index) => {
-            return <ModuleCard
+  {loading ? (
+    <div id="loading" className="w-full h-40 flex items-center justify-center">
+      <Loading />
+    </div>
+  ) : (
+    
+<div id="listOfModules" className="flex items-center py-7 overflow-x-scroll custom-scrollbar md:justify-center justify-start">
+      <div className="flex flex-wrap lg:flex-nowrap justify-center gap-4 sm:gap-6 px-4 sm:px-6 lg:px-8">
+        {modules.map((module, index) => (
+          <ModuleCard
             key={index}
             id={module.id}
             title={module.name}
@@ -88,15 +70,15 @@ export default function Modules({userRole}) {
             weeks={module.weeks}
             color={moduleColors[index]}
             moduleIndex={index}
+            className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5"
           />
-            
-          })}
-         
-        </div>
-      }
-
-
+        ))}
+      </div>
     </div>
+  )}
+</div>
+
+
   );
 }
 

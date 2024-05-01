@@ -26,16 +26,23 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data)
         setUser({
           id : data.id,
+
+          githubUsername : data.githubUsername,
+          codeWarsUsername : data.codeWarsUsername,
+
           firstName : data.firstName,
           lastName : data.lastName,
-          username : data.username,
-          role : data.role,
-          codeWarsUsername : data.codeWarsUsername,
+          email : data.email,
+          phoneNumber : data.phoneNumber,
+          address : data.address,
+          location : data.location,
+          
           rankPoints: data.rankPoints,
-          profileImageUrl: data.profileImageUrl
-
+          profileImageUrl: data.profileImageUrl,
+          role : data.role,
         });
         setCompletedLessons(data.completedLessons);
         setCompletedWeeks(data.completedWeeks);

@@ -26,7 +26,7 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data)
+        // console.log(data)
         setUser({
           id : data.id,
 

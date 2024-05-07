@@ -8,7 +8,7 @@ export default function CostumInput({ id, label, inputRef, defaultValue, costumI
       <Input
         id={id}
         size={'md'}
-        color={color}
+        color={color == "" ? "gray" : color}
         icon={icon}
         label={label}
         placeholder={placeholder}

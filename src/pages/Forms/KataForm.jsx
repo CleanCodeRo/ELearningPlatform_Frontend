@@ -5,6 +5,7 @@ import DropdownFilter from "../../components/SpecialKatas/DropdownFilter";
 import { kataCategories } from "../../components/SpecialKatas/FilterObjects";
 import { startLink } from "../../constants/Constants";
 import CostumInput from "../../components/ReusableComponents/CostumInput";
+import { checkIfUserAdmin } from "../../components/ReusableComponents/Atom";
 
 export default function KataForm() {
     const [savedCategory, setSavedCategory] = useState([]);
@@ -27,7 +28,9 @@ export default function KataForm() {
     // console.log(previousURL.split('/').slice(3).join("/"))
 
     useEffect(() => {
+        checkIfUserAdmin();
         kataLevel.current.type = "number"
+        
         if (params.kataId !== undefined) {
             fetch(`${startLink}/katas/${params.kataId}`, {
                 method: "GET",

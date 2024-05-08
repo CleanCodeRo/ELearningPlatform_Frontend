@@ -1,5 +1,6 @@
 import { atom } from "jotai";
 import { startLink } from "../../constants/Constants";
+import { jwtDecode } from "jwt-decode";
 
 const state = {
 user : atom(null),
@@ -25,16 +26,27 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
     })
       .then(res => res.json())
       .then(data => {
+        // console.log(data)
         setUser({
           id : data.id,
+
+          githubUsername : data.githubUsername,
+          codeWarsUsername : data.codeWarsUsername,
+          discordUsername: data.discordUsername,
+          linkedInUsername: data.linkedInUsername,
+          instagramUsername: data.instagramUsername,
+          facebookUsername:  data.facebookUsername,
+
           firstName : data.firstName,
           lastName : data.lastName,
-          username : data.username,
-          role : data.role,
-          codeWarsUsername : data.codeWarsUsername,
+          email : data.email,
+          phoneNumber : data.phoneNumber,
+          address : data.address,
+          location : data.location,
+          
           rankPoints: data.rankPoints,
-          profileImageUrl: data.profileImageUrl
-
+          profileImageUrl: data.profileImageUrl,
+          role : data.role,
         });
         setCompletedLessons(data.completedLessons);
         setCompletedWeeks(data.completedWeeks);
@@ -80,4 +92,11 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
     let madatoryPercentage = Math.floor( (completedMandatory.length / mandatory.length) * 100);
    
     return [madatoryPercentage, completePercentage];
+  }
+
+  export function checkIfUserAdmin(){
+    let decodedToken = jwtDecode(localStorage.getItem("ELearningToken"));
+    if(decodedToken.role != "ADMIN"){
+     window.history.back();
+    }
   }

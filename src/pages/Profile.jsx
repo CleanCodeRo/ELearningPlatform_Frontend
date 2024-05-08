@@ -101,6 +101,10 @@ const Profile = () => {
         navigate("/");
     };
 
+    const editer = () =>{
+        return true;
+    }
+
 
     const [t, st] = useState('')
 

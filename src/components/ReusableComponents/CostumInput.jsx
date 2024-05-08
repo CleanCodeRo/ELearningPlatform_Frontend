@@ -8,11 +8,10 @@ export default function CostumInput({ id, label, inputRef, defaultValue, costumI
   if(disabled==true){
     label="";
     return (
-      <div className=" w-4/5 ml-3  font-xl">
+      <div className=" w-4/5 ml-3 font-xl">
         <Input
           id={id}
           size={'md'}
-          
           icon={icon}
           label={label}
           placeholder={placeholder}
@@ -31,7 +30,6 @@ export default function CostumInput({ id, label, inputRef, defaultValue, costumI
         <Input
           id={id}
           size={'md'}
-          color={color}
           icon={icon}
           label={label}
           placeholder={placeholder}

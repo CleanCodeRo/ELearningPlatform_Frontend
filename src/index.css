@@ -74,3 +74,7 @@
 .animate-fadeInOut {
   animation: fadeInOut 2s ease-out;
 }
+
+.custom-img:hover {
+  opacity: 1 !important; /* Override any other opacity styles */
+}

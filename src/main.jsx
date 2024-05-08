@@ -16,7 +16,6 @@ import Redirect from "./components/ReusableComponents/Redirect";
 import ShowWeeks from "./pages/ShowWeeks";
 import ShowLessons from "./pages/ShowLessons";
 import LeaderBoard from "./pages/LeaderBoard";
-import ProfileAndEditPage from "./components/ProfileAndEditPage";
 
 import Permisions from "./pages/Permisions";
 import { useAtom } from "jotai";
@@ -25,6 +24,7 @@ import Profile from "./pages/Profile";
 
 export default function App() {
   const [user, setUser] = useAtom(state.user)
+  
   return (
     <BrowserRouter>
       <Routes>
@@ -186,8 +186,6 @@ export default function App() {
             )
           }
         />
-
-       
 
       </Routes>
     </BrowserRouter>

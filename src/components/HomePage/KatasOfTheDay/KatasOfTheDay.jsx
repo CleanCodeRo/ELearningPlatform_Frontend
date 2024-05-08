@@ -10,7 +10,6 @@ export default function KatasOfTheDay({ userRole }) {
     const [refresh, setRefresh] = useState(0);
 
     useEffect(() => {
-        console.log(refreshHasBeenMade)
         setKatas([]);
         fetch(`${startLink}/katas/katasOfTheDay?requestRefresh=${refreshHasBeenMade}`, {
             method: "GET",

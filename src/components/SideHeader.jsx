@@ -2,19 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Avatar,
+  IconButton,
+  SpeedDialAction,
+  SpeedDialContent,
+  SpeedDialHandler,
   Tooltip,
   SpeedDial,
-  SpeedDialHandler,
-  SpeedDialContent,
-  SpeedDialAction,
 } from "@material-tailwind/react";
-
-import {
-  PlusIcon,
-  HomeIcon,
-  CogIcon,
-  Square3Stack3DIcon,
-} from "@heroicons/react/24/outline";
 
 import state, { getUserWithToken } from "./ReusableComponents/Atom";
 import { useAtom } from "jotai";
@@ -37,12 +31,6 @@ export default function SideHeader() {
 
   let classNameTooltip = "text-lg bg-opacity-80 font-bold "
   let iconClassName = `flex items-center justify-center rounded-full w-[40px] h-[40px] sm:w-[50px] sm:h-[50px]  mb-4 mt-7  cursor-pointer fill-white hover:fill-generalColors-medium-blue`
-
-  const [open, setOpen] = useState(false);
-  const openDrawer = () => setOpen(true);
-  const closeDrawer = () => setOpen(false);
-  let path = window.location.pathname.split("/");
-
 
   useEffect(() => {
     if (!user) {

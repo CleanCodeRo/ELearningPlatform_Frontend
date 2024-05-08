@@ -1,9 +1,9 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import CostumInput from "../components/ReusableComponents/CostumInput";
 import { useAtom } from "jotai";
 import state, { getUserWithToken } from "../components/ReusableComponents/Atom";
 import { startLink } from "../constants/Constants";
-import { getBoolean } from "firebase/remote-config";
+import { useNavigate } from "react-router-dom";
 
 
 const Profile = () => {
@@ -11,6 +11,8 @@ const Profile = () => {
     const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons);
     const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks);
     const [completedModules, setCompletedModules] = useAtom(state.completedModules);
+
+    const imageRef = useRef(null)
 
     const githubUsernameRef = useRef(null);
     const codeWarsUsernameRef = useRef(null);
@@ -26,7 +28,21 @@ const Profile = () => {
     const addressRef = useRef(null);
     const locationRef = useRef(null);
 
+    const navigate = useNavigate()
     let updateObject = {}
+
+    useEffect(() => {
+        if (!user) {
+            getUserWithToken(
+                localStorage.getItem("ELearningToken"),
+                setUser,
+                setCompletedLessons,
+                setCompletedWeeks,
+                setCompletedModules
+            );
+            console.log("User received use effect");
+        }
+    }, []);
 
     const updateUser = () => {
         // console.log(updateObject)
@@ -47,38 +63,67 @@ const Profile = () => {
         updateObject[e.target.id] = e.target.value
     }
 
-    useEffect(() => {
-        if (!user) {
-            getUserWithToken(
-                localStorage.getItem("ELearningToken"),
-                setUser,
-                setCompletedLessons,
-                setCompletedWeeks,
-                setCompletedModules
-            );
-            // console.log("User received use effect");
-        }
-    }, []);
-    // modifica return ul pentru a modifica si editul, e 3 dimineata nu am putut face asta inca :))
-    //also needs fixing: opacitatea imaginii la hover
-    //pentru a folosi un onClick il vei pune pe clickDetectorImage(fix unde e hoverul, e deja pus peste toate, nu are sens sa il mtam)
-    const editer = () => {
-        return true;
+    const uploadPhoto = () => {
+        let url = "https://script.google.com/macros/s/AKfycbxw6i617kJ7mwdxVniVR2vjms4p33A6W0rg5HvQGwe9JSnF90_XAHg46BO4jBi5BMqB/exec"
+        let fr = new FileReader()
+
+        fr.addEventListener('loadend', () => {
+            let response = fr.result;
+            let spt = response.split("base64,")[1];
+            let obj = {
+                base64: spt,
+                type: imageRef.current.files[0].type,
+                name: imageRef.current.files[0].name,
+                userId: user?.id,
+                username: `${user?.firstName} ${user?.lastName}`
+            }
+
+            fetch(url, {
+                method: "POST",
+                body: JSON.stringify(obj)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    updateObject["profileImageUrl"] = data.newLink;
+                    console.log(updateObject)
+
+                    st(data.newLink)
+                })
+        })
+
+        fr.readAsDataURL(imageRef.current.files[0])
+    }
+
+    const logout = (e) => {
+        e.preventDefault();
+        localStorage.removeItem("ELearningToken");
+        navigate("/");
     };
 
+
+    const [t, st] = useState('')
+
     return (
-        <div id="profilePageContainer" className="w-full - h-full  bg-generalColors-dark-blue flex flex-col justify-center items-center gap-6">
-
-            <div id="image" className="w-[200px] h-[200px] bg-white rounded-full flex justify-center items-center">
-                <div id="clickDetectorImage" className="bg-white opacity-0 hover:opacity-50 absolute w-[200px] h-[200px] rounded-full flex justify-center items-center cursor-pointer">
-                    <img src="images/camera-dark-blue.png" alt="" className="size-14 custom-img" />
-                </div>
-
-
+        <div id="profilePageContainer" className="w-full h-full  bg-generalColors-dark-blue flex flex-col justify-center items-center gap-6">
+            <label id="image" className="w-[200px] h-[200px] bg-white rounded-full flex justify-center items-center relative group">
                 <img src="images/default-picture.png" alt="" className="size-32" />
-            </div>
-            <div id="socialsAndInformationContainer" className="w-full h-3/5  flex flex-row  gap-20 justify-center">
-                <div id="socialsContainer" className="w-1/4 bg-white rounded-3xl flex flex-col gap-3 p-5" >
+                <input onChange={uploadPhoto} ref={imageRef} type="file" accept="image/*" className="hidden" />
+                <div id="cameraHover" className="hidden group-hover:flex justify-center items-center w-full h-full absolute top-0 left-0 bg-white bg-opacity-70 rounded-full">
+                    <img height={35} width={35} src="/images/camera-dark-blue.png" />
+                </div>
+                <img className="w-full h-full rounded-full absolute z-10" src={t} />
+            </label>
+
+            {/* <img src="https://lh3.googleusercontent.com/d/11yKyIxAf5P8kaYyM5tkSac7tXcmtWq8N=s220?authuser=0" />
+            <img className="w-10 h-10" src={t} />
+            <img src={user?.profileImageUrl} /> */}
+
+            <button id="logOut" onClick={logout} className="w-2/5 bg-generalColors-dark-blue text-white rounded-3xl size-8  text-center">Logout</button>
+
+
+            <div id="socialsAndInformationContainer" className="w-full h-3/5 px-7  flex flex-row gap-20 justify-center">
+                <div id="socialsContainer" className="w-96 bg-white rounded-3xl flex flex-col gap-3 p-5" >
                     <div id="socialTitle" className="w-full  h-20 flex-row flex gap-5 justify-center">
                         <p className=" text-generalColors-medium-gray font-semibold text-xl">Social Networks</p>
                         <div id="imageDot" className="size-7 bg-generalColors-medium-gray rounded-3xl flex items-center justify-center cursor-pointer" onClick={() => { console.log("modifica booleanul edit()") }}>
@@ -165,7 +210,7 @@ const Profile = () => {
 
 
                 </div>
-                <div id="informationContainer" className="w-1/4 bg-white rounded-3xl flex flex-col gap-3 p-5" >
+                <div id="informationContainer" className="w-96 bg-white rounded-3xl flex flex-col gap-3 p-5" >
                     <div id="informationTitle" className="w-full  h-20 flex-row flex gap-5 justify-center">
                         <p className=" text-generalColors-medium-gray font-semibold text-xl">Personal Information</p>
                         <div id="imageDot" className="size-7 bg-generalColors-medium-gray rounded-3xl flex items-center justify-center cursor-pointer" onClick={() => { console.log("hey si aici") }}>

@@ -192,6 +192,7 @@ const Profile = () => {
                         <CostumInput id="linkedInUsername"
                             disabled={editer()}
                             inputRef={linkedInUsernameRef}
+                            defaultValue={user?.linkedInUsername}
                             onChange={onChangeEvent}
                             placeholder={'LinkedIn Username'}
                             label={<span style={{ fontSize: '17px' }}>
@@ -203,6 +204,7 @@ const Profile = () => {
                         <CostumInput id="instagramUsername"
                             disabled={editer()}
                             inputRef={instagramUsernameRef}
+                            defaultValue={user?.instagramUsername}
                             onChange={onChangeEvent}
                             placeholder={'Instagram Username'}
                             label={<span style={{ fontSize: '17px' }}>
@@ -215,6 +217,7 @@ const Profile = () => {
                         <CostumInput id="facebookUsername"
                             disabled={editer()}
                             inputRef={facebookUsernameRef}
+                            defaultValue={user?.facebookUsername}
                             onChange={onChangeEvent}
                             placeholder={'Facebook Username'}
                             label={<span style={{ fontSize: '17px' }}>

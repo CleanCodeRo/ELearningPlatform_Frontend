@@ -45,6 +45,7 @@ export default function FilterKata({ userId, setKatas, setNumberOfPages, setLoad
                 .then(data => {
                     // Handle the response data here
                     setKatas(data.katas);
+                    setLoadingKatas(false);
                     setNumberOfPages(data.numberOfKatas / numberOfItems)
                     if (data.katas.length == 0 && pageNumber >= 0) {
                         navigate(`/dojo/${pageNumber - 1}`)
@@ -57,7 +58,7 @@ export default function FilterKata({ userId, setKatas, setNumberOfPages, setLoad
                     setNumberOfPages(0)
                 });
         }
-        setLoadingKatas(false);
+        // setLoadingKatas(false);
     }, [pageNumber, refreshKatas])
 
 

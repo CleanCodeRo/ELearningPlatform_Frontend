@@ -40,6 +40,7 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
           firstName : data.firstName,
           lastName : data.lastName,
           email : data.email,
+          birthday : data.birthday,
           phoneNumber : data.phoneNumber,
           address : data.address,
           location : data.location,

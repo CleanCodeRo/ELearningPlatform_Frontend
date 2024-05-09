@@ -9,6 +9,9 @@ import XlsxPopulate from 'xlsx-populate';
 //    then enter in terminal in the populate folder and run "node katas.js", after take the new categories
 //    and put them in the category object, make sure you dont delete the first option "ALL"
 
+// PS : due to security you need to put in the fetch of function saveAllKatasToDB a new token that has admin propertyes
+// for the post to complete
+
 const getKataLinks = async () => {
     let data = []
     try {
@@ -33,6 +36,7 @@ const saveAllKatasToDB = (katas) =>{
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbGlAIiwiaWQiOjEsImZpcnN0TmFtZSI6IklhY29iIiwibGFzdE5hbWUiOiJPbGl2ZXIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MTUyMzg3NDksImV4cCI6MTcxNTI1Njc0OX0.0yTBoiJ4GXzVPVOP8evhEsS7bhbko_kgmHUeFMrmpnY`,
         },
         body: JSON.stringify(katas),
     })

@@ -27,7 +27,7 @@ const Profile = () => {
 
     const firstNameRef = useRef(null);
     const lastNameRef = useRef(null);
-    const emailRef = useRef(null);
+    const birthdayRef = useRef(null);
     const phoneNumberRef = useRef(null);
     const addressRef = useRef(null);
     const locationRef = useRef(null);
@@ -60,13 +60,13 @@ const Profile = () => {
             body: JSON.stringify(updateObject)
         })
             .then(res => res.json())
-            .then((data) => {
+            .then(() => {
                 setSuccess("Chages Saved!"); // afisare mesaj
                 setTimeout(() => {
                     setSuccess(null); // curatare eroare
                 }, 2000);
             })
-            .catch((err) =>{
+            .catch((err) => {
                 setError("Something went wrong")
                 console.log(err)
                 setTimeout(() => {
@@ -126,7 +126,7 @@ const Profile = () => {
 
     return (
         <div id="profilePageContainer" className="w-full min-h-screen  bg-generalColors-dark-blue flex flex-col justify-center items-center gap-6">
-             <SuccessError success={success} error={error} />
+            <SuccessError success={success} error={error} />
 
             <div className="w-full flex justify-end h-7">
                 <button id="logOut" onClick={logout} className="mt-[20px] w-fit px-7 py-4 bg-generalColors-dark-blue text-white rounded-2xl size-8 flex items-center justify-center border-[1px] border-white mr-8">Logout</button>
@@ -148,7 +148,7 @@ const Profile = () => {
                     <div id="socialTitle" className="w-full my-5 flex-row flex gap-5 justify-center">
                         <p className=" text-generalColors-medium-gray font-semibold text-xl">Social Networks</p>
                     </div>
-                    <div id="gitHubUsername" className="w-full  h-20 flex items-center">
+                    <div id="gitHubUsernameContainer" className="w-full  h-20 flex items-center">
                         <img src="images/social1.png" alt="" className=" size-11 " />
                         <CostumInput id="githubUsername"
                             disabled={editer()}
@@ -162,7 +162,7 @@ const Profile = () => {
                         />
 
                     </div>
-                    <div id="codeWarsUsername" className="w-full  h-20 flex items-center">
+                    <div id="codeWarsUsernameContainer" className="w-full  h-20 flex items-center">
                         <img src="images/social2.png" alt="" className=" size-11 " />
                         <CostumInput id="codeWarsUsername"
                             disabled={editer()}
@@ -187,7 +187,7 @@ const Profile = () => {
                                 Discord username<span className="text-red-500">*</span></span>} size={'lg'}
                         />
                     </div>
-                    <div id="linkedInUsername" className="w-full  h-20 flex items-center">
+                    <div id="linkedInUsernameContainer" className="w-full  h-20 flex items-center">
                         <img src="images/social4.png" alt="" className=" size-11 " />
                         <CostumInput id="linkedInUsername"
                             disabled={editer()}
@@ -198,7 +198,7 @@ const Profile = () => {
                                 LinkedIn username</span>} size={'lg'}
                         />
                     </div>
-                    <div id="instagramUsername" className="w-full  h-20 flex items-center">
+                    <div id="instagramUsernameContainer" className="w-full  h-20 flex items-center">
                         <img src="images/social5.png" alt="" className=" size-11 " />
                         <CostumInput id="instagramUsername"
                             disabled={editer()}
@@ -210,7 +210,7 @@ const Profile = () => {
                         />
                     </div>
 
-                    <div id="facebookUsername" className="w-full  h-20 flex items-center">
+                    <div id="facebookUsernameContainer" className="w-full  h-20 flex items-center">
                         <img src="images/social6.png" alt="" className=" size-11 " />
                         <CostumInput id="facebookUsername"
                             disabled={editer()}
@@ -251,19 +251,19 @@ const Profile = () => {
                         />
 
                     </div>
-                    <div id="email" className="w-full  h-20 flex items-center">
-                        <img src="images/info2.png" alt="" className=" size-11 " />
-                        <CostumInput id="email"
+                    <div id="birthdayContainer" className="w-full  h-20 flex items-center">
+                        <img src="images/info5.png" alt="" className=" size-11 " />
+                        <CostumInput id="birthday"
                             disabled={editer()}
-                            defaultValue={user?.email}
-                            inputRef={emailRef}
+                            defaultValue={user?.birthday}
+                            inputRef={birthdayRef}
                             onChange={onChangeEvent}
-                            placeholder={'Email'}
+                            placeholder={'DD / MM / YYYY'}
                             label={<span style={{ fontSize: '17px' }}>
-                                Email<span className="text-red-500">*</span></span>} size={'lg'}
+                                Birth day</span>} size={'lg'}
                         />
                     </div>
-                    <div id="phoneNumber" className="w-full  h-20 flex items-center">
+                    <div id="phoneNumberContainer" className="w-full  h-20 flex items-center">
                         <img src="images/info3.svg" alt="" className=" size-11 " />
                         <CostumInput id="phoneNumber"
                             disabled={editer()}
@@ -275,30 +275,33 @@ const Profile = () => {
                                 Phone number<span className="text-red-500">*</span></span>} size={'lg'}
                         />
                     </div>
-                    <div id="address" className="w-full  h-20 flex items-center">
+
+                    <div id="locationContainer" className="w-full  h-20 flex items-center">
+                    <img src="images/info4.png" alt="" className=" size-11 " />
+                        <CostumInput id="location"
+                            disabled={editer()}
+                            defaultValue={user?.location}
+                            inputRef={locationRef}
+                            onChange={onChangeEvent}
+                            placeholder={'City'}
+                            label={<span style={{ fontSize: '17px' }}>
+                                Location<span className="text-red-500">*</span></span>} size={'lg'}
+                        />
+                    </div>
+
+                    <div id="addressContainer" className="w-full  h-20 flex items-center">
                         <img src="images/info4.png" alt="" className=" size-11 " />
                         <CostumInput id="address"
                             disabled={editer()}
                             defaultValue={user?.address}
                             inputRef={addressRef}
                             onChange={onChangeEvent}
-                            placeholder={'Address'}
+                            placeholder={'Streent - number'}
                             label={<span style={{ fontSize: '17px' }}>
                                 Address<span className="text-red-500">*</span></span>} size={'lg'}
                         />
                     </div>
-                    <div id="birthDay" className="w-full  h-20 flex items-center">
-                        <img src="images/info5.png" alt="" className=" size-11 " />
-                        <CostumInput id="location"
-                            disabled={editer()}
-                            defaultValue={user?.location}
-                            inputRef={locationRef}
-                            onChange={onChangeEvent}
-                            placeholder={'Location'}
-                            label={<span style={{ fontSize: '17px' }}>
-                                Location</span>} size={'lg'}
-                        />
-                    </div>
+                    
                 </div>
             </div>
 

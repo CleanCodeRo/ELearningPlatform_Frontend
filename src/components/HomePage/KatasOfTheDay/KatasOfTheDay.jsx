@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { deleteKata } from '../../SpecialKatas/ListKata';
-import KataCard from '../../SpecialKatas/KataKard';
 import { startLink } from '../../../constants/Constants';
 import KataCardRemade from '../../SpecialKatas/KataKardRemade';
 let refreshHasBeenMade = false;

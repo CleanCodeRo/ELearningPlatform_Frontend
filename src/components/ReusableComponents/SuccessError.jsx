@@ -14,11 +14,10 @@ export default function SuccessError({ success, error }) {
       }
   
       // Clear message after 2 seconds
-      const timeoutId = setTimeout(() => {
+       setTimeout(() => {
         setMessage(null);
       }, 2000);
   
-      return () => clearTimeout(timeoutId);
     }, [success, error]);
   
     return (

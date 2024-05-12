@@ -5,6 +5,8 @@ import state, { getUserWithToken } from "../components/ReusableComponents/Atom";
 import { startLink } from "../constants/Constants";
 import { useNavigate } from "react-router-dom";
 import SuccessError from "../components/ReusableComponents/SuccessError";
+import ProfilePicture from "../components/Profile/ProfilePicture";
+import UploadPfp from "../components/Profile/UploadPfp";
 
 
 const Profile = () => {
@@ -17,6 +19,7 @@ const Profile = () => {
     const [success, setSuccess] = useState(null);
 
     const imageRef = useRef(null)
+    const [openUploadPfp, setOpenUploadPfp] = useState(false)
 
     const githubUsernameRef = useRef(null);
     const codeWarsUsernameRef = useRef(null);
@@ -79,36 +82,40 @@ const Profile = () => {
         updateObject[e.target.id] = e.target.value
     }
 
+    // const uploadPhoto = () => {
+    //     let url = "https://script.google.com/macros/s/AKfycbxw6i617kJ7mwdxVniVR2vjms4p33A6W0rg5HvQGwe9JSnF90_XAHg46BO4jBi5BMqB/exec"
+    //     let fr = new FileReader()
+
+    //     fr.addEventListener('loadend', () => {
+    //         let response = fr.result;
+    //         let spt = response.split("base64,")[1];
+    //         let obj = {
+    //             base64: spt,
+    //             type: imageRef.current.files[0].type,
+    //             name: imageRef.current.files[0].name,
+    //             userId: user?.id,
+    //             username: `${user?.firstName} ${user?.lastName}`
+    //         }
+
+    //         fetch(url, {
+    //             method: "POST",
+    //             body: JSON.stringify(obj)
+    //         })
+    //             .then(res => res.json())
+    //             .then(data => {
+    //                 console.log(data)
+    //                 updateObject["profileImageUrl"] = data.newLink;
+    //                 console.log(updateObject)
+
+    //                 st(data.newLink)
+    //             })
+    //     })
+
+    //     fr.readAsDataURL(imageRef.current.files[0])
+    // }
+
     const uploadPhoto = () => {
-        let url = "https://script.google.com/macros/s/AKfycbxw6i617kJ7mwdxVniVR2vjms4p33A6W0rg5HvQGwe9JSnF90_XAHg46BO4jBi5BMqB/exec"
-        let fr = new FileReader()
-
-        fr.addEventListener('loadend', () => {
-            let response = fr.result;
-            let spt = response.split("base64,")[1];
-            let obj = {
-                base64: spt,
-                type: imageRef.current.files[0].type,
-                name: imageRef.current.files[0].name,
-                userId: user?.id,
-                username: `${user?.firstName} ${user?.lastName}`
-            }
-
-            fetch(url, {
-                method: "POST",
-                body: JSON.stringify(obj)
-            })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data)
-                    updateObject["profileImageUrl"] = data.newLink;
-                    console.log(updateObject)
-
-                    st(data.newLink)
-                })
-        })
-
-        fr.readAsDataURL(imageRef.current.files[0])
+        setOpenUploadPfp(true)
     }
 
     const logout = (e) => {
@@ -121,9 +128,6 @@ const Profile = () => {
         return false;
     }
 
-
-    const [t, st] = useState('')
-
     return (
         <div id="profilePageContainer" className="w-full min-h-screen  bg-generalColors-dark-blue flex flex-col justify-center items-center gap-6">
             <SuccessError success={success} error={error} />
@@ -133,14 +137,8 @@ const Profile = () => {
             </div>
 
 
-            <label id="image" className="w-[200px] h-[200px] bg-white rounded-full flex justify-center items-center relative group">
-                <img src="images/default-picture.png" alt="" className="size-32" />
-                {/* <input onChange={uploadPhoto} ref={imageRef} type="file" accept="image/*" className="hidden" /> */}
-                {/* <div id="cameraHover" className="hidden group-hover:flex justify-center items-center w-full h-full absolute top-0 left-0 bg-white bg-opacity-70 rounded-full">
-                    <img height={35} width={35} src="/images/camera-dark-blue.png" />
-                </div> */}
-                <img className="w-full h-full rounded-full absolute z-10" src={t} />
-            </label>
+            <ProfilePicture uploadPhoto={uploadPhoto} imageRef={imageRef} />
+            {openUploadPfp && <UploadPfp setOpenUploadPfp={setOpenUploadPfp} pfpImageRef={imageRef}/>}
 
 
             <div id="socialsAndInformationContainer" className="w-full h-fit px-7  flex flex-row gap-20 justify-center">

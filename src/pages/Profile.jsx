@@ -52,8 +52,16 @@ const Profile = () => {
     }, []);
 
     const updateUser = () => {
-        // console.log(updateObject)
 
+        if(imageRef.current.src != user?.profileImageUrl){
+            uploadPhoto()
+        }else{
+            updateFetch()
+        }
+        
+    }
+
+    const updateFetch = () =>{
         fetch(`${startLink}/users/${user.id}`, {
             method: "PATCH",
             headers: {
@@ -82,41 +90,32 @@ const Profile = () => {
         updateObject[e.target.id] = e.target.value
     }
 
-    // const uploadPhoto = () => {
-    //     let url = "https://script.google.com/macros/s/AKfycbxw6i617kJ7mwdxVniVR2vjms4p33A6W0rg5HvQGwe9JSnF90_XAHg46BO4jBi5BMqB/exec"
-    //     let fr = new FileReader()
-
-    //     fr.addEventListener('loadend', () => {
-    //         let response = fr.result;
-    //         let spt = response.split("base64,")[1];
-    //         let obj = {
-    //             base64: spt,
-    //             type: imageRef.current.files[0].type,
-    //             name: imageRef.current.files[0].name,
-    //             userId: user?.id,
-    //             username: `${user?.firstName} ${user?.lastName}`
-    //         }
-
-    //         fetch(url, {
-    //             method: "POST",
-    //             body: JSON.stringify(obj)
-    //         })
-    //             .then(res => res.json())
-    //             .then(data => {
-    //                 console.log(data)
-    //                 updateObject["profileImageUrl"] = data.newLink;
-    //                 console.log(updateObject)
-
-    //                 st(data.newLink)
-    //             })
-    //     })
-
-    //     fr.readAsDataURL(imageRef.current.files[0])
-    // }
 
     const uploadPhoto = () => {
-        setOpenUploadPfp(true)
+        let url = "https://script.google.com/macros/s/AKfycbxw6i617kJ7mwdxVniVR2vjms4p33A6W0rg5HvQGwe9JSnF90_XAHg46BO4jBi5BMqB/exec";
+
+        let obj = {
+            base64: imageRef.current.src.split("base64,")[1],
+            type: imageRef.current.type,
+            name: imageRef.current.name,
+            userId: user?.id,
+            username: `${user?.firstName} ${user?.lastName}`
+        }
+
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify(obj)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                updateObject["profileImageUrl"] = data.newLink;
+                console.log(updateObject)
+                updateFetch()
+            })
+            .catch((err) => console.log(err))
     }
+
 
     const logout = (e) => {
         e.preventDefault();
@@ -137,8 +136,8 @@ const Profile = () => {
             </div>
 
 
-            <ProfilePicture uploadPhoto={uploadPhoto} imageRef={imageRef} />
-            {openUploadPfp && <UploadPfp setOpenUploadPfp={setOpenUploadPfp} pfpImageRef={imageRef}/>}
+            <ProfilePicture openUpload={() => setOpenUploadPfp(true)} imageRef={imageRef} imageSrc={user?.profileImageUrl}/>
+            {openUploadPfp && <UploadPfp setOpenUploadPfp={setOpenUploadPfp} pfpImageRef={imageRef} />}
 
 
             <div id="socialsAndInformationContainer" className="w-full h-fit px-7  flex flex-row gap-20 justify-center">
@@ -278,7 +277,7 @@ const Profile = () => {
                     </div>
 
                     <div id="locationContainer" className="w-full  h-20 flex items-center">
-                    <img src="images/info4.png" alt="" className=" size-11 " />
+                        <img src="images/info4.png" alt="" className=" size-11 " />
                         <CostumInput id="location"
                             disabled={editer()}
                             defaultValue={user?.location}
@@ -302,7 +301,7 @@ const Profile = () => {
                                 Address<span className="text-red-500">*</span></span>} size={'lg'}
                         />
                     </div>
-                    
+
                 </div>
             </div>
 

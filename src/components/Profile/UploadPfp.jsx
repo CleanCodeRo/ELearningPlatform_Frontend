@@ -23,12 +23,6 @@ export default function UploadPfp({ setOpenUploadPfp, pfpImageRef }) {
   const canvasRef = useRef(null);
 
 
-  // useEffect(() =>{
-  //   if(pfpImageRef.current.src !== ""){
-  //     setImageSrc(pfpImageRef.current.src)
-  //   }
-  // })
-
   const onSelectFile = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -49,7 +43,10 @@ export default function UploadPfp({ setOpenUploadPfp, pfpImageRef }) {
           return setImageSrc(null);
         }
       })
+
       setImageSrc(imageUrl)
+      pfpImageRef.current.name = file.name
+      pfpImageRef.current.type = file.type
     })
     reader.readAsDataURL(file);
   }

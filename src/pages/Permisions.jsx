@@ -20,6 +20,9 @@ export default function Permisions() {
     const [selectedUser, setSelectedUser] = useState(null);
     const [open, setOpen] = React.useState(1);
     const searchRef = useRef(null);
+    const nameRef = useRef(null);
+    const emailRef = useRef(null);
+    const pwdRef = useRef(null);
     const navigate = useNavigate()
     let savedSeconds = new Date().getSeconds();
 
@@ -118,6 +121,36 @@ export default function Permisions() {
             })
     }
 
+    const registerAccount = () => {
+        const data = {
+            firstName: nameRef.current.value,
+            email: emailRef.current.value,
+            password: pwdRef.current.value
+        };
+
+        fetch(`${startLink}/users/auth/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`,
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log("wow, created")
+            } else {
+                console.log("already existing")
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    };
+
+
+
+
     return (
         <div className="h-screen flex flex-row text-sixth overflow-x-hidden overflow-y-scroll relative custom-scrollbar bg-white" >
             <SideHeader />
@@ -125,8 +158,43 @@ export default function Permisions() {
 
             <div id='permisionContainer' className=" relative flex flex-col px-7 text-generalColors-dark-blue" style={{ minWidth: "calc(100vw - 5rem)", maxWidth: "100%" }}>
                 <p className="text-3xl sm:text-4xl p-4  font-bold  rounded-lg text-fourth">
-                    Permissions
+                    Permissions & Admin Pannel
                 </p>
+                <div id="registerAccount" className="relative flex items-center mb-6 w-fit">
+                <img alt="user" className="w-16" src="/SVGs/user.svg" />
+                <CostumInput
+                    id={"nameRef"}
+                    label={"Name"}
+                    inputRef={nameRef}
+                    costumInputClass=""
+                    color="gray"
+                    
+                />
+                <CostumInput
+                    id={"emailRef"}
+                    label={"Email"}
+                    inputRef={emailRef}
+                    costumInputClass=""
+                    color="gray"
+                    
+                />
+                <CostumInput
+                    id={"pwdRef"}
+                    label={"Password"}
+                    inputRef={pwdRef}
+                    costumInputClass=""
+                    color="gray"
+                    
+                />
+                <button 
+                    className='ml-5 border-[1px] p-3 rounded-xl text-generalColors-white bg-generalColors-dark-blue 
+                    hover:text-generalColors-medium-blue 
+                    hover:bg-generalColors-white animate-ease-linear-3'
+                    onClick={registerAccount}
+                >
+                    Create
+                </button>
+            </div>
 
                 <div id="SearchContainer" className="relative flex items-center mb-6 w-fit">
                     <img alt="user" className="w-4 mr-3" src="/SVGs/user.svg" />
@@ -192,8 +260,8 @@ export default function Permisions() {
                         </Accordion>)}
                 </div>
 
-
             </div>
+            
         </div>
     )
 }

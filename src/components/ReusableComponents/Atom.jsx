@@ -58,6 +58,8 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
       })
   }
 
+  
+
 
   export function getCompletedStuff({userId, setCompletedLessons, setCompletedWeeks, setCompletedModules,setCompletedKatas, setRefreshWeekProgressBar}){
     fetch(`${startLink}/users/${userId}/completedStuff`,{

@@ -3,7 +3,7 @@ import CostumInput from "../components/ReusableComponents/CostumInput";
 import { useAtom } from "jotai";
 import state, { getUserWithToken } from "../components/ReusableComponents/Atom";
 import { startLink } from "../constants/Constants";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import SuccessError from "../components/ReusableComponents/SuccessError";
 import ProfilePicture from "../components/Profile/ProfilePicture";
 import UploadPfp from "../components/Profile/UploadPfp";
@@ -39,6 +39,7 @@ const Profile = () => {
     const locationRef = useRef(null);
 
     const navigate = useNavigate()
+    const location = useLocation();
     let updateObject = {}
 
     useEffect(() => {
@@ -118,9 +119,7 @@ const Profile = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 updateObject["profileImageUrl"] = data.newLink;
-                console.log(updateObject)
                 updateFetch()
             })
             .catch((err) => console.log(err))
@@ -323,18 +322,16 @@ const Profile = () => {
             </div>
 
             <div id="saveAndCancelSocial" className="relative w-full h-20 mb-10 flex items-center justify-center gap-5">
-                {/* <div className="absolute w-full h-full top-o left-0 flex items-center justify-center bg-black bg-opacity-50">
-                    <Loading />
-                </div> */}
                 <button id="saveSocial"
                     onClick={updateUser}
                     className="px-7 py-3 bg-generalColors-dark-blue text-white rounded-3xl border-[1px] border-white text-center">
                     Save Changes
                 </button>
+
                 <button id="cancelSocial"
-                    onClick={() =>{
-                     setUser(null);
-                     window.history.back();
+                    onClick={() => {
+                        setUser(user => ({...user, profileImageUrl : imageRef.current.src}))
+                        window.history.back()
                     }}
                     className="px-7 py-3 bg-white text-generalColors-dark-blue font-semibold border border-generalColors-medium-gray  rounded-3xl">
                     Back

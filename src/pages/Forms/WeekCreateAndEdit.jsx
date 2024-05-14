@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import state, { checkIfUserAdmin, getCompletedStuff } from "../../components/ReusableComponents/Atom";
+import state, { checkIfUserAdmin, getCompletedStuff, handleEnter } from "../../components/ReusableComponents/Atom";
 import { startLink } from "../../constants/Constants";
 import DropdownFilter from "../../components/SpecialKatas/DropdownFilter";
 import { kataCategories } from "../../components/SpecialKatas/FilterObjects";
@@ -29,6 +29,8 @@ export default function WeekCreateAndEdit() {
 
   useEffect(() => {
     checkIfUserAdmin()
+    console.log(params)
+   // document.addEventListener('keydown', (e) => handleEnter(e, params.weekId  ? editWeek : saveWeek)); // press enter to save
     weekNumber.current.type = "number"
 
     if (params.weekId !== undefined) {
@@ -52,7 +54,7 @@ export default function WeekCreateAndEdit() {
   }, [params.weekId]);
 
 
-  function validateFields() {
+  function validateFields(weekNumber, savedCategory) {
     if (
       weekNumber.current.value === "" ||
       savedCategory.length == 0
@@ -64,7 +66,7 @@ export default function WeekCreateAndEdit() {
   }
 
   const editWeek = () => {
-    if(!validateFields()) return
+    if(!validateFields(weekNumber, savedCategory)) return
 
     fetch(`${startLink}/weeks/${params.weekId}`, {
       method: "PUT",
@@ -93,7 +95,7 @@ export default function WeekCreateAndEdit() {
   };
 
   const saveWeek = () => {
-    if(!validateFields()) return
+    if(!validateFields(weekNumber, savedCategory)) return
 
     fetch(`${startLink}/weeks`, {
       method: "POST",

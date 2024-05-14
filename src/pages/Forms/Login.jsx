@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { startLink } from "../../constants/Constants";
 import CostumInput from "../../components/ReusableComponents/CostumInput";
 import { Checkbox } from "@material-tailwind/react";
+import { handleEnter } from "../../components/ReusableComponents/Atom";
 
 let rememberMe = false
 
@@ -12,6 +13,7 @@ const Login = () => {
 
   const emailRef = useRef(null)
   const passwordRef = useRef(null)
+  const loginButtonRef = useRef(null)
   const rememberMeRef = useRef(null)
 
   const [checkBoxSelected, setCheckBoxSelected] = useState(0);
@@ -23,6 +25,8 @@ const Login = () => {
   }
 
   useEffect(() => {
+    document.addEventListener('keydown', (e) => handleEnter(e, login));
+
     passwordRef.current.type = seePass % 2 != 0 ? "text" : "password"
    // passwordRef.current.value = 1234
     emailRef.current.type = "email"
@@ -31,12 +35,9 @@ const Login = () => {
   })
 
   async function login(e) {
-    e.preventDefault();
-    e.target.disabled = true
 
     if (emailRef.current.value == "" || passwordRef.current.value == "") {
       setError("Email and password are required");
-      e.target.disabled = false
       return;
     }
 
@@ -59,7 +60,6 @@ const Login = () => {
       if (!response.ok) {
         console.log(response);
         setError("Incorrect email or password");
-        e.target.disabled = false
       } else {
         setError(null);
         const data = await response.json();
@@ -72,7 +72,6 @@ const Login = () => {
       }
     } catch (error) {
       console.error("Login error:", error);
-      e.target.disabled = false
     }
   }
 
@@ -118,7 +117,7 @@ const Login = () => {
           />
         </div>
 
-        <button className=" bg-generalColors-dark-blue text-white rounded-full py-4 w-full" onClick={login}>LOGIN</button>
+        <button ref={loginButtonRef} id="loginButton" className=" bg-generalColors-dark-blue text-white rounded-full py-4 w-full" onClick={login}>LOGIN</button>
 
         <div id="rememberAndForget" className="w-full flex flex-row items-center justify-between text-generalColors-dark-blue mb-20">
           <div id="checkbox" className="flex items-center w-fit">

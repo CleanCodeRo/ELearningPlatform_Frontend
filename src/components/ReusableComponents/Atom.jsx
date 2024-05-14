@@ -103,3 +103,9 @@ export function getUserWithToken(token, setUser, setCompletedLessons, setComplet
      window.history.back();
     }
   }
+
+  export function handleEnter(e, functionHandler) {
+    if(e.keyCode === 13){
+      functionHandler()
+    }
+  }

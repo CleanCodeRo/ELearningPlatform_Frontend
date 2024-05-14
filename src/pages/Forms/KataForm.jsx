@@ -5,7 +5,8 @@ import DropdownFilter from "../../components/SpecialKatas/DropdownFilter";
 import { kataCategories } from "../../components/SpecialKatas/FilterObjects";
 import { startLink } from "../../constants/Constants";
 import CostumInput from "../../components/ReusableComponents/CostumInput";
-import { checkIfUserAdmin } from "../../components/ReusableComponents/Atom";
+import { checkIfUserAdmin, handleEnter
+ } from "../../components/ReusableComponents/Atom";
 
 export default function KataForm() {
     const [savedCategory, setSavedCategory] = useState([]);
@@ -29,6 +30,7 @@ export default function KataForm() {
 
     useEffect(() => {
         checkIfUserAdmin();
+        document.addEventListener('keydown', (e) => handleEnter(e, params.kataId  ? editKata : saveKata)); // press enter to save
         kataLevel.current.type = "number"
         
         if (params.kataId !== undefined) {
@@ -176,6 +178,12 @@ export default function KataForm() {
         const updatedCategories = savedCategory.filter(category => category !== categoryValueToDelete);
         setSavedCategory(updatedCategories);
     }
+
+    // function handleEnter(e, functionHandler) {
+    //     if(e.keyCode === 13){
+    //       functionHandler()
+    //     }
+    //   }
 
     return (
         <div id="wholePageHolderKata"

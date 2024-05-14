@@ -51,7 +51,7 @@ export default function KataForm() {
         }
     }, [params.kataId]);
 
-    const editKata = (e) => {
+    const editKata = () => {
         if (!checkIfAllFieldsCompleted()) {
             return
         }

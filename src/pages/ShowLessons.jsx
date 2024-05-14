@@ -18,7 +18,7 @@ export default function ShowLessons() {
     const ConfirmNavigate = (e) => {
 
         return (
-            <div id="container" className="flex items-center justify-center absolute w-full h-full top-0 left-0 bg-black backdrop-blur-sm bg-opacity-50 z-10">
+            <div id="container" className="flex items-center justify-center fixed w-full h-full top-0 left-0 bg-black backdrop-blur-sm bg-opacity-50 z-10">
                 <div id='question-container' className='bg-white p-10 min-w-1/4 rounded-lg flex flex-col items-center'>
                     <p className='text-2xl font-bold my-5'>Navigate to lesson ? </p>
 
@@ -36,7 +36,6 @@ export default function ShowLessons() {
             </div>
         )
     }
-
 
 
     return (

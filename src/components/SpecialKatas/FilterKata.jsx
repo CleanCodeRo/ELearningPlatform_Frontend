@@ -55,6 +55,7 @@ export default function FilterKata({ userId, setKatas, setNumberOfPages, setLoad
                 .catch(error => {
                     // Handle any errors that occur during the fetch request
                     console.error("Error fetching data:", error);
+                    setLoadingKatas(false)
                     setNumberOfPages(0)
                 });
         }

@@ -3,13 +3,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { startLink } from "../../constants/Constants";
 import CostumInput from "../../components/ReusableComponents/CostumInput";
 import { checkIfUserAdmin } from "../../components/ReusableComponents/Atom";
+import SuccessError from "../../components/ReusableComponents/SuccessError";
 
 export default function ModuleCreateAndEdit() {
   const moduleName = useRef(null);
   const moduleNumber = useRef(null);
   let navigate = useNavigate();
 
-  const [error, setError] = useState(null);
+  const [[message, messageColor], setMessage] = useState([null, null]);
 
   const [moduleById, setModuleById] = useState({
     name: "",
@@ -40,7 +41,7 @@ export default function ModuleCreateAndEdit() {
     }
   }, [params.moduleId]);
 
-  const editModule = (e) => {
+  const editModule = () => {
 
     fetch(`${startLink}/modules/${params.moduleId}`, {
       method: "PUT",
@@ -74,7 +75,7 @@ export default function ModuleCreateAndEdit() {
       moduleName.current.value === "" ||
       moduleNumber.current.value === ""
     ) {
-      setError("Please fill in the required fields");
+      setMessage(["Please fill in the required fields", "bg-red-500"]);
       return;
     }
 
@@ -91,8 +92,8 @@ export default function ModuleCreateAndEdit() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        navigate("/home");
+        setMessage(["Module saved!", "bg-green-500"]);
+        setTimeout(() =>  navigate("/home"), 2200) 
       })
       .catch(() => {
         navigate("/login")
@@ -102,6 +103,9 @@ export default function ModuleCreateAndEdit() {
   return (
     <div id="wholePageHolderModule"
       className="flex justify-center items-center p-2 w-screen h-screen bg-center bg-cover" style={{ backgroundImage: "url(/images/backGrounds/online-programming-course-hero-section-bg.jpg)" }}>
+      <SuccessError message={message} setMessage={setMessage} color={messageColor} />
+      
+      
       <div id="formModule" className="relative w-[24rem] flex flex-col items-center px-8 py-5 h-fit rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
 
         {/* <img id="ghostImage" alt="ghost" className="w-[7rem] my-9" src="/SVGs/colorLogo.svg" /> */}
@@ -144,12 +148,6 @@ export default function ModuleCreateAndEdit() {
           </a>
         </div>
 
-        
-
-
-        {error && (
-          <div className="text-red-500 flex justify-center">{error}</div>
-        )}
 
       </div>
     </div>

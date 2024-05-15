@@ -1,29 +1,21 @@
 import React, { useState, useEffect } from 'react';
 
-export default function SuccessError({ success, error }) {
-    const [message, setMessage] = useState(null);
-    const [colorClass, setColorClass] = useState(null);
+export default function SuccessError({ setMessage, message, color }) {
+    
   
     useEffect(() => {
-      if (success) {
-        setMessage(success);
-        setColorClass('bg-green-500');
-      } else if (error) {
-        setMessage(error);
-        setColorClass('bg-red-500');
-      }
-  
+
       // Clear message after 2 seconds
        setTimeout(() => {
-        setMessage(null);
+        setMessage([null, null]);
       }, 2000);
   
-    }, [success, error]);
+    }, [message]);
   
     return (
       <>
         {message && (
-          <div className={`fixed z-40 bottom-0 left-0 w-full text-white py-2 text-center animate-fadeInOut ${colorClass}`}>
+          <div className={`fixed z-40 bottom-0 left-0 w-full text-white py-2 text-center animate-fadeInOut ${color}`} style={{ animationDuration: '2s' }}>
             {message}
           </div>
         )}

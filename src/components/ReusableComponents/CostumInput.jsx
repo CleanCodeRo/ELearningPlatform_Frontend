@@ -8,7 +8,7 @@ export default function CostumInput({ id, label, inputRef, defaultValue, costumI
   if(disabled==true){
     label="";
     return (
-      <div className=" w-4/5 ml-3 font-xl">
+      <div className={`${costumInputClass} w-full font-xl`}>
         <Input
           id={id}
           size={'md'}
@@ -18,7 +18,7 @@ export default function CostumInput({ id, label, inputRef, defaultValue, costumI
           defaultValue={defaultValue}
           inputRef={inputRef}
           variant='standard'
-          className={`${costumInputClass} `}
+          // className={`${costumInputClass} `}
           onChange={onChange}
           disabled={disabled}
         />
@@ -26,7 +26,7 @@ export default function CostumInput({ id, label, inputRef, defaultValue, costumI
     )
   }else{
     return (
-      <div className=" w-4/5 ml-3  font-xl">
+      <div className={`${costumInputClass} w-full font-xl`}>
         <Input
           id={id}
           size={'md'}
@@ -36,7 +36,7 @@ export default function CostumInput({ id, label, inputRef, defaultValue, costumI
           defaultValue={defaultValue}
           inputRef={inputRef}
           variant='standard'
-          className={`${costumInputClass} `}
+          // className={`${costumInputClass} `}
           onChange={onChange}
           disabled={false}
         />

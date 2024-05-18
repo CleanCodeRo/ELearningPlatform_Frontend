@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import CostumInput from "../../components/ReusableComponents/CostumInput";
 import emailjs from 'emailjs-com';
 import SuccessError from "../../components/ReusableComponents/SuccessError";
+import { handleEnter } from "../../components/ReusableComponents/Atom";
 
 const Contact = () => {
   const [error, setError] = useState(null);
@@ -13,6 +14,7 @@ const Contact = () => {
 
 
   useEffect(() => {
+    document.addEventListener('keydown', (e) => handleEnter(e, sendMail)); // press enter to save
     emailRef.current.type = "email"
   })
 

@@ -34,7 +34,7 @@ export default function Dojo() {
 
         {user && <FilterKata userId={user.id} setKatas={setKatas} setNumberOfPages={setNumberOfPages} setLoadingKatas={setLoadingKatas} refreshKatas={refreshKatas} setRefreshKatas={setRefreshKatas} />}
 
-        <ListKata katas={katas} numberOfPages={numberOfPages} loadingKatas={loadingKatas} setRefreshKatas={setRefreshKatas} />
+        <ListKata katas={katas} numberOfPages={numberOfPages}  setLoadingKatas={setLoadingKatas} loadingKatas={loadingKatas} setRefreshKatas={setRefreshKatas} />
 
       </div>
     </div>

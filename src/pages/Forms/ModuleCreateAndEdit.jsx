@@ -21,6 +21,7 @@ export default function ModuleCreateAndEdit() {
 
   useEffect(() => {
     checkIfUserAdmin()
+    document.addEventListener('keydown', (e) => handleEnter(e, params.moduleId ? editModule : saveModule)); // press enter to save
     moduleNumber.current.type = "number"
 
     if (params.moduleId !== undefined) {

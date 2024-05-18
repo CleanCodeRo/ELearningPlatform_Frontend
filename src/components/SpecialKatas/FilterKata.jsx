@@ -55,6 +55,7 @@ export default function FilterKata({ userId, setKatas, setNumberOfPages, setLoad
                 .catch(error => {
                     // Handle any errors that occur during the fetch request
                     console.error("Error fetching data:", error);
+                    setLoadingKatas(false)
                     setNumberOfPages(0)
                 });
         }
@@ -82,6 +83,7 @@ export default function FilterKata({ userId, setKatas, setNumberOfPages, setLoad
     };
 
     const emptyAllFilters = () =>{
+        setLoadingKatas(true);
         setFilterResultTest({
             category: "ALL",
             status: "ALL",
@@ -91,11 +93,16 @@ export default function FilterKata({ userId, setKatas, setNumberOfPages, setLoad
         setRefreshKatas(refreshKatas + 1)
     }
 
+    const applyFilters = () =>{
+        setLoadingKatas(true);
+        setRefreshKatas(refreshKatas + 1);
+    }
+
     return (
         <div id='allFilterInputs' className="flex flex-col w-full gap-4">
             <div className="flex flex-row gap-4">
                 <p className="text-3xl  text-generalColors-dark-blue mr-4 font-bold rounded-lg ">Filters</p>
-                <button onClick={() => setRefreshKatas(refreshKatas + 1)} className=" bg-generalColors-dark-blue w-fit h-10 px-3 rounded-lg text-white">Apply</button>
+                <button onClick={applyFilters} className=" bg-generalColors-dark-blue w-fit h-10 px-3 rounded-lg text-white">Apply</button>
                 <button onClick={emptyAllFilters} className="bg-generalColors-dark-blue w-fit h-10 px-3 rounded-lg text-white">Empty filters</button>
             </div>
 

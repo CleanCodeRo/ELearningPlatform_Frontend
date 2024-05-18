@@ -23,12 +23,13 @@ export const deleteKata = (e, kataId, setRefresh) => {
     })
 };
 
-const ListKata = ({katas, numberOfPages, loadingKatas, setRefreshKatas }) => {
+const ListKata = ({katas, numberOfPages, setLoadingKatas, loadingKatas, setRefreshKatas }) => {
   const { pageNumber } = useParams();
   const navigate = useNavigate();
 
 
   const handlePageClick = (e) => {
+    setLoadingKatas(true)
     navigate(`/dojo/${e.selected}`)
   }
 

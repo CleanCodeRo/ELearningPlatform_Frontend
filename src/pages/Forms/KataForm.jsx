@@ -128,7 +128,8 @@ export default function KataForm() {
                 setSuccess("Kata created successfully!"); // afisare mesaj
                 setTimeout(() => {
                     setSuccess(null); // curatare eroare
-                    navigate(`/${previousURL.split('/').slice(3).join("/")}`) // Redirect after 2 seconds
+                    //navigate(`/${previousURL.split('/').slice(3).join("/")}`) // Redirect after 2 seconds
+                    window.history.back()
                 }, 2000);
             })
             .catch((error) => {
@@ -168,9 +169,7 @@ export default function KataForm() {
             }
         } else {
             setErrorConflict("Can't add more than 5 categories");
-            setTimeout(() => {
-                setErrorConflict(null); // curatare eroare
-            }, 3000);
+            
         }
     }
 
@@ -196,7 +195,7 @@ export default function KataForm() {
                 <p className="text-2xl font-bold text-generalColors-dark-blue my-5"> {params.kataId !== undefined ? "Edit your Kata" : "Create new Kata"}</p>
 
 
-                <div id="passwordContainer" className="flex flex-col items-center mb-6 w-full gap-8">
+                <div id="passwordContainer" className="flex flex-col items-center mb-6 w-full overflow-hidden gap-8 ">
                     <CostumInput
                         id={"kataTitle"}
                         label={"Kata Title"}
@@ -223,6 +222,7 @@ export default function KataForm() {
                     />
 
                     <DropdownFilter onChangeEvent={addCategory} options={kataCategories.slice(1)} label="Category" />
+                    
                     <div id="categoryContainerWeek" className="flex flex-wrap gap-1">
                         {savedCategory.map((category, index) => (
                             <div key={index} className="w-fit bg-gray-500 h-7 text-white flex items-center px-2 rounded-lg">

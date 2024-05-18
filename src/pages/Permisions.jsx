@@ -161,12 +161,12 @@ export default function Permisions() {
                     Permissions & Admin Pannel
                 </p>
                 <div id="registerAccount" className="relative flex items-center mb-6 w-fit">
-                <img alt="user" className="w-16" src="/SVGs/user.svg" />
+                <img alt="user" className="w-16 mr-3" src="/SVGs/user.svg" />
                 <CostumInput
                     id={"nameRef"}
                     label={"Name"}
                     inputRef={nameRef}
-                    costumInputClass=""
+                    costumInputClass=" mr-3"
                     color="gray"
                     
                 />
@@ -174,7 +174,7 @@ export default function Permisions() {
                     id={"emailRef"}
                     label={"Email"}
                     inputRef={emailRef}
-                    costumInputClass=""
+                    costumInputClass="mr-3"
                     color="gray"
                     
                 />
@@ -182,7 +182,7 @@ export default function Permisions() {
                     id={"pwdRef"}
                     label={"Password"}
                     inputRef={pwdRef}
-                    costumInputClass=""
+                    costumInputClass="mr-3"
                     color="gray"
                     
                 />

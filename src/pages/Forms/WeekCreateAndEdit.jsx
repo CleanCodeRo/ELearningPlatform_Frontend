@@ -146,7 +146,7 @@ export default function WeekCreateAndEdit() {
         <img id="ghostImage" alt="ghost" className="w-[7rem] my-9" src="/SVGs/ghost.svg" />
         <p className="text-2xl font-bold text-generalColors-dark-blue my-5"> {params.weekId !== undefined ? "Edit your week" : "Create new week"}</p>
 
-        <div id="weekNumberContainer" className="flex items-center mb-6 w-full">
+        <div id="passwordContainer" className="flex flex-col items-center mb-6 w-full overflow-hidden gap-8 ">
           <CostumInput
             id={"weekNumberInput"}
             label={"Week Number"}
@@ -155,9 +155,10 @@ export default function WeekCreateAndEdit() {
             costumInputClass=""
             color="gray"
           />
-        </div>
+      
 
         <DropdownFilter onChangeEvent={addCategory} options={kataCategories.slice(1)} label="Category" />
+        </div>
 
         <div id="categoryContainer" className="flex flex-wrap gap-1 my-5">
           {savedCategory.map((category, index) => (

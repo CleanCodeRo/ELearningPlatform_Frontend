@@ -4,13 +4,13 @@ import { startLink } from "../../constants/Constants";
 import CostumInput from "../../components/ReusableComponents/CostumInput";
 import { Checkbox } from "@material-tailwind/react";
 import { handleEnter } from "../../components/ReusableComponents/Atom";
+import SuccessError from "../../components/ReusableComponents/SuccessError";
 
 let rememberMe = false
 
 const Login = () => {
   const navigate = useNavigate();
-  const [error, setError] = useState(null);
-
+  const [[message, messageColor], setMessage] = useState([null, null])
   const emailRef = useRef(null)
   const passwordRef = useRef(null)
   const loginButtonRef = useRef(null)
@@ -26,18 +26,14 @@ const Login = () => {
 
   useEffect(() => {
     document.addEventListener('keydown', (e) => handleEnter(e, login));
-
     passwordRef.current.type = seePass % 2 != 0 ? "text" : "password"
-   // passwordRef.current.value = 1234
     emailRef.current.type = "email"
-   // emailRef.current.value = "student@"
-    localStorage.setItem("ELearningToken", "Bearer");
+    localStorage.setItem("ELearningToken", "Bearer"); // this is for the routes to not give null in function check
   })
 
-  async function login(e) {
-
+  async function login() {
     if (emailRef.current.value == "" || passwordRef.current.value == "") {
-      setError("Email and password are required");
+      setMessage(["Email and password are required", "bg-red-500"]);
       return;
     }
 
@@ -52,36 +48,38 @@ const Login = () => {
           body: JSON.stringify({
             email: emailRef.current.value.trim(),
             password: passwordRef.current.value,
-            rememberMe : rememberMeRef.current.checked,
+            rememberMe: rememberMeRef.current.checked,
           }),
         }
       );
 
       if (!response.ok) {
-        console.log(response);
-        setError("Incorrect email or password");
+        console.log(response)
+        setMessage(["Incorrect email or password", "bg-red-500"]);
       } else {
-        setError(null);
         const data = await response.json();
         const token = data.response;
-
         localStorage.setItem("ELearningToken", token);
-        navigate("/home");
-        window.location.reload();
 
+        setMessage(["Login successfully!", "bg-green-500"]); // afisare mesaj
+          navigate("/home");
+          window.location.reload();
       }
     } catch (error) {
       console.error("Login error:", error);
+      setMessage(["Incorrect email or password", "bg-red-500"]);
     }
   }
 
-  const seePassEvent = () =>{
+  const seePassEvent = () => {
     setSeePass(seePass + 1);
   }
 
   return (
     <div id="wholePageHolder"
       className="flex justify-center items-center p-2 w-screen h-screen bg-center bg-cover" style={{ backgroundImage: "url(/images/backGrounds/online-programming-course-hero-section-bg.jpg)" }}>
+      <SuccessError setMessage={setMessage} message={message} color={messageColor} />
+
       <div id="formLogin" className="relative w-[24rem] flex flex-col items-center px-8 py-5 h-fit rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
 
         <img id="ghostImage" alt="ghost" className="w-[7rem] my-9" src="/SVGs/ghost.svg" />
@@ -94,7 +92,7 @@ const Login = () => {
             inputRef={emailRef}
             costumInputClass=""
             color="gray"
-          
+
           />
         </div>
 
@@ -108,10 +106,10 @@ const Login = () => {
             color="gray"
             icon={
               <div className="" onClick={seePassEvent}>
-               { seePass % 2 == 0 ?
-                <i className ="fa-solid fa-eye"></i>
-                :
-                <i className ="fa-solid fa-eye-slash"></i>}
+                {seePass % 2 == 0 ?
+                  <i className="fa-solid fa-eye"></i>
+                  :
+                  <i className="fa-solid fa-eye-slash"></i>}
               </div>
             }
           />
@@ -121,10 +119,10 @@ const Login = () => {
 
         <div id="rememberAndForget" className="w-full flex flex-row items-center justify-between text-generalColors-dark-blue mb-20">
           <div id="checkbox" className="flex items-center w-fit">
-            <Checkbox 
-                style={{ backgroundColor: `${checkBoxSelected % 2 == 0 ? "#ffffff" : "#174072"}` }} 
-                onChange={rememberEvent} className={`border-2 `} 
-                inputRef={rememberMeRef}/>
+            <Checkbox
+              style={{ backgroundColor: `${checkBoxSelected % 2 == 0 ? "#ffffff" : "#174072"}` }}
+              onChange={rememberEvent} className={`border-2 `}
+              inputRef={rememberMeRef} />
             <label className="text-sm ">Remember Me</label>
           </div>
 
@@ -134,12 +132,6 @@ const Login = () => {
         <div className=" h-6 w-full relative text-white ">
           <i className="fa-solid fa-question bg-generalColors-dark-blue absolute right-0 rounded-full w-6 h-6 flex items-center justify-center text-xs"></i>
         </div>
-
-
-        {error && (
-          <div className="text-red-500 flex justify-center">{error}</div>
-        )}
-
       </div>
     </div>
   );

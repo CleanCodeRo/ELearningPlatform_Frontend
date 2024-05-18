@@ -4,7 +4,6 @@ export default function SuccessError({ setMessage, message, color }) {
     
   
     useEffect(() => {
-
       // Clear message after 2 seconds
        setTimeout(() => {
         setMessage([null, null]);
@@ -15,7 +14,7 @@ export default function SuccessError({ setMessage, message, color }) {
     return (
       <>
         {message && (
-          <div className={`fixed z-40 bottom-0 left-0 w-full text-white py-2 text-center animate-fadeInOut ${color}`} style={{ animationDuration: '2s' }}>
+          <div className={`fixed z-40 bottom-0 left-0 w-full text-white py-2 text-center animate-jump-in ${color}`} style={{ animationDuration: '0.5s' }}>
             {message}
           </div>
         )}

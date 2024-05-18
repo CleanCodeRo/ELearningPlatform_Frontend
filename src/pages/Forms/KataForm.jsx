@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import SuccessError from "../../components/ReusableComponents/SuccessError";
 import DropdownFilter from "../../components/SpecialKatas/DropdownFilter";
 import { kataCategories } from "../../components/SpecialKatas/FilterObjects";
@@ -16,17 +16,11 @@ export default function KataForm() {
         level: "",
         kataCategories: savedCategory,
     });
-    const [error, setError] = useState(null);
-    const [errorConflict, setErrorConflict] = useState(null);
-    const [success, setSuccess] = useState(null);
-
+    const [[message, messageColor] , setMessage] = useState([null, null])
     const kataTitle = useRef(null);
     const kataLevel = useRef(null);
     const kataLink = useRef(null);
-    const navigate = useNavigate();
     const params = useParams();
-    const previousURL = document.referrer;
-    // console.log(previousURL.split('/').slice(3).join("/"))
 
     useEffect(() => {
         checkIfUserAdmin();
@@ -80,18 +74,13 @@ export default function KataForm() {
                 return response.json();
             })
             .then(() => {
-                setSuccess("Kata edited successfully!"); // afisare mesaj
-                setTimeout(() => {
-                    setSuccess(null); // curatare eroare
-                    window.history.back() // Redirect after 2 seconds
-                }, 2000);
+                setMessage(["Kata edited successfully!", "bg-green-500"]); // afisare mesaj
+                setTimeout(() => {window.history.back() }, 2000); // Redirect after 2 seconds
 
             })
             .catch((error) => {
-                setErrorConflict(error.message + " already exists");
-                setTimeout(() => {
-                    setErrorConflict(null); // curatare eroare
-                }, 3000);
+                console.log(error)
+                setMessage(["Kata already exists", "bg-red-500"]);
             })
     };
 
@@ -99,7 +88,6 @@ export default function KataForm() {
         if (!checkIfAllFieldsCompleted()) {
             return
         }
-
         if (kataLevel.current.value > 8) kataLevel.current.value = 8;
 
         fetch(`${startLink}/katas`, {
@@ -125,18 +113,12 @@ export default function KataForm() {
                 }
             })
             .then(() => {
-                setSuccess("Kata created successfully!"); // afisare mesaj
-                setTimeout(() => {
-                    setSuccess(null); // curatare eroare
-                    //navigate(`/${previousURL.split('/').slice(3).join("/")}`) // Redirect after 2 seconds
-                    window.history.back()
-                }, 2000);
+                setMessage(["Kata created successfully!", "bg-green-500"]); // afisare mesaj
+                setTimeout(() => {window.history.back() }, 2000); // Redirect after 2 seconds
             })
             .catch((error) => {
-                setErrorConflict(error.message);
-                setTimeout(() => {
-                    setErrorConflict(null); // curatare eroare
-                }, 3000);
+                console.log(error)
+                setMessage(["Kata already exists or someting went wrong", "bg-red-500"]);
             })
     };
 
@@ -152,10 +134,7 @@ export default function KataForm() {
             kataLink.current.value === "" ||
             savedCategory.length == 0
         ) {
-            setErrorConflict("Please fill in the required fields");
-            setTimeout(() => {
-                setErrorConflict(null); // curatare eroare
-            }, 3000);
+            setMessage(["Please fill in the required fields", "bg-red-500"]);
             return false;
         } else {
             return true
@@ -188,14 +167,14 @@ export default function KataForm() {
         <div id="wholePageHolderKata"
             className="flex justify-center items-center p-2 w-screen h-screen bg-center bg-cover" style={{ backgroundImage: "url(/images/backGrounds/online-programming-course-hero-section-bg.jpg)" }}>
             <div id="formKata" className="relative w-[24rem] flex flex-col items-center px-8 py-5 h-fit rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
-            <SuccessError success={success} error={errorConflict} />
+            <SuccessError setMessage={setMessage} message={message} color={messageColor} />
 
                 {/* <img id="ghostImage" alt="ghost" className="w-[7rem] my-9" src="/SVGs/colorLogo.svg" /> */}
                 <img id="ghostImage" alt="ghost" className="w-[7rem] my-9" src="/SVGs/ghost.svg" />
                 <p className="text-2xl font-bold text-generalColors-dark-blue my-5"> {params.kataId !== undefined ? "Edit your Kata" : "Create new Kata"}</p>
 
 
-                <div id="passwordContainer" className="flex flex-col items-center mb-6 w-full overflow-hidden gap-8 ">
+                <div id="passwordContainer" className="flex flex-col items-center mb-6 w-full gap-8 pt-3 ">
                     <CostumInput
                         id={"kataTitle"}
                         label={"Kata Title"}

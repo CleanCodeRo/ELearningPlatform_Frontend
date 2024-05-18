@@ -8,6 +8,7 @@ import {
     Accordion,
     AccordionHeader,
     AccordionBody,
+    Spinner,
 } from "@material-tailwind/react";
 import { useNavigate } from 'react-router-dom';
 import Loading from '../components/ReusableComponents/Loading/Loading';
@@ -16,6 +17,7 @@ import SuccessError from '../components/ReusableComponents/SuccessError';
 export default function Permisions() {
     const [modules, setModules] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [addUserLoading, setAddUserLoading] = useState(false);
     const [searchedUsers, setSearchedUsers] = useState([])
     const [selectedUser, setSelectedUser] = useState(null);
     const [open, setOpen] = React.useState(1);
@@ -25,8 +27,7 @@ export default function Permisions() {
     const pwdRef = useRef(null);
     const navigate = useNavigate()
     let savedSeconds = new Date().getSeconds();
-
-    const [errorConflict, setErrorConflict] = useState(null);
+    const [[message, messageColor], setMessage] = useState([null, null])
 
     const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
@@ -86,10 +87,7 @@ export default function Permisions() {
 
     const modifyAccessWeek = (e) => {
         if (!selectedUser) {
-            setErrorConflict("Please select a user first")
-            setTimeout(() => {
-                setErrorConflict(null)
-            }, 2000)
+            setMessage(["Please select a user first", "bg-red-500"]);
             return
         }
 
@@ -118,10 +116,12 @@ export default function Permisions() {
             .catch((err) => {
                 console.log(err);
                 setLoading(false);
+                setMessage(["Something went wrong", "bg-red-500"]);
             })
     }
 
     const registerAccount = () => {
+        setAddUserLoading(true)
         const data = {
             firstName: nameRef.current.value,
             email: emailRef.current.value,
@@ -136,16 +136,20 @@ export default function Permisions() {
             },
             body: JSON.stringify(data)
         })
-        .then(response => {
-            if (response.ok) {
-                console.log("wow, created")
-            } else {
-                console.log("already existing")
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+            .then(response => response.json())
+            .then((data) => {
+                if (data.response == "Email already exists!") {
+                    setMessage(["User already exist", "bg-red-500"]);
+                } else {
+                    setMessage(["Saved User", "bg-green-500"]);
+                }
+                setAddUserLoading(false)
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                setMessage(["Something went wrong", "bg-red-500"]);
+                setAddUserLoading(false)
+            });
     };
 
 
@@ -154,47 +158,52 @@ export default function Permisions() {
     return (
         <div className="h-screen flex flex-row text-sixth overflow-x-hidden overflow-y-scroll relative custom-scrollbar bg-white" >
             <SideHeader />
-            <SuccessError error={errorConflict} />
+            <SuccessError setMessage={setMessage} message={message} color={messageColor} />
 
             <div id='permisionContainer' className=" relative flex flex-col px-7 text-generalColors-dark-blue" style={{ minWidth: "calc(100vw - 5rem)", maxWidth: "100%" }}>
                 <p className="text-3xl sm:text-4xl p-4  font-bold  rounded-lg text-fourth">
                     Permissions & Admin Pannel
                 </p>
                 <div id="registerAccount" className="relative flex items-center mb-6 w-fit">
-                <img alt="user" className="w-16 mr-3" src="/SVGs/user.svg" />
-                <CostumInput
-                    id={"nameRef"}
-                    label={"Name"}
-                    inputRef={nameRef}
-                    costumInputClass=" mr-3"
-                    color="gray"
+                    <img alt="user" className="w-16 mr-3" src="/SVGs/user.svg" />
+                    <CostumInput
+                        id={"nameRef"}
+                        label={"Name"}
+                        inputRef={nameRef}
+                        costumInputClass=" mr-3"
+                        color="gray"
+
+                    />
+                    <CostumInput
+                        id={"emailRef"}
+                        label={"Email"}
+                        inputRef={emailRef}
+                        costumInputClass="mr-3"
+                        color="gray"
+
+                    />
+                    <CostumInput
+                        id={"pwdRef"}
+                        label={"Password"}
+                        inputRef={pwdRef}
+                        costumInputClass="mr-3"
+                        color="gray"
+
+                    />
                     
-                />
-                <CostumInput
-                    id={"emailRef"}
-                    label={"Email"}
-                    inputRef={emailRef}
-                    costumInputClass="mr-3"
-                    color="gray"
-                    
-                />
-                <CostumInput
-                    id={"pwdRef"}
-                    label={"Password"}
-                    inputRef={pwdRef}
-                    costumInputClass="mr-3"
-                    color="gray"
-                    
-                />
-                <button 
-                    className='ml-5 border-[1px] p-3 rounded-xl text-generalColors-white bg-generalColors-dark-blue 
+                    <div className='flex items-center justify-center'>
+                    <button
+                        className=' mx-5 border-[1px] p-3 rounded-xl text-generalColors-white bg-generalColors-dark-blue flex items-center justify-center
                     hover:text-generalColors-medium-blue 
                     hover:bg-generalColors-white animate-ease-linear-3'
-                    onClick={registerAccount}
-                >
-                    Create
-                </button>
-            </div>
+                        onClick={registerAccount}
+                    >
+                        Create
+                      
+                    </button>
+                    {addUserLoading &&  <Spinner  className='absolute w-full h-full '/>}
+                    </div>
+                </div>
 
                 <div id="SearchContainer" className="relative flex items-center mb-6 w-fit">
                     <img alt="user" className="w-4 mr-3" src="/SVGs/user.svg" />
@@ -224,14 +233,14 @@ export default function Permisions() {
                     Selected User : {selectedUser?.firstName} {selectedUser?.lastName} ({selectedUser?.email})
                 </div>
 
-                
+
 
                 <div id="modulesHolder" className='relative'>
-                {loading &&
-                    <div id="loading" className="w-full h-full z-20 bg-black bg-opacity-50 flex items-center justify-center absolute">
-                        <Loading />
-                    </div>
-                }
+                    {loading &&
+                        <div id="loading" className="w-full h-full z-20 bg-black bg-opacity-50 flex items-center justify-center absolute">
+                            <Loading />
+                        </div>
+                    }
 
                     {modules && modules.map((module, index) =>
                         <Accordion key={index} open={open === index}>
@@ -261,7 +270,7 @@ export default function Permisions() {
                 </div>
 
             </div>
-            
+
         </div>
     )
 }

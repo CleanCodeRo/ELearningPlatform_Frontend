@@ -6,25 +6,23 @@ import { startLink } from "../../constants/Constants";
 import DropdownFilter from "../../components/SpecialKatas/DropdownFilter";
 import { kataCategories } from "../../components/SpecialKatas/FilterObjects";
 import CostumInput from "../../components/ReusableComponents/CostumInput";
+import SuccessError from "../../components/ReusableComponents/SuccessError";
 
 export default function WeekCreateAndEdit() {
   const weekNumber = useRef(null);
   let navigate = useNavigate();
 
-  const [error, setError] = useState(null);
   const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons);
   const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks);
   const [completedModules, setCompletedModules] = useAtom(state.completedModules);
   const [user, setUser] = useAtom(state.user);
-
   const [savedCategory, setSavedCategory] = useState([]);
-
   const [weekById, setWeekById] = useState({
     name: "",
     number: "",
     categories: savedCategory,
   });
-
+  const [[message, messageColor] , setMessage] = useState([null, null])
   const params = useParams();
 
   useEffect(() => {
@@ -59,7 +57,7 @@ export default function WeekCreateAndEdit() {
       weekNumber.current.value === "" ||
       savedCategory.length == 0
     ) {
-      setError("Please fill in the required fields");
+      setMessage(["Please fill in the required fields", "bg-red-500"]);
       return false;
     } 
     return true
@@ -87,10 +85,11 @@ export default function WeekCreateAndEdit() {
         return response.json();
       })
       .then(() => {
-        window.history.back()
+        setMessage(["Module edited successfully!", "bg-green-500"]); // afisare mesaj
+        setTimeout(() => {window.history.back() }, 2000); // Redirect after 2 seconds
       })
       .catch(() => {
-        navigate("/login")
+        setMessage(["Someting went wrong", "bg-red-500"]);
       })
   };
 
@@ -115,10 +114,11 @@ export default function WeekCreateAndEdit() {
       .then(() => {
         let userId = user.id;
         getCompletedStuff({ userId, setCompletedLessons, setCompletedWeeks, setCompletedModules })
-        window.history.back()
+        setMessage(["Module created successfully!", "bg-green-500"]); // afisare mesaj
+        setTimeout(() => {window.history.back() }, 2000); // Redirect after 2 seconds
       })
       .catch(() => {
-        navigate("/login")
+        setMessage(["Someting went wrong", "bg-red-500"]);
       })
   };
 
@@ -140,13 +140,15 @@ export default function WeekCreateAndEdit() {
   return (
     <div id="wholePageHolderModule"
       className="flex justify-center items-center p-2 w-screen h-screen bg-center bg-cover" style={{ backgroundImage: "url(/images/backGrounds/online-programming-course-hero-section-bg.jpg)" }}>
+        <SuccessError setMessage={setMessage} message={message} color={messageColor} />
+     
       <div id="formWeek" className="relative w-[24rem] flex flex-col items-center px-8 py-5 h-fit rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
 
         {/* <img id="ghostImage" alt="ghost" className="w-[7rem] my-9" src="/SVGs/colorLogo.svg" /> */}
         <img id="ghostImage" alt="ghost" className="w-[7rem] my-9" src="/SVGs/ghost.svg" />
         <p className="text-2xl font-bold text-generalColors-dark-blue my-5"> {params.weekId !== undefined ? "Edit your week" : "Create new week"}</p>
 
-        <div id="passwordContainer" className="flex flex-col items-center mb-6 w-full overflow-hidden gap-8 ">
+        <div id="passwordContainer" className="flex flex-col items-center mb-6 w-full  gap-8 pt-3">
           <CostumInput
             id={"weekNumberInput"}
             label={"Week Number"}
@@ -168,10 +170,6 @@ export default function WeekCreateAndEdit() {
             </div>
           ))}
         </div>
-
-        {error && (
-          <div className="text-red-500 flex justify-center">{error}</div>
-        )}
 
         <div className=" font-semibold flex items-center justify-center pt-3 pb-5 ">
           <button

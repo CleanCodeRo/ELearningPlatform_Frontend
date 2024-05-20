@@ -9,15 +9,13 @@ import ProfilePicture from "../components/Profile/ProfilePicture";
 import UploadPfp from "../components/Profile/UploadPfp";
 import Loading from "../components/ReusableComponents/Loading/Loading";
 
-
 const Profile = () => {
     const [user, setUser] = useAtom(state.user);
     const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons);
     const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks);
     const [completedModules, setCompletedModules] = useAtom(state.completedModules);
 
-    const [error, setError] = useState(null);
-    const [success, setSuccess] = useState(null);
+    const [[message, messageColor], setMessage] = useState([null,null])
     const [loading, setLoading] = useState(true)
     const [loadingText, setLoadingText] = useState("Gathering data ... ")
 
@@ -82,18 +80,12 @@ const Profile = () => {
             .then(res => res.json())
             .then(() => {
                 setLoading(false);
-                setSuccess("Chages Saved!"); // afisare mesaj
-                setTimeout(() => {
-                    setSuccess(null); // curatare eroare
-                }, 2000);
+                setMessage(["Changes Saved", "bg-green-500"]); // afisare mesaj
             })
             .catch((err) => {
-                setError("Something went wrong")
+                setMessage(["Something went wrong", "bg-red-500"]); // afisare mesaj
                 setLoading(false);
                 console.log(err)
-                setTimeout(() => {
-                    setError(null); // curatare eroare
-                }, 2000);
             })
     }
 
@@ -138,7 +130,7 @@ const Profile = () => {
 
     return (
         <div id="profilePageContainer" className="w-full relative min-h-screen  bg-generalColors-dark-blue flex flex-col justify-center items-center gap-6">
-            <SuccessError success={success} error={error} />
+            <SuccessError message={message} color={messageColor} setMessage={setMessage} />
 
             {loading &&
                 <div className="absolute w-full h-full top-o left-0 flex flex-col items-center justify-center bg-black bg-opacity-50 z-20">
@@ -162,7 +154,7 @@ const Profile = () => {
                         <p className=" text-generalColors-medium-gray font-semibold text-xl">Social Networks</p>
                     </div>
                     <div id="gitHubUsernameContainer" className="w-full  h-20 flex items-center">
-                        <img src="images/social1.png" alt="" className=" size-11 " />
+                        <img src="images/social1.png" alt="" className=" size-11 mr-4 " />
                         <CostumInput id="githubUsername"
                             disabled={editer()}
                             defaultValue={user?.githubUsername}
@@ -176,7 +168,7 @@ const Profile = () => {
 
                     </div>
                     <div id="codeWarsUsernameContainer" className="w-full  h-20 flex items-center">
-                        <img src="images/social2.png" alt="" className=" size-11 " />
+                        <img src="images/social2.png" alt="" className=" size-11 mr-4 " />
                         <CostumInput id="codeWarsUsername"
                             disabled={editer()}
                             defaultValue={user?.codeWarsUsername}
@@ -189,7 +181,7 @@ const Profile = () => {
 
                     </div>
                     <div id="discordId" className="w-full  h-20 flex items-center">
-                        <img src="images/social3.png" alt="" className=" size-11 " />
+                        <img src="images/social3.png" alt="" className=" size-11 mr-4 " />
                         <CostumInput id="discordUsername"
                             disabled={editer()}
                             defaultValue={user?.discordUsername}
@@ -201,7 +193,7 @@ const Profile = () => {
                         />
                     </div>
                     <div id="linkedInUsernameContainer" className="w-full  h-20 flex items-center">
-                        <img src="images/social4.png" alt="" className=" size-11 " />
+                        <img src="images/social4.png" alt="" className=" size-11 mr-4 " />
                         <CostumInput id="linkedInUsername"
                             disabled={editer()}
                             inputRef={linkedInUsernameRef}
@@ -213,7 +205,7 @@ const Profile = () => {
                         />
                     </div>
                     <div id="instagramUsernameContainer" className="w-full  h-20 flex items-center">
-                        <img src="images/social5.png" alt="" className=" size-11 " />
+                        <img src="images/social5.png" alt="" className=" size-11 mr-4 " />
                         <CostumInput id="instagramUsername"
                             disabled={editer()}
                             inputRef={instagramUsernameRef}
@@ -226,7 +218,7 @@ const Profile = () => {
                     </div>
 
                     <div id="facebookUsernameContainer" className="w-full  h-20 flex items-center">
-                        <img src="images/social6.png" alt="" className=" size-11 " />
+                        <img src="images/social6.png" alt="" className=" size-11 mr-4 " />
                         <CostumInput id="facebookUsername"
                             disabled={editer()}
                             inputRef={facebookUsernameRef}
@@ -243,7 +235,7 @@ const Profile = () => {
                         <p className=" text-generalColors-medium-gray font-semibold text-xl">Personal Information</p>
                     </div>
                     <div id="givenName" className="w-full  h-20 flex items-center">
-                        <img src="images/info1.png" alt="" className=" size-11 " />
+                        <img src="images/info1.png" alt="" className=" size-11 mr-4 " />
                         <CostumInput id="firstName"
                             disabled={editer()}
                             defaultValue={user?.firstName}
@@ -255,7 +247,7 @@ const Profile = () => {
                         />
                     </div>
                     <div id="surName" className="w-full  h-20 flex items-center">
-                        <img src="images/info1.png" alt="" className=" size-11 " />
+                        <img src="images/info1.png" alt="" className=" size-11 mr-4 " />
                         <CostumInput id="lastName"
                             disabled={editer()}
                             defaultValue={user?.lastName}
@@ -268,7 +260,7 @@ const Profile = () => {
 
                     </div>
                     <div id="birthdayContainer" className="w-full  h-20 flex items-center">
-                        <img src="images/info5.png" alt="" className=" size-11 " />
+                        <img src="images/info5.png" alt="" className=" size-11 mr-4 " />
                         <CostumInput id="birthday"
                             disabled={editer()}
                             defaultValue={user?.birthday}
@@ -280,7 +272,7 @@ const Profile = () => {
                         />
                     </div>
                     <div id="phoneNumberContainer" className="w-full  h-20 flex items-center">
-                        <img src="images/info3.svg" alt="" className=" size-11 " />
+                        <img src="images/info3.svg" alt="" className=" size-11 mr-4 " />
                         <CostumInput id="phoneNumber"
                             disabled={editer()}
                             defaultValue={user?.phoneNumber}
@@ -293,7 +285,7 @@ const Profile = () => {
                     </div>
 
                     <div id="locationContainer" className="w-full  h-20 flex items-center">
-                        <img src="images/info4.png" alt="" className=" size-11 " />
+                        <img src="images/info4.png" alt="" className=" size-11 mr-4 " />
                         <CostumInput id="location"
                             disabled={editer()}
                             defaultValue={user?.location}
@@ -306,7 +298,7 @@ const Profile = () => {
                     </div>
 
                     <div id="addressContainer" className="w-full  h-20 flex items-center">
-                        <img src="images/info4.png" alt="" className=" size-11 " />
+                        <img src="images/info4.png" alt="" className=" size-11 mr-4 " />
                         <CostumInput id="address"
                             disabled={editer()}
                             defaultValue={user?.address}
@@ -330,7 +322,7 @@ const Profile = () => {
 
                 <button id="cancelSocial"
                     onClick={() => {
-                        setUser(user => ({...user, profileImageUrl : imageRef.current.src}))
+                        setUser(null)
                         window.history.back()
                     }}
                     className="px-7 py-3 bg-white text-generalColors-dark-blue font-semibold border border-generalColors-medium-gray  rounded-3xl">

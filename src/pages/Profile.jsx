@@ -322,7 +322,10 @@ const Profile = () => {
 
                 <button id="cancelSocial"
                     onClick={() => {
-                        setUser(null)
+                        //if updated, set user to null to fetch the user again to get it FRESH but not every single time pressing back 
+                        if(loadingText != "Gathering data ... "){
+                            setUser(null)
+                        }
                         window.history.back()
                     }}
                     className="px-7 py-3 bg-white text-generalColors-dark-blue font-semibold border border-generalColors-medium-gray  rounded-3xl">

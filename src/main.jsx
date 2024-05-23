@@ -21,6 +21,7 @@ import Permisions from "./pages/Permisions";
 import { useAtom } from "jotai";
 import state from "./components/ReusableComponents/Atom";
 import Profile from "./pages/Profile";
+import ForgotPassword from "./pages/Forms/ForgotPassword";
 
 export default function App() {
   const [user, setUser] = useAtom(state.user)
@@ -29,6 +30,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/" element={<PresentationPage />} />
         <Route path="/contact" element={<Contact />} />
         <Route

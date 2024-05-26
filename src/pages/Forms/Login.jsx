@@ -126,7 +126,7 @@ const Login = () => {
             <label className="text-sm ">Remember Me</label>
           </div>
 
-          <i className="text-sm">Forgot Password?</i>
+          <button onClick={() => navigate("/forgotPassword")} className="text-sm">Forgot Password?</button>
         </div>
 
         <div className=" h-6 w-full relative text-white ">

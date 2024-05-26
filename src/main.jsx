@@ -30,7 +30,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="forgotPassword" element={<PasswordReset />} />
+        <Route path="/forgotPassword" element={<PasswordReset />} />
         <Route path="/" element={<PresentationPage />} />
         <Route path="/contact" element={<Contact />} />
         <Route

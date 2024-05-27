@@ -21,22 +21,26 @@ import Permisions from "./pages/Permisions";
 import { useAtom } from "jotai";
 import state from "./components/ReusableComponents/Atom";
 import Profile from "./pages/Profile";
+import RequestPasswordReset from "./pages/Forms/RequestPasswordReset";
 import PasswordReset from "./pages/Forms/PasswordReset";
 
 export default function App() {
   const [user, setUser] = useAtom(state.user)
-  
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/forgotPassword" element={<PasswordReset />} />
+        <Route path="/forgotPassword" element={<RequestPasswordReset />} />
+
+        <Route path="/reset_CleanCode_password/:token/:userId" element={<PasswordReset />} />
+
         <Route path="/" element={<PresentationPage />} />
         <Route path="/contact" element={<Contact />} />
         <Route
           path="/myprofile"
           element={
-             !isExpired(localStorage.getItem("ELearningToken")) ? (
+            !isExpired(localStorage.getItem("ELearningToken")) ? (
               <Profile />
             ) : (
               <Redirect />
@@ -57,7 +61,7 @@ export default function App() {
         <Route
           path="/createModule"
           element={
-            !isExpired(localStorage.getItem("ELearningToken")) && user?.role == "ADMIN"  ? (
+            !isExpired(localStorage.getItem("ELearningToken")) && user?.role == "ADMIN" ? (
               <ModuleCreateAndEdit />
             ) : (
               <Redirect />
@@ -67,7 +71,7 @@ export default function App() {
         <Route
           path="/editModule/:moduleId"
           element={
-            !isExpired(localStorage.getItem("ELearningToken"))  && user?.role == "ADMIN" ?  (
+            !isExpired(localStorage.getItem("ELearningToken")) && user?.role == "ADMIN" ? (
               <ModuleCreateAndEdit />
             ) : (
               <Redirect />
@@ -97,7 +101,7 @@ export default function App() {
         <Route
           path="/home/module/:moduleId/editWeek/:weekId"
           element={
-            !isExpired(localStorage.getItem("ELearningToken"))  && user?.role == "ADMIN" ? (
+            !isExpired(localStorage.getItem("ELearningToken")) && user?.role == "ADMIN" ? (
               <WeekCreateAndEdit />
             ) : (
               <Redirect />
@@ -107,7 +111,7 @@ export default function App() {
         <Route
           path="/home/module/:moduleId/createWeek"
           element={
-            !isExpired(localStorage.getItem("ELearningToken"))  && user?.role == "ADMIN" ? (
+            !isExpired(localStorage.getItem("ELearningToken")) && user?.role == "ADMIN" ? (
               <WeekCreateAndEdit />
             ) : (
               <Redirect />
@@ -119,20 +123,20 @@ export default function App() {
         <Route
           path="/home/module/:moduleId/week/:weekId/createLesson"
           element={
-            !isExpired(localStorage.getItem("ELearningToken"))  && user?.role == "ADMIN" ? (
+            !isExpired(localStorage.getItem("ELearningToken")) && user?.role == "ADMIN" ? (
               <LessonsCreateAndEdit />
-            ):(
-              <Redirect/>
+            ) : (
+              <Redirect />
             )
           }
         />
         <Route
           path="/home/module/:moduleId/week/:weekId/editLesson/:lessonId"
           element={
-            !isExpired(localStorage.getItem("ELearningToken"))  && user?.role == "ADMIN" ? (
-            <LessonsCreateAndEdit />
-            ):(
-              <Redirect/>
+            !isExpired(localStorage.getItem("ELearningToken")) && user?.role == "ADMIN" ? (
+              <LessonsCreateAndEdit />
+            ) : (
+              <Redirect />
             )}
         />
 
@@ -149,7 +153,7 @@ export default function App() {
         <Route
           path="/dojo/addKata"
           element={
-            !isExpired(localStorage.getItem("ELearningToken"))  && user?.role == "ADMIN" ? (
+            !isExpired(localStorage.getItem("ELearningToken")) && user?.role == "ADMIN" ? (
               <KataForm />
             ) : (
               <Redirect />
@@ -159,7 +163,7 @@ export default function App() {
         <Route
           path="/dojo/editKata/:kataId"
           element={
-            !isExpired(localStorage.getItem("ELearningToken"))  && user?.role == "ADMIN" ? (
+            !isExpired(localStorage.getItem("ELearningToken")) && user?.role == "ADMIN" ? (
               <KataForm />
             ) : (
               <Redirect />

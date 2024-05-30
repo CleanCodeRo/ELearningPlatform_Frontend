@@ -8,6 +8,7 @@ import SuccessError from "../components/ReusableComponents/SuccessError";
 import ProfilePicture from "../components/Profile/ProfilePicture";
 import UploadPfp from "../components/Profile/UploadPfp";
 import Loading from "../components/ReusableComponents/Loading/Loading";
+import { Helmet } from "react-helmet";
 
 const Profile = () => {
     const [user, setUser] = useAtom(state.user);
@@ -15,7 +16,7 @@ const Profile = () => {
     const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks);
     const [completedModules, setCompletedModules] = useAtom(state.completedModules);
 
-    const [[message, messageColor], setMessage] = useState([null,null])
+    const [[message, messageColor], setMessage] = useState([null, null])
     const [loading, setLoading] = useState(true)
     const [loadingText, setLoadingText] = useState("Gathering data ... ")
 
@@ -50,9 +51,9 @@ const Profile = () => {
                 setCompletedModules
             );
         }
-        setTimeout(() =>{
+        setTimeout(() => {
             setLoading(false)
-        },1500) 
+        }, 1500)
     }, []);
 
     const updateUser = () => {
@@ -130,6 +131,11 @@ const Profile = () => {
 
     return (
         <div id="profilePageContainer" className="w-full relative min-h-screen  bg-generalColors-dark-blue flex flex-col justify-center items-center gap-6">
+            <Helmet>
+                <meta charSet="utf8" />
+                <title>Profile - CleanCodeQuest</title>
+            </Helmet>
+
             <SuccessError message={message} color={messageColor} setMessage={setMessage} />
 
             {loading &&
@@ -323,7 +329,7 @@ const Profile = () => {
                 <button id="cancelSocial"
                     onClick={() => {
                         //if updated, set user to null to fetch the user again to get it FRESH but not every single time pressing back 
-                        if(loadingText != "Gathering data ... "){
+                        if (loadingText != "Gathering data ... ") {
                             setUser(null)
                         }
                         window.history.back()

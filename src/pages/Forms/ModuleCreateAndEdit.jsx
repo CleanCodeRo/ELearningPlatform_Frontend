@@ -4,6 +4,7 @@ import { startLink } from "../../constants/Constants";
 import CostumInput from "../../components/ReusableComponents/CostumInput";
 import { checkIfUserAdmin } from "../../components/ReusableComponents/Atom";
 import SuccessError from "../../components/ReusableComponents/SuccessError";
+import { Helmet } from "react-helmet";
 
 export default function ModuleCreateAndEdit() {
   const moduleName = useRef(null);
@@ -104,6 +105,11 @@ export default function ModuleCreateAndEdit() {
   return (
     <div id="wholePageHolderModule"
       className="flex justify-center items-center p-2 w-screen h-screen bg-center bg-cover" style={{ backgroundImage: "url(/images/backGrounds/online-programming-course-hero-section-bg.jpg)" }}>
+      <Helmet>
+        <meta charSet="utf8"/>
+        <title>{params.moduleId !== undefined ? "Save" : "Create"} Module - CleanCodeQuest</title>
+      </Helmet>
+      
       <SuccessError message={message} setMessage={setMessage} color={messageColor} />
       
       

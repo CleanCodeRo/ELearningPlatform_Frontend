@@ -7,6 +7,7 @@ import DropdownFilter from "../../components/SpecialKatas/DropdownFilter";
 import { kataCategories } from "../../components/SpecialKatas/FilterObjects";
 import CostumInput from "../../components/ReusableComponents/CostumInput";
 import SuccessError from "../../components/ReusableComponents/SuccessError";
+import { Helmet } from "react-helmet";
 
 export default function WeekCreateAndEdit() {
   const weekNumber = useRef(null);
@@ -22,13 +23,13 @@ export default function WeekCreateAndEdit() {
     number: "",
     categories: savedCategory,
   });
-  const [[message, messageColor] , setMessage] = useState([null, null])
+  const [[message, messageColor], setMessage] = useState([null, null])
   const params = useParams();
 
   useEffect(() => {
     checkIfUserAdmin()
     console.log(params)
-   // document.addEventListener('keydown', (e) => handleEnter(e, params.weekId  ? editWeek : saveWeek)); // press enter to save
+    // document.addEventListener('keydown', (e) => handleEnter(e, params.weekId  ? editWeek : saveWeek)); // press enter to save
     weekNumber.current.type = "number"
 
     if (params.weekId !== undefined) {
@@ -59,12 +60,12 @@ export default function WeekCreateAndEdit() {
     ) {
       setMessage(["Please fill in the required fields", "bg-red-500"]);
       return false;
-    } 
+    }
     return true
   }
 
   const editWeek = () => {
-    if(!validateFields(weekNumber, savedCategory)) return
+    if (!validateFields(weekNumber, savedCategory)) return
 
     fetch(`${startLink}/weeks/${params.weekId}`, {
       method: "PUT",
@@ -86,7 +87,7 @@ export default function WeekCreateAndEdit() {
       })
       .then(() => {
         setMessage(["Module edited successfully!", "bg-green-500"]); // afisare mesaj
-        setTimeout(() => {window.history.back() }, 2000); // Redirect after 2 seconds
+        setTimeout(() => { window.history.back() }, 2000); // Redirect after 2 seconds
       })
       .catch(() => {
         setMessage(["Someting went wrong", "bg-red-500"]);
@@ -94,7 +95,7 @@ export default function WeekCreateAndEdit() {
   };
 
   const saveWeek = () => {
-    if(!validateFields(weekNumber, savedCategory)) return
+    if (!validateFields(weekNumber, savedCategory)) return
 
     fetch(`${startLink}/weeks`, {
       method: "POST",
@@ -115,7 +116,7 @@ export default function WeekCreateAndEdit() {
         let userId = user.id;
         getCompletedStuff({ userId, setCompletedLessons, setCompletedWeeks, setCompletedModules })
         setMessage(["Module created successfully!", "bg-green-500"]); // afisare mesaj
-        setTimeout(() => {window.history.back() }, 2000); // Redirect after 2 seconds
+        setTimeout(() => { window.history.back() }, 2000); // Redirect after 2 seconds
       })
       .catch(() => {
         setMessage(["Someting went wrong", "bg-red-500"]);
@@ -140,8 +141,13 @@ export default function WeekCreateAndEdit() {
   return (
     <div id="wholePageHolderModule"
       className="flex justify-center items-center p-2 w-screen h-screen bg-center bg-cover" style={{ backgroundImage: "url(/images/backGrounds/online-programming-course-hero-section-bg.jpg)" }}>
-        <SuccessError setMessage={setMessage} message={message} color={messageColor} />
-     
+      <Helmet>
+        <meta charSet="utf8" />
+        <title>  {params.weekId !== undefined ? "Save" : "Create"} Lesson - CleanCodeQuest</title>
+      </Helmet>
+
+      <SuccessError setMessage={setMessage} message={message} color={messageColor} />
+
       <div id="formWeek" className="relative w-[24rem] flex flex-col items-center px-8 py-5 h-fit rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
 
         {/* <img id="ghostImage" alt="ghost" className="w-[7rem] my-9" src="/SVGs/colorLogo.svg" /> */}
@@ -157,9 +163,9 @@ export default function WeekCreateAndEdit() {
             costumInputClass=""
             color="gray"
           />
-      
 
-        <DropdownFilter onChangeEvent={addCategory} options={kataCategories.slice(1)} label="Category" />
+
+          <DropdownFilter onChangeEvent={addCategory} options={kataCategories.slice(1)} label="Category" />
         </div>
 
         <div id="categoryContainer" className="flex flex-wrap gap-1 my-5">

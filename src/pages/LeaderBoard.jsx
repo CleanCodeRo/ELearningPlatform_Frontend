@@ -4,6 +4,7 @@ import { useAtom } from 'jotai';
 import state from '../components/ReusableComponents/Atom';
 import { startLink } from '../constants/Constants';
 import Person from '../components/ReusableComponents/Person';
+import { Helmet } from 'react-helmet';
 
 export default function LeaderBoard() {
     const [user, setUser] = useAtom(state.user);
@@ -49,6 +50,11 @@ export default function LeaderBoard() {
 
     return (
         <div className="h-screen flex flex-row text-sixth overflow-x-hidden overflow-y-scroll relative custom-scrollbar bg-generalColors-dark-blue text-gray-100">
+            <Helmet>
+                <meta charSet="utf8" />
+                <title>Leaderboard - CleanCodeQuest</title>
+            </Helmet>
+
             <SideHeader />
             <div id="moduleAndKataHolder" className="px-7" style={{ minWidth: "calc(100vw - 5rem)" }}>
                 {user &&
@@ -56,14 +62,14 @@ export default function LeaderBoard() {
                         <p id='title' className='text-5xl justify-center flex text-white mb-16'>Leaderboard</p>
                         <div id='buttonContainer' className='flex justify'>
                             <button id='allTime'
-                                    className={`${isWeekly ? "border-2 border-white bg-generalColors-dark-blue text-white" : "bg-generalColors-medium-green border-none text-black"}   text-2xl px-9 rounded-full`} 
-                                    onClick={handleAllTimeButtonClick}>
-                                        All time
+                                className={`${isWeekly ? "border-2 border-white bg-generalColors-dark-blue text-white" : "bg-generalColors-medium-green border-none text-black"}   text-2xl px-9 rounded-full`}
+                                onClick={handleAllTimeButtonClick}>
+                                All time
                             </button>
-                            <button id='thisWeek' 
-                                    className={` ${!isWeekly ? "border-2 border-white bg-generalColors-dark-blue text-white " : "bg-generalColors-medium-green border-none text-black"}text-2xl px-9 rounded-full  ml-3`}
-                                    onClick={handleWeeklyButtonClick}>
-                                        This Week
+                            <button id='thisWeek'
+                                className={` ${!isWeekly ? "border-2 border-white bg-generalColors-dark-blue text-white " : "bg-generalColors-medium-green border-none text-black"}text-2xl px-9 rounded-full  ml-3`}
+                                onClick={handleWeeklyButtonClick}>
+                                This Week
                             </button>
                         </div>
                         <div id='leaderboardContainer' className='w-full h-2/3 rounded-3xl bg-[#ffffff] mt-3 border-2 px-2 overflow-y-scroll'>

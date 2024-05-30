@@ -5,6 +5,7 @@ import { useAtom } from 'jotai';
 import FilterKata from '../components/SpecialKatas/FilterKata';
 import state from '../components/ReusableComponents/Atom';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 export default function Dojo() {
   const [user, setUser] = useAtom(state.user);
@@ -15,6 +16,11 @@ export default function Dojo() {
 
   return (
     <div className="h-screen flex flex-row text-sixth overflow-x-hidden overflow-y-scroll relative custom-scrollbar" >
+      <Helmet>
+        <meta charSet="utf8"/>
+        <title>Dojo - CleanCodeQuest</title>
+      </Helmet>
+
       <SideHeader />
 
       <div className="flex flex-col px-7" style={{ minWidth: "calc(100vw - 5rem)" }}>

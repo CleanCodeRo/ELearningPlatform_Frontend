@@ -5,6 +5,7 @@ import { useAtom } from 'jotai';
 import state from '../components/ReusableComponents/Atom';
 import BreadCrumbs from '../components/ReusableComponents/BreadCrumbs/BreadCrumbs';
 import { useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 export default function ShowLessons() {
     const [user, setUser] = useAtom(state.user)
@@ -40,6 +41,11 @@ export default function ShowLessons() {
 
     return (
         <div className="h-screen flex flex-row text-sixth overflow-x-hidden overflow-y-scroll relative custom-scrollbar bg-generalColors-white" >
+            <Helmet>
+                <meta charSet="utf8" />
+                <title>{`Week ${weekNumber? weekNumber : "..."} - ${moduleName ? moduleName : "Module ..."}`} - CleanCodeQuest</title>
+            </Helmet>
+
             <SideHeader />
             {confirmNavigate % 2 == 0 && <ConfirmNavigate />}
 
@@ -50,7 +56,7 @@ export default function ShowLessons() {
                 ]}
                     className=""
                 />
-                {user && <Lessons userRole={user.role} userId={user.id} setWeekNumber={setWeekNumber} setConfirmNavigate={setConfirmNavigate} setNavigateLink={setNavigateLink}/>}
+                {user && <Lessons userRole={user.role} userId={user.id} setWeekNumber={setWeekNumber} setConfirmNavigate={setConfirmNavigate} setNavigateLink={setNavigateLink} />}
             </div>
         </div>
     )

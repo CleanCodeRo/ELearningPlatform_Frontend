@@ -13,6 +13,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import Loading from '../components/ReusableComponents/Loading/Loading';
 import SuccessError from '../components/ReusableComponents/SuccessError';
+import { Helmet } from 'react-helmet';
 
 export default function Permisions() {
     const [modules, setModules] = useState([]);
@@ -157,6 +158,11 @@ export default function Permisions() {
 
     return (
         <div className="h-screen flex flex-row text-sixth overflow-x-hidden overflow-y-scroll relative custom-scrollbar bg-white" >
+            <Helmet>
+                <meta charSet="utf8" />
+                <title>Permissions - CleanCodeQuest</title>
+            </Helmet>
+
             <SideHeader />
             <SuccessError setMessage={setMessage} message={message} color={messageColor} />
 
@@ -190,23 +196,23 @@ export default function Permisions() {
                         color="gray"
 
                     />
-                    
+
                     <div className='flex items-center justify-center'>
-                    <button
-                        className=' mx-5 border-[1px] p-3 rounded-xl text-generalColors-white bg-generalColors-dark-blue flex items-center justify-center
+                        <button
+                            className=' mx-5 border-[1px] p-3 rounded-xl text-generalColors-white bg-generalColors-dark-blue flex items-center justify-center
                     hover:text-generalColors-medium-blue 
                     hover:bg-generalColors-white animate-ease-linear-3'
-                        onClick={registerAccount}
-                    >
-                        Create
-                      
-                    </button>
-                    {addUserLoading &&  <Spinner  className='absolute w-full h-full '/>}
+                            onClick={registerAccount}
+                        >
+                            Create
+
+                        </button>
+                        {addUserLoading && <Spinner className='absolute w-full h-full ' />}
                     </div>
                 </div>
 
                 <div id="SearchContainer" className="relative flex items-center mb-6 w-fit">
-                    <img alt="user" className="w-4 mr-3" src="/SVGs/user.svg" aria-label='user-1'/>
+                    <img alt="user" className="w-4 mr-3" src="/SVGs/user.svg" aria-label='user-1' />
                     <CostumInput
                         id={"searchRef"}
                         label={"Search User"}

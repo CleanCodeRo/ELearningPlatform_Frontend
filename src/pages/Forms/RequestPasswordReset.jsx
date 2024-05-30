@@ -5,6 +5,7 @@ import CostumInput from "../../components/ReusableComponents/CostumInput";
 import { handleEnter } from "../../components/ReusableComponents/Atom";
 import SuccessError from "../../components/ReusableComponents/SuccessError";
 import { Spinner } from "@material-tailwind/react";
+import { Helmet } from "react-helmet";
 
 const RequestPasswordReset = () => {
   const navigate = useNavigate();
@@ -59,6 +60,11 @@ const RequestPasswordReset = () => {
       className="flex justify-center items-center p-2 w-screen h-screen bg-center bg-cover"
       style={{ backgroundImage: "url(/images/backGrounds/online-programming-course-hero-section-bg.jpg)" }}
     >
+      <Helmet>
+        <meta charSet="utf8"/>
+        <title>Request New Password - CleanCodeQuest</title>
+      </Helmet>
+
       <SuccessError setMessage={setMessage} message={message} color={messageColor} />
 
       <form

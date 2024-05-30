@@ -7,6 +7,7 @@ import CostumInput from "../../components/ReusableComponents/CostumInput";
 import CosutmCheckBox from "../../components/ReusableComponents/CheckBox/CosutmCheckBox";
 import { Checkbox } from "@material-tailwind/react";
 import SuccessError from "../../components/ReusableComponents/SuccessError";
+import { Helmet } from "react-helmet";
 
 const LessonsCreateAndEdit = () => {
   const [lessonById, setLessonById] = useState({
@@ -136,6 +137,10 @@ const LessonsCreateAndEdit = () => {
   return (
     <div id="wholePageHolderModule"
       className="flex justify-center items-center p-2 w-screen h-screen bg-center bg-cover" style={{ backgroundImage: "url(/images/backGrounds/online-programming-course-hero-section-bg.jpg)" }}>
+      <Helmet>
+        <meta charSet="utf8"/>
+        <title> {params.lessonId !== undefined ? "Save" : "Create"} Lesson - CleanCodeQuest</title>
+      </Helmet>
       <SuccessError setMessage={setMessage} message={message} color={messageColor} />
 
       <div id="formLesson" className="relative w-[24rem] flex flex-col items-center px-8 py-5 h-fit rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">

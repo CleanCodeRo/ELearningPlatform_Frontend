@@ -5,6 +5,7 @@ import CostumInput from "../../components/ReusableComponents/CostumInput";
 import { Checkbox } from "@material-tailwind/react";
 import { handleEnter } from "../../components/ReusableComponents/Atom";
 import SuccessError from "../../components/ReusableComponents/SuccessError";
+import { Helmet } from "react-helmet";
 
 let rememberMe = false
 
@@ -78,6 +79,11 @@ const Login = () => {
   return (
     <div id="wholePageHolder"
       className="flex justify-center items-center p-2 w-screen h-screen bg-center bg-cover" style={{ backgroundImage: "url(/images/backGrounds/online-programming-course-hero-section-bg.jpg)" }}>
+      <Helmet>
+        <meta charSet="utf8"/>
+        <title>Login - CleanCodeQuest</title>
+      </Helmet>
+      
       <SuccessError setMessage={setMessage} message={message} color={messageColor} />
 
       <div id="formLogin" className="relative w-[24rem] flex flex-col items-center px-8 py-5 h-fit rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">

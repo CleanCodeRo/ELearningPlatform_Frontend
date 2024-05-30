@@ -5,8 +5,10 @@ import DropdownFilter from "../../components/SpecialKatas/DropdownFilter";
 import { kataCategories } from "../../components/SpecialKatas/FilterObjects";
 import { startLink } from "../../constants/Constants";
 import CostumInput from "../../components/ReusableComponents/CostumInput";
-import { checkIfUserAdmin, handleEnter
- } from "../../components/ReusableComponents/Atom";
+import {
+    checkIfUserAdmin, handleEnter
+} from "../../components/ReusableComponents/Atom";
+import { Helmet } from "react-helmet";
 
 export default function KataForm() {
     const [savedCategory, setSavedCategory] = useState([]);
@@ -16,7 +18,7 @@ export default function KataForm() {
         level: "",
         kataCategories: savedCategory,
     });
-    const [[message, messageColor] , setMessage] = useState([null, null])
+    const [[message, messageColor], setMessage] = useState([null, null])
     const kataTitle = useRef(null);
     const kataLevel = useRef(null);
     const kataLink = useRef(null);
@@ -24,9 +26,9 @@ export default function KataForm() {
 
     useEffect(() => {
         checkIfUserAdmin();
-        document.addEventListener('keydown', (e) => handleEnter(e, params.kataId  ? editKata : saveKata)); // press enter to save
+        document.addEventListener('keydown', (e) => handleEnter(e, params.kataId ? editKata : saveKata)); // press enter to save
         kataLevel.current.type = "number"
-        
+
         if (params.kataId !== undefined) {
             fetch(`${startLink}/katas/${params.kataId}`, {
                 method: "GET",
@@ -75,7 +77,7 @@ export default function KataForm() {
             })
             .then(() => {
                 setMessage(["Kata edited successfully!", "bg-green-500"]); // afisare mesaj
-                setTimeout(() => {window.history.back() }, 2000); // Redirect after 2 seconds
+                setTimeout(() => { window.history.back() }, 2000); // Redirect after 2 seconds
 
             })
             .catch((error) => {
@@ -114,7 +116,7 @@ export default function KataForm() {
             })
             .then(() => {
                 setMessage(["Kata created successfully!", "bg-green-500"]); // afisare mesaj
-                setTimeout(() => {window.history.back() }, 2000); // Redirect after 2 seconds
+                setTimeout(() => { window.history.back() }, 2000); // Redirect after 2 seconds
             })
             .catch((error) => {
                 console.log(error)
@@ -123,9 +125,9 @@ export default function KataForm() {
     };
 
     const checkIfAllFieldsCompleted = () => {
-        if (kataLevel.current.value > 8){
+        if (kataLevel.current.value > 8) {
             kataLevel.current.value = 8;
-        }else if(kataLevel.current.value <= 0){
+        } else if (kataLevel.current.value <= 0) {
             kataLevel.current.value = 1;
         }
         if (
@@ -148,7 +150,7 @@ export default function KataForm() {
             }
         } else {
             setErrorConflict("Can't add more than 5 categories");
-            
+
         }
     }
 
@@ -167,7 +169,12 @@ export default function KataForm() {
         <div id="wholePageHolderKata"
             className="flex justify-center items-center p-2 w-screen h-screen bg-center bg-cover" style={{ backgroundImage: "url(/images/backGrounds/online-programming-course-hero-section-bg.jpg)" }}>
             <div id="formKata" className="relative w-[24rem] flex flex-col items-center px-8 py-5 h-fit rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
-            <SuccessError setMessage={setMessage} message={message} color={messageColor} />
+                <Helmet>
+                    <meta charSet="utf8" />
+                    <title> {params.kataId !== undefined ? "Save" : "Create"} Kata - CleanCodeQuest</title>
+                </Helmet>
+
+                <SuccessError setMessage={setMessage} message={message} color={messageColor} />
 
                 {/* <img id="ghostImage" alt="ghost" className="w-[7rem] my-9" src="/SVGs/colorLogo.svg" /> */}
                 <img id="ghostImage" alt="ghost" className="w-[7rem] my-9" src="/SVGs/ghost.svg" />
@@ -201,7 +208,7 @@ export default function KataForm() {
                     />
 
                     <DropdownFilter onChangeEvent={addCategory} options={kataCategories.slice(1)} label="Category" />
-                    
+
                     <div id="categoryContainerWeek" className="flex flex-wrap gap-1">
                         {savedCategory.map((category, index) => (
                             <div key={index} className="w-fit bg-generalColors-dark-blue h-7 text-white flex items-center px-2 rounded-lg">

@@ -24,6 +24,7 @@ export default function Dojo() {
 
           {user && user.role === "ADMIN" && (
             <Link
+              aria-label="add_kata"
               to="/dojo/addKata"
               className="h-10 w-10 rounded-full text-generalColors-dark-blue flex items-center justify-center text-xl hover:bg-[#2c8dfe] hover:text-generalColors-white"
             >

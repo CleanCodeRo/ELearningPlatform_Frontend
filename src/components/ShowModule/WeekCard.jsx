@@ -89,7 +89,7 @@ export default function WeekCard({ week, weekColor, userRole, moduleName }) {
       </div>
 
       <div id="weekStatus" className={`flex items-center justify-center ${statusColor} text-xl font-bold absolute top-0 left-0 rounded-tl-xl rounded-br-xl  w-11 h-11`}>
-        <img draggable={false} className="w-[40%]" src={statusImage}/>
+        <img alt="week-icon" aria-label="week-icon" draggable={false} className="w-[40%]" src={statusImage}/>
       </div>
 
       <div id="weekHero" className={` flex flex-col items-center w-full h-[5rem] rounded-xl mt-14`} >
@@ -104,7 +104,7 @@ export default function WeekCard({ week, weekColor, userRole, moduleName }) {
 
         <div id="listCategoriesWeek" className="flex flex-wrap items-center gap-1 my-2 p-1 h-16  text-xs overflow-y-scroll lowercase">
           {week.categories.map((category, index) => (
-            <div key={index} className="w-fit bg-gray-500 h-7 text-white flex items-center px-2 rounded-lg">
+            <div key={index} className="w-fit bg-generalColors-dark-blue h-7 text-white flex items-center px-2 rounded-lg">
               {category}
             </div>
           ))}

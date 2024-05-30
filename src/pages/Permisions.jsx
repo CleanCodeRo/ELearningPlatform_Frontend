@@ -165,7 +165,7 @@ export default function Permisions() {
                     Permissions & Admin Pannel
                 </p>
                 <div id="registerAccount" className="relative flex items-center mb-6 w-fit">
-                    <img alt="user" className="w-16 mr-3" src="/SVGs/user.svg" />
+                    <img alt="user" className="w-16 mr-3" src="/SVGs/user.svg" aria-label='user' />
                     <CostumInput
                         id={"nameRef"}
                         label={"Name"}
@@ -206,7 +206,7 @@ export default function Permisions() {
                 </div>
 
                 <div id="SearchContainer" className="relative flex items-center mb-6 w-fit">
-                    <img alt="user" className="w-4 mr-3" src="/SVGs/user.svg" />
+                    <img alt="user" className="w-4 mr-3" src="/SVGs/user.svg" aria-label='user-1'/>
                     <CostumInput
                         id={"searchRef"}
                         label={"Search User"}
@@ -257,6 +257,8 @@ export default function Permisions() {
                                         <div className='flex items-center relative'>
                                             <p>{week.usersWithAccessWeek.includes(selectedUser?.id) ? "Unlocked" : "Locked"}</p>
                                             <img onClick={modifyAccessWeek}
+                                                alt={`week-${week.id}`}
+                                                aria-label={`week-${week.id}`}
                                                 id={week.id}
                                                 className={` rounded-lg z-10 mx-3 p-2.5 ${week.usersWithAccessWeek.includes(selectedUser?.id) ? "bg-green-500" : "bg-red-500"}`}
                                                 src={`${week.usersWithAccessWeek.includes(selectedUser?.id) ? "/SVGs/statusSVGs/open.svg" : "/SVGs/statusSVGs/closed.svg"} `}

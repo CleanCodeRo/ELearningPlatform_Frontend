@@ -75,7 +75,7 @@ export default function ModuleCard({ id, title, userRole, weeks, color, moduleIn
       </div>
 
       <div id="moduleLogo" className={` w-full h-[15rem] flex items-center justify-center`} >
-        <img className="w-[10rem] mb-2 " src={`/moduleIcons/quest-module_${moduleIndex}_icon.png`} />
+        <img className="w-[10rem] mb-2 " src={`/moduleIcons/quest-module_${moduleIndex}_icon.png`} alt={`module_image_${moduleIndex}`}/>
       </div>
 
       <div id="restOfDetails" className="bg-white w-full rounded-t-2xl text-generalColors-dark-grey pt-4 p-1">

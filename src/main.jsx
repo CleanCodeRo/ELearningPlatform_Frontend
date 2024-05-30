@@ -170,6 +170,7 @@ export default function App() {
             )
           }
         />
+      
         <Route
           path="/leaderboard"
           element={
@@ -180,7 +181,6 @@ export default function App() {
             )
           }
         />
-
 
         <Route
           path="/permissions"

@@ -47,6 +47,7 @@ export default function Modules({userRole}) {
       <Link
         to="/createModule"
         className="h-10 w-10 rounded-full bg-fourth flex items-center justify-center text-xl hover:bg-[#2c8dfe]"
+        aria-label="add_module"
       >
         <i className="fa-solid fa-plus"></i>
       </Link>

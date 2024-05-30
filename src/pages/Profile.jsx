@@ -154,7 +154,7 @@ const Profile = () => {
                         <p className=" text-generalColors-medium-gray font-semibold text-xl">Social Networks</p>
                     </div>
                     <div id="gitHubUsernameContainer" className="w-full  h-20 flex items-center">
-                        <img src="images/social1.png" alt="" className=" size-11 mr-4 " />
+                        <img src="images/social1.png" alt="pfp" aria-label="pfp" className=" size-11 mr-4 " />
                         <CostumInput id="githubUsername"
                             disabled={editer()}
                             defaultValue={user?.githubUsername}

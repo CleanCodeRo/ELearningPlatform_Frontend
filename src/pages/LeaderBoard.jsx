@@ -56,12 +56,12 @@ export default function LeaderBoard() {
                         <p id='title' className='text-5xl justify-center flex text-white mb-16'>Leaderboard</p>
                         <div id='buttonContainer' className='flex justify'>
                             <button id='allTime'
-                                    className={`${isWeekly ? "border-2 border-white bg-generalColors-dark-blue" : "bg-generalColors-medium-green border-none"}  text-[#fefefe] text-2xl px-9 rounded-full`} 
+                                    className={`${isWeekly ? "border-2 border-white bg-generalColors-dark-blue text-white" : "bg-generalColors-medium-green border-none text-black"}   text-2xl px-9 rounded-full`} 
                                     onClick={handleAllTimeButtonClick}>
                                         All time
                             </button>
                             <button id='thisWeek' 
-                                    className={` ${!isWeekly ? "border-2 border-white bg-generalColors-dark-blue" : "bg-generalColors-medium-green border-none"}text-white text-2xl px-9 rounded-full  ml-3`}
+                                    className={` ${!isWeekly ? "border-2 border-white bg-generalColors-dark-blue text-white " : "bg-generalColors-medium-green border-none text-black"}text-2xl px-9 rounded-full  ml-3`}
                                     onClick={handleWeeklyButtonClick}>
                                         This Week
                             </button>

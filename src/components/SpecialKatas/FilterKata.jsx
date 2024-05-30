@@ -107,7 +107,7 @@ export default function FilterKata({ userId, setKatas, setNumberOfPages, setLoad
             </div>
 
             <div id="CATEGORY" className="w-full gap-8 flex flex-row justify-around items-center">
-                <CostumInput id={"searchKata"} inputRef={inputRef} label={"Search by name"} icon={<i className="fa-solid fa-magnifying-glass text-gray-600" />} />
+                <CostumInput id={"searchKata"} inputRef={inputRef} label={"Search by name"} icon={<i className="fa-solid fa-magnifying-glass text-gray-600" aria-label="searh-icon"/>} />
                 <DropdownFilter onChangeEvent={handleCategoryChange} options={kataCategories} label="Category" value={filterResultTest.category}/>
                 <DropdownFilter onChangeEvent={handleProgressChange} options={kataProgress} label="Status" value={filterResultTest.status}/>
                 <DropdownFilter onChangeEvent={handleDifficultyChange} options={kataDifficulty} label="Difficulty" value={filterResultTest.level}/>

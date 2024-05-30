@@ -139,11 +139,11 @@ export default function KataCardRemade({ kata, deleteEvent, setRefreshKatas }) {
                 </div>
                 {!isCompleted ?
                     <div id='locker' className=' w-[20%] h-[15%] bg-secondaryColors-light-orange rounded-se-3xl rounded-es-3xl flex justify-center items-center absolute bottom-0 left-0 z-10'>
-                        <img draggable={false} src='/images/locker-closed.png' className=' w-[40%]'></img>
+                        <img draggable={false} src='/images/locker-closed.png' className=' w-[40%]' aria-label={`locker-${kata.id}`} ></img>
                     </div>
                     :
                     <div id='locker' className=' w-[20%] h-[15%] bg-secondaryColors-dark-green rounded-se-3xl rounded-es-3xl flex justify-center items-center absolute bottom-0 left-0 z-10'>
-                        <img draggable={false} src='/images/done.png' className=' w-[40%]'></img>
+                        <img draggable={false} src='/images/done.png' className=' w-[40%]' aria-label={`done-${kata.id}`}></img>
                     </div>
                 }
                 
@@ -151,7 +151,7 @@ export default function KataCardRemade({ kata, deleteEvent, setRefreshKatas }) {
                     <Tooltip className="bg-opacity-70 " content={kata.title}>
                         <p id='title' className='text-xl  font-bold text-center w-full px-5 line-clamp-1 '>{kata.title}</p>
                     </Tooltip>
-                    <a href={kata.kataLink} target="_blank" id='train' className=' w-fit px-5 h-8 text-white text-xl text-center justify-center items-center bg-generalColors-dark-blue rounded-2xl mt-3'>
+                    <a href={kata.kataLink} target="_blank" id={`train-${kata.title}`} className=' w-fit px-5 h-8 text-white text-xl text-center justify-center items-center bg-generalColors-dark-blue rounded-2xl mt-3'>
                         {!isCompleted ? "Train" : "Train again"}
                     </a>
                 </div>
@@ -176,7 +176,7 @@ export default function KataCardRemade({ kata, deleteEvent, setRefreshKatas }) {
                 <div id="completedHolder" className="w-full flex justify-center items-center absolute bottom-0 h-30">
 
                 <button
-                  id="markedAsDone" 
+                  id={`markedAsDone-${kata.title}`} 
                   className={`text-generalColors-dark-blue bg-gray-200 rounded-b-3xl w-full p-2 left-0  ${!isCompleted ? "cursor-pointer" : "cursor-default"}`} 
                   onClick={!isCompleted ? completeKataEvent : null}
                   >  

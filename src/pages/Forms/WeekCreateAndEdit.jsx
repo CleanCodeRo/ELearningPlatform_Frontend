@@ -164,9 +164,9 @@ export default function WeekCreateAndEdit() {
 
         <div id="categoryContainer" className="flex flex-wrap gap-1 my-5">
           {savedCategory.map((category, index) => (
-            <div key={index} className="w-fit bg-gray-500 h-7 text-white flex items-center px-2 rounded-lg">
+            <div key={index} className="w-fit bg-generalColors-dark-blue h-7 text-white h flex items-center px-2 rounded-lg">
               {category}
-              <i className="fa-solid fa-x text-red-500 text-xs ml-2 cursor-pointer" onClick={() => deleteCategory(category)}></i>
+              <i className="fa-solid fa-x  w-4 h-4 rounded-full text-red-500 bg-white flex items-center justify-center text-[8px] ml-2 cursor-pointer" onClick={() => deleteCategory(category)}></i>
             </div>
           ))}
         </div>

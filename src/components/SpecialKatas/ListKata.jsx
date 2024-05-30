@@ -46,8 +46,8 @@ const ListKata = ({katas, numberOfPages, setLoadingKatas, loadingKatas, setRefre
             pageRangeDisplayed={4}
             pageCount={numberOfPages}
             forcePage={pageNumber * 1}
-            previousLabel={<Button className='mx-1 w-8 h-8 rounded-lg flex items-center justify-center hover:bg-gray-300 bg-transparent text-second text-md duration-200'><i className="fa-solid fa-arrow-left"></i></Button>}
-            nextLabel={<Button className='mx-1 w-8 h-8 rounded-lg flex items-center justify-center hover:bg-gray-300 bg-transparent text-second text-md duration-200'><i className="fa-solid fa-arrow-right"></i></Button>}
+            previousLabel={<Button aria-label='left-arrow' className='mx-1 w-8 h-8 rounded-lg flex items-center justify-center hover:bg-gray-300 bg-transparent text-second text-md duration-200'><i className="fa-solid fa-arrow-left"></i></Button>}
+            nextLabel={<Button  aria-label='right-arrow' className='mx-1 w-8 h-8 rounded-lg flex items-center justify-center hover:bg-gray-300 bg-transparent text-second text-md duration-200'><i className="fa-solid fa-arrow-right"></i></Button>}
             renderOnZeroPageCount={null}
           />
 

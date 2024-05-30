@@ -43,8 +43,9 @@ export default function KatasOfTheDay({ userRole }) {
                     <button
                         onClick={refreshKataOfTheDay}
                         className="h-10 w-10 rounded-full bg-fourth flex items-center justify-center text-xl mx-2 hover:bg-[#2c8dfe] hover:rotate-180 duration-300"
+                        aria-label='refresh_button'
                     >
-                        <i className="fa-solid fa-arrows-rotate "></i>
+                        <i className="fa-solid fa-arrows-rotate " aria-label='refresh_icon'></i>
                     </button> : null}
             </div>
 

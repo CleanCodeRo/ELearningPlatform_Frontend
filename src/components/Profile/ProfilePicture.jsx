@@ -6,9 +6,9 @@ export default function ProfilePicture({ openUpload, imageRef, imageSrc }) {
                 <img src="images/default-picture.png" alt="" className="size-32" />
                 {/* <input onChange={uploadPhoto} ref={imageRef} type="file" accept="image/*" className="hidden" /> */}
                 <div id="cameraHover" className="hidden group-hover:flex justify-center items-center w-full h-full absolute top-0 left-0 bg-white bg-opacity-70 rounded-full">
-                    <img height={35} width={35} src="/images/camera-dark-blue.png" />
+                    <img alt='' height={35} width={35} src="/images/camera-dark-blue.png" />
                 </div>
-                <img ref={imageRef} className="w-full h-full rounded-full absolute z-10" src={imageSrc} />
+                <img alt='' ref={imageRef} className="w-full h-full rounded-full absolute z-10" src={imageSrc} />
             </label>
     )
 }

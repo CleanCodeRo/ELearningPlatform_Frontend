@@ -206,7 +206,7 @@ export default function SideHeader() {
 
         {user?.role == "ADMIN" &&
           <MenuIcon pathChildren={
-            <img draggable={false} className="w-[2rem]" src="/SVGs/statusSVGs/closed.svg"></img>
+            <img draggable={false} className="w-[2rem]" src="/SVGs/statusSVGs/closed.svg" alt="permissions"></img>
           }
             toolTipContent={"Permisions"}
             iconEvent={() => navigate("/permissions")}

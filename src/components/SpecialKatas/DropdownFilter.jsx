@@ -3,10 +3,10 @@ import React from 'react'
 
 export default function DropdownFilter({ onChangeEvent, options, label, value }) {
     return (
-        <Select  value={value} label={label} onChange={onChangeEvent}
+        <Select aria-label={label} value={value} label={label} onChange={onChangeEvent}
                 variant='standard'>
             {options.map((category, index) => (
-                <Option key={index} value={category}>{category}</Option>
+                <Option key={index} value={category} aria-label={category}>{category}</Option>
             ))}
         </Select>
     )

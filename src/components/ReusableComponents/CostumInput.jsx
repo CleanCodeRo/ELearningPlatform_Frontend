@@ -20,13 +20,13 @@ export default function CostumInput({ id, label, inputRef, defaultValue, costumI
           variant='standard'
           // className={`${costumInputClass} `}
           onChange={onChange}
-          disabled={disabled}
+          disabled={disabled} 
         />
       </div>
     )
   }else{
     return (
-      <div className={`${costumInputClass} w-full font-xl`}>
+      <div className={`${costumInputClass} w-full font-xl `}>
         <Input
           id={id}
           size={'md'}

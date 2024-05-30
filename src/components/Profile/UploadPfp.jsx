@@ -98,7 +98,7 @@ export default function UploadPfp({ setOpenUploadPfp, pfpImageRef }) {
               keepSelection
               aspect={aspectRatio}
               minWidth={minDimension}>
-              <img ref={imageRef} alt='upload' src={imageSrc} onLoad={onImageLoad} draggable="false" />
+              <img ref={imageRef} alt='upload' aria-label="upload" src={imageSrc} onLoad={onImageLoad} draggable="false" />
             </ReactCrop>
 
             <button id="cutPhoto"

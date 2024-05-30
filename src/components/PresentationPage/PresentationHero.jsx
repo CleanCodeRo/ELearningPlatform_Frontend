@@ -44,6 +44,7 @@ const PresentationHero = () => {
           className="rounded-lg rounded-tr-[6rem] rounded-bl-[6rem] lg:rounded-full  w-[25rem] px1400:w-[35rem]"
           draggable={false}
           src="/images/CleanCode.jpg"
+          alt="CLeancode-logo"
         />
       </div>
 

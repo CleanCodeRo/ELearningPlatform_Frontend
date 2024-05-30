@@ -9,7 +9,7 @@ const PresentationFooter = () => {
           variant="small"
           className="mb-4 text-center font-normal text-blue-gray-900 md:mb-0 font-inter"
         >
-          &copy; {currentYear} <a >CleanCode Solutions</a>. All
+          &copy; {currentYear} CleanCode Solutions. All
           Rights Reserved.
         </Typography>
         <div className="flex gap-4 text-blue-gray-900 justify-center my-3">
@@ -19,7 +19,7 @@ const PresentationFooter = () => {
             href="#"
             className="opacity-80 transition-opacity hover:opacity-100"
           >
-            <a href=" https://www.facebook.com/cleancodero" target="_blank">
+            <a href=" https://www.facebook.com/cleancodero" target="_blank" aria-label="facebook_cleancode">
               <svg
                 className="h-9 w-9 text-blue-900"
                 fill="currentColor"
@@ -40,7 +40,7 @@ const PresentationFooter = () => {
             href="#"
             className="opacity-80 transition-opacity hover:opacity-100"
           >
-            <a href="https://www.instagram.com/cleancode.ro/" target="_blank">
+            <a href="https://www.instagram.com/cleancode.ro/" target="_blank" aria-label="instagram_cleancode">
               <svg
                 className="h-9 w-9 text-pink-500"
                 fill="currentColor"
@@ -60,7 +60,7 @@ const PresentationFooter = () => {
             as="a"
             className="opacity-80 transition-opacity hover:opacity-100"
           >
-            <a href="https://twitter.com/cleancodero" target="_blank">
+            <a href="https://twitter.com/cleancodero" target="_blank" aria-label="twitter_cleancode">
               <svg
                 className="h-9 w-9 text-blue-600"
                 fill="currentColor"
@@ -76,7 +76,7 @@ const PresentationFooter = () => {
             as="a"
             className="opacity-80 transition-opacity hover:opacity-100"
           >
-            <a href="https://github.com/cleancodeRo" target="_blank">
+            <a href="https://github.com/cleancodeRo" target="_blank" aria-label="github_cleancode">
               <svg
                 className="h-9 w-9 text-black"
                 fill="currentColor"

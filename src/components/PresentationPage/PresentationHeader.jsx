@@ -24,6 +24,7 @@ const PresentationHeader = () => {
           draggable={false}
           className="w-28"
           src="/images/CleanCode-removebg-preview.png"
+          alt="CLeancode-logo"
         />
         <div className="flex space-x-1.5">
           <Button

@@ -7,4 +7,4 @@ COPY package.json /react/
 
 RUN npm install
 
-CMD ["npm run", "dev"]
+CMD ["npm", "run", "dev"]

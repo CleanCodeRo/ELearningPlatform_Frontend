@@ -12,3 +12,4 @@ FROM base AS final
 WORKDIR ./htdocs
 COPY --from=build /react/dist .
 COPY --from=build /react/.htaccess .
+COPY --from=build /react/httpd-docker.conf /usr/local/apache2/conf/httpd.conf

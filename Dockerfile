@@ -11,3 +11,4 @@ RUN npm run build
 FROM base AS final
 WORKDIR ./htdocs
 COPY --from=build /react/dist .
+COPY --from=build /react/.htaccess .

@@ -1,13 +1,16 @@
+RewriteEngine On
+RewriteBase /
 
-RewriteOptions inherit
-<IfModule mod_rewrite.c>
+# do not do anything for already existing files
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule .+ - [L]
 
-  RewriteEngine On
-  RewriteBase /
-  RewriteRule ^index\.html$ - [L]
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteCond %{REQUEST_FILENAME} !-l
-  RewriteRule . /index.html [L]
-
-</IfModule>
+# return /blank.php if no such file or folder in /fck/
+RewriteCond ${REQUEST_FILENAME} !-f
+RewriteCond ${REQUEST_FILENAME} !-d
+RewriteRule ^.*/fck/.* /blank.php [L]
+# or use below line instead of the above line (comment and uncomment accordingly)
+# it will display 404 page (using 404 handler from your config: e.g. ErrorDocument 404 /404.php)
+#RewriteRule ^.*/fck/.* - [R=404,L]

@@ -1,5 +1,5 @@
 RewriteOptions inherit
-<IfModule mod_rewrite.c>
+<IfModule mod_rewrite>
 
   RewriteEngine On
   RewriteBase /

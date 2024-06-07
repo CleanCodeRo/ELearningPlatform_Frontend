@@ -1,5 +1,5 @@
 
-FROM httpd:2.4 AS base
+FROM ubuntu/apache2:2.4-23.04_edge AS base
 EXPOSE 80
 
 FROM node:20.14.0-alpine AS build
@@ -9,12 +9,11 @@ RUN npm install
 RUN npm run build
 
 FROM base AS final
-WORKDIR ./htdocs
+RUN a2enmod rewrite
+
+WORKDIR /etc/apache2/sites-available
+COPY ./apache.conf ./000-default.conf
+
+WORKDIR /var/www/html
 COPY --from=build /react/dist .
-COPY --from=build /react/.htaccess .
-COPY --from=build /react/httpd-docker.conf /usr/local/apache2/conf/httpd.conf
-RUN sed -i '/LoadModule rewrite_module/s/^#//g' /usr/local/apache2/conf/httpd.conf
-RUN { \
-  echo 'IncludeOptional conf.d/*.conf'; \
-} >> /usr/local/apache2/conf/httpd.conf \
-  && mkdir /usr/local/apache2/conf.d
+COPY ./.htaccess .

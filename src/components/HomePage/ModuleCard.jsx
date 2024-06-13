@@ -71,11 +71,11 @@ export default function ModuleCard({ id, title, userRole, weeks, color, moduleIn
       </div>
 
       <div id="moduleNumber" className="flex items-center justify-center text-xl font-bold absolute top-0 left-0 rounded-tl-xl rounded-br-xl  bg-white w-11 h-11">
-        <p>{moduleIndex + 1}</p>
+        <p>{moduleIndex}</p>
       </div>
 
       <div id="moduleLogo" className={` w-full h-[15rem] flex items-center justify-center`} >
-        <img className="w-[10rem] mb-2 " src={`/moduleIcons/quest-module_${moduleIndex}_icon.png`} alt={`module_image_${moduleIndex}`}/>
+        <img className="w-[10rem] mb-2 " src={`/moduleIcons/quest-module_${moduleIndex-1}_icon.png`} alt={`module_image_${moduleIndex-1}`}/>
       </div>
 
       <div id="restOfDetails" className="bg-white w-full rounded-t-2xl text-generalColors-dark-grey pt-4 p-1">

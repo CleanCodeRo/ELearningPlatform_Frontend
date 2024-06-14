@@ -102,7 +102,7 @@ export default function WeekCard({ week, weekColor, userRole, moduleName }) {
           <ProgressBar progressBarLength={progressBarLength} />
         </div>
 
-        <div id="listCategoriesWeek" className="flex flex-wrap items-center gap-1 my-2 p-1 h-16  text-xs overflow-y-scroll lowercase">
+        <div id="listCategoriesWeek" className="flex flex-wrap  gap-1 my-2 p-1 h-20 text-xs  lowercase">
           {week.categories.map((category, index) => (
             <div key={index} className="w-fit bg-generalColors-dark-blue h-7 text-white flex items-center px-2 rounded-lg">
               {category}
@@ -111,7 +111,7 @@ export default function WeekCard({ week, weekColor, userRole, moduleName }) {
         </div>
 
         <div id="totalPercentage" className=" flex justify-end  ">
-          <p className="flex items-center justify-center h-12 w-16 bg-generalColors-light-gray rounded-br-xl rounded-tl-xl text-sm ">{truePercentage}%</p>
+          <p className="flex items-center justify-center h-10 w-14 bg-generalColors-light-gray bg-opacity-70 rounded-br-xl rounded-tl-xl text-sm ">{truePercentage}%</p>
         </div>
       </div>
 

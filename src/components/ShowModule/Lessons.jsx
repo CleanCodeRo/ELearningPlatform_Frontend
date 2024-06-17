@@ -75,7 +75,7 @@ export default function Lessons({ userRole, userId, setWeekNumber, setConfirmNav
               `/home/module/${params.moduleId}/week/${params.weekId}/createLesson`
             )
           }
-           className="gap-3 rounded-full bg-fifth flex items-center justify-center text-xl mx-2 text-1xl sm:text-2xl px-16 py-1 font-bold border-2 text-generalColors-dark-blue bg-white">
+           className="gap-3 rounded-full bg-fifth flex items-center justify-center text-xl text-1xl sm:text-2xl px-16 py-1 font-bold border-2 text-generalColors-dark-blue bg-white">
            Add Lesson <i className="fa-solid fa-plus"></i>
          </button>
           
@@ -90,7 +90,7 @@ export default function Lessons({ userRole, userId, setWeekNumber, setConfirmNav
 
         :
 
-        <div id="listOfLessons" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full " >
+        <div id="listOfLessons" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-7 w-full " >
           {/* RENDERING MADATORY LESSONS */}
           {mandatoryLessons && mandatoryLessons.length > 0 ? (
             mandatoryLessons.map((lesson, index) => <LessonCard key={index} lesson={lesson} setConfirmNavigate={setConfirmNavigate} setNavigateLink={setNavigateLink} />)

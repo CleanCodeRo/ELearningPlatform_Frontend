@@ -90,7 +90,7 @@ export default function Lessons({ userRole, userId, setWeekNumber, setConfirmNav
 
         :
 
-        <div id="listOfLessons" className="flex flex-col w-full " >
+        <div id="listOfLessons" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full " >
           {/* RENDERING MADATORY LESSONS */}
           {mandatoryLessons && mandatoryLessons.length > 0 ? (
             mandatoryLessons.map((lesson, index) => <LessonCard key={index} lesson={lesson} setConfirmNavigate={setConfirmNavigate} setNavigateLink={setNavigateLink} />)
@@ -105,7 +105,7 @@ export default function Lessons({ userRole, userId, setWeekNumber, setConfirmNav
             <>
               <div id="optionalLessonsSection" className="w-full col-span-full flex  items-center animate-fade-down animate-ease-in-out">
                 <h1 className="text-2xl sm:text-3xl min-w-fit p-4 font-bold  rounded-xl text-fourth  ">Optional lessons</h1>
-                <div className="bg-generalColors-dark-blue h-[1.5px] w-full rounded-full"></div>
+                <div className="bg-generalColors-white h-[1.5px] w-full rounded-full"></div>
               </div>
               {optionalLessons.map((lesson, index) => <LessonCard key={index} lesson={lesson} setConfirmNavigate={setConfirmNavigate} setNavigateLink={setNavigateLink} />)}
             </>

@@ -90,7 +90,7 @@ export default function LessonCard({ lesson, setConfirmNavigate, setNavigateLink
     );
   };
 
-  const navigateToLesson = (e) =>{
+  const navigateToLesson = (e) => {
     e.stopPropagation()
     setNavigateLink(lesson.gitHubLink)
     setConfirmNavigate((value) => value + 1)
@@ -100,7 +100,7 @@ export default function LessonCard({ lesson, setConfirmNavigate, setNavigateLink
     <div
       name="principleHolder"
       id={lesson.id}
-      className="flex flex-col w-2/3  bg-white p-3 m-3 rounded-xl animate-fade-down animate-ease-in-out relative"
+      className="flex flex-col justify-between w-full bg-white text-generalColors-dark-blue p-3 m-3 rounded-xl animate-fade-down animate-ease-in-out relative"
       ref={lessonRef}
     >
 
@@ -112,30 +112,36 @@ export default function LessonCard({ lesson, setConfirmNavigate, setNavigateLink
         </div>
       }
 
-      <div id="top-part" className="flex justify-between items-center w-full">
-        <img className="w-10 mx-2" src={lesson.optional ? `/SVGs/statusSVGs/optional.svg` : `/SVGs/statusSVGs/mandatory.svg`} />
-        <p className=" text-2xl sm:text-2xl  line-clamp-2 w-full ">
-          {lesson.name}
+      <div className="flex flex-col mb-7">
+        <div id="top-part" className="flex justify-between items-start w-full">
+          <img className="w-10 mx-2 mt-1" src={lesson.optional ? `/SVGs/statusSVGs/optional.svg` : `/SVGs/statusSVGs/mandatory.svg`} />
+          <p className=" text-2xl sm:text-2xl  line-clamp-2 w-full ">
+            {lesson.name}
+          </p>
+
+          <EditPen user={{ role: user.role }}
+            deleteEvent={(e) => deleteLesson(e, lesson.id, params.weekId)}
+            editEvent={(e) => editEvent(e, params.moduleId, params.weekId, lesson.id)} />
+        </div>
+
+        <p id="description" className="mt-4">
+          {lesson.description}
         </p>
-
-        <EditPen user={{ role: user.role }}
-          deleteEvent={(e) => deleteLesson(e, lesson.id, params.weekId)}
-          editEvent={(e) => editEvent(e, params.moduleId, params.weekId, lesson.id)} />
-
-        < EditStatusComponentV2 />
       </div>
 
-      <p id="description" className="mt-4">
-        {lesson.description}
-      </p>
 
-      <button
+      <div className="flex justify-between items-center">
+        <button
           onClick={navigateToLesson}
           target="_blank"
           className=" cursor-pointer w-full lg:w-fit my-4  lg:mr-4  px-6 py-2   bg-sixth rounded-lg text-first shadow-md hover:shadow-lg hover:shadow-sixth shadow-sixth text-2xl font-bold text-center duration-300"
         >
           Learn
         </button>
+
+        < EditStatusComponentV2 />
+
+      </div>
     </div>
   );
 }

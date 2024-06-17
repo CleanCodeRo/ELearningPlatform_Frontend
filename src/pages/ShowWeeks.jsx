@@ -22,7 +22,7 @@ export default function ShowWeeks() {
             <div id='weeksAndLessons' className="flex flex-col px-7" style={{ minWidth: "calc(100vw - 5rem)",  maxWidth: "100%" }}>
                 {module && 
                      <BreadCrumbs key={0} children={[
-                        <p key={0}>Module {module.number} : <b>{module.name}</b></p>
+                        <p key={0}><b> Module {module.number} : {module.name}</b></p>
                       ]}
                       className="text-white"
                       />}

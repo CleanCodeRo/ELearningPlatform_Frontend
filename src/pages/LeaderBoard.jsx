@@ -67,7 +67,7 @@ export default function LeaderBoard() {
                                 All time
                             </button>
                             <button id='thisWeek'
-                                className={` ${!isWeekly ? "border-2 border-white bg-generalColors-dark-blue text-white " : "bg-generalColors-medium-green border-none text-black"}text-2xl px-9 rounded-full  ml-3`}
+                                className={` ${!isWeekly ? "border-2 border-white bg-generalColors-dark-blue text-white " : "bg-generalColors-medium-green border-none text-black"} text-2xl px-9 rounded-full  ml-3`}
                                 onClick={handleWeeklyButtonClick}>
                                 This Week
                             </button>

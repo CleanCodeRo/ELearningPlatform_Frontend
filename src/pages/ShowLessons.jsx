@@ -40,7 +40,7 @@ export default function ShowLessons() {
 
 
     return (
-        <div className="h-screen flex flex-row text-sixth overflow-x-hidden overflow-y-scroll relative custom-scrollbar bg-generalColors-white" >
+        <div className="h-screen bg-generalColors-dark-blue flex flex-row text-sixth overflow-x-hidden overflow-y-scroll relative custom-scrollbar " >
             <Helmet>
                 <meta charSet="utf8" />
                 <title>{`Week ${weekNumber? weekNumber : "..."} - ${moduleName ? moduleName : "Module ..."}`} - CleanCodeQuest</title>
@@ -49,9 +49,9 @@ export default function ShowLessons() {
             <SideHeader />
             {confirmNavigate % 2 == 0 && <ConfirmNavigate />}
 
-            <div id='weeksAndLessons' className="flex flex-col px-7 text-generalColors-dark-blue" style={{ minWidth: "calc(100vw - 5rem)", maxWidth: "100%" }}>
+            <div id='weeksAndLessons' className="flex flex-col px-7 bg-generalColors-dark-blue text-generalColors-white" style={{ minWidth: "calc(100vw - 5rem)", maxWidth: "100%" }}>
                 <BreadCrumbs children={[
-                    <a key={1} href={`/home/module/${params.moduleId}`}>Module {moduleNumber} : <b>{moduleName}</b></a>,
+                    <a key={1} href={`/home/module/${params.moduleId}`}><b>Module {moduleNumber} : {moduleName}</b></a>,
                     <b key={2} className='cursor-pointer'>Week {weekNumber}</b>,
                 ]}
                     className=""

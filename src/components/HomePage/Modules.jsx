@@ -40,9 +40,9 @@ export default function Modules({ userRole }) {
 
 
   return (
-    <div className="pt-5 pb-10 bg-generalColors-dark-blue">
+    <div className="pb-10 bg-generalColors-dark-blue">
       <div id="titleAndAddButton" className="flex items-center justify-between  mb-4">
-        <p className="text-3xl sm:text-4xl font-bold text-fourth">Modules</p>
+        <p className="text-3xl sm:text-4xl font-bold text-fourth my-7">Modules</p>
         {userRole === "ADMIN" && (
           <Link
             to="/createModule"

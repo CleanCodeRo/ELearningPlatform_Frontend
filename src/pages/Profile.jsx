@@ -95,7 +95,7 @@ const Profile = () => {
 
 
     const uploadPhoto = () => {
-        let url = "https://script.google.com/macros/s/AKfycbxw6i617kJ7mwdxVniVR2vjms4p33A6W0rg5HvQGwe9JSnF90_XAHg46BO4jBi5BMqB/exec";
+        let url = "https://script.google.com/macros/s/AKfycbwFZy4ZGbV-lN0VT6hRFnv1t8AhsDPke68qqz4jL9NmsV8JM6R81UHTIoNKbYAzYBYb/exec";
 
         let obj = {
             base64: imageRef.current.src.split("base64,")[1],

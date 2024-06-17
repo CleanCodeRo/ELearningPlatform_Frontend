@@ -128,7 +128,8 @@ const Login = () => {
             <Checkbox
               style={{ backgroundColor: `${checkBoxSelected % 2 == 0 ? "#ffffff" : "#174072"}` }}
               onChange={rememberEvent} className={`border-2 `}
-              inputRef={rememberMeRef} />
+              inputRef={rememberMeRef} 
+              />
             <label className="text-sm ">Remember Me</label>
           </div>
 

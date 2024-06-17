@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import 'react-image-crop/dist/ReactCrop.css'
 import ReactCrop, { centerCrop, convertToPixelCrop, makeAspectCrop } from 'react-image-crop'
 import SuccessError from '../ReusableComponents/SuccessError';
@@ -18,10 +18,9 @@ export default function UploadPfp({ setOpenUploadPfp, pfpImageRef }) {
     width: 50,
     height: 50
   })
-  const [error, setError] = useState(null);
+  const [[message, messageColor], setMessage] = useState([null, null])
   const imageRef = useRef(null);
   const canvasRef = useRef(null);
-
 
   const onSelectFile = (e) => {
     const file = e.target.files?.[0];
@@ -36,10 +35,7 @@ export default function UploadPfp({ setOpenUploadPfp, pfpImageRef }) {
       imageElement.addEventListener("load", (e) => {
         const { naturalWidth, naturalHeight } = e.currentTarget;
         if (naturalHeight < minPixelDimension || naturalWidth < minPixelDimension) {
-          setError("Photo must be min 125px !");
-          setTimeout(() => {
-            setError(null)
-          }, 2000)
+          setMessage(["Photo must be min 125px !", "bg-red-500"]);
           return setImageSrc(null);
         }
       })
@@ -76,10 +72,10 @@ export default function UploadPfp({ setOpenUploadPfp, pfpImageRef }) {
  
 
   return (
-    <div id='uploadScreenContainer' className='w-screen h-screen absolute top-0 left-0 flex justify-center items-center bg-black bg-opacity-50 z-10 '>
+    <div id='uploadScreenContainer' className='w-screen h-screen fixed top-0 left-0 flex justify-center items-center bg-black bg-opacity-50 z-10 overflow-y-auto'>
       <div id='uploadContainer' className='relative w-[30rem] min-h-[80%] bg-white rounded-xl p-7 '>
-        <SuccessError error={error} />
-        <i onClick={() => setOpenUploadPfp(false)} className="fa-solid fa-xmark absolute right-4 top-4 w-6 h-6 flex justify-center items-center hover:bg-generalColors-light-gray rounded-lg mr-1"></i>
+      <SuccessError setMessage={setMessage} message={message} color={messageColor} />
+      <i onClick={() => setOpenUploadPfp(false)} className="fa-solid fa-xmark absolute right-4 top-4 w-6 h-6 flex justify-center items-center hover:bg-generalColors-light-gray rounded-lg mr-1"></i>
 
         <input onChange={onSelectFile} type="file" accept="image/*" className="block w-fit text-sm text-slate-500 ml-3 mb-3
         file:mr-4 file:py-2 file:px-4 file:rounded-md

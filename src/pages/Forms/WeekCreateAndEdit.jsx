@@ -129,7 +129,7 @@ export default function WeekCreateAndEdit() {
         setSavedCategory([...savedCategory, categoryValue]);
       }
     } else {
-      setError("Can't add more than 5 categories");
+      setMessage(["Can't add more than 5 categories", "bg-red-500"]);
     }
   }
 

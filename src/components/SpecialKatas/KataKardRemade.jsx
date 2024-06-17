@@ -16,9 +16,7 @@ export default function KataCardRemade({ kata, deleteEvent, setRefreshKatas }) {
     const [user, setUser] = useAtom(state.user)
     const [isCompleted, setIsCompleted] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState(null);
-    const [error, setError] = useState(null);
-    const [renderError, setRenderError] = useState(false)
+    const [[message, messageColor], setMessage] = useState([null, null]);
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -42,27 +40,24 @@ export default function KataCardRemade({ kata, deleteEvent, setRefreshKatas }) {
                     kata.completedByUsers.push(user.id)
                     setIsCompleted(true);
                     setLoading(false);
-                    setMessage("Kata verification completed");
-                    setTimeout(() => {
-                        setRenderError(false)
-                    }, 3000)
-
+                    setMessage(["Kata verification completed", "bg-green-500"]);
                 })
                 .catch(err => {
                     console.log(err)
                 })
         } else {
             setLoading(false);
-            setError("Kata name not perfectly equal ?")
-            setTimeout(() => {
-                setRenderError(false)
-            }, 3000)
+            if(!user.codeWarsUsername){
+                setMessage(["Please complete codewars username in Profile", "bg-red-500"])
+            }else{
+                setMessage(["Kata not completed (or check the kataname and username)", "bg-red-500"])
+            }
         }
     }
 
     const completeKataEvent = (e) => {
         setLoading(true)
-        setRenderError(true)
+        console.log(user.codeWarsUsername)
         let numberOfCompletedKatasPages;
         let allCompletedKatas = []
 
@@ -133,6 +128,9 @@ export default function KataCardRemade({ kata, deleteEvent, setRefreshKatas }) {
                     <Loading />
                 </div>
             }
+
+            <SuccessError setMessage={setMessage} message={message} color={messageColor} />
+
             <div id='card' className={` w-full h-80 ${colors[kata.level - 1]} rounded-3xl relative `}>
                 <div id="penContainer" className="absolute w-full flex justify-end ">
                     <EditPen user={user} deleteEvent={(e) => deleteEvent(e, kata.id, setRefreshKatas)} editEvent={(e) => editEvent(e, navigate, kata.id)} />
@@ -185,11 +183,7 @@ export default function KataCardRemade({ kata, deleteEvent, setRefreshKatas }) {
                 </div>
 
             </div>
-            {renderError &&
-                <div>
-                    <SuccessError success={message} error={error} />
-                </div>
-            }
+           
         </div>
     );
 

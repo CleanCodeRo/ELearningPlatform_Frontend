@@ -4,11 +4,11 @@ import { useAtom } from "jotai";
 import state, { getUserWithToken } from "../components/ReusableComponents/Atom";
 import { startLink } from "../constants/Constants";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import SuccessError from "../components/ReusableComponents/SuccessError";
 import ProfilePicture from "../components/Profile/ProfilePicture";
 import UploadPfp from "../components/Profile/UploadPfp";
 import Loading from "../components/ReusableComponents/Loading/Loading";
 import { Helmet } from "react-helmet";
+import SuccessError from "../components/ReusableComponents/SuccessError";
 
 const Profile = () => {
     const [user, setUser] = useAtom(state.user);
@@ -38,7 +38,6 @@ const Profile = () => {
     const locationRef = useRef(null);
 
     const navigate = useNavigate()
-    const location = useLocation();
     let updateObject = {}
 
     useEffect(() => {
@@ -59,7 +58,7 @@ const Profile = () => {
     const updateUser = () => {
         setLoading(true)
 
-        if (imageRef.current.src != user?.profileImageUrl) {
+        if (imageRef.current.src != user?.profileImageUrl && imageRef.current.src != "") {
             setLoadingText("Uploading photo and saving changes... \n might take a moment")
             uploadPhoto()
         } else {
@@ -106,6 +105,8 @@ const Profile = () => {
             username: `${user?.firstName} ${user?.lastName}`
         }
 
+        console.log(obj)
+
         fetch(url, {
             method: "POST",
             body: JSON.stringify(obj)
@@ -115,7 +116,11 @@ const Profile = () => {
                 updateObject["profileImageUrl"] = data.newLink;
                 updateFetch()
             })
-            .catch((err) => console.log(err))
+            .catch((err) => {
+                console.error(err)
+                setMessage(["Could not save changes, please try again later!", "bg-red-500"]);
+                setLoading(false);
+            })
     }
 
 
@@ -136,7 +141,7 @@ const Profile = () => {
                 <title>Profile - CleanCodeQuest</title>
             </Helmet>
 
-            <SuccessError message={message} color={messageColor} setMessage={setMessage} />
+            <SuccessError setMessage={setMessage} message={message} color={messageColor} />
 
             {loading &&
                 <div className="absolute w-full h-full top-o left-0 flex flex-col items-center justify-center bg-black bg-opacity-50 z-20">

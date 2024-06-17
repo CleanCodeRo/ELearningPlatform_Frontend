@@ -12,6 +12,8 @@ import XlsxPopulate from 'xlsx-populate';
 // PS : due to security you need to put in the fetch of function saveAllKatasToDB a new token that has admin propertyes
 // for the post to complete
 
+// COMPLETE IN THE AUTH SECTION A VALID TOKEN WITH ADMIN PROPS
+
 const getKataLinks = async () => {
     let data = []
     try {
@@ -36,7 +38,8 @@ const saveAllKatasToDB = (katas) =>{
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbGlAIiwiaWQiOjEsImZpcnN0TmFtZSI6IklhY29iIiwibGFzdE5hbWUiOiJPbGl2ZXIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MTUyMzg3NDksImV4cCI6MTcxNTI1Njc0OX0.0yTBoiJ4GXzVPVOP8evhEsS7bhbko_kgmHUeFMrmpnY`,
+            //put a VALID USER TOKEN HERE
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbGlAIiwiaWQiOjEsImZpcnN0TmFtZSI6Im9saSIsImxhc3ROYW1lIjoib2xpIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzE4NjE0MzQzLCJleHAiOjE3MTk4MjM5NDN9.L93ipCAijJkp8LZMZPZYr_eK1tX2peiYeLNz0P81p0s`,
         },
         body: JSON.stringify(katas),
     })

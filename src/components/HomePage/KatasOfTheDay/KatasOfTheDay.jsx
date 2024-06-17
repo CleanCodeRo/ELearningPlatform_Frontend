@@ -35,7 +35,7 @@ export default function KatasOfTheDay({ userRole }) {
     return (
         <div id="container" className='pt-5 pb-10'>
             <div id="titleAndAddButton" className="flex  items-center justify-start">
-                <p className="text-3xl sm:text-4xl p-4  font-bold  rounded-lg text-fourth ">
+                <p className="text-3xl sm:text-4xl py-4  font-bold  rounded-lg text-fourth ">
                     Katas of the day
                 </p>
 

@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAtom } from "jotai";
 import state, { getCompletedStuff } from "../ReusableComponents/Atom";
 import EditPen from "../ReusableComponents/EditPen";
-import CosutmCheckBox from "../ReusableComponents/CheckBox/CosutmCheckBox";
 import Loading from "../ReusableComponents/Loading/Loading";
 import { startLink } from "../../constants/Constants";
 import { Checkbox } from "@material-tailwind/react";

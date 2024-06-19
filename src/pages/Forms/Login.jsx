@@ -2,12 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { startLink } from "../../constants/Constants";
 import CostumInput from "../../components/ReusableComponents/CostumInput";
-import { Checkbox } from "@material-tailwind/react";
 import { handleEnter } from "../../components/ReusableComponents/Atom";
 import SuccessError from "../../components/ReusableComponents/SuccessError";
 import { Helmet } from "react-helmet";
-
-let rememberMe = false
+import CostumCheckBox1 from "../../components/ReusableComponents/CheckBox/CostumCheckBox1";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -16,14 +14,7 @@ const Login = () => {
   const passwordRef = useRef(null)
   const loginButtonRef = useRef(null)
   const rememberMeRef = useRef(null)
-
-  const [checkBoxSelected, setCheckBoxSelected] = useState(0);
   const [seePass, setSeePass] = useState(0);
-
-  const rememberEvent = () => {
-    setCheckBoxSelected(checkBoxSelected + 1)
-    rememberMe = rememberMe ? false : true;
-  }
 
   useEffect(() => {
     document.addEventListener('keydown', (e) => handleEnter(e, login));
@@ -125,11 +116,7 @@ const Login = () => {
 
         <div id="rememberAndForget" className="w-full flex flex-row items-center justify-between text-generalColors-dark-blue mb-20">
           <div id="checkbox" className="flex items-center w-fit">
-            <Checkbox
-              style={{ backgroundColor: `${checkBoxSelected % 2 == 0 ? "#ffffff" : "#174072"}` }}
-              onChange={rememberEvent} className={`border-2 `}
-              inputRef={rememberMeRef} 
-              />
+            <CostumCheckBox1 checkBoxEvent={() => console.log("REmember ME")} checkBoxRef={rememberMeRef} />
             <label className="text-sm ">Remember Me</label>
           </div>
 

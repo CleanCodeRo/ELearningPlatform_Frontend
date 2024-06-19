@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import DropdownFilter from "./DropdownFilter";
 import { kataCategories, kataDifficulty, kataProgress } from "./FilterObjects";
 import { useNavigate, useParams } from "react-router-dom";
 import CostumInput from "../ReusableComponents/CostumInput";
 import { startLink } from "../../constants/Constants";
+import DropdownFilter from "../ReusableComponents/DropdownFilter";
 
 const numberOfItems = 12;
 

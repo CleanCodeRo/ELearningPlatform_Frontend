@@ -6,12 +6,12 @@ import { handleEnter } from "../../components/ReusableComponents/Atom";
 import { Helmet } from "react-helmet";
 
 const Contact = () => {
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
+  const [[message, messageColor], setMessage] = useState([null,null])
 
   const fullNameRef = useRef(null);
   const emailRef = useRef(null);
   const messageRef = useRef(null);
+  const sendButtonRef = useRef(null);
 
 
   useEffect(() => {
@@ -19,7 +19,10 @@ const Contact = () => {
     emailRef.current.type = "email"
   })
 
+
   const sendMail = () => {
+    sendButtonRef.current.disabled = true;
+
     if (
       fullNameRef.current.value != "" &&
       emailRef.current.value != "" &&
@@ -32,22 +35,16 @@ const Contact = () => {
       };
 
       emailjs.send("service_2e65612", "template_o50nwpl", params, "0xmgmieFKpePRO7xl").then(() => {
-        setSuccess("Email sent!"); // afisare mesaj
+        setMessage(["Email sent!", "bg-green-500"]); // afisare mesaj
         setTimeout(() => {
-          setSuccess(null); 
           window.location.href = "/"
         }, 2000);
       }).catch((err) =>{
-        setError("Something went wrong!");
-        setTimeout(() => {
-          setError(null); 
-        }, 2000);
+        setMessage(["Something went wrong!", "bg-red-500"]); // afisare mesaj
+        console.error("Logged error Oli : " , err)
       })
     }else{
-      setError("Must complete all the fields!"); 
-        setTimeout(() => {
-          setError(null); 
-        }, 2000);
+      setMessage(["Must complete all the fields!", "bg-red-500"]); // afisare mesaj
     }
   }
 
@@ -60,9 +57,9 @@ const Contact = () => {
         <title>Let's talk - CleanCodeQuest</title>
       </Helmet>
         
-        <SuccessError success={success} error={error}/>
+        <SuccessError message={message} color={messageColor} setMessage={setMessage}/>
         <img id="ghostImage" alt="ghost" className="w-[7rem] my-9" src="/SVGs/ghost.svg" />
-
+        <p className="text-3xl text-center text-generalColors-dark-blue font-bold mb-6">Let's talk !</p>
 
         <div id="fullNameContainer" className="flex items-center mb-6 w-full">
           <CostumInput
@@ -98,8 +95,8 @@ const Contact = () => {
         </div>
 
         <div className="flex flex-row w-full justify-center gap-14 mt-10">
-          <a href="/" className="  bg-generalColors-dark-blue text-white rounded-full py-4 px-7 " >Back</a>
-          <button onClick={sendMail} className=" bg-generalColors-dark-blue text-white rounded-full py-4 px-7" >Send</button>
+          <a href="/" className="  bg-generalColors-dark-blue text-white rounded-xl py-4 px-7 " >Back</a>
+          <button ref={sendButtonRef} onClick={sendMail} className=" bg-generalColors-dark-blue text-white rounded-xl py-4 px-7 disabled:opacity-80" >Send</button>
         </div>
 
       </div>

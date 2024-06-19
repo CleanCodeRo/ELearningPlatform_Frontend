@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import state, { checkIfUserAdmin, getCompletedStuff, handleEnter } from "../../components/ReusableComponents/Atom";
 import { startLink } from "../../constants/Constants";
-import DropdownFilter from "../../components/SpecialKatas/DropdownFilter";
+import DropdownFilter from "../../components/ReusableComponents/DropdownFilter";
 import { kataCategories } from "../../components/SpecialKatas/FilterObjects";
 import CostumInput from "../../components/ReusableComponents/CostumInput";
 import SuccessError from "../../components/ReusableComponents/SuccessError";

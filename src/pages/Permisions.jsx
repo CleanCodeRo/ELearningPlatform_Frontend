@@ -1,6 +1,4 @@
-import { useAtom } from 'jotai';
 import React, { useEffect, useRef, useState } from 'react'
-import state from '../components/ReusableComponents/Atom';
 import { startLink } from '../constants/Constants';
 import SideHeader from '../components/SideHeader';
 import CostumInput from '../components/ReusableComponents/CostumInput';
@@ -14,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import Loading from '../components/ReusableComponents/Loading/Loading';
 import SuccessError from '../components/ReusableComponents/SuccessError';
 import { Helmet } from 'react-helmet';
+import CostumCheckBox1 from '../components/ReusableComponents/CheckBox/CostumCheckBox1';
 
 export default function Permisions() {
     const [modules, setModules] = useState([]);
@@ -196,6 +195,8 @@ export default function Permisions() {
                         color="gray"
 
                     />
+
+                    {/* <CostumCheckBox1 checkBoxEvent={()=>console.log("heh")} defaultChecked={false}  /> */}
 
                     <div className='flex items-center justify-center'>
                         <button

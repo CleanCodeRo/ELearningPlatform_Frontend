@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import SuccessError from "../../components/ReusableComponents/SuccessError";
-import DropdownFilter from "../../components/SpecialKatas/DropdownFilter";
 import { kataCategories } from "../../components/SpecialKatas/FilterObjects";
 import { startLink } from "../../constants/Constants";
 import CostumInput from "../../components/ReusableComponents/CostumInput";
@@ -9,6 +8,7 @@ import {
     checkIfUserAdmin, handleEnter
 } from "../../components/ReusableComponents/Atom";
 import { Helmet } from "react-helmet";
+import DropdownFilter from "../../components/ReusableComponents/DropdownFilter";
 
 export default function KataForm() {
     const [savedCategory, setSavedCategory] = useState([]);

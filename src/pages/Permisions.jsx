@@ -16,6 +16,7 @@ import CostumCheckBox1 from '../components/ReusableComponents/CheckBox/CostumChe
 
 export default function Permisions() {
     const [modules, setModules] = useState([]);
+    const [users, setUsers] = useState(null);
     const [loading, setLoading] = useState(true);
     const [addUserLoading, setAddUserLoading] = useState(false);
     const [searchedUsers, setSearchedUsers] = useState([])
@@ -25,6 +26,7 @@ export default function Permisions() {
     const nameRef = useRef(null);
     const emailRef = useRef(null);
     const pwdRef = useRef(null);
+    const isAdminRef = useRef(null);
     const navigate = useNavigate()
     let savedSeconds = new Date().getSeconds();
     const [[message, messageColor], setMessage] = useState([null, null])
@@ -32,7 +34,6 @@ export default function Permisions() {
     const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
     useEffect(() => {
-        console.log(searchRef.current.getBoundingClientRect().top)
         fetch(`${startLink}/modules`, {
             method: "GET",
             headers: {
@@ -50,6 +51,22 @@ export default function Permisions() {
             .catch((err) => {
                 console.log(err)
                 navigate("/login");
+            });
+
+        //temporaty using this endpoint
+        fetch(`${startLink}/users/leaderboard`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                setUsers(data);
+            })
+            .catch(err => {
+                console.error("Error fetching leaderboard:", err);
             });
     }, []);
 
@@ -121,11 +138,14 @@ export default function Permisions() {
     }
 
     const registerAccount = () => {
+        console.log(isAdminRef.current.checked)
         setAddUserLoading(true)
         const data = {
             firstName: nameRef.current.value,
+            lastName: "",
             email: emailRef.current.value,
-            password: pwdRef.current.value
+            password: pwdRef.current.value,
+            admin: isAdminRef.current.checked
         };
 
         fetch(`${startLink}/users/auth/register`, {
@@ -153,7 +173,7 @@ export default function Permisions() {
     };
 
 
-
+    const renderValue = (value) => (value === null || value === undefined || value === '') ? '...' : value;
 
     return (
         <div className="h-screen flex flex-row text-sixth overflow-x-hidden overflow-y-scroll relative custom-scrollbar bg-white" >
@@ -196,7 +216,8 @@ export default function Permisions() {
 
                     />
 
-                    {/* <CostumCheckBox1 checkBoxEvent={()=>console.log("heh")} defaultChecked={false}  /> */}
+                    <label className='ml-5 font-bold text-lg'>ADMIN</label>
+                    <CostumCheckBox1 checkBoxEvent={() => console.log("heh")} defaultChecked={false} checkBoxRef={isAdminRef} />
 
                     <div className='flex items-center justify-center'>
                         <button
@@ -242,7 +263,7 @@ export default function Permisions() {
 
 
 
-                <div id="modulesHolder" className='relative'>
+                <div id="modulesHolder" className='relative mb-10'>
                     {loading &&
                         <div id="loading" className="w-full h-full z-20 bg-black bg-opacity-50 flex items-center justify-center absolute">
                             <Loading />
@@ -255,8 +276,6 @@ export default function Permisions() {
                                 {module.name}
                             </AccordionHeader>
                             <AccordionBody>
-
-
                                 {module.weeks?.map((week, index) =>
                                     <div key={index} className='flex flex-row items-center justify-between  py-3 text-xl bg-white text-generalColors-dark-blue border-b border-generalColors-light-gray p-3 cursor-pointer'>
                                         <p>Week {week.number}  </p>
@@ -277,6 +296,68 @@ export default function Permisions() {
                             </AccordionBody>
                         </Accordion>)}
                 </div>
+
+                                   
+                <div className=" py-4">
+                    <h1 className="text-2xl font-bold text-generalColors-dark-blue mb-4">Users</h1>
+                    <div className="overflow-x-auto">
+                        <table className="min-w-full bg-white border ">
+                            <thead className="bg-generalColors-dark-blue text-white">
+                                <tr>
+                                    <th className="py-2 px-4 border-b border-blue-700">ID</th>
+                                    <th className="py-2 px-4 border-b border-blue-700 w-fit">First Name</th>
+                                    <th className="py-2 px-4 border-b border-blue-700">Last Name</th>
+                                    <th className="py-2 px-4 border-b border-blue-700">Email</th>
+                                    <th className="py-2 px-4 border-b border-blue-700">Role</th>
+                                    <th className="py-2 px-4 border-b border-blue-700">Profile Image</th>
+                                    <th className="py-2 px-4 border-b border-blue-700">Birthday</th>
+                                    <th className="py-2 px-4 border-b border-blue-700">Location</th>
+                                    <th className="py-2 px-4 border-b border-blue-700">Address</th>
+                                    <th className="py-2 px-4 border-b border-blue-700">Phone Number</th>
+                                    <th className="py-2 px-4 border-b border-blue-700">GitHub Username</th>
+                                    <th className="py-2 px-4 border-b border-blue-700">CodeWars Username</th>
+                                    <th className="py-2 px-4 border-b border-blue-700">Discord Username</th>
+                                    <th className="py-2 px-4 border-b border-blue-700">LinkedIn Username</th>
+                                    <th className="py-2 px-4 border-b border-blue-700">Instagram Username</th>
+                                    <th className="py-2 px-4 border-b border-blue-700">Facebook Username</th>
+                                    <th className="py-2 px-4 border-b border-blue-700">Rank Points</th>
+                                    <th className="py-2 px-4 border-b border-blue-700">Weekly Rank Points</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {users?.map(user => (
+                                    <tr key={user.id} className="hover:bg-blue-100">
+                                        <td className="py-2 px-4 border-b border-generalColors-dark-blue">{renderValue(user.id)}</td>
+                                        <td className="py-2 px-4 border-b border-generalColors-dark-blue">{renderValue(user.firstName)}</td>
+                                        <td className="py-2 px-4 border-b border-generalColors-dark-blue">{renderValue(user.lastName)}</td>
+                                        <td className="py-2 px-4 border-b border-generalColors-dark-blue">{renderValue(user.email)}</td>
+                                        <td className="py-2 px-4 border-b border-generalColors-dark-blue">{renderValue(user.role)}</td>
+                                        <td className="py-2 px-4 border-b border-generalColors-dark-blue">
+                                            {user.profileImageUrl ? (
+                                                <img src={user.profileImageUrl} alt="Profile" className="w-12 h-12 rounded-full" />
+                                            ) : (
+                                                '...'
+                                            )}
+                                        </td>
+                                        <td className="py-2 px-4 border-b border-generalColors-dark-blue">{renderValue(user.birthday)}</td>
+                                        <td className="py-2 px-4 border-b border-generalColors-dark-blue">{renderValue(user.location)}</td>
+                                        <td className="py-2 px-4 border-b border-generalColors-dark-blue">{renderValue(user.address)}</td>
+                                        <td className="py-2 px-4 border-b border-generalColors-dark-blue">{renderValue(user.phoneNumber)}</td>
+                                        <td className="py-2 px-4 border-b border-generalColors-dark-blue">{renderValue(user.githubUsername)}</td>
+                                        <td className="py-2 px-4 border-b border-generalColors-dark-blue">{renderValue(user.codeWarsUsername)}</td>
+                                        <td className="py-2 px-4 border-b border-generalColors-dark-blue">{renderValue(user.discordUsername)}</td>
+                                        <td className="py-2 px-4 border-b border-generalColors-dark-blue">{renderValue(user.linkedInUsername)}</td>
+                                        <td className="py-2 px-4 border-b border-generalColors-dark-blue">{renderValue(user.instagramUsername)}</td>
+                                        <td className="py-2 px-4 border-b border-generalColors-dark-blue">{renderValue(user.facebookUsername)}</td>
+                                        <td className="py-2 px-4 border-b border-generalColors-dark-blue">{renderValue(user.rankPoints)}</td>
+                                        <td className="py-2 px-4 border-b border-generalColors-dark-blue">{renderValue(user.weeklyRankPoints)}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
 
             </div>
 

@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import state, { checkIfUserAdmin, getCompletedStuff, handleEnter } from "../../components/ReusableComponents/Atom";
 import { startLink } from "../../constants/Constants";
 import CostumInput from "../../components/ReusableComponents/CostumInput";
-import CosutmCheckBox from "../../components/ReusableComponents/CheckBox/CosutmCheckBox";
 import { Checkbox } from "@material-tailwind/react";
 import SuccessError from "../../components/ReusableComponents/SuccessError";
 import { Helmet } from "react-helmet";

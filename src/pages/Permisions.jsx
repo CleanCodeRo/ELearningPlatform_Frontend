@@ -21,7 +21,7 @@ export default function Permisions() {
     const [addUserLoading, setAddUserLoading] = useState(false);
     const [searchedUsers, setSearchedUsers] = useState([])
     const [selectedUser, setSelectedUser] = useState(null);
-    const [open, setOpen] = React.useState(1);
+    const [open, setOpen] = useState(-1);
     const searchRef = useRef(null);
     const nameRef = useRef(null);
     const emailRef = useRef(null);
@@ -31,7 +31,7 @@ export default function Permisions() {
     let savedSeconds = new Date().getSeconds();
     const [[message, messageColor], setMessage] = useState([null, null])
 
-    const handleOpen = (value) => setOpen(open === value ? 0 : value);
+    const handleOpen = (value) => setOpen(open === value ? -1 : value);
 
     useEffect(() => {
         fetch(`${startLink}/modules`, {
@@ -186,53 +186,61 @@ export default function Permisions() {
             <SuccessError setMessage={setMessage} message={message} color={messageColor} />
 
             <div id='permisionContainer' className=" relative flex flex-col px-7 text-generalColors-dark-blue" style={{ minWidth: "calc(100vw - 5rem)", maxWidth: "100%" }}>
-                <p className="text-3xl sm:text-4xl p-4  font-bold  rounded-lg text-fourth">
+                <p className="text-3xl sm:text-4xl p-4 mb-20 font-bold rounded-lg">
                     Permissions & Admin Pannel
                 </p>
-                <div id="registerAccount" className="relative flex items-center mb-6 w-fit">
-                    <img alt="user" className="w-16 mr-3" src="/SVGs/user.svg" aria-label='user' />
-                    <CostumInput
-                        id={"nameRef"}
-                        label={"Name"}
-                        inputRef={nameRef}
-                        costumInputClass=" mr-3"
-                        color="gray"
 
-                    />
-                    <CostumInput
-                        id={"emailRef"}
-                        label={"Email"}
-                        inputRef={emailRef}
-                        costumInputClass="mr-3"
-                        color="gray"
+                {/* REGISTER A NEW USER */}
+                <div id="registerAccount" className="relative flex flex-col justify-center mb-20 w-fit">
+                    <p className="text-2xl font-bold text-generalColors-dark-blue mb-4">Create new user</p>
 
-                    />
-                    <CostumInput
-                        id={"pwdRef"}
-                        label={"Password"}
-                        inputRef={pwdRef}
-                        costumInputClass="mr-3"
-                        color="gray"
+                    <div className='flex items-center'>
+                        <img alt="user" className="w-16 mr-3" src="/SVGs/user.svg" aria-label='user' />
+                        <CostumInput
+                            id={"nameRef"}
+                            label={"Name"}
+                            inputRef={nameRef}
+                            costumInputClass=" mr-3"
+                            color="gray"
 
-                    />
+                        />
+                        <CostumInput
+                            id={"emailRef"}
+                            label={"Email"}
+                            inputRef={emailRef}
+                            costumInputClass="mr-3"
+                            color="gray"
 
-                    <label className='ml-5 font-bold text-lg'>ADMIN</label>
-                    <CostumCheckBox1 checkBoxEvent={() => console.log("heh")} defaultChecked={false} checkBoxRef={isAdminRef} />
+                        />
+                        <CostumInput
+                            id={"pwdRef"}
+                            label={"Password"}
+                            inputRef={pwdRef}
+                            costumInputClass="mr-3"
+                            color="gray"
 
-                    <div className='flex items-center justify-center'>
-                        <button
-                            className=' mx-5 border-[1px] p-3 rounded-xl text-generalColors-white bg-generalColors-dark-blue flex items-center justify-center
+                        />
+
+                        <label className='ml-5 font-bold text-lg'>ADMIN</label>
+                        <CostumCheckBox1 checkBoxEvent={() => console.log("heh")} defaultChecked={false} checkBoxRef={isAdminRef} />
+
+                        <div className='flex items-center justify-center'>
+                            <button
+                                className=' mx-5 border-[1px] p-3 rounded-xl text-generalColors-white bg-generalColors-dark-blue flex items-center justify-center
                     hover:text-generalColors-medium-blue 
                     hover:bg-generalColors-white animate-ease-linear-3'
-                            onClick={registerAccount}
-                        >
-                            Create
+                                onClick={registerAccount}
+                            >
+                                Create
 
-                        </button>
-                        {addUserLoading && <Spinner className='absolute w-full h-full ' />}
+                            </button>
+                            {addUserLoading && <Spinner className='absolute w-full h-full ' />}
+                        </div>
                     </div>
                 </div>
 
+                {/* MANAGE USER ACCESS */}
+                <p className="text-2xl font-bold text-generalColors-dark-blue mb-4">Manage User Access</p>
                 <div id="SearchContainer" className="relative flex items-center mb-6 w-fit">
                     <img alt="user" className="w-4 mr-3" src="/SVGs/user.svg" aria-label='user-1' />
                     <CostumInput
@@ -243,8 +251,6 @@ export default function Permisions() {
                         color="gray"
                         onChange={searchUsersEvent}
                     />
-
-
                 </div>
 
                 {searchedUsers.length != 0 &&
@@ -261,9 +267,7 @@ export default function Permisions() {
                     Selected User : {selectedUser?.firstName} {selectedUser?.lastName} ({selectedUser?.email})
                 </div>
 
-
-
-                <div id="modulesHolder" className='relative mb-10'>
+                <div id="modulesHolder" className='relative mb-20'>
                     {loading &&
                         <div id="loading" className="w-full h-full z-20 bg-black bg-opacity-50 flex items-center justify-center absolute">
                             <Loading />
@@ -297,9 +301,19 @@ export default function Permisions() {
                         </Accordion>)}
                 </div>
 
-                                   
-                <div className=" py-4">
-                    <h1 className="text-2xl font-bold text-generalColors-dark-blue mb-4">Users</h1>
+                <div className='flex items-center mb-20'>
+                    <p className="text-2xl font-bold text-generalColors-dark-blue ">Manage Attendance</p>
+                    <a
+                        href="/permissions/attendance"
+                        className=' mx-5 border-[1px] p-3 rounded-xl text-generalColors-white bg-generalColors-dark-blue flex items-center justify-center hover:text-generalColors-dark-blue hover:bg-gray-300 animate-ease-linear-3'>
+                        Go To Attendance
+                    </a>
+
+                </div>
+
+
+                <div id='userTable' className=" py-4">
+                    <p className="text-2xl font-bold text-generalColors-dark-blue mb-4">Users</p>
                     <div className="overflow-x-auto">
                         <table className="min-w-full bg-white border ">
                             <thead className="bg-generalColors-dark-blue text-white">
@@ -357,7 +371,7 @@ export default function Permisions() {
                         </table>
                     </div>
                 </div>
-                
+
 
             </div>
 

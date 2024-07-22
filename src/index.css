@@ -78,4 +78,15 @@
 .custom-img:hover {
   opacity: 1 !important; /* Override any other opacity styles */
 }
+
+
+.custom-date-input {
+  outline: none;
+  box-sizing: border-box;
+}
+
+.custom-date-input:focus {
+  border-color: #808080;
+  box-shadow: 0 0 0 1px ;
+}
  

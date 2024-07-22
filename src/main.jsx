@@ -23,6 +23,7 @@ import state from "./components/ReusableComponents/Atom";
 import Profile from "./pages/Profile";
 import RequestPasswordReset from "./pages/Forms/RequestPasswordReset";
 import PasswordReset from "./pages/Forms/PasswordReset";
+import ManageAttendance from "./pages/Forms/ManageAttendance";
 
 export default function App() {
   const [user, setUser] = useAtom(state.user)
@@ -170,7 +171,7 @@ export default function App() {
             )
           }
         />
-      
+
         <Route
           path="/leaderboard"
           element={
@@ -193,7 +194,16 @@ export default function App() {
           }
         />
 
+        <Route
+          path="/permissions/attendance"
+          element={
+            <ManageAttendance/>
+          }
+        />
+
       </Routes>
+
+
     </BrowserRouter>
   );
 }

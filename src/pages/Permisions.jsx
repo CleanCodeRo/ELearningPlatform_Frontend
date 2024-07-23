@@ -13,6 +13,7 @@ import Loading from '../components/ReusableComponents/Loading/Loading';
 import SuccessError from '../components/ReusableComponents/SuccessError';
 import { Helmet } from 'react-helmet';
 import CostumCheckBox1 from '../components/ReusableComponents/CheckBox/CostumCheckBox1';
+import AttendanceMark from './Forms/AttendanceMark';
 
 export default function Permisions() {
     const [modules, setModules] = useState([]);
@@ -357,6 +358,9 @@ export default function Permisions() {
                         </table>
                     </div>
                 </div>
+
+                {/* test */}
+                <AttendanceMark users ={users} />
                 
 
             </div>

@@ -9,6 +9,7 @@ import UploadPfp from "../components/Profile/UploadPfp";
 import Loading from "../components/ReusableComponents/Loading/Loading";
 import { Helmet } from "react-helmet";
 import SuccessError from "../components/ReusableComponents/SuccessError";
+import Calendar from "./Forms/Calendar";
 
 const Profile = () => {
     const [user, setUser] = useAtom(state.user);
@@ -343,6 +344,8 @@ const Profile = () => {
                     Back
                 </button>
             </div>
+
+            <Calendar userId = {user.id}/>
         </div>
     )
 }

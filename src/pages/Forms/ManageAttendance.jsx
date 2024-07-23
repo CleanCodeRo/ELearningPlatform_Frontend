@@ -13,9 +13,9 @@ import {
 
 } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
-import AttendanceButtons from "./AttendanceButtons";
+import AttendanceButtons from "../../components/Attendance/AttendanceButtons";
 
-const TABLE_HEAD = ["Student", "Date", "Actions"];
+const TABLE_HEAD = ["Id", "Student", "Date", "Actions"];
 
 // const TABLE_ROWS = [
 //     {
@@ -90,7 +90,7 @@ export default function ManageAttendance() {
                 setAttendanceStats(Object.entries(data))
             })
             .catch((err) => {
-                console.log("Eroare attendace values " ,err)
+                console.log("Eroare attendace values ", err)
                 // navigate("/login");
             });
     }, [])
@@ -121,10 +121,11 @@ export default function ManageAttendance() {
             });
     }, [refreshAttendances])
 
+    //add id column
+    //default image to user cleancode logo 
+
     return (
         <div className="h-screen flex flex-row text-sixth overflow-x-hidden overflow-y-scroll relative custom-scrollbar bg-generalColors-white text-generalColors-dark-blue">
-
-
             <Helmet>
                 <meta charSet="utf8" />
                 <title>Manage Attendance - CleanCodeQuest</title>
@@ -153,12 +154,12 @@ export default function ManageAttendance() {
                             <div id="inputDatesHolder" className="flex items-center gap-10  ">
                                 <div className="relative group">
                                     <p className="absolute bg-generalColors-white text-[13px]  font-normal rounded-full top-[-10px] left-3.5 px-1 group-focus-within:text-[14px] group-focus-within:top-[-14px] group-focus-within:px-[4px] transition-all duration-200">End Date</p>
-                                    <input defaultValue={currentDate} ref={startDateRef} type="date" onChange={(e) => setRefreshAttendance(refreshAttendances + 1)} className=" px-4 py-2 border-[1px] border-generalColors-light-gray custom-date-input rounded-lg " />
+                                    <input defaultValue={currentDate} ref={startDateRef} type="date" onChange={() => setRefreshAttendance(refreshAttendances + 1)} className=" px-4 py-2 border-[1px] border-generalColors-light-gray custom-date-input rounded-lg " />
                                 </div>
 
                                 <div className="relative group">
                                     <p className="absolute bg-generalColors-white text-[13px]  font-normal rounded-full top-[-10px] left-3.5 px-1  group-focus-within:text-[14px] group-focus-within:top-[-14px] group-focus-within:px-[4px] transition-all duration-200">Start Date</p>
-                                    <input defaultValue={currentDate} ref={endDateRef} type="date"  onChange={(e) => setRefreshAttendance(refreshAttendances + 1)} className=" px-4 py-2 border-[1px] border-generalColors-light-gray custom-date-input rounded-lg " />
+                                    <input defaultValue={currentDate} ref={endDateRef} type="date" onChange={() => setRefreshAttendance(refreshAttendances + 1)} className=" px-4 py-2 border-[1px] border-generalColors-light-gray custom-date-input rounded-lg " />
                                 </div>
                             </div>
 
@@ -168,7 +169,7 @@ export default function ManageAttendance() {
                         <table className="mt-4 w-full min-w-max table-auto text-left">
                             <thead>
                                 <tr>
-                                    {TABLE_HEAD.map((head,index) => (
+                                    {TABLE_HEAD.map((head, index) => (
                                         <th
                                             key={head}
                                             className={`border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 ${index == TABLE_HEAD.length - 1 ? "text-center" : ""}`}
@@ -186,17 +187,27 @@ export default function ManageAttendance() {
                             </thead>
                             <tbody>
                                 {filteredAttendance?.map(
-                                    ({ date, id ,status, username }, index) => {
+                                    ({ date, id, status, username }, index) => {
                                         const isLast = index === filteredAttendance.length - 1;
                                         const classes = isLast
                                             ? "p-4"
                                             : "p-4 border-b border-blue-gray-100";
 
                                         return (
-                                            <tr key={index}>
-                                                <td className={`${classes} w-fit `}>
-                                                    <div className="flex items-center gap-3 ">
-                                                        <Avatar src={"/images/noprofilepicture.png"} alt={username} size="sm" />
+                                            <tr key={index} className={`${classes} `}>
+                                                <td className={classes}>
+                                                    <Typography
+                                                        variant="small"
+                                                        color="blue-gray"
+                                                        className="font-normal"
+                                                    >
+                                                        {id}
+                                                    </Typography>
+                                                </td>
+
+                                                <td className={`${classes} w-fit`}>
+                                                    <div className="flex items-center gap-3">
+                                                        <Avatar src={"/images/CleanCode.jpg"} alt={username} size="sm" />
                                                         <div className="flex flex-col">
                                                             <Typography
                                                                 variant="small"
@@ -205,13 +216,14 @@ export default function ManageAttendance() {
                                                             >
                                                                 {username}
                                                             </Typography>
-                                                            {/* <Typography
+
+                                                            <Typography
                                                                 variant="small"
                                                                 color="blue-gray"
                                                                 className="font-normal opacity-70"
                                                             >
-                                                                {email}
-                                                            </Typography> */}
+                                                                test@gmail.com
+                                                            </Typography>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -225,8 +237,8 @@ export default function ManageAttendance() {
                                                     </Typography>
                                                 </td>
 
-                                                <td className={`${classes} flex justify-center gap-3`}>
-                                                   <AttendanceButtons attendanceId={id}  attendanceStats={attendanceStats} defaultAttandanceValue={status}/>
+                                                <td className={`p-4 flex justify-center items-center gap-x-3`}>
+                                                    <AttendanceButtons attendanceId={id} attendanceStats={attendanceStats} defaultAttandanceValue={status} />
                                                 </td>
 
                                             </tr>

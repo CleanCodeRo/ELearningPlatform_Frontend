@@ -304,7 +304,7 @@ export default function Permisions() {
                 <div className='flex items-center mb-20'>
                     <p className="text-2xl font-bold text-generalColors-dark-blue ">Manage Attendance</p>
                     <a
-                        href="/permissions/attendance"
+                        href="/permissions/attendance/0"
                         className=' mx-5 border-[1px] p-3 rounded-xl text-generalColors-white bg-generalColors-dark-blue flex items-center justify-center hover:text-generalColors-dark-blue hover:bg-gray-300 animate-ease-linear-3'>
                         Go To Attendance
                     </a>

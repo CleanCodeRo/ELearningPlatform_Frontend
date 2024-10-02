@@ -27,7 +27,7 @@ export default function AttendanceButtons({ attendanceId, attendanceStats, defau
     return (
         <>
             {attendanceStats?.map((stat, index) =>
-                <button onClick={changeAttandance} className={` text-white font-bold border-[2px] border-transparent  py-2 px-4 rounded-lg text-[13px] hover:scale-110 ${userAttendance == stat[0] ? "!bg-white !text-black" : ""} transition-all duration-300 `}
+                <button onClick={changeAttandance} className={` text-white font-bold border-[2px] border-transparent  py-1 px-3 rounded-lg text-[13px] hover:scale-110 ${userAttendance == stat[0] ? "!bg-white !text-black" : ""} transition-all duration-300 `}
                     key={index}
                     style={{ backgroundColor: stat[1], borderColor: stat[1] }}>
                     {stat[0]}

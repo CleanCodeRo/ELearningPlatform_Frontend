@@ -195,7 +195,7 @@ export default function App() {
         />
 
         <Route
-          path="/permissions/attendance"
+          path="/permissions/attendance/:pageNumber?"
           element={
             <ManageAttendance/>
           }

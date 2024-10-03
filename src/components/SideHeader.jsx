@@ -218,7 +218,7 @@ export default function SideHeader() {
       </div>
 
       <Avatar
-        onClick={() => navigate("/myprofile")}
+        onClick={() => navigate(`/profile/${user.id}`)}
         variant="circular"
         alt="tania andrew"
         className="cursor-pointer mr-7 md:mr-0 mb-0 md:mb-7 bg-generalColors-white bg-center bg-cover"

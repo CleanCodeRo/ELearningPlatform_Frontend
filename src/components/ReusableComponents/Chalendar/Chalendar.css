@@ -1,0 +1,121 @@
+/* CalendarStyles.css */
+
+/* General Styles */
+.react-calendar {
+    background-color: white; /* Background color of the calendar */
+    border-radius: 15px;     /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    padding: 10px;
+}
+
+/* Style the header */
+.react-calendar__navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 14px;
+}
+
+/* Style for month/year navigation buttons */
+.react-calendar__navigation button {
+    background-color: transparent; /* Transparent background */
+    border: none; /* Remove border */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 1rem; /* Font size */
+    color: #333; /* Text color */
+    transition: color 0.3s; /* Transition for color change */
+}
+
+.react-calendar__navigation button:hover {
+    color: #4a90e2; /* Change text color on hover */
+}
+
+/* Style the date boxes */
+.react-calendar__tile {
+    padding: 10px; /* Padding for each date box */
+    border-radius: 8px; /* Rounded corners for date boxes */
+    transition: background-color 0.3s; /* Smooth background change */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center the text */
+}
+
+/* Style for the selected date */
+/* .react-calendar__tile--active {
+    background-color: #4a90e2; 
+    color: white; 
+} */
+
+/* Style for hovered date */
+.react-calendar__tile:hover {
+    background-color: #e0e0e0; /* Background color on hover */
+}
+
+/* Style for today's date */
+.react-calendar__tile--now {
+    /* border: 2px solid #ff5722; Highlight today's date with a border */
+    border : 2px solid blue;
+}
+
+/* Style for disabled dates */
+.react-calendar__tile--disabled {
+    background-color: #f5f5f5; /* Background color for disabled dates */
+    color: #bdbdbd; /* Text color for disabled dates */
+}
+
+/* Style the input for selecting a date (if applicable) */
+.react-calendar__input {
+    padding: 10px;
+    border: 1px solid #ccc; /* Border color */
+    border-radius: 5px; /* Rounded corners */
+    width: 100%; /* Full width */
+    margin-bottom: 10px; /* Space below the input */
+}
+
+/* Style the month view header */
+.react-calendar__month-view__weekdays {
+    display: flex; /* Flexbox for alignment */
+    justify-content: space-between; /* Even spacing */
+    font-weight: bold; /* Bold font for weekdays */
+    margin-bottom: 5px; /* Space below weekdays */
+}
+
+/* Style for each weekday name */
+.react-calendar__month-view__weekdays__weekday {
+    flex: 1; /* Equal space for each weekday */
+    text-align: center; /* Center align weekday names */
+}
+
+/* Style for the year view */
+.react-calendar__year-view {
+    display: flex; /* Use grid for layout */
+    gap: 10px; /* Space between items */
+}
+
+/* Style for the year tiles */
+.react-calendar__year-view__tile {
+    padding: 20px; /* More padding for year tiles */
+    border-radius: 10px; /* Rounded corners */
+    text-align: center; /* Center the text */
+    transition: background-color 0.3s; /* Smooth background change */
+}
+
+.react-calendar__year-view__tile:hover {
+    background-color: #e0e0e0; /* Background color on hover */
+}
+
+/* Style for month view */
+.react-calendar__month-view__days__day {
+    display: flex; /* Flexbox for alignment */
+    justify-content: center; /* Center alignment */
+    align-items: center; /* Center alignment */
+    padding: 5px; /* Padding for each day */
+}
+
+/* Responsive styles */
+@media (max-width: 640px) {
+    .calendar {
+        width: 100%; /* Full width on small screens */
+    }
+}

@@ -206,6 +206,7 @@ export default function ManageAttendance() {
                                             : "py-1 px-4 border-b border-blue-gray-100";
 
                                         return (
+                                            // onClick={() => navigate(`/profile/${id}`)}
                                             <tr key={index} className={`${classes} h-full relative`}>
                                                 <td className={classes}>
                                                     <Typography

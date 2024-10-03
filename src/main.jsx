@@ -39,7 +39,7 @@ export default function App() {
         <Route path="/" element={<PresentationPage />} />
         <Route path="/contact" element={<Contact />} />
         <Route
-          path="/myprofile"
+          path="/profile/:userId"
           element={
             !isExpired(localStorage.getItem("ELearningToken")) ? (
               <Profile />

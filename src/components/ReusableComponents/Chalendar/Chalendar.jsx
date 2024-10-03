@@ -7,7 +7,6 @@ import { useParams } from 'react-router-dom';
 export default function MyChalendar() {
   const [value, setValue] = useState(new Date());
   const [curentMonthDate, setCurrentMonthDate] = useState(new Date())
-  const [randomDays] = useState([1, 4, 15, 22, 29]);
   const [attendance, setAttendance] = useState(null);
   const { userId } = useParams();
 
@@ -31,7 +30,6 @@ export default function MyChalendar() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         setAttendance(data.data)
       })
       .catch((err) => {
@@ -57,10 +55,6 @@ export default function MyChalendar() {
     const month = String(day.getMonth() + 1).padStart(2, '0');
     const dayOfMonth = String(day.getDate()).padStart(2, '0');
     return `${year}-${month}-${dayOfMonth}`;
-  };
-
-  const onChange = (date) => {
-    setValue(formatDay(date))
   };
 
   const onActiveDateChange = ({ activeStartDate }) => {
@@ -94,9 +88,9 @@ export default function MyChalendar() {
   };
 
   return (
-    <div className="flex justify-center w-full px-7 ">
+    <div className="flex justify-center w-full px-7 my-10">
       <Calendar
-        onChange={onChange}
+        // onChange={onChange}
         onActiveStartDateChange={onActiveDateChange} // Capture active date changes
         value={value}
         className="bg-white w-1/2 rounded-xl"

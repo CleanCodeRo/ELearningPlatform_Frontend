@@ -20,53 +20,6 @@ import ReactPaginate from "react-paginate";
 
 const TABLE_HEAD = ["Id", "Student", "Date", "Actions"];
 
-//     {
-//         img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-//         name: "John Michael",
-//         email: "john@creative-tim.com",
-//         job: "Manager",
-//         org: "Organization",
-//         online: true,
-//         date: "23/04/18",
-//     },
-//     {
-//         img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg",
-//         name: "Alexa Liras",
-//         email: "alexa@creative-tim.com",
-//         job: "Programator",
-//         org: "Developer",
-//         online: false,
-//         date: "23/04/18",
-//     },
-//     {
-//         img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg",
-//         name: "Laurent Perrier",
-//         email: "laurent@creative-tim.com",
-//         job: "Executive",
-//         org: "Projects",
-//         online: false,
-//         date: "19/09/17",
-//     },
-//     {
-//         img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg",
-//         name: "Michael Levi",
-//         email: "michael@creative-tim.com",
-//         job: "Programator",
-//         org: "Developer",
-//         online: true,
-//         date: "24/12/08",
-//     },
-//     {
-//         img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg",
-//         name: "Richard Gran",
-//         email: "richard@creative-tim.com",
-//         job: "Manager",
-//         org: "Executive",
-//         online: false,
-//         date: "04/10/21",
-//     },
-// ];
-
 export default function ManageAttendance() {
     const [refreshAttendances, setRefreshAttendance] = useState(0);
     const [attendanceStats, setAttendanceStats] = useState(null)
@@ -207,7 +160,7 @@ export default function ManageAttendance() {
 
                                         return (
                                             // onClick={() => navigate(`/profile/${id}`)}
-                                            <tr key={index} className={`${classes} h-full relative`}>
+                                            <tr onClick={() => navigate(`/profile/${user.id}`)} key={index} className={`${classes} h-full relative`}>
                                                 <td className={classes}>
                                                     <Typography
                                                         variant="small"

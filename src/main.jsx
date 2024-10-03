@@ -197,7 +197,11 @@ export default function App() {
         <Route
           path="/permissions/attendance/:pageNumber?"
           element={
-            <ManageAttendance/>
+            !isExpired(localStorage.getItem("ELearningToken")) && user?.role == "ADMIN" ? (
+              <ManageAttendance/>
+            ) : (
+              <Redirect />
+            )
           }
         />
 

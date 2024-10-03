@@ -6,6 +6,7 @@ export default function AttendanceButtons({ attendanceId, attendanceStats, defau
     const [userAttendance, setUserAttendance] = useState(defaultAttandanceValue)
 
     const changeAttandance = (e) => {
+        e.stopPropagation()
         fetch(`${startLink}/attendance/changeStatus?attendanceId=${attendanceId}&attendanceStatus=${e.target.textContent}`, {
             method: "PATCH",
             headers: {

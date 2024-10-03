@@ -23,14 +23,14 @@ const PresentationHero = () => {
           id="buttons"
           className="flex flex-col xs:flex-row items-center text-base smd:text-xl font-bold my-7 smd:my-14"
         >
-          <Link to="/contact">
+          {/* <Link to="/contact">
             <button className=" my-2 xs:my-0 px-8 py-5 bg-generalColors-dark-blue rounded-lg text-light-green-50 mr-4 shadow-sm shadow-[#20B486]">
-              Get Started
+              Login
             </button>
-          </Link>
+          </Link> */}
           <Link to="/contact">
             <button className="my-2 xs:my-0 px-8 py-5 text-fourth rounded-lg bg-[#EAFFF9] shadow-sm shadow-[#EAFFF9]">
-              Get Free Trail
+             Contact
             </button>
           </Link>
         </div>

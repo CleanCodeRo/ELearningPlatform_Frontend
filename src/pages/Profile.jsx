@@ -3,16 +3,18 @@ import CostumInput from "../components/ReusableComponents/CostumInput";
 import { useAtom } from "jotai";
 import state, { getUserWithToken } from "../components/ReusableComponents/Atom";
 import { startLink } from "../constants/Constants";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ProfilePicture from "../components/Profile/ProfilePicture";
 import UploadPfp from "../components/Profile/UploadPfp";
 import Loading from "../components/ReusableComponents/Loading/Loading";
 import { Helmet } from "react-helmet";
 import SuccessError from "../components/ReusableComponents/SuccessError";
 import MyChalendar from "../components/ReusableComponents/Chalendar/Chalendar";
+import { Input } from "@material-tailwind/react";
 
 const Profile = () => {
     const [user, setUser] = useAtom(state.user);
+    const [userProfile, setUserProfile] = useState(null);
     const [completedLessons, setCompletedLessons] = useAtom(state.completedLessons);
     const [completedWeeks, setCompletedWeeks] = useAtom(state.completedWeeks);
     const [completedModules, setCompletedModules] = useAtom(state.completedModules);
@@ -38,7 +40,8 @@ const Profile = () => {
     const addressRef = useRef(null);
     const locationRef = useRef(null);
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const { userId } = useParams();
     let updateObject = {}
 
     useEffect(() => {
@@ -52,16 +55,37 @@ const Profile = () => {
             );
         }
 
-        console.log(user)
+        getUserProfileDetails()
+
         setTimeout(() => {
             setLoading(false)
         }, 1500)
     }, [user]);
 
+
+    const getUserProfileDetails = () => {
+        if (user?.id != userId) {
+            fetch(`${startLink}/users?id=${userId}`, {
+                method: 'GET',
+                headers: {
+                    "ContentType": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("ELearningToken")}`
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    setUserProfile(data[0])
+                })
+        } else {
+            setUserProfile(user)
+        }
+    }
+
     const updateUser = () => {
         setLoading(true)
 
-        if (imageRef.current.src != user?.profileImageUrl && imageRef.current.src != "") {
+        if (imageRef.current.src != userProfile?.profileImageUrl && imageRef.current.src != "") {
             setLoadingText("Uploading photo and saving changes... \n might take a moment")
             uploadPhoto()
         } else {
@@ -72,7 +96,7 @@ const Profile = () => {
     }
 
     const updateFetch = () => {
-        fetch(`${startLink}/users/${user.id}`, {
+        fetch(`${startLink}/users/${userProfile.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -104,8 +128,8 @@ const Profile = () => {
             base64: imageRef.current.src.split("base64,")[1],
             type: imageRef.current.type,
             name: imageRef.current.name,
-            userId: user?.id,
-            username: `${user?.firstName} ${user?.lastName}`
+            userId: userProfile?.id,
+            username: `${userProfile?.firstName} ${userProfile?.lastName}`
         }
 
         console.log(obj)
@@ -134,7 +158,11 @@ const Profile = () => {
     };
 
     const editer = () => {
-        return false;
+        if(user?.id == userId || user?.role == "ADMIN"){
+            return false;
+        }
+        return true
+       
     }
 
     return (
@@ -158,7 +186,7 @@ const Profile = () => {
             </div>
 
 
-            <ProfilePicture openUpload={() => setOpenUploadPfp(true)} imageRef={imageRef} imageSrc={user?.profileImageUrl} />
+            <ProfilePicture openUpload={() => setOpenUploadPfp(true)} imageRef={imageRef} imageSrc={userProfile?.profileImageUrl} />
             {openUploadPfp && <UploadPfp setOpenUploadPfp={setOpenUploadPfp} pfpImageRef={imageRef} />}
 
 
@@ -171,7 +199,7 @@ const Profile = () => {
                         <img src="/images/social1.png" alt="pfp" aria-label="pfp" className=" size-11 mr-4 " />
                         <CostumInput id="githubUsername"
                             disabled={editer()}
-                            defaultValue={user?.githubUsername}
+                            defaultValue={userProfile?.githubUsername}
 
                             inputRef={githubUsernameRef}
                             onChange={onChangeEvent}
@@ -185,7 +213,7 @@ const Profile = () => {
                         <img src="/images/social2.png" alt="" className=" size-11 mr-4 " />
                         <CostumInput id="codeWarsUsername"
                             disabled={editer()}
-                            defaultValue={user?.codeWarsUsername}
+                            defaultValue={userProfile?.codeWarsUsername}
                             inputRef={codeWarsUsernameRef}
                             onChange={onChangeEvent}
                             placeholder={'Codewars Username'}
@@ -198,7 +226,7 @@ const Profile = () => {
                         <img src="/images/social3.png" alt="" className=" size-11 mr-4 " />
                         <CostumInput id="discordUsername"
                             disabled={editer()}
-                            defaultValue={user?.discordUsername}
+                            defaultValue={userProfile?.discordUsername}
                             inputRef={discordUsernameRef}
                             onChange={onChangeEvent}
                             placeholder={'Discord Username'}
@@ -211,7 +239,7 @@ const Profile = () => {
                         <CostumInput id="linkedInUsername"
                             disabled={editer()}
                             inputRef={linkedInUsernameRef}
-                            defaultValue={user?.linkedInUsername}
+                            defaultValue={userProfile?.linkedInUsername}
                             onChange={onChangeEvent}
                             placeholder={'LinkedIn Username'}
                             label={<span style={{ fontSize: '17px' }}>
@@ -223,7 +251,7 @@ const Profile = () => {
                         <CostumInput id="instagramUsername"
                             disabled={editer()}
                             inputRef={instagramUsernameRef}
-                            defaultValue={user?.instagramUsername}
+                            defaultValue={userProfile?.instagramUsername}
                             onChange={onChangeEvent}
                             placeholder={'Instagram Username'}
                             label={<span style={{ fontSize: '17px' }}>
@@ -236,7 +264,7 @@ const Profile = () => {
                         <CostumInput id="facebookUsername"
                             disabled={editer()}
                             inputRef={facebookUsernameRef}
-                            defaultValue={user?.facebookUsername}
+                            defaultValue={userProfile?.facebookUsername}
                             onChange={onChangeEvent}
                             placeholder={'Facebook Username'}
                             label={<span style={{ fontSize: '17px' }}>
@@ -252,7 +280,7 @@ const Profile = () => {
                         <img src="/images/info1.png" alt="" className=" size-11 mr-4 " />
                         <CostumInput id="firstName"
                             disabled={editer()}
-                            defaultValue={user?.firstName}
+                            defaultValue={userProfile?.firstName}
                             inputRef={firstNameRef}
                             onChange={onChangeEvent}
                             placeholder={'Given Name'}
@@ -264,7 +292,7 @@ const Profile = () => {
                         <img src="/images/info1.png" alt="" className=" size-11 mr-4 " />
                         <CostumInput id="lastName"
                             disabled={editer()}
-                            defaultValue={user?.lastName}
+                            defaultValue={userProfile?.lastName}
                             inputRef={lastNameRef}
                             onChange={onChangeEvent}
                             placeholder={'Surname'}
@@ -277,7 +305,7 @@ const Profile = () => {
                         <img src="/images/info5.png" alt="" className=" size-11 mr-4 " />
                         <CostumInput id="birthday"
                             disabled={editer()}
-                            defaultValue={user?.birthday}
+                            defaultValue={userProfile?.birthday}
                             inputRef={birthdayRef}
                             onChange={onChangeEvent}
                             placeholder={'DD / MM / YYYY'}
@@ -289,7 +317,7 @@ const Profile = () => {
                         <img src="/images/info3.svg" alt="" className=" size-11 mr-4 " />
                         <CostumInput id="phoneNumber"
                             disabled={editer()}
-                            defaultValue={user?.phoneNumber}
+                            defaultValue={userProfile?.phoneNumber}
                             inputRef={phoneNumberRef}
                             onChange={onChangeEvent}
                             placeholder={'Phone number'}
@@ -302,7 +330,7 @@ const Profile = () => {
                         <img src="/images/info4.png" alt="" className=" size-11 mr-4 " />
                         <CostumInput id="location"
                             disabled={editer()}
-                            defaultValue={user?.location}
+                            defaultValue={userProfile?.location}
                             inputRef={locationRef}
                             onChange={onChangeEvent}
                             placeholder={'City'}
@@ -315,7 +343,7 @@ const Profile = () => {
                         <img src="/images/info4.png" alt="" className=" size-11 mr-4 " />
                         <CostumInput id="address"
                             disabled={editer()}
-                            defaultValue={user?.address}
+                            defaultValue={userProfile?.address}
                             inputRef={addressRef}
                             onChange={onChangeEvent}
                             placeholder={'Streent - number'}
@@ -324,18 +352,23 @@ const Profile = () => {
                         />
                     </div>
 
+                  
+
                 </div>
             </div>
 
-            {user && <MyChalendar firstName={user.firstName} lastName={user.lastName} />}
+            {userProfile && <MyChalendar firstName={userProfile.firstName} lastName={userProfile.lastName} />}
+
 
 
             <div id="saveAndCancelSocial" className="relative w-full h-20 mb-10 flex items-center justify-center gap-5">
-                <button id="saveSocial"
-                    onClick={updateUser}
-                    className="px-7 py-3 bg-generalColors-dark-blue text-white rounded-3xl border-[1px] border-white text-center">
-                    Save Changes
-                </button>
+                {(user?.id == userId || user?.role == "ADMIN") &&
+                    <button id="saveSocial"
+                        onClick={updateUser}
+                        className="px-7 py-3 bg-generalColors-dark-blue text-white rounded-3xl border-[1px] border-white text-center">
+                        Save Changes
+                    </button>
+                }
 
                 <button id="cancelSocial"
                     onClick={() => {

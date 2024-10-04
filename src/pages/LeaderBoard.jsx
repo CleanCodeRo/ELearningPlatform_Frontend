@@ -89,6 +89,7 @@ export default function LeaderBoard() {
                                 people.map((person, index) => (
                                     <Person
                                         key={index}
+                                        redirect={`/profile/${person.id}`}
                                         rank={index + 1}
                                         name={`${person.firstName} ${person.lastName}`}
                                         xp={isWeekly ? person.weeklyRankPoints : person.rankPoints} // Conditionally pass XP based on isWeekly

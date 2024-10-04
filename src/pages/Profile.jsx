@@ -186,7 +186,7 @@ const Profile = () => {
             </div>
 
 
-            <ProfilePicture openUpload={() => setOpenUploadPfp(true)} imageRef={imageRef} imageSrc={userProfile?.profileImageUrl} />
+            <ProfilePicture openUpload={() =>user?.id == userId || user?.role == "ADMIN" ? setOpenUploadPfp(true) : null} imageRef={imageRef} imageSrc={userProfile?.profileImageUrl} />
             {openUploadPfp && <UploadPfp setOpenUploadPfp={setOpenUploadPfp} pfpImageRef={imageRef} />}
 
 

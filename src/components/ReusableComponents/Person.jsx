@@ -1,6 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export default function Person({ rank, name, xp , time }) {
+export default function Person({ rank, name, xp , time, redirect }) {
+    const navigate = useNavigate();
+
     const getPlaceImage = (rank) => {
         if (rank <= 3) {
             return <img src={`/images/quest-leaderboard-${rank}-place.png`} className='scale-50' alt={`${rank} place`} />;
@@ -10,7 +13,7 @@ export default function Person({ rank, name, xp , time }) {
     };
 
     return (
-        <div id='titles' className='w-full h-12 mt-1 flex flex-row px-7 text-[#5f5f5d]'>
+        <div onClick={() => navigate(redirect)} id='titles' className='w-full h-12 mt-1 flex flex-row px-7 text-[#5f5f5d] hover:bg-gray-100'>
             <div className='w-20 text-xl flex items-center justify-center'>
                 {getPlaceImage(rank)}
             </div>

@@ -75,14 +75,6 @@ export default function LessonCard({ lesson, setConfirmNavigate, setNavigateLink
   const EditStatusComponentV2 = () => {
     let defaultChecked = completedLessons.includes(lesson.id) ? true : false;
     return (
-      // <div id="_container" className="flex flex-col items-center border rounded-lg mb-3 lg:mb-0 relative">
-      //   <div id="_cover" className="absolute w-full h-full "></div>
-      //   <p id="label" className=" bg-second w-fit px-1" style={{ margin: "-13px 0 0 0px" }}>Modify Status</p>
-      //   <div className="flex items-center gap-5 bg-sixth shadow-md hover:shadow-lg shadow-sixth hover:shadow-sixth px-6 py-2 text-first rounded-lg duration-300">
-      //     <CosutmCheckBox idNumber={lesson.id} checkBoxEvent={EditStatusEvent} defaultChecked={defaultChecked} />
-      //     <label className="text-2xl font-bold">{lessonStatus ? "Done" : "Todo"}</label>
-      //   </div>
-      // </div>
       <div id="checkbox" className="flex items-center w-fit">
         <label className="text-2xl font-bold ">Mark as done</label>
             <Checkbox
@@ -121,7 +113,7 @@ export default function LessonCard({ lesson, setConfirmNavigate, setNavigateLink
         <div id="top-part" className="flex justify-between items-start w-full">
           <img className="w-10 mx-2 mt-1" src={lesson.optional ? `/SVGs/statusSVGs/optional.svg` : `/SVGs/statusSVGs/mandatory.svg`} />
           <p className=" text-2xl sm:text-2xl  line-clamp-2 w-full font-bold ">
-            {lesson.name}
+            {lesson.number ? `${lesson.number}. ` : null}{lesson.name}
           </p>
 
           <EditPen user={{ role: user.role }}
@@ -145,7 +137,6 @@ export default function LessonCard({ lesson, setConfirmNavigate, setNavigateLink
         </button>
 
         < EditStatusComponentV2 />
-
       </div>
     </div>
   );

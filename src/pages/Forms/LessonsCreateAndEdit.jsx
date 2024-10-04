@@ -22,6 +22,7 @@ const LessonsCreateAndEdit = () => {
   const [checkBoxSelected, setCheckBoxSelected] = useState(0);
 
   const lessonName = useRef(null);
+  const lessonNumber = useRef(null);
   const lessonDescription = useRef(null);
   const lessonGitHubLink = useRef(null);
   const optionalRef = useRef(null);
@@ -41,7 +42,6 @@ const LessonsCreateAndEdit = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           setLessonById(data);
           if (data.optional) {
             optionalRef.current.querySelector('input[type="checkbox"]').checked = true
@@ -55,7 +55,8 @@ const LessonsCreateAndEdit = () => {
     if (
       lessonName.current.value == "" ||
       lessonDescription.current.value == "" ||
-      lessonGitHubLink.current.value == ""
+      lessonGitHubLink.current.value == "" ||
+      lessonNumber.current.value == ""
     ) {
       setMessage(["Please fill in the required fields", "bg-red-500"]);
       return false;
@@ -78,6 +79,7 @@ const LessonsCreateAndEdit = () => {
           },
           body: JSON.stringify({
             name: lessonName.current.value,
+            number : lessonNumber.current.value,
             description: lessonDescription.current.value,
             gitHubLink: lessonGitHubLink.current.value,
             optional: optionalRef.current.querySelector('input[type="checkbox"]').checked,
@@ -108,6 +110,7 @@ const LessonsCreateAndEdit = () => {
         },
         body: JSON.stringify({
           name: lessonName.current.value,
+          number : lessonNumber.current.value,
           description: lessonDescription.current.value,
           gitHubLink: lessonGitHubLink.current.value,
           optional: optionalRef.current.querySelector('input[type="checkbox"]').checked,
@@ -143,8 +146,6 @@ const LessonsCreateAndEdit = () => {
       <SuccessError setMessage={setMessage} message={message} color={messageColor} />
 
       <div id="formLesson" className="relative w-[24rem] flex flex-col items-center px-8 py-5 h-fit rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
-
-        {/* <img id="ghostImage" alt="ghost" className="w-[7rem] my-9" src="/SVGs/colorLogo.svg" /> */}
         <img id="ghostImage" alt="ghost" className="w-[7rem] my-9" src="/SVGs/ghost.svg" />
         <p className="text-2xl font-bold text-generalColors-dark-blue my-5"> {params.lessonId !== undefined ? "Edit your Lesson" : "Create new lesson"}</p>
 
@@ -154,6 +155,17 @@ const LessonsCreateAndEdit = () => {
             label={"Lesson Name"}
             inputRef={lessonName}
             defaultValue={lessonById.name}
+            costumInputClass=""
+            color="gray"
+          />
+        </div>
+
+        <div id="usernameContainer" className="flex items-center mb-6 w-full">
+        <CostumInput
+            id={"lessonNumberInput"}
+            label={"Lesson Number"}
+            inputRef={lessonNumber}
+            defaultValue={lessonById.number}
             costumInputClass=""
             color="gray"
           />

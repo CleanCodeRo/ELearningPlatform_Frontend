@@ -4,8 +4,6 @@ import LessonCard from "./LessonCard";
 import Loading from "../ReusableComponents/Loading/Loading";
 import { startLink } from "../../constants/Constants";
 
-
-
 export default function Lessons({ userRole, userId, setWeekNumber, setConfirmNavigate, setNavigateLink }) {
   const [mandatoryLessons, setMandatoryLessons] = useState(null)
   const [optionalLessons, setOptionalLessons] = useState(null)
@@ -24,6 +22,7 @@ export default function Lessons({ userRole, userId, setWeekNumber, setConfirmNav
       })
         .then((res) => res.json())
         .then((data) => {
+          console.log(data)
           if(!data.usersWithAccessWeek.includes(userId) && userRole == "USER"){
             window.history.back();
           }
